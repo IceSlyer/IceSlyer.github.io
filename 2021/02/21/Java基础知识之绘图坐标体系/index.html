@@ -6,17 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Linux实操篇之RPM与YUM | Hexo</title>
+  <title>Java基础知识之绘图坐标体系 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="rpm rpm用于互联网下载包的打包及安装工具，它包含在某些Linux分发版中。它生成具有.RPM扩展名的文件。RPM是&#x3D;&#x3D;RedHat Package Manager&#x3D;&#x3D;的缩写，类似Windows的setup.exe，这一文件格式名称虽然打上了RedHat的标志，但理念是通用的。Linux的很多分发版本（suse，redhat，centos等等）都有采用，可以算是公认的行业标准了 rpm包名基本">
+  <meta name="description" content="坐标体系介绍 坐标原点位于左上角，以像素为单位。像素是计算机屏幕上最小的显示单位 像素是一个密度单位，而厘米是长度单位，两者无法比较 Java坐标体系中，第一个是x坐标，表示当前位置为水平方向，距离坐标原点y个像素；第二个是Y坐标，表示当前位置为垂直方向，距离坐标原点y个像素  绘图原理 Component类提供了两个和绘图相关最重要的方法 paint(Graphics g) 绘制组件的外观 当组">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux实操篇之RPM与YUM">
-<meta property="og:url" content="http://example.com/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8BRPM%E4%B8%8EYUM/index.html">
+<meta property="og:title" content="Java基础知识之绘图坐标体系">
+<meta property="og:url" content="http://example.com/2021/02/21/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%B9%8B%E7%BB%98%E5%9B%BE%E5%9D%90%E6%A0%87%E4%BD%93%E7%B3%BB/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="rpm rpm用于互联网下载包的打包及安装工具，它包含在某些Linux分发版中。它生成具有.RPM扩展名的文件。RPM是&#x3D;&#x3D;RedHat Package Manager&#x3D;&#x3D;的缩写，类似Windows的setup.exe，这一文件格式名称虽然打上了RedHat的标志，但理念是通用的。Linux的很多分发版本（suse，redhat，centos等等）都有采用，可以算是公认的行业标准了 rpm包名基本">
+<meta property="og:description" content="坐标体系介绍 坐标原点位于左上角，以像素为单位。像素是计算机屏幕上最小的显示单位 像素是一个密度单位，而厘米是长度单位，两者无法比较 Java坐标体系中，第一个是x坐标，表示当前位置为水平方向，距离坐标原点y个像素；第二个是Y坐标，表示当前位置为垂直方向，距离坐标原点y个像素  绘图原理 Component类提供了两个和绘图相关最重要的方法 paint(Graphics g) 绘制组件的外观 当组">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-02-20T20:48:44.000Z">
-<meta property="article:modified_time" content="2021-02-20T20:49:13.352Z">
+<meta property="article:published_time" content="2021-02-20T21:11:09.000Z">
+<meta property="article:modified_time" content="2021-02-20T21:11:46.711Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -154,75 +154,78 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Linux实操篇之RPM与YUM" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Java基础知识之绘图坐标体系" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Linux实操篇之RPM与YUM
+      Java基础知识之绘图坐标体系
     </h1>
   
 
         
-        <a href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8BRPM%E4%B8%8EYUM/" class="archive-article-date">
-  	<time datetime="2021-02-20T20:48:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-21</time>
+        <a href="/2021/02/21/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%B9%8B%E7%BB%98%E5%9B%BE%E5%9D%90%E6%A0%87%E4%BD%93%E7%B3%BB/" class="archive-article-date">
+  	<time datetime="2021-02-20T21:11:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-21</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="rpm"><a href="#rpm" class="headerlink" title="rpm"></a>rpm</h3><ul>
-<li>rpm用于互联网下载包的打包及安装工具，它包含在某些Linux分发版中。它生成具有.RPM扩展名的文件。RPM是==RedHat Package Manager==的缩写，类似Windows的setup.exe，这一文件格式名称虽然打上了RedHat的标志，但理念是通用的。Linux的很多分发版本（suse，redhat，centos等等）都有采用，可以算是公认的行业标准了</li>
-<li>rpm包名基本格式<ul>
-<li>一个rpm包名：firefox-60.2.2-1.el7.centos.x86_64</li>
-<li>名称：firefox</li>
-<li>版本号：60.2.2-1</li>
-<li>适用操作系统：el7.centos.x86_64，表示centos7.x的64位系统；如果是i686、i386表示32位系统，noarch表示通用</li>
+        <h3 id="坐标体系介绍"><a href="#坐标体系介绍" class="headerlink" title="坐标体系介绍"></a><strong>坐标体系介绍</strong></h3><ul>
+<li>坐标原点位于左上角，以像素为单位。像素是计算机屏幕上最小的显示单位</li>
+<li>像素是一个密度单位，而厘米是长度单位，两者无法比较</li>
+<li>Java坐标体系中，第一个是x坐标，表示当前位置为水平方向，距离坐标原点y个像素；第二个是Y坐标，表示当前位置为垂直方向，距离坐标原点y个像素</li>
+</ul>
+<h3 id="绘图原理"><a href="#绘图原理" class="headerlink" title="绘图原理"></a><strong>绘图原理</strong></h3><ul>
+<li>Component类提供了两个和绘图相关最重要的方法<ul>
+<li>paint(Graphics g) 绘制组件的外观<ul>
+<li>当组件第一次在屏幕上显示的时候，程序会自动调用paint()方法来绘制组件</li>
+<li>窗口的大小发生变化时，paint()会被调用</li>
+<li>repaint函数被调用时，paint()会被调用</li>
 </ul>
 </li>
-<li>rpm包的查询指令<ul>
-<li>rpm -qa，查询已安装的所有rpm软件包<ul>
-<li>rpm -qa | more</li>
-<li>rpm -qa | grep xxx</li>
-</ul>
-</li>
-<li>rpm -q 软件包名，查询软件包是否安装</li>
-<li>rpm -qi 软件包名，查询软件包信息</li>
-<li>rpm -ql 软件包名，查询软件包中的文件</li>
-<li>rpm -qf 文件全路径名，查询文件所属的软件包<ul>
-<li>如：rpm -qf /etc/passwd；rpm -qf /root/install.log</li>
+<li>repaint() 刷新组件的外观</li>
 </ul>
 </li>
 </ul>
-</li>
-<li>卸载rpm包<ul>
-<li>基本语法：rpm -e RPM包的名称，如：rpm -e firefox</li>
-<li>细节说明<ul>
-<li>如果其他软件包依赖于您要卸载的软件包，卸载时则会产生错误信息</li>
-<li>如果我们就是要删除这个rpm包，可以增加参数 –nodeps，就可以强制删除，但一般不推荐这样做，因为依赖于该软件包的程序可能无法运行</li>
+<h3 id="绘图技术"><a href="#绘图技术" class="headerlink" title="绘图技术"></a><strong>绘图技术</strong></h3><ul>
+<li>Graohics类<ul>
+<li>画直线 – drawLine(int x1, int y1, int x2, int y2)</li>
+<li>画矩形边框 – drawRect(int x, int y, int width, int height)</li>
+<li>画椭圆边框 – drawOval(int x, int y, int width, int height)</li>
+<li>填充矩形 – fillRect(int x, int y, int width, int height)</li>
+<li>填充椭圆 – fillOval(int x, int y, int width, int height)</li>
+<li>画图片 – drawImage(Image img, int x, int y)</li>
+<li>画字符串 – drawString(String str, int x, int y)</li>
+<li>设置画笔的字体 – setFont(Font font)</li>
+<li>设置字体的颜色 – setColor(Color c)</li>
 </ul>
 </li>
 </ul>
-</li>
-<li>安装rpm包<ul>
-<li>基本语法：rpm -ivh RPM包全路径名称</li>
-<li>参数说明<ul>
-<li>i，install安装</li>
-<li>v，verbose提示</li>
-<li>h，hash进度条</li>
+<h3 id="Java事件处理机制"><a href="#Java事件处理机制" class="headerlink" title="Java事件处理机制"></a><strong>Java事件处理机制</strong></h3><ul>
+<li>初步介绍<ul>
+<li>事件是承载事件源状态改变时的信息对象，Java中的事件是分类的，比如窗体事件、鼠标事件、按键事件、操作事件</li>
+<li>Java事件处理采用“委派事件模型”</li>
+<li>“委派事件模型”是指当事件发生时，产生事件的对象（即事件源）会把此“信息”传递给“事件的监听者”处理的一种方式，而这里所说的“信息”实际上就是java.awt.event事件类库里某个类所创建的对象</li>
+<li>比如当按下按钮时，就会在按钮触发一个“事件”，程序就会产生一个“事件对象”来表示这个事件，并把这个“事件对象”传递给“事件的监听者”，“事件的监听者”再根据“事件对象”的类型进行相应处理。为了让事件源（比如按钮）知道要把事件传递给哪一个“事件监听者”，我们必须先把“事件监听者”在事件源里注册，这个操作也就是要告知事件源要把事件传递给它</li>
+<li>事件监听器接口有多种，不同的事件监听器接口可以监听不同的事件，一个类可以实现一个或多个监听接口</li>
+<li>一个类要实现监听的步骤<ul>
+<li>实现相应的接口（KeyListener,MouseListener,ActionListener,WindowListener）</li>
+<li>把接口的处理方法根据需要重新编写（Override）</li>
+<li>在事件源上注册监听</li>
+<li>事件传递是靠事件对象</li>
 </ul>
 </li>
+<li>总结-事件编程步骤<ul>
+<li>编写事件处理类（事件监听者）</li>
+<li>根据需求给事件处理类实现监听器接口</li>
+<li>在事件处理类中重写（实现）其事件处理的函数</li>
+<li>在事件源类中指定该事件的监听器（响应者）是谁，即注册监听</li>
 </ul>
 </li>
-</ul>
-<h3 id="yum"><a href="#yum" class="headerlink" title="yum"></a>yum</h3><ul>
-<li>yum是一个Shell前端软件包管理器。基于rpm包管理，能够==从指定的服务器自动下载RPM包==并且安装，可以自动处理依赖关系，并且一次安装所有依赖的软件包</li>
-<li>yum基本指令<ul>
-<li>yum list | grep xxx，查询yum服务器是否有需要安装的软件</li>
-<li>yum install xxx，下载安装指定的yum包</li>
 </ul>
 </li>
 </ul>
@@ -305,7 +308,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8BRPM%E4%B8%8EYUM/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/02/21/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%B9%8B%E7%BB%98%E5%9B%BE%E5%9D%90%E6%A0%87%E4%BD%93%E7%B3%BB/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -319,18 +322,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8BVi%E5%92%8CVim%E7%BC%96%E8%BE%91%E5%99%A8/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2021/02/21/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%B9%8B%E5%9B%BE%E5%BD%A2%E7%95%8C%E9%9D%A2%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          Linux实操篇之Vi和Vim编辑器
+          Java基础知识之图形界面编程基础
         
       </div>
     </a>
   
   
-    <a href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8BLinux%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA%E3%80%81%E6%8C%82%E8%BD%BD/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Linux实操篇之Linux磁盘分区、挂载</div>
+    <a href="/2021/02/21/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%B9%8B%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%9F%BA%E7%A1%80/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Java基础知识之面向对象基础</div>
       <i class="icon-circle-right"></i>
     </a>
   

@@ -6,17 +6,13 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Linux实操篇之RPM与YUM | Hexo</title>
+  <title>Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="rpm rpm用于互联网下载包的打包及安装工具，它包含在某些Linux分发版中。它生成具有.RPM扩展名的文件。RPM是&#x3D;&#x3D;RedHat Package Manager&#x3D;&#x3D;的缩写，类似Windows的setup.exe，这一文件格式名称虽然打上了RedHat的标志，但理念是通用的。Linux的很多分发版本（suse，redhat，centos等等）都有采用，可以算是公认的行业标准了 rpm包名基本">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Linux实操篇之RPM与YUM">
-<meta property="og:url" content="http://example.com/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8BRPM%E4%B8%8EYUM/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/page/3/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="rpm rpm用于互联网下载包的打包及安装工具，它包含在某些Linux分发版中。它生成具有.RPM扩展名的文件。RPM是&#x3D;&#x3D;RedHat Package Manager&#x3D;&#x3D;的缩写，类似Windows的setup.exe，这一文件格式名称虽然打上了RedHat的标志，但理念是通用的。Linux的很多分发版本（suse，redhat，centos等等）都有采用，可以算是公认的行业标准了 rpm包名基本">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-02-20T20:48:44.000Z">
-<meta property="article:modified_time" content="2021-02-20T20:49:13.352Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -154,14 +150,1361 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Linux实操篇之RPM与YUM" class="article article-type-post " itemscope itemprop="blogPost">
+            
+  
+    <article id="post-Linux实操篇之用户管理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 class="article-title" itemprop="name">
-      Linux实操篇之RPM与YUM
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/">Linux实操篇之用户管理</a>
+    </h1>
+  
+
+        
+        <a href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" class="archive-article-date">
+  	<time datetime="2021-02-20T20:58:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="基本介绍"><a href="#基本介绍" class="headerlink" title="基本介绍"></a>基本介绍</h3><p>Linux系统是一个多用户多任务的操作系统，任何一个要使用系统资源的用户，都必须首先向系统管理员申请一个账号，然后以这个账号的身份进入系统</p>
+<h3 id="添加用户"><a href="#添加用户" class="headerlink" title="添加用户"></a>添加用户</h3><ul>
+<li>基本语法<ul>
+<li>useradd 用户名</li>
+</ul>
+</li>
+<li>细节说明<ul>
+<li>当创建用户成功后，会自动创建和用户名同名的家目录</li>
+<li>也可以通过 useradd -d 指定目录 新的用户名，给新创建的用户指定家目录</li>
+</ul>
+</li>
+</ul>
+<h3 id="指定-修改密码"><a href="#指定-修改密码" class="headerlink" title="指定/修改密码"></a>指定/修改密码</h3><ul>
+<li>基本语法<ul>
+<li>passwd 用户名</li>
+</ul>
+</li>
+<li>补充<ul>
+<li>显示当前所在绝对路径 pwd</li>
+</ul>
+</li>
+</ul>
+<h3 id="删除用户"><a href="#删除用户" class="headerlink" title="删除用户"></a>删除用户</h3><ul>
+<li>基本语法<ul>
+<li>userdel 用户名，删除用户但保留用户主目录</li>
+<li>userdel -r 用户名，删除用户以及用户主目录</li>
+</ul>
+</li>
+<li>细节说明<ul>
+<li>是否保留用户主目录？一般情况建议保留</li>
+</ul>
+</li>
+</ul>
+<h3 id="查询用户信息"><a href="#查询用户信息" class="headerlink" title="查询用户信息"></a>查询用户信息</h3><ul>
+<li>基本语法<ul>
+<li>id 用户名</li>
+</ul>
+</li>
+<li>细节说明<ul>
+<li>当用户不存在时，返回无此用户</li>
+</ul>
+</li>
+</ul>
+<h3 id="切换用户"><a href="#切换用户" class="headerlink" title="切换用户"></a>切换用户</h3><ul>
+<li>介绍<ul>
+<li>在操作Linux中，如果当前用户的权限不够，可以通过 su - 指令切换到高权限用户，比如root</li>
+</ul>
+</li>
+<li>基本语法<ul>
+<li>su - 切换用户名</li>
+</ul>
+</li>
+<li>细节说明<ul>
+<li>从权限高的用户切换到权限低的用户，不需要输入密码，反之需要</li>
+<li>当需要返回到原来用户时，使用exit/logout指令</li>
+</ul>
+</li>
+</ul>
+<h3 id="查看当前用户信息"><a href="#查看当前用户信息" class="headerlink" title="查看当前用户信息"></a>查看当前用户信息</h3><ul>
+<li>基本语法<ul>
+<li>whoami / who am i</li>
+</ul>
+</li>
+</ul>
+<h3 id="用户组"><a href="#用户组" class="headerlink" title="用户组"></a>用户组</h3><ul>
+<li>介绍<ul>
+<li>类似于角色，系统可以对有共性的多个用户进行统一的管理</li>
+</ul>
+</li>
+<li>新增组<ul>
+<li>groupadd 组名</li>
+</ul>
+</li>
+<li>删除组<ul>
+<li>groupdel 组名</li>
+</ul>
+</li>
+<li>增加用户时直接加上组<ul>
+<li>useradd -g 用户组 用户名</li>
+</ul>
+</li>
+<li>修改用户的组<ul>
+<li>usermod -g 用户组 用户名</li>
+</ul>
+</li>
+</ul>
+<h3 id="用户和组相关的文件"><a href="#用户和组相关的文件" class="headerlink" title="用户和组相关的文件"></a>用户和组相关的文件</h3><ul>
+<li>/etc/passwd文件<ul>
+<li>用户（user）的配置文件，记录用户的各种信息</li>
+<li>每行含义：用户名:口令:用户标识号:组标识号:注释性描述:主目录:登录Shell</li>
+</ul>
+</li>
+<li>/etc/shadow 文件<ul>
+<li>口令的配置文件</li>
+<li>每行含义：登录名:加密口令:最后一次修改时间:最小时间间隔:最大时间间隔:警告时间:不活动时间:失效时间:标志</li>
+</ul>
+</li>
+<li>/etc/group文件<ul>
+<li>组（group）的配置文件，记录Linux包含的组的信息</li>
+<li>每行含义：组名:口令:组标识号:组内用户列表</li>
+</ul>
+</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Linux实操篇之用户登录和注销" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E7%94%A8%E6%88%B7%E7%99%BB%E5%BD%95%E5%92%8C%E6%B3%A8%E9%94%80/">Linux实操篇之用户登录和注销</a>
+    </h1>
+  
+
+        
+        <a href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E7%94%A8%E6%88%B7%E7%99%BB%E5%BD%95%E5%92%8C%E6%B3%A8%E9%94%80/" class="archive-article-date">
+  	<time datetime="2021-02-20T20:57:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="基本介绍"><a href="#基本介绍" class="headerlink" title="基本介绍"></a>基本介绍</h3><ul>
+<li>登录时尽量少用root账号登陆，因为它是系统管理员，权限最大，避免操作失误，可以用普通用户登录，登陆后再用”==su -用户名==”命令来切换成系统管理员</li>
+<li>在提示符下输入logout即可注销用户</li>
+</ul>
+<h3 id="使用细节"><a href="#使用细节" class="headerlink" title="使用细节"></a>使用细节</h3><ul>
+<li>logout注销指令在==图形界面运行级别==无效，在运行级别3有效</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E7%94%A8%E6%88%B7%E7%99%BB%E5%BD%95%E5%92%8C%E6%B3%A8%E9%94%80/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Linux实操篇之网络配置" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/">Linux实操篇之网络配置</a>
+    </h1>
+  
+
+        
+        <a href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/" class="archive-article-date">
+  	<time datetime="2021-02-20T20:56:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Linux网络配置原理图"><a href="#Linux网络配置原理图" class="headerlink" title="Linux网络配置原理图"></a>Linux网络配置原理图</h3><p><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/Linux%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE%E5%8E%9F%E7%90%86%E5%9B%BE.png" alt="Linux网络配置原理图"></p>
+<h3 id="查看网络IP和网关"><a href="#查看网络IP和网关" class="headerlink" title="查看网络IP和网关"></a>查看网络IP和网关</h3><h4 id="查看虚拟网络编辑器和修改IP地址"><a href="#查看虚拟网络编辑器和修改IP地址" class="headerlink" title="查看虚拟网络编辑器和修改IP地址"></a>查看虚拟网络编辑器和修改IP地址</h4><p><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/%E6%9F%A5%E7%9C%8B%E5%92%8C%E4%BF%AE%E6%94%B9IP.png" alt="查看和修改IP"></p>
+<h4 id="查看网关"><a href="#查看网关" class="headerlink" title="查看网关"></a>查看网关</h4><p><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/%E6%9F%A5%E7%9C%8B%E7%BD%91%E5%85%B3.png" alt="查看网关"></p>
+<h4 id="查看windows环境中VMnet8网络配置（ipconfig指令）"><a href="#查看windows环境中VMnet8网络配置（ipconfig指令）" class="headerlink" title="查看windows环境中VMnet8网络配置（ipconfig指令）"></a>查看windows环境中VMnet8网络配置（ipconfig指令）</h4><p><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/VMnet8.png" alt="VMnet8"></p>
+<h4 id="查看Linux的网络配置（ifconfig指令）"><a href="#查看Linux的网络配置（ifconfig指令）" class="headerlink" title="查看Linux的网络配置（ifconfig指令）"></a>查看Linux的网络配置（ifconfig指令）</h4><h3 id="ping测试主机之间网络连通性"><a href="#ping测试主机之间网络连通性" class="headerlink" title="ping测试主机之间网络连通性"></a>ping测试主机之间网络连通性</h3><ul>
+<li>基本语法：ping 目的主机，测试当前服务器是否可以连接目的主机</li>
+<li>例如：ping <a target="_blank" rel="noopener" href="http://www.baidu.com/">www.baidu.com</a></li>
+</ul>
+<h3 id="Linux网络环境配置"><a href="#Linux网络环境配置" class="headerlink" title="Linux网络环境配置"></a>Linux网络环境配置</h3><ul>
+<li>第一种方法（自动获取）<ul>
+<li>说明：登陆后通过界面的设置来自动获取ip，特点是Linux启动后会自动获取IP，缺点是每次自动获取的==ip地址可能不一样==</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/%E8%87%AA%E5%8A%A8%E8%8E%B7%E5%8F%96IP.png" alt="自动获取IP"></p>
+<ul>
+<li>第二种方法（指定ip）<ul>
+<li>直接修改配置文件来指定IP，并可以连接到外网<ul>
+<li>编辑：vi /etc/sysconfig/network-scripts/ifcfg-ens33</li>
+<li>要求：将IP地址配置成静态的</li>
+</ul>
+</li>
+<li>ifcfg-ens33文件说明<ul>
+<li><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/ifcfg-ens33%E6%96%87%E4%BB%B6%E8%AF%B4%E6%98%8E.png" alt="ifcfg-ens33文件说明"></li>
+</ul>
+</li>
+<li>重启网络服务或者重启系统生效<ul>
+<li>service network restart</li>
+<li>reboot</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="设置主机名和hosts映射"><a href="#设置主机名和hosts映射" class="headerlink" title="设置主机名和hosts映射"></a>设置主机名和hosts映射</h3><h4 id="设置主机名"><a href="#设置主机名" class="headerlink" title="设置主机名"></a>设置主机名</h4><ul>
+<li>为了方便记忆，可以给Linux系统设置主机名，也可以根据需要修改主机名</li>
+<li>指令hostname：查看主机名</li>
+<li>在/etc/hostname文件中修改主机名，修改后重启生效</li>
+</ul>
+<h4 id="设置hosts映射"><a href="#设置hosts映射" class="headerlink" title="设置hosts映射"></a>设置hosts映射</h4><ul>
+<li>windows<ul>
+<li>在C:\Windows\System32\drivers\etc\hosts文件指定即可，如：192.168.200.130 slyer01</li>
+</ul>
+</li>
+<li>Linux<ul>
+<li>在/etc/hosts文件指定，如：192.168.200.1 IceSlyer</li>
+</ul>
+</li>
+</ul>
+<h3 id="主机名解析过程分析（Hosts、DNS）"><a href="#主机名解析过程分析（Hosts、DNS）" class="headerlink" title="主机名解析过程分析（Hosts、DNS）"></a>主机名解析过程分析（Hosts、DNS）</h3><h4 id="Hosts是什么"><a href="#Hosts是什么" class="headerlink" title="Hosts是什么"></a>Hosts是什么</h4><ul>
+<li>一个文本文件，用来记录IP和Hostname（主机名）的映射关系</li>
+</ul>
+<h4 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h4><ul>
+<li>即Domain Name System的缩写，名为==域名系统==</li>
+<li>它是互联网上作为==域名和IP地址==互相映射的一个分布式数据库</li>
+</ul>
+<h4 id="应用实例：用户在浏览器输入了www-baidu-com"><a href="#应用实例：用户在浏览器输入了www-baidu-com" class="headerlink" title="应用实例：用户在浏览器输入了www.baidu.com"></a>应用实例：用户在浏览器输入了<a target="_blank" rel="noopener" href="http://www.baidu.com/">www.baidu.com</a></h4><ul>
+<li>浏览器先检查浏览器缓存中有没有该域名解析IP地址，有就先调用这个IP完成解析；如果没有，则检查操作系统DNS解析器缓存，如果有直接返回IP完成解析。这两个缓存可以理解为==本地解析器缓存==</li>
+<li>一般来说，当电脑第一次成功访问某一网站后，在一定时间内浏览器或操作系统会缓存它的IP地址（DNS解析记录）。可以在cmd窗口输入<ul>
+<li>ipconfig /displaydns，DNS域名解析缓存</li>
+<li>ipconfig /flushdns，手动清理dns缓存</li>
+</ul>
+</li>
+<li>如果本地解析器缓存没有找到对应映射，则检查系统中hosts文件中有没有配置对应的域名IP映射，如果有则完成解析并返回</li>
+<li>如果以上均为找到对应的IP，则到域名服务DNS进行解析域；若还未找到则提示域名不存在</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Linux实操篇之实用指令" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E5%AE%9E%E7%94%A8%E6%8C%87%E4%BB%A4/">Linux实操篇之实用指令</a>
+    </h1>
+  
+
+        
+        <a href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E5%AE%9E%E7%94%A8%E6%8C%87%E4%BB%A4/" class="archive-article-date">
+  	<time datetime="2021-02-20T20:56:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="指定运行级别"><a href="#指定运行级别" class="headerlink" title="指定运行级别"></a>指定运行级别</h3><ul>
+<li><p>运行级别说明</p>
+<ul>
+<li>0：关机</li>
+<li>1：单用户【找回丢失密码】</li>
+<li>2：多用户状态没有网络服务【很少用到】</li>
+<li>3：多用户状态有网络服务【不带图形界面，用的最多】</li>
+<li>4：系统未使用保留给用户</li>
+<li>5：图形界面</li>
+<li>6：系统重启</li>
+</ul>
+<p>常用运行级别是3和5，也可以指定默认运行级别，切换命令：init [0123456]</p>
+</li>
+<li><p>查看当前运行级别</p>
+<ul>
+<li>systemctl get-default</li>
+</ul>
+</li>
+<li><p>设置运行级别</p>
+<ul>
+<li>systemctl set-default multi-user.target，指定运行级别是3</li>
+<li>systemctl set-default graphical.target，指定运行级别是5</li>
+</ul>
+</li>
+</ul>
+<h3 id="找回root密码"><a href="#找回root密码" class="headerlink" title="找回root密码"></a>找回root密码</h3><ul>
+<li>首先，启动系统进入开机界面，在界面中按“e”进入编辑界面，如图</li>
+</ul>
+<p><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E5%AE%9E%E7%94%A8%E6%8C%87%E4%BB%A4/%E5%90%AF%E5%8A%A8%E7%95%8C%E9%9D%A2.png" alt="启动界面"></p>
+<ul>
+<li>进入编辑界面，使用键盘上的上下键把光标往下移动，找到以“Linux16”开头内容所在的行数，在行的最后面输入：init=/bin/sh，如图</li>
+</ul>
+<p><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E5%AE%9E%E7%94%A8%E6%8C%87%E4%BB%A4/%E7%BC%96%E8%BE%91%E7%95%8C%E9%9D%A2.png" alt="编辑界面"></p>
+<ul>
+<li><p>接着输入完成后，直接按快捷键 Ctrl+x 进入单用户模式</p>
+</li>
+<li><p>接着在光标闪烁的位置输入：mount -o remount,rw /（注意，各个单词之间有空格），完成后按键盘的回车键（Enter），如图</p>
+<p><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E5%AE%9E%E7%94%A8%E6%8C%87%E4%BB%A4/%E8%BE%93%E5%91%BD%E4%BB%A41.png" alt="输命令1"></p>
+</li>
+<li><p>在新的一行最后面输入：passwd，完成后按键盘的回车键（Enter），输入密码，然后再次确认密码即可。密码修改成功后，会显示passwd….样式，说明密码修改成功，如图</p>
+<p><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E5%AE%9E%E7%94%A8%E6%8C%87%E4%BB%A4/%E8%BE%93%E5%91%BD%E4%BB%A42.png" alt="输命令2"></p>
+</li>
+<li><p>接着在鼠标闪烁的位置输入：touch /.autorelabel，完成后按键盘的回车键（Enter）</p>
+</li>
+<li><p>继续在光标闪烁的位置输入：exec /sbin/init，完成后按键盘的回车键（Enter），等待系统自动修改密码（此过程时间会比较长，耐心等待），完成后，系统会自动重启，新的密码生效</p>
+</li>
+</ul>
+<h3 id="帮助指令"><a href="#帮助指令" class="headerlink" title="帮助指令"></a>帮助指令</h3><ul>
+<li>man 获得帮助信息<ul>
+<li>基本语法：man [命令或配置文件]</li>
+</ul>
+</li>
+<li>help指令<ul>
+<li>基本语法：help 命令（获得shell内置命令的帮助信息）</li>
+</ul>
+</li>
+</ul>
+<h3 id="文件目录类指令"><a href="#文件目录类指令" class="headerlink" title="文件目录类指令"></a>文件目录类指令</h3><ul>
+<li><p>pwd</p>
+<ul>
+<li>基本语法：pwd，显示当前工作目录的绝对路径</li>
+</ul>
+</li>
+<li><p>ls</p>
+<ul>
+<li>基本语法：ls [选项] [目录或文件]</li>
+<li>常用选项<ul>
+<li>-a，显示当前目录所有的文件和目录，包括隐藏的</li>
+<li>-l，以列表的方式显示信息</li>
+<li>-lh，以人能理解的方式显示</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>cd</p>
+<ul>
+<li>基本用法：cd [参数]，切换到指定目录</li>
+<li>cd ~或cd，回到自己家目录</li>
+<li>cd ..，回到当前目录的上一级目录</li>
+</ul>
+</li>
+<li><p>mkdir</p>
+<ul>
+<li>基本语法：mkdir [选项] 要创建的目录</li>
+<li>常用选项<ul>
+<li>-p，创建多级目录</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>rmdir</p>
+<ul>
+<li>基本语法：rmdir [选项] 要删除的空目录</li>
+<li>使用细节<ul>
+<li>rmdir删除的是空目录，如果目录里面有内容是无法删除的</li>
+<li>如果需要删除非空目录，使用命令：rm -rf 要删除的目录</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>touch</p>
+<ul>
+<li>基本语法：touch 文件名称，创建一个空文件</li>
+</ul>
+</li>
+<li><p>cp</p>
+<ul>
+<li>基本语法：cp [选项] source dest，拷贝文件到指定目录</li>
+<li>常用选型<ul>
+<li>-r，递归复制整个文件夹</li>
+</ul>
+</li>
+<li>使用细节<ul>
+<li>强制覆盖不提示的方法：\cp</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>rm</p>
+<ul>
+<li>基本语法：rm [选项] 要删除的文件或目录</li>
+<li>常用选项<ul>
+<li>-r，递归删除整个文件夹</li>
+<li>-f，强制删除不提示</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>mv</p>
+<ul>
+<li>基本语法<ul>
+<li>mv oldNmaeFile newNameFile，重命名</li>
+<li>mv /temp/movefile /targetFolder，移动文件</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>cat</p>
+<ul>
+<li>基本语法：cat [选项] 要查看的文件</li>
+<li>常用选项<ul>
+<li>-n，显示行号</li>
+</ul>
+</li>
+<li>使用细节<ul>
+<li>cat只能浏览文件，而无法修改文件，为了浏览方便一般会带上管道命令 | more</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>more</p>
+<ul>
+<li>more指令是一个基于VI编辑器的文本过滤器，它以全屏方式按页显示文本文件的内容</li>
+<li>基本语法：more 要查看的文件</li>
+<li>more指令内置的若干快捷键<ul>
+<li>空格键（space），向下翻一页</li>
+<li>Enter，向下翻一行</li>
+<li>q，立刻离开more，不再显示该文件内容</li>
+<li>Ctrl+F，向下滚动一屏</li>
+<li>Ctrl+B，返回上一屏</li>
+<li>=，输出当前行的行号</li>
+<li>:f，输出文件名和当前行号</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>less</p>
+<ul>
+<li>less指令是用来分屏查看文件内容，他的功能与more指令类似，但是比more指令更加强大，支持各种显示终端。less在显示文件内容时，并不是一次将整个文件加载之后再显示，而是根据显示需要加载内容，对于显示大型文件具有较高的效率</li>
+<li>基本用法：less 要查看的文件</li>
+<li>快捷键<ul>
+<li>空格键，向下翻一页</li>
+<li>[pagedown]，向下翻一页</li>
+<li>[pageup]，向上翻一页</li>
+<li>/字串，向下搜寻字串；n：向下查找；N：向上查找</li>
+<li>?字串，向上搜寻字串；n：向上查找；N：向下查找</li>
+<li>q，离开less</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>echo</p>
+<ul>
+<li>echo输出内容到控制台</li>
+<li>基本语法：echo [选项] [输出内容]，例如：echo $PATH，echo “hello world”</li>
+</ul>
+</li>
+<li><p>head</p>
+<ul>
+<li>head用于显示文件的开头部分内容，默认情况下显示文件的前10行内容</li>
+<li>基本语法<ul>
+<li>head 文件，查看文件前10行内容</li>
+<li>head -n 5 文件，查看文件前5行内容</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>tail</p>
+<ul>
+<li>tail用于显示文件的尾部部分内容，默认情况下显示文件的尾10行内容</li>
+<li>基本语法<ul>
+<li>tail 文件，查看文件尾10行内容</li>
+<li>tail -n 5 文件，查看文件尾5行内容</li>
+<li>tail -f 文件，实时追踪该文件的所有更新</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>&gt;和&gt;&gt;</p>
+</li>
+<li><p>&gt;输出重定向，&gt;&gt;追加</p>
+</li>
+<li><p>基本语法</p>
+<ul>
+<li>ls -l &gt; 文件，列表的内容==覆盖==写入文件中<ul>
+<li>ls -al &gt;&gt; 文件，列表的内容追加到文件的末尾</li>
+<li>cat 文件1 &gt; 文件2，将文件1的内容覆盖到文件2</li>
+<li>echo “内容” &gt;&gt; 文件，将本应显示在控制台的“内容”追加到文件末尾</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>ln</p>
+<ul>
+<li>软链接也叫符号链接，类似于Windows里面的快捷方式，主要存放了链接其他文件的路径</li>
+<li>基本语法：ln -s [原文件或目录] [软链接名]，给原文件创建一个软链接</li>
+</ul>
+</li>
+<li><p>history</p>
+<ul>
+<li>查看已经执行过的历史指令，也可以执行历史指</li>
+<li>基本语法<ul>
+<li>history，查看所有历史指令</li>
+<li>history 10，查看最近的10个历史指令</li>
+<li>!编号，执行某个历史编号指令</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="时间日期类指令"><a href="#时间日期类指令" class="headerlink" title="时间日期类指令"></a>时间日期类指令</h3><ul>
+<li>date<ul>
+<li>显示当前日期</li>
+<li>基本语法<ul>
+<li>date，显示当前时间</li>
+<li>date +%Y，显示当前年份</li>
+<li>date +%m，显示当前月份</li>
+<li>date +%d，显示当前是哪一天</li>
+<li>date “+%Y-%m-%d %H:%M:%S”，显示年月日时分秒</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>date<ul>
+<li>设置日期</li>
+<li>基本语法：date -s 字符串时间，如date -s “2020-1-1 20:01:01”</li>
+</ul>
+</li>
+<li>cal<ul>
+<li>查看日历</li>
+<li>基本语法：cal [选项]，不加选项显示本月日历；若要显示2020日历，则是：cal 2020</li>
+</ul>
+</li>
+</ul>
+<h3 id="搜索查找类"><a href="#搜索查找类" class="headerlink" title="搜索查找类"></a>搜索查找类</h3><ul>
+<li>find<ul>
+<li>find指令将从指定目录向下递归地遍历其各个子目录，将满足条件的文件或目录显示在终端</li>
+<li>基本语法：find [搜索范围] [选项]</li>
+<li>选项说明<ul>
+<li>-name&lt;查询方式&gt;，按照指定的文件名查找模式查找文件<ul>
+<li>如：find /home -name hello.txt</li>
+</ul>
+</li>
+<li>-user&lt;用户名&gt;，查找属于指定用户名的所有文件<ul>
+<li>如：find /opt -user root</li>
+</ul>
+</li>
+<li>-size&lt;文件大小&gt;，按照指定的文件大小查找文件<ul>
+<li>如：find / -size +(-)200M(k,G)，从整个系统下查找大于（小于）200M(k,G)的文件</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>locate<ul>
+<li>locate指令可以快速定位文件路径。该指令利用事先建立的系统中所有文件名称及路径的locate数据库实现快速定位给定的文件。locate指令无需遍历整个文件系统，查询速度较快。为了保证查询结果的准确度，管理员必须定期更新locate时刻</li>
+<li>基本语法：locate 搜索文件</li>
+<li>特别说明：由于locate指令基于数据库进行查询，所以第一次运行前，必须使用updatedb指令创建locate数据库</li>
+</ul>
+</li>
+<li>which<ul>
+<li>查看某个指令在哪个目录下</li>
+<li>基本语法：which 指令</li>
+</ul>
+</li>
+<li>grep<ul>
+<li>grep指令过滤查找，通常结合管道符号”|”使用，表示将前一个命令的处理结果输出传递给后面的命令处理</li>
+<li>基本语法：grep [选项] 查找内容 源文件</li>
+<li>常用选项<ul>
+<li>-n，显示匹配行及行号</li>
+<li>-i，忽略字母大小写</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="压缩和解压类指令"><a href="#压缩和解压类指令" class="headerlink" title="压缩和解压类指令"></a>压缩和解压类指令</h3><ul>
+<li>gzip/gunzip<ul>
+<li>gzip用于压缩文件，gunzip用于解压文件</li>
+<li>基本语法<ul>
+<li>gzip 文件，压缩文件，只能将文件压缩成*.gz文件</li>
+<li>gunzip 文件.gz，解压文件</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>zip/unzip<ul>
+<li>在项目打包发布中很有用</li>
+<li>基本语法<ul>
+<li>zip [选项] xxx.zip 将要压缩的内容，压缩文件和目录</li>
+<li>unzip [选项] xxx.zip，解压文件</li>
+</ul>
+</li>
+<li>常用选项<ul>
+<li>-r，递归压缩，即压缩目录（zip）</li>
+<li>-d&lt;目录&gt;，指定解压后文件的存放目录（unzip）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>tar<ul>
+<li>tar指令==即可以打包压缩也可以解压==，最后打包的文件是.tar.gz文件</li>
+<li>基本语法：tar [选项] xxx.tar.gz 打包的内容，打包目录或文件，压缩后的文件格式.tar.gz</li>
+<li>选项说明<ul>
+<li>-c，产生.tar打包文件</li>
+<li>-v，显示详细信息</li>
+<li>-f，指定压缩后的文件名</li>
+<li>-z，打包同时压缩</li>
+<li>-x，解包.tar文件</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E5%AE%9E%E7%94%A8%E6%8C%87%E4%BB%A4/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Linux实操篇之进程管理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/">Linux实操篇之进程管理</a>
+    </h1>
+  
+
+        
+        <a href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" class="archive-article-date">
+  	<time datetime="2021-02-20T20:55:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="基本介绍"><a href="#基本介绍" class="headerlink" title="基本介绍"></a>基本介绍</h3><ul>
+<li>在Linux中，每个==执行的程序==都称为一个进程，每一个进程都分配一个ID号（pid，进程号）<ul>
+<li>windows<ul>
+<li><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/Windows%E8%BF%9B%E7%A8%8B.png"></li>
+</ul>
+</li>
+<li>Linux<ul>
+<li><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/Linux%E8%BF%9B%E7%A8%8B.png" alt="Linux进程"></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>每个进程都可以两种方式存在<ul>
+<li>==前台进程==，即用户目前的屏幕上可以进行操作的</li>
+<li>==后台进程==则是实际的操作，但由于屏幕上无法看到进程，所以通常使用后台方式执行</li>
+</ul>
+</li>
+<li>一般系统的服务都是以后台进程的方式存在，而且都会常驻在系统中，直到关机才结束</li>
+</ul>
+<h3 id="显示系统执行的进程"><a href="#显示系统执行的进程" class="headerlink" title="显示系统执行的进程"></a>显示系统执行的进程</h3><ul>
+<li>ps命令是用来查看目前系统中有哪些进程正在执行，以及它们执行的状况。可以不加任何参数<img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/ps%E6%8C%87%E4%BB%A4.png" alt="ps指令"></li>
+<li>参数说明<ul>
+<li>-a，显示当前终端的==所有进程信息==</li>
+<li>-u，以用户的格式显示进程信息</li>
+<li>-x，显示后台进程运行的参数</li>
+<li>-ef，以==全格式==显示当前所有的进程<img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/ps%20-ef%E6%8C%87%E4%BB%A4.png" alt="ps -ef指令"></li>
+</ul>
+</li>
+<li>ps显示的信息选项<ul>
+<li>PID，进程识别号</li>
+<li>TTY，终端机号</li>
+<li>TIME，此进程使用CPU总时间</li>
+<li>CMD，正在执行的命令或进程名</li>
+<li>USER，用户名称</li>
+<li>%CPU，==进程占用CPU的百分比==</li>
+<li>%MEM，==进程占用物理内存的百分比==</li>
+<li>VSZ，==进程占用的虚拟内存大小（单位：KB）==</li>
+<li>RSS，==进程占用的物理内存大小（单位：KB）==</li>
+<li>STAT：进程状态，其中S-睡眠，s-表示该进程是会话的先导进程，N-表示进程拥有比普通优先级更低的优先级，R-正在运行，D-短期等待，Z-僵死进程，T-被跟踪或者被停止等待</li>
+<li>START：进程的启动时间</li>
+<li>COMMAND：启动进程所用的命令和参数（过长会被截断显示）</li>
+</ul>
+</li>
+<li>ps详解<ul>
+<li>指令：ps -aux | grep xxx，比如看看有没有sshd服务</li>
+<li>指令：ps -ef | grep xxx，比如查看sshd的==父进程==</li>
+</ul>
+</li>
+</ul>
+<h3 id="终止进程"><a href="#终止进程" class="headerlink" title="终止进程"></a>终止进程</h3><ul>
+<li>若是某个进程执行一半需要停止时，或是已消耗了很大的系统资源时，此时可以考虑停止该进程</li>
+<li>基本语法<ul>
+<li>kill [选项] 进程号，通过进程号杀死进程</li>
+<li>killall 进程名，通过进程名杀死进程（子进程也会被干掉），也支持通配符，这在系统因负载过大而变得很慢时很有用</li>
+</ul>
+</li>
+<li>常用选项<ul>
+<li>-9，表示强迫进程立即停止</li>
+</ul>
+</li>
+<li>实例<ul>
+<li>踢掉某个非法登录用户<ul>
+<li>kill 非法用户登录的shell对应的进程号</li>
+</ul>
+</li>
+<li>终止远程登录服务sshd，在适当时候再次重启sshd服务<ul>
+<li>kill sshd对应的进程号</li>
+<li>重启：/bin/systemctl start sshd.service</li>
+</ul>
+</li>
+<li>终止多个gedit<ul>
+<li>killall gedit</li>
+</ul>
+</li>
+<li>强制杀掉一个终端<ul>
+<li>kill -9 bash对应的进程号</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="查看进程树"><a href="#查看进程树" class="headerlink" title="查看进程树"></a>查看进程树</h3><ul>
+<li>基本语法：pstree [选项]，可以更加直观地查看进程信息</li>
+<li>常用选项<ul>
+<li>-p，显示进程的PID</li>
+<li>-u，显示进程所属用户<img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/%E8%BF%9B%E7%A8%8B%E6%A0%91.png" alt="进程树"></li>
+</ul>
+</li>
+</ul>
+<h3 id="服务（service）管理"><a href="#服务（service）管理" class="headerlink" title="服务（service）管理"></a>服务（service）管理</h3><ul>
+<li><p>服务（service）本质就是进程，但是是运行在后台的，通常都会监听某个端口，等待其他程序的请求，比如mysql，sshd，防火墙等，因此我们又称为==守护进程==，是Linux中非常重要的知识点<img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/%E6%9C%8D%E5%8A%A1%E5%8E%9F%E7%90%86%E5%9B%BE.png" alt="服务原理图"></p>
+</li>
+<li><p>service管理指令</p>
+<ul>
+<li>service 服务名 [start | stop | restart | reload | status]</li>
+<li>service指令管理的服务在/etc/init.d查看<img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/service%E6%8C%87%E4%BB%A4%E7%AE%A1%E7%90%86%E6%9F%A5%E7%9C%8B.png" alt="service指令管理查看"></li>
+<li>在CentOS7.0后很多服务不再使用service，而是systemctl</li>
+</ul>
+</li>
+<li><p>systemctl管理指令</p>
+<ul>
+<li>基本语法：systemctl [start | stop | restart | status] 服务名</li>
+<li>systemctl指令管理的服务在/usr/lib/systemd/system查看</li>
+</ul>
+</li>
+<li><p>systemctl设置服务的自启动状态</p>
+<ul>
+<li>systemctl list-unit-files [| grep 服务名]，查看服务开机启动状态，grep可进行过滤</li>
+<li>==systemctl enable 服务名，设置服务开机启动==（永久生效）</li>
+<li>==systemctl disable 服务名，关闭服务开机启动==（永久生效）</li>
+<li>systemctl is-enabled 服务名，查询某个服务是否是自启动的</li>
+</ul>
+</li>
+<li><p>查看服务名</p>
+<ul>
+<li>使用setup -&gt; 系统服务就可以看到全部</li>
+<li>在/etc/init.d/下看到service指令管理的服务</li>
+</ul>
+</li>
+<li><p>chkconfig指令</p>
+<ul>
+<li>介绍<ul>
+<li>通过chkconfig指令可以给服务的各个==运行级别==设置==自启动/关闭==</li>
+<li>chkconfig指令管理的服务在/etc/init.d查看</li>
+</ul>
+</li>
+<li>基本语法<ul>
+<li>chkconfig –list [| grep xxx]</li>
+<li>chkconfig 服务名 –list</li>
+<li>chkconfig –level 5（指定级别） 服务名 on/off</li>
+</ul>
+</li>
+<li>==chkconfig重新设置服务后自启动或关闭，需重启机器生效==</li>
+</ul>
+</li>
+<li><p>打开或关闭指定端口</p>
+<ul>
+<li>在真正的生产环境，往往需要将防火墙打开，但问题在于如果我们把防火墙打开，那么外部请求数据包就不能跟服务器监听端口通讯。这时就需要打开指定的端口，如80、22、8080等</li>
+<li>firewall指令<ul>
+<li>打开端口：firewall-cmd –permanent –add-port=端口号/协议（==使用netstat -anp查看==）</li>
+<li>关闭端口：firewall-cmd –permanent –remove-port=端口号/协议</li>
+<li>重新载入才能生效：firewall-cmd –reload</li>
+<li>查询端口是否开放：firewall-cmd –query-port=端口号/协议</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="动态监控进程"><a href="#动态监控进程" class="headerlink" title="动态监控进程"></a>动态监控进程</h3><ul>
+<li><p>top与ps命令很相似，它们都是用来显示正在执行的进程。top与ps最大的不同之处在于，top在执行一段时间可以更新正在运行的进程</p>
+</li>
+<li><p>基本语法：top [选项]</p>
+</li>
+<li><p>常用选项</p>
+<ul>
+<li>-d 秒数，指定top命令每隔几秒更新，默认是3秒</li>
+<li>-i，使top不显示任何闲置或僵死进程</li>
+<li>-p，通过指定监控进程ID来仅仅监控某个进程的状态<img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/top%E6%8C%87%E4%BB%A4.png" alt="top指令"></li>
+</ul>
+</li>
+<li><p>交互操作说明</p>
+<ul>
+<li>p，以CPU使用率排序（默认就是此项）</li>
+<li>M，以内存的使用率排序</li>
+<li>N，以PID排序</li>
+<li>q，退出top</li>
+</ul>
+</li>
+<li><p>应用实例</p>
+<ul>
+<li>监控特定用户<ul>
+<li>输入top，然后输入u回车，再输入用户名</li>
+</ul>
+</li>
+<li>终止指定进程<ul>
+<li>输入top，然后输入k回车，再输入要结束的进程ID号</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="监控网络状态"><a href="#监控网络状态" class="headerlink" title="监控网络状态"></a>监控网络状态</h3><ul>
+<li><p>查看系统网络情况netstat</p>
+<ul>
+<li>基本语法：netstat [选项]</li>
+<li>选项说明<ul>
+<li>-an，按一定顺序排列输出</li>
+<li>-p，显示哪个进程在调用<img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/netstat%E6%8C%87%E4%BB%A4.png" alt="netstat指令"></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>检测主机连接命令ping</p>
+<ul>
+<li>是一种网络检测工具，它主要是用于检测远程主机是否正常，或是两部==主机间的网线或网卡==故障</li>
+<li>ping 对方IP地址</li>
+</ul>
+</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Linux实操篇之关机-重启命令" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E5%85%B3%E6%9C%BA-%E9%87%8D%E5%90%AF%E5%91%BD%E4%BB%A4/">Linux实操篇之关机&amp;重启命令</a>
+    </h1>
+  
+
+        
+        <a href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E5%85%B3%E6%9C%BA-%E9%87%8D%E5%90%AF%E5%91%BD%E4%BB%A4/" class="archive-article-date">
+  	<time datetime="2021-02-20T20:54:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="基本介绍"><a href="#基本介绍" class="headerlink" title="基本介绍"></a>基本介绍</h3><ul>
+<li>shutdown -h now  立刻进行关机</li>
+<li>shutdown -h 1  “hello，1分钟后会关机了”</li>
+<li>shutdown -r now  现在重新启动计算机</li>
+<li>halt  关机【作用和上面一样】</li>
+<li>reboot  现在重新启动计算机</li>
+<li>sync  把内存的数据同步到磁盘</li>
+</ul>
+<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><ul>
+<li>不管是重启系统还是关闭系统，首先要运行sync命令，把内存中的数据写到磁盘中</li>
+<li>目前的shutdown/reboot/halt等命令已经在关机前进行了sync</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E5%85%B3%E6%9C%BA-%E9%87%8D%E5%90%AF%E5%91%BD%E4%BB%A4/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Linux实操篇之定时任务调度" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6/">Linux实操篇之定时任务调度</a>
+    </h1>
+  
+
+        
+        <a href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6/" class="archive-article-date">
+  	<time datetime="2021-02-20T20:53:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="crond-任务调度"><a href="#crond-任务调度" class="headerlink" title="crond 任务调度"></a>crond 任务调度</h3><ul>
+<li>通过crontab指令进行定时任务的设置</li>
+<li>概述<ul>
+<li>任务调度是指系统在==某个时间执行==的==特定的命令==或程序</li>
+<li>任务调度分类：<ul>
+<li>系统工作：有些重要的工作必须周而复始地执行，如病毒扫描等</li>
+<li>个别用户工作：个别用户可能希望执行某些程序，比如对MySQL数据库的备份</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>基本语法：crontab [选项]</li>
+<li>常用选项<ul>
+<li>-e，编辑crontab定时任务</li>
+<li>-l，查询crontab任务</li>
+<li>-r，删除当前用户所有的crontab任务</li>
+<li>service crond restart，重启任务调度</li>
+</ul>
+</li>
+<li>快速入门<ul>
+<li>设置任务调度文件：/etc/crontab</li>
+<li>设置个人任务调度，执行crontab -e 命令，接着输入任务到调度文件<ul>
+<li>例如：*/1 * * * * ls -l /etc/ &gt; /tmp/to.txt，意思是每小时的每分钟执行此命令</li>
+</ul>
+</li>
+<li>参数细节说明<ul>
+<li>第一个”*”，一小时当中的第几分钟，范围0-59</li>
+<li>第二个”*”，一天中的第几小时，范围0-23</li>
+<li>第三个”*”，一个月中的第几天，范围1-31</li>
+<li>第四个”*”，一年中的第几月，范围1-12</li>
+<li>第五个”*”，一周当中的星期几，范围0-7（==0和7都代表星期日==）</li>
+</ul>
+</li>
+<li>特殊符号说明<ul>
+<li>*，代表==任何时间==<ul>
+<li>例如第一个 “*” 就代表一小时中每分钟都执行一次的意思</li>
+</ul>
+</li>
+<li>, 代表不连续的时间<ul>
+<li>例如”0 8,12,16 * * * 命令”，代表在每天的8点0分，12点0分，16点0分都执行一次命令</li>
+</ul>
+</li>
+<li>-，代表连续的时间范围<ul>
+<li>例如”0 5 * * 1-6 命令”，代表在周一到周六的凌晨5点0分执行命令</li>
+</ul>
+</li>
+<li>*/n，代表每隔多久执行一次<ul>
+<li>例如”*/10 * * * * 命令”，代表每隔10分钟就执行一次命令</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="at定时任务"><a href="#at定时任务" class="headerlink" title="at定时任务"></a>at定时任务</h3><ul>
+<li>基本介绍<ul>
+<li>at命令是==一次性==定时计划任务，执行完一个任务后不再执行此任务了</li>
+<li>at的守护进程atd会以后台模式运行，检查作业队列来运行</li>
+<li>默认情况下，atd守护进程每60秒检查作业队列，有作业时，会检查作业运行时间，如果时间与当前时间匹配，则运行此作业</li>
+<li>在使用at命令的时候，==一定要保证atd进程的启动==，可以使用指令：<strong>ps -ef | grep atd</strong>来查看</li>
+</ul>
+</li>
+<li>命令格式<ul>
+<li>at [选项] [时间]，Ctrl+D（2次）结束at命令的输入</li>
+</ul>
+</li>
+<li>命令选项<ul>
+<li>-m，当指定的任务被完成后，将给用户发送邮件，即使没有标准输出</li>
+<li>-I，atq的别名，查询任务</li>
+<li>-d，atrm的别名，删除任务</li>
+<li>-v，显示任务将被执行的时间</li>
+<li>-c，打印任务的内容到标准输出</li>
+<li>-V，显示版本信息</li>
+<li>-q &lt;队列&gt;，使用指定的队列</li>
+<li>-f &lt;文件&gt;，从指定文件读入任务而不是从标准输入读入</li>
+<li>-t &lt;时间参数&gt;，以时间参数的形式提交要运行的任务</li>
+</ul>
+</li>
+<li>时间定义<ul>
+<li>接受在当天的hh:mm（小时:分钟）式的时间指定。==假如该时间已过去，那就会在第二天执行==</li>
+<li>使用midnight（深夜），noon（中午），teatime（饮茶时间，一般下午4点）等比较模糊的词语来指定时间</li>
+<li>采用12小时计时制，即在时间后面加上AM（上午）或PM（下午）来说明是上午还是下午。</li>
+<li>指定命令执行的具体日期，指定格式为month day或mm/dd/yy或dd.mm.yy，指定的日期必须跟在指定时间的后面。例如：04:00 2021-03-1</li>
+<li>使用相对计时法。指定格式为：now + count time-units，now就是当前时间，time-units是时间单位，这里能够是minutes（分钟）、hours（小时）、days（天）、weeks（星期）。count是时间的数量（几小时，几天或几分钟）。例如：now +5 minutes</li>
+<li>直接使用today（今天）、tomorrow（明天）来指定完成命令的时间</li>
+</ul>
+</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Linux实操篇之Vi和Vim编辑器" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8BVi%E5%92%8CVim%E7%BC%96%E8%BE%91%E5%99%A8/">Linux实操篇之Vi和Vim编辑器</a>
+    </h1>
+  
+
+        
+        <a href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8BVi%E5%92%8CVim%E7%BC%96%E8%BE%91%E5%99%A8/" class="archive-article-date">
+  	<time datetime="2021-02-20T20:52:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Vi和Vim的基本介绍"><a href="#Vi和Vim的基本介绍" class="headerlink" title="Vi和Vim的基本介绍"></a>Vi和Vim的基本介绍</h3><ul>
+<li>Linux系统会内置Vi文本编辑器</li>
+<li>Vim具有程序编辑的能力，可看作是Vi的增强版本，可以主动的以字体颜色辨别语法的正确性，方便程序设计。代码补全、编译及错误跳转等方便编程的功能特别丰富，在程序员中被广泛使用</li>
+</ul>
+<h3 id="Vi和Vim常用的三种模式"><a href="#Vi和Vim常用的三种模式" class="headerlink" title="Vi和Vim常用的三种模式"></a>Vi和Vim常用的三种模式</h3><ul>
+<li>正常模式<ul>
+<li>以Vim打开一个文档就直接进入一般模式了（这是默认模式）。在这个模式中，你可以使用【上下左右】按键来移动光标，可以使用【删除字符】或【删除整行】来处理文档内容，也可以使用【复制、粘贴】来处理你的文件数据</li>
+</ul>
+</li>
+<li>插入模式<ul>
+<li>按下i，I，o，O，a，A，r，R等任何一个字母之后才会进入编辑（插入）模式，一般来说按i即可</li>
+</ul>
+</li>
+<li>命令行模式<ul>
+<li>输入Esc，再输入:就可以进入命令行模式，在这个模式中，可以提供你相关指令，完成读取、存盘、替换、离开Vim、显示行号等的动作则是在此模式中达成的</li>
+</ul>
+</li>
+</ul>
+<h3 id="各种模式的相互切换"><a href="#各种模式的相互切换" class="headerlink" title="各种模式的相互切换"></a>各种模式的相互切换</h3><p><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/Vi%E5%92%8CVim%E7%BC%96%E8%BE%91%E5%99%A8/%E5%90%84%E7%A7%8D%E6%A8%A1%E5%BC%8F.png" alt="各种模式"></p>
+<h3 id="常用快捷键"><a href="#常用快捷键" class="headerlink" title="常用快捷键"></a>常用快捷键</h3><ul>
+<li>yy - 拷贝当前行，5yy - 拷贝当前行向下的5行，p - 粘贴</li>
+<li>dd - 删除当前行，5dd - 删除当前行向下的5行</li>
+<li>在文件中查找某个单词【命令行下 /关键字，回车查找，输入 n 查找下一个】</li>
+<li>设置文件的行号，取消文件的行号【命令行下 :set nu和 :set nonu】</li>
+<li>到文档最末行【G】和最首行【gg】</li>
+<li>u - 撤销输入的内容</li>
+</ul>
+<p><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/Vi%E5%92%8CVim%E7%BC%96%E8%BE%91%E5%99%A8/vi-vim%E9%94%AE%E7%9B%98%E5%9B%BE.png" alt="vi-vim键盘图"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8BVi%E5%92%8CVim%E7%BC%96%E8%BE%91%E5%99%A8/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Linux实操篇之RPM与YUM" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8BRPM%E4%B8%8EYUM/">Linux实操篇之RPM与YUM</a>
     </h1>
   
 
@@ -230,27 +1573,6 @@
       
 
       
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
-      
     </div>
     <div class="article-info article-info-index">
       
@@ -258,84 +1580,16 @@
       
 
       
-
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8BRPM%E4%B8%8EYUM/">展开全文 >></a>
+        </p>
       
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
-        </div>
-      </div>
-    </span>
-  </div>
-</div>
 
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8BRPM%E4%B8%8EYUM/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8BVi%E5%92%8CVim%E7%BC%96%E8%BE%91%E5%99%A8/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Linux实操篇之Vi和Vim编辑器
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8BLinux%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA%E3%80%81%E6%8C%82%E8%BD%BD/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Linux实操篇之Linux磁盘分区、挂载</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -355,14 +1609,169 @@
 
 
 
-  
-  
-  
 
   
-
+    <article id="post-Linux实操篇之Linux磁盘分区、挂载" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8BLinux%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA%E3%80%81%E6%8C%82%E8%BD%BD/">Linux实操篇之Linux磁盘分区、挂载</a>
+    </h1>
   
 
+        
+        <a href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8BLinux%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA%E3%80%81%E6%8C%82%E8%BD%BD/" class="archive-article-date">
+  	<time datetime="2021-02-20T19:35:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Linux分区"><a href="#Linux分区" class="headerlink" title="Linux分区"></a>Linux分区</h3><ul>
+<li>原理介绍<ul>
+<li>Linux来说无论有几个分区，分给哪一个目录使用，它归根结底就==只有一个根目录==，一个独立且唯一的文件结构，Linux中的每个分区都是用来组成整个文件系统的一部分</li>
+<li>Linux采用了一种叫”载入”的处理方法，它的整个文件系统中包含了一整套的文件和目录，且将==一个分区和一个目录==联系起来，这时要载入的一个分区将使它的存储空间在一个目录下获得</li>
+</ul>
+</li>
+<li>查看所有设备挂载情况：lsblk 或 lsblk -f</li>
+<li>硬盘说明<ul>
+<li>Linux硬盘分IDE硬盘和SCSI硬盘，==目前基本上是SCSI硬盘==</li>
+<li>对于IDE硬盘，驱动器标识符为“hdx~”，其中“hd”表明分区所在设备的类型，这里指IDE盘。“x”为盘号（==a为基本盘==，==b为基本从属盘==，c为辅助主盘，d为辅助从属盘），“~”代表分区，前4个分区用数字1-4表示，它们是主分区或扩展分区，从5开始就是逻辑分区。例如，hda3表示为第一个IDE硬盘上的第3个主分区或扩展分区，hdb2表示为第二个IDE硬盘上的第2个主分区或扩展分区</li>
+<li>对于SCSI硬盘则标识为“sdx~”，SCSI硬盘是用“sd”来表示分区所在设备类型的，其余则和IDE硬盘的表示方法一样</li>
+</ul>
+</li>
+</ul>
+<h3 id="挂载的经典案例"><a href="#挂载的经典案例" class="headerlink" title="挂载的经典案例"></a>挂载的经典案例</h3><ul>
+<li><p>说明</p>
+<ul>
+<li>下面我们以增加一块硬盘为例来熟悉下磁盘的相关指令和深入理解==磁盘分区、挂载、卸载==的概念</li>
+</ul>
+</li>
+<li><p>如何增加一块硬盘</p>
+<ul>
+<li>虚拟机添加硬盘</li>
+<li>分区</li>
+<li>格式化</li>
+<li>挂载（临时的）</li>
+<li>设置永久挂载</li>
+</ul>
+</li>
+<li><p>具体步骤</p>
+<ul>
+<li><p>在虚拟机菜单中，选择【设置】，然后设备列表里添加硬盘，然后一路【下一步】，中间只有选择硬盘大小的地方需要修改，直到完成，然后==重启系统（才能识别）==</p>
+<p><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/Linux%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA%E3%80%81%E6%8C%82%E8%BD%BD/%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%B7%BB%E5%8A%A0%E7%A3%81%E7%9B%98.png" alt="虚拟机添加磁盘"></p>
+</li>
+<li><p>分区命令</p>
+<ul>
+<li>开始对sdb分区：fdisk /dev/sdb</li>
+<li>m，显示命令列表</li>
+<li>p，显示磁盘分区（同fdisk -l）</li>
+<li>n，新增分区</li>
+<li>d，删除分区</li>
+<li>w，写入并退出</li>
+</ul>
+<p>说明：开始分区后输入n，新增分区，然后选择p，分区类型为主分区，两次回车默认剩余全部空间。最后输入w写入分区并退出；若不保存退出输入q</p>
+<p><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/Linux%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA%E3%80%81%E6%8C%82%E8%BD%BD/%E5%88%86%E5%8C%BA.png" alt="分区"></p>
+</li>
+<li><p>挂载</p>
+<ul>
+<li>将一个分区与一个目录联系起来</li>
+<li>mount 设备名称 挂载目录<ul>
+<li>如：mount /dev/sdb1 /newdisk</li>
+</ul>
+</li>
+<li>umount 设备名称或者挂载目录，==卸载分区==<ul>
+<li>如：umount /dev/sdb1或者umount /newdisk</li>
+</ul>
+</li>
+</ul>
+<p>【注意】：==用命令行挂载重启后会失效==</p>
+</li>
+<li><p>永久挂载</p>
+<ul>
+<li>通过修改/etc/fstab实现</li>
+<li>添加完成后，执行mount -a即刻生效（或者直接重启）</li>
+</ul>
+<p><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/Linux%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA%E3%80%81%E6%8C%82%E8%BD%BD/%E6%B0%B8%E4%B9%85%E6%8C%82%E8%BD%BD.png" alt="永久挂载"></p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="磁盘情况查询"><a href="#磁盘情况查询" class="headerlink" title="磁盘情况查询"></a>磁盘情况查询</h3><ul>
+<li><p>基本语法</p>
+<ul>
+<li><p>df -h，查询系统整体磁盘使用情况</p>
+<p><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/Linux%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA%E3%80%81%E6%8C%82%E8%BD%BD/%E7%A3%81%E7%9B%98%E4%BD%BF%E7%94%A8%E6%83%85%E5%86%B5.png" alt="磁盘使用情况"></p>
+</li>
+<li><p>du -h /目录，查询指定目录的磁盘占用情况，==默认为当前目录==</p>
+<ul>
+<li>-s，指定目录占用大小汇总</li>
+<li>-h，==带计量单位==</li>
+<li>-a，含文件</li>
+<li>–max-depth=1，子目录深度</li>
+<li>-c，列出明细的同时，增加汇总值<img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/Linux%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA%E3%80%81%E6%8C%82%E8%BD%BD/%E7%A3%81%E7%9B%98%E5%8D%A0%E7%94%A8%E6%83%85%E5%86%B5.png" alt="磁盘占用情况"></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="磁盘情况-工作实用指令"><a href="#磁盘情况-工作实用指令" class="headerlink" title="磁盘情况-工作实用指令"></a>磁盘情况-工作实用指令</h3><ul>
+<li>统计文件夹下文件的个数：ls -l 文件夹 | grep “^-“ | wc -l</li>
+<li>统计文件夹下目录的个数：ls -l 文件夹 | grep “^d” | wc -l</li>
+<li>统计文件夹下文件个数（包含子文件夹里的）：ls -lR 文件夹 | grep “^-“ | wc -l</li>
+<li>统计文件夹下目录个数（包含子文件夹里的）：ls -lR 文件夹 | grep “^d” | wc -l</li>
+<li>以树状显示目录结构：tree 目录；==如果没有tree，则使用yum install tree安装==</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8BLinux%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA%E3%80%81%E6%8C%82%E8%BD%BD/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+  
+    <nav id="page-nav">
+      <a class="extend prev" rel="prev" href="/page/2/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/">Next &amp;raquo;</a>
+    </nav>
   
 
 
@@ -385,8 +1794,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: false,
-		isPost: true,
+		isHome: true,
+		isPost: false,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,

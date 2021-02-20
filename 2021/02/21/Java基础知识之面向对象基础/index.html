@@ -6,17 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Linux实操篇之RPM与YUM | Hexo</title>
+  <title>Java基础知识之面向对象基础 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="rpm rpm用于互联网下载包的打包及安装工具，它包含在某些Linux分发版中。它生成具有.RPM扩展名的文件。RPM是&#x3D;&#x3D;RedHat Package Manager&#x3D;&#x3D;的缩写，类似Windows的setup.exe，这一文件格式名称虽然打上了RedHat的标志，但理念是通用的。Linux的很多分发版本（suse，redhat，centos等等）都有采用，可以算是公认的行业标准了 rpm包名基本">
+  <meta name="description" content="Java中三大流程控制 顺序控制 分支控制（单&#x2F;双&#x2F;多） 循环控制(for；while；do-while)  多分支1234567891011121314151617switch(条件表达式)&amp;#123;    case 常量1:        语句1;        break;    case 常量2:        语句2：        break;    ...    case 常量n:">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux实操篇之RPM与YUM">
-<meta property="og:url" content="http://example.com/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8BRPM%E4%B8%8EYUM/index.html">
+<meta property="og:title" content="Java基础知识之面向对象基础">
+<meta property="og:url" content="http://example.com/2021/02/21/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%B9%8B%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%9F%BA%E7%A1%80/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="rpm rpm用于互联网下载包的打包及安装工具，它包含在某些Linux分发版中。它生成具有.RPM扩展名的文件。RPM是&#x3D;&#x3D;RedHat Package Manager&#x3D;&#x3D;的缩写，类似Windows的setup.exe，这一文件格式名称虽然打上了RedHat的标志，但理念是通用的。Linux的很多分发版本（suse，redhat，centos等等）都有采用，可以算是公认的行业标准了 rpm包名基本">
+<meta property="og:description" content="Java中三大流程控制 顺序控制 分支控制（单&#x2F;双&#x2F;多） 循环控制(for；while；do-while)  多分支1234567891011121314151617switch(条件表达式)&amp;#123;    case 常量1:        语句1;        break;    case 常量2:        语句2：        break;    ...    case 常量n:">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-02-20T20:48:44.000Z">
-<meta property="article:modified_time" content="2021-02-20T20:49:13.352Z">
+<meta property="article:published_time" content="2021-02-20T21:10:06.000Z">
+<meta property="article:modified_time" content="2021-02-20T21:10:41.704Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -154,77 +154,392 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Linux实操篇之RPM与YUM" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Java基础知识之面向对象基础" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Linux实操篇之RPM与YUM
+      Java基础知识之面向对象基础
     </h1>
   
 
         
-        <a href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8BRPM%E4%B8%8EYUM/" class="archive-article-date">
-  	<time datetime="2021-02-20T20:48:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-21</time>
+        <a href="/2021/02/21/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%B9%8B%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%9F%BA%E7%A1%80/" class="archive-article-date">
+  	<time datetime="2021-02-20T21:10:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-21</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="rpm"><a href="#rpm" class="headerlink" title="rpm"></a>rpm</h3><ul>
-<li>rpm用于互联网下载包的打包及安装工具，它包含在某些Linux分发版中。它生成具有.RPM扩展名的文件。RPM是==RedHat Package Manager==的缩写，类似Windows的setup.exe，这一文件格式名称虽然打上了RedHat的标志，但理念是通用的。Linux的很多分发版本（suse，redhat，centos等等）都有采用，可以算是公认的行业标准了</li>
-<li>rpm包名基本格式<ul>
-<li>一个rpm包名：firefox-60.2.2-1.el7.centos.x86_64</li>
-<li>名称：firefox</li>
-<li>版本号：60.2.2-1</li>
-<li>适用操作系统：el7.centos.x86_64，表示centos7.x的64位系统；如果是i686、i386表示32位系统，noarch表示通用</li>
+        <h3 id="Java中三大流程控制"><a href="#Java中三大流程控制" class="headerlink" title="Java中三大流程控制"></a><strong>Java中三大流程控制</strong></h3><ul>
+<li><strong>顺序控制</strong></li>
+<li><strong>分支控制（单/双/多）</strong></li>
+<li><strong>循环控制(for；while；do-while)</strong></li>
+</ul>
+<h3 id="多分支"><a href="#多分支" class="headerlink" title="多分支"></a><strong>多分支</strong></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">switch</span>(条件表达式)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">case</span> 常量<span class="number">1</span>:</span><br><span class="line">        语句<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> 常量<span class="number">2</span>:</span><br><span class="line">        语句<span class="number">2</span>：</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    <span class="keyword">case</span> 常量n:</span><br><span class="line">        语句n;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">        语句;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>条件表达式数据类型，应该和case后的常量类型一致</li>
+<li>switch中可用的数据类型主要是：byte，short，int，char，enum等</li>
+</ul>
+<h3 id="Java面向对象编程-1"><a href="#Java面向对象编程-1" class="headerlink" title="Java面向对象编程(1)"></a><strong>Java面向对象编程(1)</strong></h3><ul>
+<li><p><strong>类与对象</strong></p>
+<ul>
+<li>类和对象的关系： 把某种事物的特性提取出来–&gt;类–&gt;一个个对象（实例）</li>
+<li>类名首字母大写，例如</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cat</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="comment">//下面的就是类的成员变量/属性</span></span><br><span class="line">    <span class="keyword">int</span> age;</span><br><span class="line">    String name;</span><br><span class="line">    String color;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Cat cat1 = <span class="keyword">new</span> Cat(); <span class="comment">//创建一个猫对象</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>从类到对象有几种说法<ul>
+<li>创建一个对象</li>
+<li>实例化一个对象</li>
+<li>把类实例化</li>
 </ul>
 </li>
-<li>rpm包的查询指令<ul>
-<li>rpm -qa，查询已安装的所有rpm软件包<ul>
-<li>rpm -qa | more</li>
-<li>rpm -qa | grep xxx</li>
+<li>类和对象的区别和联系<ul>
+<li>类是抽象的，概念的，代表一类事物，比如人类、猫类</li>
+<li>对象是具体的，实际的，代表一个具体事物</li>
+<li>类是对象的模板，对象是类的一个个体，实例</li>
 </ul>
 </li>
-<li>rpm -q 软件包名，查询软件包是否安装</li>
-<li>rpm -qi 软件包名，查询软件包信息</li>
-<li>rpm -ql 软件包名，查询软件包中的文件</li>
-<li>rpm -qf 文件全路径名，查询文件所属的软件包<ul>
-<li>如：rpm -qf /etc/passwd；rpm -qf /root/install.log</li>
+<li>如何定义类？一个全面的类定义：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> 包名;</span><br><span class="line"><span class="class"><span class="keyword">class</span> 子类 <span class="keyword">extends</span>(继承) 父类 <span class="keyword">implements</span>(实现) 接口名</span>&#123;</span><br><span class="line">    成员变量;</span><br><span class="line">    构造方法;</span><br><span class="line">    成员方法;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>类中的成员变量一般是基本数据类型，也可以是引用类型，如：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cat</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> age;</span><br><span class="line">    String name;</span><br><span class="line">    String color;</span><br><span class="line">    Master myMaster; <span class="comment">// 猫的主人</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Master</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> age;</span><br><span class="line">    String name;</span><br><span class="line">    String address;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>类的成员方法（成员函数）定义如下：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> 返回数据类型 方法名(参数列表)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 方法(函数)主体</span></span><br><span class="line">    语句;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>定义名字的几种规则<ul>
+<li>驼峰法：myCry</li>
+<li>下划线法：my_cry</li>
 </ul>
 </li>
-</ul>
-</li>
-<li>卸载rpm包<ul>
-<li>基本语法：rpm -e RPM包的名称，如：rpm -e firefox</li>
-<li>细节说明<ul>
-<li>如果其他软件包依赖于您要卸载的软件包，卸载时则会产生错误信息</li>
-<li>如果我们就是要删除这个rpm包，可以增加参数 –nodeps，就可以强制删除，但一般不推荐这样做，因为依赖于该软件包的程序可能无法运行</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>安装rpm包<ul>
-<li>基本语法：rpm -ivh RPM包全路径名称</li>
-<li>参数说明<ul>
-<li>i，install安装</li>
-<li>v，verbose提示</li>
-<li>h，hash进度条</li>
+<li>注意<ul>
+<li>方法名的首字母小写</li>
+<li>方法的参数可以是多个</li>
+<li>参数类型可以是任意的</li>
 </ul>
 </li>
 </ul>
 </li>
-</ul>
-<h3 id="yum"><a href="#yum" class="headerlink" title="yum"></a>yum</h3><ul>
-<li>yum是一个Shell前端软件包管理器。基于rpm包管理，能够==从指定的服务器自动下载RPM包==并且安装，可以自动处理依赖关系，并且一次安装所有依赖的软件包</li>
-<li>yum基本指令<ul>
-<li>yum list | grep xxx，查询yum服务器是否有需要安装的软件</li>
-<li>yum install xxx，下载安装指定的yum包</li>
+<li><p><strong>构造方法</strong></p>
+<ul>
+<li>类的构造方法是类的一种特殊方法，其主要作用是完成对新对象的初始化</li>
+<li>有几个特点：<ul>
+<li>方法名和类名相同</li>
+<li>没有返回值</li>
+<li>在创建一个类的新对象时，系统会自动调用该类的构造方法完成对新对象的初始化</li>
 </ul>
 </li>
+</ul>
+</li>
+</ul>
+<h3 id="Java面向对象编程-2"><a href="#Java面向对象编程-2" class="headerlink" title="Java面向对象编程(2)"></a><strong>Java面向对象编程(2)</strong></h3><ul>
+<li><p><strong>this用法</strong></p>
+<ul>
+<li>this不能在类定义的外部使用，只能在类定义的方法中使用</li>
+</ul>
+</li>
+<li><p><strong>类变量/类方法</strong></p>
+<ul>
+<li>类变量是该类的所有对象共享的变量，其定义语法：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">访问修饰符 <span class="keyword">static</span> 数据类型 变量名;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>访问类变量：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">类名.类变量名 或者 对象名.类变量</span><br></pre></td></tr></table></figure>
+<ul>
+<li>类方法是属于所有对象实例的，其定义语法：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">访问修饰符 <span class="keyword">static</span> 数据返回类型  方法名()&#123;&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>访问类方法：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">类名.类方法名 或者 对象名.类方法名</span><br></pre></td></tr></table></figure>
+<ul>
+<li>注意：类方法中不能访问非静态变量</li>
+</ul>
+</li>
+<li><p><strong>四大特征(抽象、封装、继承和多态)</strong></p>
+<ul>
+<li><p>抽象</p>
+<ul>
+<li>把一类事物的共有的属性和行为提取出来，形成一个物理模型(模板)<strong>。</strong></li>
+</ul>
+</li>
+<li><p>封装</p>
+<ul>
+<li>把抽象出的数据和对数据的操作封装在一起，数据被保护在内部，程序的其他部分只有通过被授权的操作(成员方法)才能对数据进行操作。</li>
+<li>为什么需要封装？<ul>
+<li>隐藏对象内部的复杂性，只对外公开简单的接口，便于外界调用，从而提高系统的可扩展性、可维护性。</li>
+<li>高内聚就是类的内部数据操作细节自己完成，不允许外部干涉；低耦合就是尽暴露少量的方法给外部使用。</li>
+</ul>
+</li>
+<li>Java提供四种访问控制修饰符来控制方法和变量的访问权限<ul>
+<li>公开级别：用 public 修饰，对外公开</li>
+<li>受保护级别：用 protected 修饰，对子类和同一个包中的类公开</li>
+<li>默认级别：没有修饰符，向同一个包的类公开（default）</li>
+<li>私有级别：用 private 修饰，只有类本身可以访问，不对外公开</li>
+</ul>
+</li>
+<li>封装要点：类的属性的处理<ul>
+<li>一般使用private（除非本属性确定会让子类继承）</li>
+<li>提供相应的 get/set 方法（通常是public）来访问相关属性，从而提供对属性的读取操作</li>
+</ul>
+</li>
+<li>注意<ul>
+<li>boolean变量的get方法是用is开头！</li>
+<li>一些只用于本类的辅助性方法可以用 private</li>
+<li>希望其他类调用的方法用public</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>继承</p>
+<ul>
+<li>可以解决代码复用问题<strong>。</strong></li>
+<li>class 子类 extends 父类，这样子类就会自动拥有父类定义的某些属性和方法</li>
+<li>“is a”关系使用继承</li>
+<li>“has a”关系使用组合</li>
+<li>注意<ul>
+<li>父类的 private 修饰符的属性和方法不能被子类继承</li>
+<li>子类最多只能继承一个父类(指直接继承)</li>
+<li>Java所有类都是Object类的子类</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>多态</p>
+<ul>
+<li><p>指一个引用（类型）在不同情况下的多种状态。通俗点说，多态就是指通过指向父类的指针来调用在不同子类中实现的方法（这些方法是子类覆盖父类的方法）</p>
+</li>
+<li><p>继承是多态得以实现的基础</p>
+</li>
+<li><p>注意</p>
+<ul>
+<li>Java允许父类的引用变量引用它的子类的对象，如</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Animal an = <span class="keyword">new</span> Cat();</span><br></pre></td></tr></table></figure>
+<ul>
+<li>多态的存在要有3个必要条件：继承、方法重写、父类引用指向子类对象</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>包</strong></p>
+<ul>
+<li>三大作用<ul>
+<li>区分相同名字的类</li>
+<li>当类很多时，可以很好的管理类</li>
+<li>控制访问范围</li>
+</ul>
+</li>
+<li>打包命令（一般放在文件开始的地方）</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> 包名;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>命名规范：小写字母，如</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">com.gxnu.slyer</span><br></pre></td></tr></table></figure>
+<ul>
+<li>常用的包<ul>
+<li>java.lang.*（自动引入）</li>
+<li>java.util.*（工具包）</li>
+<li>java.net.*（网络开发包）</li>
+<li>java.awt.*（窗口工具包）</li>
+</ul>
+</li>
+<li>引入包语法</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> 包名;</span><br><span class="line"></span><br><span class="line"><span class="comment">//例如</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.awt.*;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>引包的主要目的是要使用该包下的类</li>
+</ul>
+</li>
+<li><p><strong>方法重载(overload)</strong></p>
+<ul>
+<li>类的同一种功能的多种实现方式(方法名一样)，到底采用哪种方式取决于调用者给出的参数</li>
+<li>注意<ul>
+<li>方法名相同</li>
+<li>方法的参数类型、个数、顺序至少有一项不同</li>
+<li>方法的返回类型可以不同</li>
+<li>方法的修饰符可以不同</li>
+<li>如果只是方法的返回类型或修饰符不同，不构成重载</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>方法覆盖(重写) (override)</strong></p>
+<ul>
+<li>子类的有些方法与父类不一样，因此要将父类的方法覆盖。简单来说，就是子类有个方法和父类的某个方法的名称、返回类型、参数一样，我们就说子类的这个方法覆盖了父类的那个方法</li>
+<li>注意<ul>
+<li>子类的方法返回类型、参数、方法名要和父类的完全一样</li>
+<li>子类方法不能缩小父类方法的访问权限</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Java面向对象编程-3"><a href="#Java面向对象编程-3" class="headerlink" title="Java面向对象编程(3)"></a><strong>Java面向对象编程(3)</strong></h3><ul>
+<li><p><strong>抽象类</strong></p>
+<ul>
+<li><p>当父类的一些方法不确定时，可以用abstract关键字来修饰该方法（抽象方法）或该类（抽象类）</p>
+</li>
+<li><p>注意</p>
+<ul>
+<li>当一个类继承的父类是抽象类的话，则需要我们把抽象类中的所有抽象方法全部实现</li>
+<li>抽象类不能被实例化，即不能用new来实例化抽象类</li>
+<li>抽象类不一定要包含abstract方法，即抽象类可以没有abstract方法</li>
+<li>抽象类中可以有实现了的方法（非抽象方法）</li>
+<li>一旦类包含了abstract方法，则这个类必须声明为abstract</li>
+<li>抽象方法不能有主体，如</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">fun</span><span class="params">()</span></span>&#123;&#125;; <span class="comment">// 这个大括号&#123;&#125;不能有</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>抽象类可以包含属性、方法、构造方法，但是构造方法不能用来new对象，只能被子类调用</li>
+<li>抽象类只能被用来继承</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>接口（interface）</strong></p>
+<ul>
+<li>将一些没有内容的方法封装到一起，当某个类要使用的时候再根据具体情况把这些方法实现出来。</li>
+<li>语法</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> 类名 <span class="keyword">implements</span> 接口</span>&#123;</span><br><span class="line"></span><br><span class="line">方法;</span><br><span class="line"></span><br><span class="line">变量;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>接口是更加抽象的抽象类，抽象类里的方法可以有方法体，接口里的所有方法都没有方法体。</p>
+</li>
+<li><p>接口体现了程序设计的多态和“高内聚低耦合”的设计思想</p>
+</li>
+<li><p>接口中的变量本质上都是static的，而且是final类型的，不管加不加static修饰</p>
+</li>
+<li><p>注意</p>
+<ul>
+<li>当一个类实现了一个接口，就要求该类把这个接口的所有方法全部实现。</li>
+<li>接口不能被实例化</li>
+<li>接口中所有的方法都不能有主体</li>
+<li>一个类可以实现多个接口</li>
+<li>接口中可以有变量，但变量不能用private和protected修饰</li>
+<li>一个接口不能继承其他的类，但是可以继承别的接口</li>
+</ul>
+</li>
+<li><p>在Java开发中，我们把经常用的变量定义在接口中，作为全局变量使用。</p>
+<ul>
+<li>访问形式</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">接口名.变量名</span><br></pre></td></tr></table></figure></li>
+<li><p>Java的继承是单继承，也就是一个类最多只能有一个父类。实现接口可以看作是对继承的一种补充，可在不打破继承关系的前提下对某个类功能扩展，非常灵活</p>
+</li>
+</ul>
+</li>
+<li><p><strong>final</strong></p>
+<ul>
+<li>可以修饰变量和方法。给方法用 final 修饰，则表示不可被修改、覆盖。</li>
+<li>以下几种情况可用final修饰<ul>
+<li>当不希望父类的某个方法被子类覆盖(override)时</li>
+<li>当不希望类的某个变量的值被修改时</li>
+<li>当不希望类被继承时</li>
+<li>注意<ul>
+<li>如果一个变量是final，则必须赋初值，并且以后不能再赋值</li>
+<li>final修饰的变量又叫常量，用xx_xx_xx来命名</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>前期绑定</strong></p>
+<ul>
+<li>在程序运行之前进行绑定，由编译器和连接程序实现，又叫静态绑定。比如 static 和 final 方法</li>
+</ul>
+</li>
+<li><p><strong>后期绑定</strong></p>
+<ul>
+<li>在程序运行时根据对象的类型进行绑定，由方法调用机制实现，又叫动态绑定。</li>
+</ul>
+</li>
+</ul>
+<h3 id="Java面向对象编程-4"><a href="#Java面向对象编程-4" class="headerlink" title="Java面向对象编程(4)"></a><strong>Java面向对象编程(4)</strong></h3><ul>
+<li><p><strong>一维数组</strong></p>
+<ul>
+<li>可以存放多个同一类型的数据</li>
+<li>定义</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">数据类型 数组名[] = <span class="keyword">new</span> 数据类型[大小];</span><br><span class="line"></span><br><span class="line">如 <span class="keyword">int</span> a[] = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">5</span>];</span><br></pre></td></tr></table></figure>
+<ul>
+<li>数组引用</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">数组名[下标];</span><br><span class="line"></span><br><span class="line">如：a[<span class="number">2</span>];</span><br></pre></td></tr></table></figure>
+<ul>
+<li>初始化数组</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">数组类型 数组名[] = &#123;元素值,元素值,...&#125;;</span><br><span class="line"></span><br><span class="line">如：<span class="keyword">int</span> a[] = &#123;<span class="number">2</span>,<span class="number">4</span>,<span class="number">6</span>,<span class="number">8</span>,<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">7</span>&#125;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>注意<ul>
+<li>简单数据类型（int, float..）数组，可直接赋值</li>
+<li>对象数组在定义后，赋值时需要再次为每个对象分配空间（即：new 对象）</li>
+<li>数组大小必须事先指定（数组的缺陷）</li>
+<li>数组名可以理解为指向数组首地址的引用</li>
+<li>数组的下标是从0开始编号的</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>排序</strong></p>
+<ul>
+<li>排序就是把一组记录（元素）按照某个域值的递增或递减的次序重新排列的过程</li>
+<li>内部排序<ul>
+<li>将需要处理的所有数据都加载到内部存储器中进行排序，包括交换排序、选择排序和插入排序</li>
+</ul>
+</li>
+<li>外部排序<ul>
+<li>数据量过大无法全部加载到内存中，需借助外部存储进行排序，包括合并排序和直接合并排序</li>
+</ul>
+</li>
+<li>几种内部排序方法<ul>
+<li>交换排序：<ul>
+<li>冒泡排序(Bubble Sort)</li>
+<li>快速排序(Quick Sort)</li>
+</ul>
+</li>
+<li>选择排序：<ul>
+<li>简单选择排序(Simple Selection Sort)</li>
+<li>堆排序(Heap Sort)</li>
+</ul>
+</li>
+<li>插入排序：<ul>
+<li>简单插入排序(Simple Insertion Sort)</li>
+<li>希尔排序(Shell Sort)</li>
+<li>二叉树排序(Binary-tree Sort)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>查找</strong></p>
+<ul>
+<li>顺序查找</li>
+<li>二分查找(Binarysearch)</li>
+</ul>
+</li>
+<li><p><strong>多维数组</strong>（二维数组）</p>
+<ul>
+<li>语法</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">类型 数组名[][] = <span class="keyword">new</span> 类型[大小][大小];</span><br><span class="line"></span><br><span class="line">比如：<span class="keyword">int</span> arr[][] = <span class="keyword">new</span> <span class="keyword">int</span> [<span class="number">2</span>][<span class="number">3</span>];</span><br></pre></td></tr></table></figure></li>
 </ul>
 
       
@@ -305,7 +620,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8BRPM%E4%B8%8EYUM/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/02/21/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%B9%8B%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%9F%BA%E7%A1%80/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -319,18 +634,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8BVi%E5%92%8CVim%E7%BC%96%E8%BE%91%E5%99%A8/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2021/02/21/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%B9%8B%E7%BB%98%E5%9B%BE%E5%9D%90%E6%A0%87%E4%BD%93%E7%B3%BB/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          Linux实操篇之Vi和Vim编辑器
+          Java基础知识之绘图坐标体系
         
       </div>
     </a>
   
   
-    <a href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8BLinux%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA%E3%80%81%E6%8C%82%E8%BD%BD/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Linux实操篇之Linux磁盘分区、挂载</div>
+    <a href="/2021/02/21/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%B9%8B%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Java基础知识之编程基础</div>
       <i class="icon-circle-right"></i>
     </a>
   

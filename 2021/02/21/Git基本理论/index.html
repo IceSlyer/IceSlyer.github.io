@@ -6,19 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Linux实操篇之RPM与YUM | Hexo</title>
+  <title>Git基本理论 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="rpm rpm用于互联网下载包的打包及安装工具，它包含在某些Linux分发版中。它生成具有.RPM扩展名的文件。RPM是&#x3D;&#x3D;RedHat Package Manager&#x3D;&#x3D;的缩写，类似Windows的setup.exe，这一文件格式名称虽然打上了RedHat的标志，但理念是通用的。Linux的很多分发版本（suse，redhat，centos等等）都有采用，可以算是公认的行业标准了 rpm包名基本">
+  <meta name="description" content="工作区域Git本地有三个工作区域：&#x3D;&#x3D;工作区（Workspace）&#x3D;&#x3D;、&#x3D;&#x3D;暂存区（Stage&#x2F;Index）&#x3D;&#x3D;、&#x3D;&#x3D;资源库（Repository或Git Directory）&#x3D;&#x3D;。如果再加上远程的git仓库（Remote Directory）就可以分为四个工作区域。文件在这四个区域的转换关系如下：   Workspace：工作区，就是你平时存放项目代码的地方 Stage&#x2F;Index：暂存区，用于">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux实操篇之RPM与YUM">
-<meta property="og:url" content="http://example.com/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8BRPM%E4%B8%8EYUM/index.html">
+<meta property="og:title" content="Git基本理论">
+<meta property="og:url" content="http://example.com/2021/02/21/Git%E5%9F%BA%E6%9C%AC%E7%90%86%E8%AE%BA/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="rpm rpm用于互联网下载包的打包及安装工具，它包含在某些Linux分发版中。它生成具有.RPM扩展名的文件。RPM是&#x3D;&#x3D;RedHat Package Manager&#x3D;&#x3D;的缩写，类似Windows的setup.exe，这一文件格式名称虽然打上了RedHat的标志，但理念是通用的。Linux的很多分发版本（suse，redhat，centos等等）都有采用，可以算是公认的行业标准了 rpm包名基本">
+<meta property="og:description" content="工作区域Git本地有三个工作区域：&#x3D;&#x3D;工作区（Workspace）&#x3D;&#x3D;、&#x3D;&#x3D;暂存区（Stage&#x2F;Index）&#x3D;&#x3D;、&#x3D;&#x3D;资源库（Repository或Git Directory）&#x3D;&#x3D;。如果再加上远程的git仓库（Remote Directory）就可以分为四个工作区域。文件在这四个区域的转换关系如下：   Workspace：工作区，就是你平时存放项目代码的地方 Stage&#x2F;Index：暂存区，用于">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-02-20T20:48:44.000Z">
-<meta property="article:modified_time" content="2021-02-20T20:49:13.352Z">
+<meta property="og:image" content="https://github.com/IceSlyer/Image/raw/main/img/Git%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/Git%E5%9F%BA%E6%9C%AC%E7%90%86%E8%AE%BA/Git%E5%B7%A5%E4%BD%9C%E5%8C%BA%E5%9F%9F.png">
+<meta property="og:image" content="https://github.com/IceSlyer/Image/raw/main/img/Git%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/Git%E5%9F%BA%E6%9C%AC%E7%90%86%E8%AE%BA/git%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B.png">
+<meta property="article:published_time" content="2021-02-20T21:14:57.000Z">
+<meta property="article:modified_time" content="2021-02-20T21:15:17.754Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://github.com/IceSlyer/Image/raw/main/img/Git%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/Git%E5%9F%BA%E6%9C%AC%E7%90%86%E8%AE%BA/Git%E5%B7%A5%E4%BD%9C%E5%8C%BA%E5%9F%9F.png">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -154,78 +157,41 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Linux实操篇之RPM与YUM" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Git基本理论" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Linux实操篇之RPM与YUM
+      Git基本理论
     </h1>
   
 
         
-        <a href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8BRPM%E4%B8%8EYUM/" class="archive-article-date">
-  	<time datetime="2021-02-20T20:48:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-21</time>
+        <a href="/2021/02/21/Git%E5%9F%BA%E6%9C%AC%E7%90%86%E8%AE%BA/" class="archive-article-date">
+  	<time datetime="2021-02-20T21:14:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-21</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="rpm"><a href="#rpm" class="headerlink" title="rpm"></a>rpm</h3><ul>
-<li>rpm用于互联网下载包的打包及安装工具，它包含在某些Linux分发版中。它生成具有.RPM扩展名的文件。RPM是==RedHat Package Manager==的缩写，类似Windows的setup.exe，这一文件格式名称虽然打上了RedHat的标志，但理念是通用的。Linux的很多分发版本（suse，redhat，centos等等）都有采用，可以算是公认的行业标准了</li>
-<li>rpm包名基本格式<ul>
-<li>一个rpm包名：firefox-60.2.2-1.el7.centos.x86_64</li>
-<li>名称：firefox</li>
-<li>版本号：60.2.2-1</li>
-<li>适用操作系统：el7.centos.x86_64，表示centos7.x的64位系统；如果是i686、i386表示32位系统，noarch表示通用</li>
+        <h3 id="工作区域"><a href="#工作区域" class="headerlink" title="工作区域"></a>工作区域</h3><p>Git本地有三个工作区域：==工作区（Workspace）==、==暂存区（Stage/Index）==、==资源库（Repository或Git Directory）==。如果再加上远程的git仓库（Remote Directory）就可以分为四个工作区域。文件在这四个区域的转换关系如下：</p>
+<p><img src="https://github.com/IceSlyer/Image/raw/main/img/Git%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/Git%E5%9F%BA%E6%9C%AC%E7%90%86%E8%AE%BA/Git%E5%B7%A5%E4%BD%9C%E5%8C%BA%E5%9F%9F.png" alt="Git工作区域"></p>
+<ul>
+<li>Workspace：工作区，就是你平时存放项目代码的地方</li>
+<li>Stage/Index：暂存区，用于临时存放你的改动，事实上它只是一个文件，保存即将提交的文件列表信息</li>
+<li>Repository：仓库区（或本地仓库），就是安全存放数据的位置，这里面有你提交到所有版本的数据，其中HEAD指向最新放入仓库的版本</li>
+<li>Remote：远程仓库，托管代码的服务器，可以简单地认为是你项目组中的一台电脑用于远程数据交换</li>
 </ul>
-</li>
-<li>rpm包的查询指令<ul>
-<li>rpm -qa，查询已安装的所有rpm软件包<ul>
-<li>rpm -qa | more</li>
-<li>rpm -qa | grep xxx</li>
+<h3 id="工作流程"><a href="#工作流程" class="headerlink" title="工作流程"></a>工作流程</h3><p>git工作流程一般如下：</p>
+<ul>
+<li>在工作目录中添加、修改文件</li>
+<li>将需要进行版本管理的文件放入暂存区域</li>
+<li>将暂存区域的文件提交到git仓库</li>
 </ul>
-</li>
-<li>rpm -q 软件包名，查询软件包是否安装</li>
-<li>rpm -qi 软件包名，查询软件包信息</li>
-<li>rpm -ql 软件包名，查询软件包中的文件</li>
-<li>rpm -qf 文件全路径名，查询文件所属的软件包<ul>
-<li>如：rpm -qf /etc/passwd；rpm -qf /root/install.log</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>卸载rpm包<ul>
-<li>基本语法：rpm -e RPM包的名称，如：rpm -e firefox</li>
-<li>细节说明<ul>
-<li>如果其他软件包依赖于您要卸载的软件包，卸载时则会产生错误信息</li>
-<li>如果我们就是要删除这个rpm包，可以增加参数 –nodeps，就可以强制删除，但一般不推荐这样做，因为依赖于该软件包的程序可能无法运行</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>安装rpm包<ul>
-<li>基本语法：rpm -ivh RPM包全路径名称</li>
-<li>参数说明<ul>
-<li>i，install安装</li>
-<li>v，verbose提示</li>
-<li>h，hash进度条</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="yum"><a href="#yum" class="headerlink" title="yum"></a>yum</h3><ul>
-<li>yum是一个Shell前端软件包管理器。基于rpm包管理，能够==从指定的服务器自动下载RPM包==并且安装，可以自动处理依赖关系，并且一次安装所有依赖的软件包</li>
-<li>yum基本指令<ul>
-<li>yum list | grep xxx，查询yum服务器是否有需要安装的软件</li>
-<li>yum install xxx，下载安装指定的yum包</li>
-</ul>
-</li>
-</ul>
+<p>因此，git管理的文件有三种状态：==已修改（modified）==、==已暂存（staged）==、==已提交（committed）==<img src="https://github.com/IceSlyer/Image/raw/main/img/Git%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/Git%E5%9F%BA%E6%9C%AC%E7%90%86%E8%AE%BA/git%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B.png" alt="git工作流程"></p>
 
       
 
@@ -305,7 +271,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8BRPM%E4%B8%8EYUM/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/02/21/Git%E5%9F%BA%E6%9C%AC%E7%90%86%E8%AE%BA/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -319,18 +285,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8BVi%E5%92%8CVim%E7%BC%96%E8%BE%91%E5%99%A8/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2021/02/21/Git%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          Linux实操篇之Vi和Vim编辑器
+          Git常用操作
         
       </div>
     </a>
   
   
-    <a href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8BLinux%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA%E3%80%81%E6%8C%82%E8%BD%BD/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Linux实操篇之Linux磁盘分区、挂载</div>
+    <a href="/2021/02/21/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%B9%8Bio%E7%BC%96%E7%A8%8B/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Java基础知识之io编程</div>
       <i class="icon-circle-right"></i>
     </a>
   

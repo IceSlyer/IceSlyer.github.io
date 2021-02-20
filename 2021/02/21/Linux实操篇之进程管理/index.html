@@ -6,19 +6,29 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Linux实操篇之RPM与YUM | Hexo</title>
+  <title>Linux实操篇之进程管理 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="rpm rpm用于互联网下载包的打包及安装工具，它包含在某些Linux分发版中。它生成具有.RPM扩展名的文件。RPM是&#x3D;&#x3D;RedHat Package Manager&#x3D;&#x3D;的缩写，类似Windows的setup.exe，这一文件格式名称虽然打上了RedHat的标志，但理念是通用的。Linux的很多分发版本（suse，redhat，centos等等）都有采用，可以算是公认的行业标准了 rpm包名基本">
+  <meta name="description" content="基本介绍 在Linux中，每个&#x3D;&#x3D;执行的程序&#x3D;&#x3D;都称为一个进程，每一个进程都分配一个ID号（pid，进程号） windows    Linux      每个进程都可以两种方式存在 &#x3D;&#x3D;前台进程&#x3D;&#x3D;，即用户目前的屏幕上可以进行操作的 &#x3D;&#x3D;后台进程&#x3D;&#x3D;则是实际的操作，但由于屏幕上无法看到进程，所以通常使用后台方式执行   一般系统的服务都是以后台进程的方式存在，而且都会常驻在系统中，直到关机才结束">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux实操篇之RPM与YUM">
-<meta property="og:url" content="http://example.com/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8BRPM%E4%B8%8EYUM/index.html">
+<meta property="og:title" content="Linux实操篇之进程管理">
+<meta property="og:url" content="http://example.com/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="rpm rpm用于互联网下载包的打包及安装工具，它包含在某些Linux分发版中。它生成具有.RPM扩展名的文件。RPM是&#x3D;&#x3D;RedHat Package Manager&#x3D;&#x3D;的缩写，类似Windows的setup.exe，这一文件格式名称虽然打上了RedHat的标志，但理念是通用的。Linux的很多分发版本（suse，redhat，centos等等）都有采用，可以算是公认的行业标准了 rpm包名基本">
+<meta property="og:description" content="基本介绍 在Linux中，每个&#x3D;&#x3D;执行的程序&#x3D;&#x3D;都称为一个进程，每一个进程都分配一个ID号（pid，进程号） windows    Linux      每个进程都可以两种方式存在 &#x3D;&#x3D;前台进程&#x3D;&#x3D;，即用户目前的屏幕上可以进行操作的 &#x3D;&#x3D;后台进程&#x3D;&#x3D;则是实际的操作，但由于屏幕上无法看到进程，所以通常使用后台方式执行   一般系统的服务都是以后台进程的方式存在，而且都会常驻在系统中，直到关机才结束">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-02-20T20:48:44.000Z">
-<meta property="article:modified_time" content="2021-02-20T20:49:13.352Z">
+<meta property="og:image" content="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/Windows%E8%BF%9B%E7%A8%8B.png">
+<meta property="og:image" content="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/Linux%E8%BF%9B%E7%A8%8B.png">
+<meta property="og:image" content="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/ps%E6%8C%87%E4%BB%A4.png">
+<meta property="og:image" content="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/ps%20-ef%E6%8C%87%E4%BB%A4.png">
+<meta property="og:image" content="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/%E8%BF%9B%E7%A8%8B%E6%A0%91.png">
+<meta property="og:image" content="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/%E6%9C%8D%E5%8A%A1%E5%8E%9F%E7%90%86%E5%9B%BE.png">
+<meta property="og:image" content="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/service%E6%8C%87%E4%BB%A4%E7%AE%A1%E7%90%86%E6%9F%A5%E7%9C%8B.png">
+<meta property="og:image" content="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/top%E6%8C%87%E4%BB%A4.png">
+<meta property="og:image" content="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/netstat%E6%8C%87%E4%BB%A4.png">
+<meta property="article:published_time" content="2021-02-20T20:55:32.000Z">
+<meta property="article:modified_time" content="2021-02-20T20:55:59.725Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/Windows%E8%BF%9B%E7%A8%8B.png">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -154,75 +164,222 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Linux实操篇之RPM与YUM" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Linux实操篇之进程管理" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Linux实操篇之RPM与YUM
+      Linux实操篇之进程管理
     </h1>
   
 
         
-        <a href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8BRPM%E4%B8%8EYUM/" class="archive-article-date">
-  	<time datetime="2021-02-20T20:48:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-21</time>
+        <a href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" class="archive-article-date">
+  	<time datetime="2021-02-20T20:55:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-21</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="rpm"><a href="#rpm" class="headerlink" title="rpm"></a>rpm</h3><ul>
-<li>rpm用于互联网下载包的打包及安装工具，它包含在某些Linux分发版中。它生成具有.RPM扩展名的文件。RPM是==RedHat Package Manager==的缩写，类似Windows的setup.exe，这一文件格式名称虽然打上了RedHat的标志，但理念是通用的。Linux的很多分发版本（suse，redhat，centos等等）都有采用，可以算是公认的行业标准了</li>
-<li>rpm包名基本格式<ul>
-<li>一个rpm包名：firefox-60.2.2-1.el7.centos.x86_64</li>
-<li>名称：firefox</li>
-<li>版本号：60.2.2-1</li>
-<li>适用操作系统：el7.centos.x86_64，表示centos7.x的64位系统；如果是i686、i386表示32位系统，noarch表示通用</li>
+        <h3 id="基本介绍"><a href="#基本介绍" class="headerlink" title="基本介绍"></a>基本介绍</h3><ul>
+<li>在Linux中，每个==执行的程序==都称为一个进程，每一个进程都分配一个ID号（pid，进程号）<ul>
+<li>windows<ul>
+<li><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/Windows%E8%BF%9B%E7%A8%8B.png"></li>
 </ul>
 </li>
-<li>rpm包的查询指令<ul>
-<li>rpm -qa，查询已安装的所有rpm软件包<ul>
-<li>rpm -qa | more</li>
-<li>rpm -qa | grep xxx</li>
-</ul>
-</li>
-<li>rpm -q 软件包名，查询软件包是否安装</li>
-<li>rpm -qi 软件包名，查询软件包信息</li>
-<li>rpm -ql 软件包名，查询软件包中的文件</li>
-<li>rpm -qf 文件全路径名，查询文件所属的软件包<ul>
-<li>如：rpm -qf /etc/passwd；rpm -qf /root/install.log</li>
+<li>Linux<ul>
+<li><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/Linux%E8%BF%9B%E7%A8%8B.png" alt="Linux进程"></li>
 </ul>
 </li>
 </ul>
 </li>
-<li>卸载rpm包<ul>
-<li>基本语法：rpm -e RPM包的名称，如：rpm -e firefox</li>
-<li>细节说明<ul>
-<li>如果其他软件包依赖于您要卸载的软件包，卸载时则会产生错误信息</li>
-<li>如果我们就是要删除这个rpm包，可以增加参数 –nodeps，就可以强制删除，但一般不推荐这样做，因为依赖于该软件包的程序可能无法运行</li>
+<li>每个进程都可以两种方式存在<ul>
+<li>==前台进程==，即用户目前的屏幕上可以进行操作的</li>
+<li>==后台进程==则是实际的操作，但由于屏幕上无法看到进程，所以通常使用后台方式执行</li>
 </ul>
 </li>
+<li>一般系统的服务都是以后台进程的方式存在，而且都会常驻在系统中，直到关机才结束</li>
 </ul>
-</li>
-<li>安装rpm包<ul>
-<li>基本语法：rpm -ivh RPM包全路径名称</li>
+<h3 id="显示系统执行的进程"><a href="#显示系统执行的进程" class="headerlink" title="显示系统执行的进程"></a>显示系统执行的进程</h3><ul>
+<li>ps命令是用来查看目前系统中有哪些进程正在执行，以及它们执行的状况。可以不加任何参数<img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/ps%E6%8C%87%E4%BB%A4.png" alt="ps指令"></li>
 <li>参数说明<ul>
-<li>i，install安装</li>
-<li>v，verbose提示</li>
-<li>h，hash进度条</li>
+<li>-a，显示当前终端的==所有进程信息==</li>
+<li>-u，以用户的格式显示进程信息</li>
+<li>-x，显示后台进程运行的参数</li>
+<li>-ef，以==全格式==显示当前所有的进程<img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/ps%20-ef%E6%8C%87%E4%BB%A4.png" alt="ps -ef指令"></li>
+</ul>
+</li>
+<li>ps显示的信息选项<ul>
+<li>PID，进程识别号</li>
+<li>TTY，终端机号</li>
+<li>TIME，此进程使用CPU总时间</li>
+<li>CMD，正在执行的命令或进程名</li>
+<li>USER，用户名称</li>
+<li>%CPU，==进程占用CPU的百分比==</li>
+<li>%MEM，==进程占用物理内存的百分比==</li>
+<li>VSZ，==进程占用的虚拟内存大小（单位：KB）==</li>
+<li>RSS，==进程占用的物理内存大小（单位：KB）==</li>
+<li>STAT：进程状态，其中S-睡眠，s-表示该进程是会话的先导进程，N-表示进程拥有比普通优先级更低的优先级，R-正在运行，D-短期等待，Z-僵死进程，T-被跟踪或者被停止等待</li>
+<li>START：进程的启动时间</li>
+<li>COMMAND：启动进程所用的命令和参数（过长会被截断显示）</li>
+</ul>
+</li>
+<li>ps详解<ul>
+<li>指令：ps -aux | grep xxx，比如看看有没有sshd服务</li>
+<li>指令：ps -ef | grep xxx，比如查看sshd的==父进程==</li>
+</ul>
+</li>
+</ul>
+<h3 id="终止进程"><a href="#终止进程" class="headerlink" title="终止进程"></a>终止进程</h3><ul>
+<li>若是某个进程执行一半需要停止时，或是已消耗了很大的系统资源时，此时可以考虑停止该进程</li>
+<li>基本语法<ul>
+<li>kill [选项] 进程号，通过进程号杀死进程</li>
+<li>killall 进程名，通过进程名杀死进程（子进程也会被干掉），也支持通配符，这在系统因负载过大而变得很慢时很有用</li>
+</ul>
+</li>
+<li>常用选项<ul>
+<li>-9，表示强迫进程立即停止</li>
+</ul>
+</li>
+<li>实例<ul>
+<li>踢掉某个非法登录用户<ul>
+<li>kill 非法用户登录的shell对应的进程号</li>
+</ul>
+</li>
+<li>终止远程登录服务sshd，在适当时候再次重启sshd服务<ul>
+<li>kill sshd对应的进程号</li>
+<li>重启：/bin/systemctl start sshd.service</li>
+</ul>
+</li>
+<li>终止多个gedit<ul>
+<li>killall gedit</li>
+</ul>
+</li>
+<li>强制杀掉一个终端<ul>
+<li>kill -9 bash对应的进程号</li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
-<h3 id="yum"><a href="#yum" class="headerlink" title="yum"></a>yum</h3><ul>
-<li>yum是一个Shell前端软件包管理器。基于rpm包管理，能够==从指定的服务器自动下载RPM包==并且安装，可以自动处理依赖关系，并且一次安装所有依赖的软件包</li>
-<li>yum基本指令<ul>
-<li>yum list | grep xxx，查询yum服务器是否有需要安装的软件</li>
-<li>yum install xxx，下载安装指定的yum包</li>
+<h3 id="查看进程树"><a href="#查看进程树" class="headerlink" title="查看进程树"></a>查看进程树</h3><ul>
+<li>基本语法：pstree [选项]，可以更加直观地查看进程信息</li>
+<li>常用选项<ul>
+<li>-p，显示进程的PID</li>
+<li>-u，显示进程所属用户<img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/%E8%BF%9B%E7%A8%8B%E6%A0%91.png" alt="进程树"></li>
+</ul>
+</li>
+</ul>
+<h3 id="服务（service）管理"><a href="#服务（service）管理" class="headerlink" title="服务（service）管理"></a>服务（service）管理</h3><ul>
+<li><p>服务（service）本质就是进程，但是是运行在后台的，通常都会监听某个端口，等待其他程序的请求，比如mysql，sshd，防火墙等，因此我们又称为==守护进程==，是Linux中非常重要的知识点<img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/%E6%9C%8D%E5%8A%A1%E5%8E%9F%E7%90%86%E5%9B%BE.png" alt="服务原理图"></p>
+</li>
+<li><p>service管理指令</p>
+<ul>
+<li>service 服务名 [start | stop | restart | reload | status]</li>
+<li>service指令管理的服务在/etc/init.d查看<img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/service%E6%8C%87%E4%BB%A4%E7%AE%A1%E7%90%86%E6%9F%A5%E7%9C%8B.png" alt="service指令管理查看"></li>
+<li>在CentOS7.0后很多服务不再使用service，而是systemctl</li>
+</ul>
+</li>
+<li><p>systemctl管理指令</p>
+<ul>
+<li>基本语法：systemctl [start | stop | restart | status] 服务名</li>
+<li>systemctl指令管理的服务在/usr/lib/systemd/system查看</li>
+</ul>
+</li>
+<li><p>systemctl设置服务的自启动状态</p>
+<ul>
+<li>systemctl list-unit-files [| grep 服务名]，查看服务开机启动状态，grep可进行过滤</li>
+<li>==systemctl enable 服务名，设置服务开机启动==（永久生效）</li>
+<li>==systemctl disable 服务名，关闭服务开机启动==（永久生效）</li>
+<li>systemctl is-enabled 服务名，查询某个服务是否是自启动的</li>
+</ul>
+</li>
+<li><p>查看服务名</p>
+<ul>
+<li>使用setup -&gt; 系统服务就可以看到全部</li>
+<li>在/etc/init.d/下看到service指令管理的服务</li>
+</ul>
+</li>
+<li><p>chkconfig指令</p>
+<ul>
+<li>介绍<ul>
+<li>通过chkconfig指令可以给服务的各个==运行级别==设置==自启动/关闭==</li>
+<li>chkconfig指令管理的服务在/etc/init.d查看</li>
+</ul>
+</li>
+<li>基本语法<ul>
+<li>chkconfig –list [| grep xxx]</li>
+<li>chkconfig 服务名 –list</li>
+<li>chkconfig –level 5（指定级别） 服务名 on/off</li>
+</ul>
+</li>
+<li>==chkconfig重新设置服务后自启动或关闭，需重启机器生效==</li>
+</ul>
+</li>
+<li><p>打开或关闭指定端口</p>
+<ul>
+<li>在真正的生产环境，往往需要将防火墙打开，但问题在于如果我们把防火墙打开，那么外部请求数据包就不能跟服务器监听端口通讯。这时就需要打开指定的端口，如80、22、8080等</li>
+<li>firewall指令<ul>
+<li>打开端口：firewall-cmd –permanent –add-port=端口号/协议（==使用netstat -anp查看==）</li>
+<li>关闭端口：firewall-cmd –permanent –remove-port=端口号/协议</li>
+<li>重新载入才能生效：firewall-cmd –reload</li>
+<li>查询端口是否开放：firewall-cmd –query-port=端口号/协议</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="动态监控进程"><a href="#动态监控进程" class="headerlink" title="动态监控进程"></a>动态监控进程</h3><ul>
+<li><p>top与ps命令很相似，它们都是用来显示正在执行的进程。top与ps最大的不同之处在于，top在执行一段时间可以更新正在运行的进程</p>
+</li>
+<li><p>基本语法：top [选项]</p>
+</li>
+<li><p>常用选项</p>
+<ul>
+<li>-d 秒数，指定top命令每隔几秒更新，默认是3秒</li>
+<li>-i，使top不显示任何闲置或僵死进程</li>
+<li>-p，通过指定监控进程ID来仅仅监控某个进程的状态<img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/top%E6%8C%87%E4%BB%A4.png" alt="top指令"></li>
+</ul>
+</li>
+<li><p>交互操作说明</p>
+<ul>
+<li>p，以CPU使用率排序（默认就是此项）</li>
+<li>M，以内存的使用率排序</li>
+<li>N，以PID排序</li>
+<li>q，退出top</li>
+</ul>
+</li>
+<li><p>应用实例</p>
+<ul>
+<li>监控特定用户<ul>
+<li>输入top，然后输入u回车，再输入用户名</li>
+</ul>
+</li>
+<li>终止指定进程<ul>
+<li>输入top，然后输入k回车，再输入要结束的进程ID号</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="监控网络状态"><a href="#监控网络状态" class="headerlink" title="监控网络状态"></a>监控网络状态</h3><ul>
+<li><p>查看系统网络情况netstat</p>
+<ul>
+<li>基本语法：netstat [选项]</li>
+<li>选项说明<ul>
+<li>-an，按一定顺序排列输出</li>
+<li>-p，显示哪个进程在调用<img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/netstat%E6%8C%87%E4%BB%A4.png" alt="netstat指令"></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>检测主机连接命令ping</p>
+<ul>
+<li>是一种网络检测工具，它主要是用于检测远程主机是否正常，或是两部==主机间的网线或网卡==故障</li>
+<li>ping 对方IP地址</li>
 </ul>
 </li>
 </ul>
@@ -305,7 +462,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8BRPM%E4%B8%8EYUM/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -319,18 +476,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8BVi%E5%92%8CVim%E7%BC%96%E8%BE%91%E5%99%A8/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E5%AE%9E%E7%94%A8%E6%8C%87%E4%BB%A4/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          Linux实操篇之Vi和Vim编辑器
+          Linux实操篇之实用指令
         
       </div>
     </a>
   
   
-    <a href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8BLinux%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA%E3%80%81%E6%8C%82%E8%BD%BD/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Linux实操篇之Linux磁盘分区、挂载</div>
+    <a href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E5%85%B3%E6%9C%BA-%E9%87%8D%E5%90%AF%E5%91%BD%E4%BB%A4/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Linux实操篇之关机&amp;重启命令</div>
       <i class="icon-circle-right"></i>
     </a>
   
