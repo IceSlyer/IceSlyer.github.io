@@ -155,9 +155,24 @@
     <article id="post-Linux磁盘分区、挂载" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/02/21/Linux%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA%E3%80%81%E6%8C%82%E8%BD%BD/">Linux磁盘分区、挂载</a>
+    </h1>
+  
+
+        
+        <a href="/2021/02/21/Linux%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA%E3%80%81%E6%8C%82%E8%BD%BD/" class="archive-article-date">
+  	<time datetime="2021-02-20T19:35:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-21</time>
+</a>
+        
+      </header>
+    
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="Linux磁盘分区、挂载"><a href="#Linux磁盘分区、挂载" class="headerlink" title="Linux磁盘分区、挂载"></a>Linux磁盘分区、挂载</h2><h3 id="Linux分区"><a href="#Linux分区" class="headerlink" title="Linux分区"></a>Linux分区</h3><ul>
+        <h3 id="Linux分区"><a href="#Linux分区" class="headerlink" title="Linux分区"></a>Linux分区</h3><ul>
 <li>原理介绍<ul>
 <li>Linux来说无论有几个分区，分给哪一个目录使用，它归根结底就==只有一个根目录==，一个独立且唯一的文件结构，Linux中的每个分区都是用来组成整个文件系统的一部分</li>
 <li>Linux采用了一种叫”载入”的处理方法，它的整个文件系统中包含了一整套的文件和目录，且将==一个分区和一个目录==联系起来，这时要载入的一个分区将使它的存储空间在一个目录下获得</li>
