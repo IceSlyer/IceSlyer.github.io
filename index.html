@@ -152,19 +152,133 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-Linux磁盘分区、挂载" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Linux实操篇之RPM与YUM" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/02/21/Linux%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA%E3%80%81%E6%8C%82%E8%BD%BD/">Linux磁盘分区、挂载</a>
+      <a class="article-title" href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8BRPM%E4%B8%8EYUM/">Linux实操篇之RPM与YUM</a>
     </h1>
   
 
         
-        <a href="/2021/02/21/Linux%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA%E3%80%81%E6%8C%82%E8%BD%BD/" class="archive-article-date">
+        <a href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8BRPM%E4%B8%8EYUM/" class="archive-article-date">
+  	<time datetime="2021-02-20T20:48:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="rpm"><a href="#rpm" class="headerlink" title="rpm"></a>rpm</h3><ul>
+<li>rpm用于互联网下载包的打包及安装工具，它包含在某些Linux分发版中。它生成具有.RPM扩展名的文件。RPM是==RedHat Package Manager==的缩写，类似Windows的setup.exe，这一文件格式名称虽然打上了RedHat的标志，但理念是通用的。Linux的很多分发版本（suse，redhat，centos等等）都有采用，可以算是公认的行业标准了</li>
+<li>rpm包名基本格式<ul>
+<li>一个rpm包名：firefox-60.2.2-1.el7.centos.x86_64</li>
+<li>名称：firefox</li>
+<li>版本号：60.2.2-1</li>
+<li>适用操作系统：el7.centos.x86_64，表示centos7.x的64位系统；如果是i686、i386表示32位系统，noarch表示通用</li>
+</ul>
+</li>
+<li>rpm包的查询指令<ul>
+<li>rpm -qa，查询已安装的所有rpm软件包<ul>
+<li>rpm -qa | more</li>
+<li>rpm -qa | grep xxx</li>
+</ul>
+</li>
+<li>rpm -q 软件包名，查询软件包是否安装</li>
+<li>rpm -qi 软件包名，查询软件包信息</li>
+<li>rpm -ql 软件包名，查询软件包中的文件</li>
+<li>rpm -qf 文件全路径名，查询文件所属的软件包<ul>
+<li>如：rpm -qf /etc/passwd；rpm -qf /root/install.log</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>卸载rpm包<ul>
+<li>基本语法：rpm -e RPM包的名称，如：rpm -e firefox</li>
+<li>细节说明<ul>
+<li>如果其他软件包依赖于您要卸载的软件包，卸载时则会产生错误信息</li>
+<li>如果我们就是要删除这个rpm包，可以增加参数 –nodeps，就可以强制删除，但一般不推荐这样做，因为依赖于该软件包的程序可能无法运行</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>安装rpm包<ul>
+<li>基本语法：rpm -ivh RPM包全路径名称</li>
+<li>参数说明<ul>
+<li>i，install安装</li>
+<li>v，verbose提示</li>
+<li>h，hash进度条</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="yum"><a href="#yum" class="headerlink" title="yum"></a>yum</h3><ul>
+<li>yum是一个Shell前端软件包管理器。基于rpm包管理，能够==从指定的服务器自动下载RPM包==并且安装，可以自动处理依赖关系，并且一次安装所有依赖的软件包</li>
+<li>yum基本指令<ul>
+<li>yum list | grep xxx，查询yum服务器是否有需要安装的软件</li>
+<li>yum install xxx，下载安装指定的yum包</li>
+</ul>
+</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8BRPM%E4%B8%8EYUM/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Linux实操篇之Linux磁盘分区、挂载" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8BLinux%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA%E3%80%81%E6%8C%82%E8%BD%BD/">Linux实操篇之Linux磁盘分区、挂载</a>
+    </h1>
+  
+
+        
+        <a href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8BLinux%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA%E3%80%81%E6%8C%82%E8%BD%BD/" class="archive-article-date">
   	<time datetime="2021-02-20T19:35:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-21</time>
 </a>
         
@@ -279,7 +393,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/02/21/Linux%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA%E3%80%81%E6%8C%82%E8%BD%BD/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8BLinux%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA%E3%80%81%E6%8C%82%E8%BD%BD/">展开全文 >></a>
         </p>
       
 
@@ -309,19 +423,19 @@
 
 
   
-    <article id="post-Linux目录结构" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Linux基础篇之Linux目录结构" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/02/20/Linux%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84/">Linux目录结构</a>
+      <a class="article-title" href="/2021/02/20/Linux%E5%9F%BA%E7%A1%80%E7%AF%87%E4%B9%8BLinux%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84/">Linux基础篇之Linux目录结构</a>
     </h1>
   
 
         
-        <a href="/2021/02/20/Linux%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84/" class="archive-article-date">
+        <a href="/2021/02/20/Linux%E5%9F%BA%E7%A1%80%E7%AF%87%E4%B9%8BLinux%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84/" class="archive-article-date">
   	<time datetime="2021-02-19T21:18:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-20</time>
 </a>
         
@@ -438,7 +552,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/02/20/Linux%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/02/20/Linux%E5%9F%BA%E7%A1%80%E7%AF%87%E4%B9%8BLinux%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84/">展开全文 >></a>
         </p>
       
 
