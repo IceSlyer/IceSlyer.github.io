@@ -142,6 +142,96 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Linux实操篇之Vi和Vim编辑器" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8BVi%E5%92%8CVim%E7%BC%96%E8%BE%91%E5%99%A8/">Linux实操篇之Vi和Vim编辑器</a>
+    </h1>
+  
+
+        
+        <a href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8BVi%E5%92%8CVim%E7%BC%96%E8%BE%91%E5%99%A8/" class="archive-article-date">
+  	<time datetime="2021-02-20T20:52:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Vi和Vim的基本介绍"><a href="#Vi和Vim的基本介绍" class="headerlink" title="Vi和Vim的基本介绍"></a>Vi和Vim的基本介绍</h3><ul>
+<li>Linux系统会内置Vi文本编辑器</li>
+<li>Vim具有程序编辑的能力，可看作是Vi的增强版本，可以主动的以字体颜色辨别语法的正确性，方便程序设计。代码补全、编译及错误跳转等方便编程的功能特别丰富，在程序员中被广泛使用</li>
+</ul>
+<h3 id="Vi和Vim常用的三种模式"><a href="#Vi和Vim常用的三种模式" class="headerlink" title="Vi和Vim常用的三种模式"></a>Vi和Vim常用的三种模式</h3><ul>
+<li>正常模式<ul>
+<li>以Vim打开一个文档就直接进入一般模式了（这是默认模式）。在这个模式中，你可以使用【上下左右】按键来移动光标，可以使用【删除字符】或【删除整行】来处理文档内容，也可以使用【复制、粘贴】来处理你的文件数据</li>
+</ul>
+</li>
+<li>插入模式<ul>
+<li>按下i，I，o，O，a，A，r，R等任何一个字母之后才会进入编辑（插入）模式，一般来说按i即可</li>
+</ul>
+</li>
+<li>命令行模式<ul>
+<li>输入Esc，再输入:就可以进入命令行模式，在这个模式中，可以提供你相关指令，完成读取、存盘、替换、离开Vim、显示行号等的动作则是在此模式中达成的</li>
+</ul>
+</li>
+</ul>
+<h3 id="各种模式的相互切换"><a href="#各种模式的相互切换" class="headerlink" title="各种模式的相互切换"></a>各种模式的相互切换</h3><p><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/Vi%E5%92%8CVim%E7%BC%96%E8%BE%91%E5%99%A8/%E5%90%84%E7%A7%8D%E6%A8%A1%E5%BC%8F.png" alt="各种模式"></p>
+<h3 id="常用快捷键"><a href="#常用快捷键" class="headerlink" title="常用快捷键"></a>常用快捷键</h3><ul>
+<li>yy - 拷贝当前行，5yy - 拷贝当前行向下的5行，p - 粘贴</li>
+<li>dd - 删除当前行，5dd - 删除当前行向下的5行</li>
+<li>在文件中查找某个单词【命令行下 /关键字，回车查找，输入 n 查找下一个】</li>
+<li>设置文件的行号，取消文件的行号【命令行下 :set nu和 :set nonu】</li>
+<li>到文档最末行【G】和最首行【gg】</li>
+<li>u - 撤销输入的内容</li>
+</ul>
+<p><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/Vi%E5%92%8CVim%E7%BC%96%E8%BE%91%E5%99%A8/vi-vim%E9%94%AE%E7%9B%98%E5%9B%BE.png" alt="vi-vim键盘图"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8BVi%E5%92%8CVim%E7%BC%96%E8%BE%91%E5%99%A8/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Linux实操篇之RPM与YUM" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
