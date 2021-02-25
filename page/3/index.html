@@ -981,7 +981,7 @@
 </li>
 <li><p>cd</p>
 <ul>
-<li>基本用法：cd [参数]，切换到指定目录</li>
+<li>基本语法：cd [参数]，切换到指定目录</li>
 <li>cd ~或cd，回到自己家目录</li>
 <li>cd ..，回到当前目录的上一级目录</li>
 </ul>
@@ -1013,7 +1013,7 @@
 <li><p>cp</p>
 <ul>
 <li>基本语法：cp [选项] source dest，拷贝文件到指定目录</li>
-<li>常用选型<ul>
+<li>常用选项<ul>
 <li>-r，递归复制整个文件夹</li>
 </ul>
 </li>
@@ -1057,32 +1057,89 @@
 </li>
 <li><p>more</p>
 <ul>
-<li>more指令是一个基于VI编辑器的文本过滤器，它以全屏方式按页显示文本文件的内容</li>
-<li>基本语法：more 要查看的文件</li>
-<li>more指令内置的若干快捷键<ul>
-<li>空格键（space），向下翻一页</li>
-<li>Enter，向下翻一行</li>
-<li>q，立刻离开more，不再显示该文件内容</li>
-<li>Ctrl+F，向下滚动一屏</li>
-<li>Ctrl+B，返回上一屏</li>
-<li>=，输出当前行的行号</li>
-<li>:f，输出文件名和当前行号</li>
-</ul>
+<li><p>more指令是一个基于VI编辑器的文本过滤器，它以全屏方式按页显示文本文件的内容</p>
+</li>
+<li><p>基本语法：more 要查看的文件</p>
+</li>
+<li><p>more指令内置的若干快捷键</p>
+<table>
+<thead>
+<tr>
+<th align="center">快捷键</th>
+<th align="center">功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">空格键（space）</td>
+<td align="center">向下翻一页</td>
+</tr>
+<tr>
+<td align="center">Enter</td>
+<td align="center">向下翻一行</td>
+</tr>
+<tr>
+<td align="center">q</td>
+<td align="center">立刻离开more，不再显示该文件内容</td>
+</tr>
+<tr>
+<td align="center">Ctrl+F</td>
+<td align="center">向下滚动一屏</td>
+</tr>
+<tr>
+<td align="center">Ctrl+B</td>
+<td align="center">返回上一屏</td>
+</tr>
+<tr>
+<td align="center">=</td>
+<td align="center">输出当前行的行号</td>
+</tr>
+<tr>
+<td align="center">:f</td>
+<td align="center">输出文件名和当前行号</td>
+</tr>
+</tbody></table>
 </li>
 </ul>
 </li>
 <li><p>less</p>
 <ul>
-<li>less指令是用来分屏查看文件内容，他的功能与more指令类似，但是比more指令更加强大，支持各种显示终端。less在显示文件内容时，并不是一次将整个文件加载之后再显示，而是根据显示需要加载内容，对于显示大型文件具有较高的效率</li>
-<li>基本用法：less 要查看的文件</li>
-<li>快捷键<ul>
-<li>空格键，向下翻一页</li>
-<li>[pagedown]，向下翻一页</li>
-<li>[pageup]，向上翻一页</li>
-<li>/字串，向下搜寻字串；n：向下查找；N：向上查找</li>
-<li>?字串，向上搜寻字串；n：向上查找；N：向下查找</li>
-<li>q，离开less</li>
-</ul>
+<li><p>less指令是用来分屏查看文件内容，他的功能与more指令类似，但是比more指令更加强大，支持各种显示终端。less在显示文件内容时，并不是一次将整个文件加载之后再显示，而是根据显示需要加载内容，对于显示大型文件具有较高的效率</p>
+</li>
+<li><p>基本用法：less 要查看的文件</p>
+</li>
+<li><p>快捷键</p>
+<table>
+<thead>
+<tr>
+<th align="center">快捷键</th>
+<th align="center">功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">空格键（space）</td>
+<td align="center">向下翻一页</td>
+</tr>
+<tr>
+<td align="center">【pagedown】</td>
+<td align="center">向下翻一页</td>
+</tr>
+<tr>
+<td align="center">【pageup】</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">/字串</td>
+<td align="center">向下搜寻字串（n：向下查找；N：向上查找）</td>
+</tr>
+<tr>
+<td align="center">?字串</td>
+<td align="center">向上搜寻字串（n：向上查找；N：向下查找）</td>
+</tr>
+<tr>
+<td align="center">q</td>
+<td align="center">离开less</td>
+</tr>
+</tbody></table>
 </li>
 </ul>
 </li>
@@ -1119,12 +1176,10 @@
 </li>
 <li><p>基本语法</p>
 <ul>
-<li>ls -l &gt; 文件，列表的内容==覆盖==写入文件中<ul>
+<li>ls -l &gt; 文件，列表的内容==覆盖==写入文件中</li>
 <li>ls -al &gt;&gt; 文件，列表的内容追加到文件的末尾</li>
 <li>cat 文件1 &gt; 文件2，将文件1的内容覆盖到文件2</li>
 <li>echo “内容” &gt;&gt; 文件，将本应显示在控制台的“内容”追加到文件末尾</li>
-</ul>
-</li>
 </ul>
 </li>
 <li><p>ln</p>
