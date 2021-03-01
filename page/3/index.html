@@ -142,6 +142,119 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Linux之python定制篇之APT软件管理和远程登录" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/02/21/Linux%E4%B9%8Bpython%E5%AE%9A%E5%88%B6%E7%AF%87%E4%B9%8BAPT%E8%BD%AF%E4%BB%B6%E7%AE%A1%E7%90%86%E5%92%8C%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/">Linux之python定制篇之APT软件管理和远程登录</a>
+    </h1>
+  
+
+        
+        <a href="/2021/02/21/Linux%E4%B9%8Bpython%E5%AE%9A%E5%88%B6%E7%AF%87%E4%B9%8BAPT%E8%BD%AF%E4%BB%B6%E7%AE%A1%E7%90%86%E5%92%8C%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/" class="archive-article-date">
+  	<time datetime="2021-02-20T21:02:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="apt介绍"><a href="#apt介绍" class="headerlink" title="apt介绍"></a>apt介绍</h3><ul>
+<li>apt是Advanced Packaging Tool的简称，是一款==安装包管理工具==。在Ubuntu下，我们可以使用apt命令进行软件包的安装、删除、清理等，类似于Windows中的软件管理工具</li>
+<li>apt原理<img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/APT%E8%BD%AF%E4%BB%B6%E7%AE%A1%E7%90%86%E5%92%8C%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/APT%E8%BD%AF%E4%BB%B6%E7%AE%A1%E7%90%86%E5%8E%9F%E7%90%86.png" alt="APT软件管理原理"></li>
+</ul>
+<h3 id="Ubuntu软件操作的相关命令"><a href="#Ubuntu软件操作的相关命令" class="headerlink" title="Ubuntu软件操作的相关命令"></a>Ubuntu软件操作的相关命令</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update <span class="comment"># 更新源</span></span><br><span class="line">sudo apt-get install package <span class="comment"># 安装包</span></span><br><span class="line">sudo apt-get remove package <span class="comment"># 删除包</span></span><br><span class="line">sudo apt-cache search package <span class="comment"># 搜索软件包</span></span><br><span class="line">sudo apt-cache show package <span class="comment"># 获取包的相关信息，如说明、大小、版本等</span></span><br><span class="line">sudo apt-get install package --reinstall <span class="comment"># 重新安装包</span></span><br><span class="line">sudo apt-get -f install <span class="comment"># 修复安装</span></span><br><span class="line">sudo apt-get remove package --purge <span class="comment"># 删除包（包含配置文件等）</span></span><br><span class="line">sudo apt-get build-dep package <span class="comment"># 安装相关的编译环境</span></span><br><span class="line">sudo apt-get upgrade <span class="comment"># 更新已安装的包</span></span><br><span class="line">sudo apt-get dist-upgrade <span class="comment"># 升级系统</span></span><br><span class="line">sudo apt-cache depends package <span class="comment"># 了解使用该包依赖哪些包</span></span><br><span class="line">sudo apt-cache rdepends package <span class="comment"># 查看该包被哪些包依赖</span></span><br><span class="line">sudo apt-get <span class="built_in">source</span> package <span class="comment"># 下载该包的源代码</span></span><br></pre></td></tr></table></figure>
+<h3 id="更新Ubuntu软件下载源"><a href="#更新Ubuntu软件下载源" class="headerlink" title="更新Ubuntu软件下载源"></a>更新Ubuntu软件下载源</h3><ul>
+<li><p>寻找国内镜像源：<a target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/![%E6%B8%85%E5%8D%8E%E9%95%9C%E5%83%8F%E7%BD%91%E7%AB%99](https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/APT%E8%BD%AF%E4%BB%B6%E7%AE%A1%E7%90%86%E5%92%8C%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/%E6%B8%85%E5%8D%8E%E9%95%9C%E5%83%8F%E7%BD%91%E7%AB%99.png)">https://mirrors.tuna.tsinghua.edu.cn/![清华镜像网站](https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/APT%E8%BD%AF%E4%BB%B6%E7%AE%A1%E7%90%86%E5%92%8C%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/%E6%B8%85%E5%8D%8E%E9%95%9C%E5%83%8F%E7%BD%91%E7%AB%99.png)</a></p>
+</li>
+<li><p><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/APT%E8%BD%AF%E4%BB%B6%E7%AE%A1%E7%90%86%E5%92%8C%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/Ubuntu%E9%95%9C%E5%83%8F%E4%BD%BF%E7%94%A8%E5%B8%AE%E5%8A%A9.png" alt="Ubuntu镜像使用帮助"></p>
+</li>
+<li><p>备份Ubuntu默认的源地址</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak</span><br></pre></td></tr></table></figure></li>
+<li><p>更新源服务器列表</p>
+<ul>
+<li><p>先清空sources.list文件</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;&#x27;</span> &gt; sources.list</span><br></pre></td></tr></table></figure></li>
+<li><p>复制镜像网站的地址拷贝到sources.list文件</p>
+<ul>
+<li><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/APT%E8%BD%AF%E4%BB%B6%E7%AE%A1%E7%90%86%E5%92%8C%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/%E5%A4%8D%E5%88%B6%E9%95%9C%E5%83%8F%E7%BD%91%E7%AB%99%E5%9C%B0%E5%9D%80.png" alt="复制镜像网站地址"></li>
+<li><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/APT%E8%BD%AF%E4%BB%B6%E7%AE%A1%E7%90%86%E5%92%8C%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/%E6%8B%B7%E8%B4%9D%E5%88%B0sources.list%E6%96%87%E4%BB%B6.png" alt="拷贝到sources.list文件"></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>更新源</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure>
+<h3 id="远程登录Ubuntu"><a href="#远程登录Ubuntu" class="headerlink" title="远程登录Ubuntu"></a>远程登录Ubuntu</h3></li>
+<li><p>ssh介绍</p>
+<ul>
+<li>SSH为Secure Shell的缩写，由IETF的网络工作小组（Network Working Group）所制定；SSH为建立在应用层和传输层基础上的安全协议。SSH是目前较可靠，专为==远程登录会话和其他网络服务==提供安全性的协议，几乎所有UNIX/Linux平台都可以运行SSH</li>
+<li>使用SSH服务需要安装相应的服务器和客户端。如果A机器想被B机器远程控制，那么A机器需要安装SSH服务器，B机器需要安装SSH客户端</li>
+<li>和CentOS不一样，Ubuntu默认没有安装SSHD服务（==使用netstat指令查看：apt install net-tools==），因此我们不能远程登录</li>
+</ul>
+</li>
+<li><p>安装SSH和启用</p>
+<ul>
+<li><p>在当前这台Linux上就安装SSH服务端和客户端</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install openssh-server</span><br></pre></td></tr></table></figure></li>
+<li><p>启动sshd服务，会监听端口22</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service sshd restart</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>从一台Linux系统登录到另一台Linux系统（在创建服务器集群时会使用该技术）</p>
+<ul>
+<li><p>基本语法</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ssh 用户名@IP</span><br><span class="line"><span class="comment"># 例如</span></span><br><span class="line">ssh slyer@192.168.200.128</span><br></pre></td></tr></table></figure></li>
+<li><p>登出：exit或logout</p>
+</li>
+</ul>
+</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/02/21/Linux%E4%B9%8Bpython%E5%AE%9A%E5%88%B6%E7%AF%87%E4%B9%8BAPT%E8%BD%AF%E4%BB%B6%E7%AE%A1%E7%90%86%E5%92%8C%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Linux之JavaEE定制篇之搭建JavaEE环境" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -332,80 +445,149 @@
 <li>在Linux中每个文件有==所有者、所在组、其他组==的概念</li>
 </ul>
 <h3 id="文件-目录-所有者"><a href="#文件-目录-所有者" class="headerlink" title="文件/目录 所有者"></a>文件/目录 所有者</h3><ul>
-<li>一般谁创建了该文件或目录，就自然成为该文件的所有者</li>
-<li>查看文件/目录的所有者：ls -ahl</li>
-<li>修改文件/目录所有者：chown 用户名 文件/目录名</li>
-</ul>
-<h3 id="文件-目录-所在组"><a href="#文件-目录-所在组" class="headerlink" title="文件/目录 所在组"></a>文件/目录 所在组</h3><ul>
-<li>当某个用户创建了一个文件后，这个文件所在组就是该用户所在的组</li>
-<li>查看文件/目录所在组：ls -ahl</li>
-<li>修改文件/目录所在组：chgrp 组名 文件/目录名</li>
-</ul>
-<h3 id="其他组"><a href="#其他组" class="headerlink" title="其他组"></a>其他组</h3><ul>
-<li>除文件的==所有者和所在组==的用户外，系统的其他用户都是文件的其他组</li>
+<li><p>一般谁创建了该文件或目录，就自然成为该文件的所有者</p>
+</li>
+<li><p>查看文件/目录的所有者</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -ahl</span><br></pre></td></tr></table></figure></li>
+<li><p>修改文件/目录所有者</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chown 用户名 文件/目录名</span><br></pre></td></tr></table></figure>
+<h3 id="文件-目录-所在组"><a href="#文件-目录-所在组" class="headerlink" title="文件/目录 所在组"></a>文件/目录 所在组</h3></li>
+<li><p>当某个用户创建了一个文件后，这个文件所在组就是该用户所在的组</p>
+</li>
+<li><p>查看文件/目录所在组</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -ahl</span><br></pre></td></tr></table></figure></li>
+<li><p>修改文件/目录所在组</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chgrp 组名 文件/目录名</span><br></pre></td></tr></table></figure>
+<h3 id="其他组"><a href="#其他组" class="headerlink" title="其他组"></a>其他组</h3></li>
+<li><p>除文件的==所有者和所在组==的用户外，系统的其他用户都是文件的其他组</p>
+</li>
 </ul>
 <h3 id="改变用户所在组"><a href="#改变用户所在组" class="headerlink" title="改变用户所在组"></a>改变用户所在组</h3><ul>
-<li>在添加用户时，可以指定将该用户添加到哪个组中；同样地，用root的管理权限可以改变某个用户所在的组</li>
-<li>相关指令<ul>
-<li>usermod -g 新组名 用户名，改变用户所在组</li>
-<li>usermod -d 目录名 用户名，==改变用户登录的初始目录==（用户需要有进入新目录权限）</li>
-</ul>
+<li><p>在添加用户时，可以指定将该用户添加到哪个组中；同样地，用root的管理权限可以改变某个用户所在的组</p>
 </li>
-</ul>
-<h3 id="权限的基本介绍"><a href="#权限的基本介绍" class="headerlink" title="权限的基本介绍"></a>权限的基本介绍</h3><ul>
-<li>假如ls -l显示内容如下<img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E7%BB%84%E7%AE%A1%E7%90%86%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/%E6%9D%83%E9%99%90%E4%BB%8B%E7%BB%8D.png" alt="权限介绍"><ul>
-<li>第0位确定文件的类型（d，-，l，c，b）<ul>
-<li>l是链接，相当于windows的快捷方式</li>
-<li>d是目录，相当于windows的文件夹</li>
-<li>c是==字符设备==文件，鼠标、键盘</li>
-<li>b是块设备，比如硬盘</li>
-</ul>
+<li><p>相关指令</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">usermod -g 新组名 用户名 <span class="comment"># 改变用户所在组</span></span><br><span class="line">usermod -d 目录名 用户名 <span class="comment"># 改变用户登录的初始目录（用户需要有进入新目录权限）</span></span><br></pre></td></tr></table></figure>
+<h3 id="权限的基本介绍"><a href="#权限的基本介绍" class="headerlink" title="权限的基本介绍"></a>权限的基本介绍</h3></li>
+<li><p>假如ls -l显示内容如下<img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E7%BB%84%E7%AE%A1%E7%90%86%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/%E6%9D%83%E9%99%90%E4%BB%8B%E7%BB%8D.png" alt="权限介绍"></p>
+<ul>
+<li><p>第0位确定文件的类型（d，-，l，c，b）</p>
+<table>
+<thead>
+<tr>
+<th align="center">符号</th>
+<th align="center">意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-</td>
+<td align="center">文件</td>
+</tr>
+<tr>
+<td align="center">l</td>
+<td align="center">链接，相当于windows的快捷方式</td>
+</tr>
+<tr>
+<td align="center">d</td>
+<td align="center">目录，相当于windows的文件夹</td>
+</tr>
+<tr>
+<td align="center">c</td>
+<td align="center">==字符设备==文件，鼠标、键盘</td>
+</tr>
+<tr>
+<td align="center">b</td>
+<td align="center">块设备，比如硬盘</td>
+</tr>
+</tbody></table>
 </li>
-<li>第1-3位确定所有者（该文件的所有者）拥有该文件的权限 — User</li>
-<li>第4-6位确定所属组（同用户组）拥有该文件的权限 — Group</li>
-<li>第7-9位确定其他用户拥有该文件的权限 — Other</li>
+<li><p>第1-3位确定所有者（该文件的所有者）拥有该文件的权限 — User</p>
+</li>
+<li><p>第4-6位确定所属组（同用户组）拥有该文件的权限 — Group</p>
+</li>
+<li><p>第7-9位确定其他用户拥有该文件的权限 — Other</p>
+</li>
 </ul>
 </li>
 </ul>
 <h3 id="rwx权限详解"><a href="#rwx权限详解" class="headerlink" title="rwx权限详解"></a>rwx权限详解</h3><ul>
-<li>rwx作用到文件<ul>
-<li>[ r ]代表可读(read)：可以读取，查看</li>
-<li>[ w]代表可写(write)：可以修改，但是不代表可以删除该文件；删除一个文件的前提条件是对该==文件所在的目录有写权限==</li>
-<li>[ x ]代表可执行(execute)：可以被执行</li>
+<li><p>rwx作用到文件</p>
+<table>
+<thead>
+<tr>
+<th align="center">符号</th>
+<th align="center">意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">r</td>
+<td align="center">可读(read)：可以读取，查看文件</td>
+</tr>
+<tr>
+<td align="center">w</td>
+<td align="center">可写(write)：可以修改，但是不代表可以删除该文件；删除一个文件的前提条件是对该==文件所在的目录有写权限==</td>
+</tr>
+<tr>
+<td align="center">x</td>
+<td align="center">可执行(execute)：文件可以被执行</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>rwx作用到目录</p>
+<table>
+<thead>
+<tr>
+<th align="center">符号</th>
+<th align="center">意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">r</td>
+<td align="center">可以读取、查看目录内容</td>
+</tr>
+<tr>
+<td align="center">w</td>
+<td align="center">可以在目录内==创建、删除文件==，可以==重命名==目录</td>
+</tr>
+<tr>
+<td align="center">x</td>
+<td align="center">可以进入该目录</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>其他说明</p>
+<ul>
+<li><p>rwx分别可用数字表示位r=4,w=2,x=1，因此</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rwx=4+2+1=7</span><br><span class="line">rw-=4+2=6</span><br></pre></td></tr></table></figure>
+<h3 id="修改权限chmod"><a href="#修改权限chmod" class="headerlink" title="修改权限chmod"></a>修改权限chmod</h3></li>
 </ul>
 </li>
-<li>==rwx作用到目录==<ul>
-<li>[ r ]代表可读(read)：可以读取，ls查看目录内容</li>
-<li>[ w ]代表可写(write)：可以修改，对目录内==创建文件+删除文件+重命名==目录</li>
-<li>[ x ]代表可执行(execute)：可以进入该目录</li>
-</ul>
+<li><p>通过chmod指令，可以修改文件或目录的权限</p>
 </li>
-<li>其他说明：rwx分别可用数字表示位r=4,w=2,x=1，因此rwx=4+2+1=7；rw-=4+2=6</li>
-</ul>
-<h3 id="修改权限chmod"><a href="#修改权限chmod" class="headerlink" title="修改权限chmod"></a>修改权限chmod</h3><ul>
-<li>通过chmod指令，可以修改文件或目录的权限</li>
-<li>第一种方式：+、-、=变更权限（u：所有者，g：所在组，o：其他组，a：所有人）<ul>
-<li>chmod u=rwx,g=rx,o=x 文件/目录名</li>
-<li>chmod o+w 文件/目录名</li>
-<li>chmod a-x 文件/目录名</li>
-</ul>
-</li>
-<li>第二种方式：通过数字变更权限（r=4，w=2，x=1）<ul>
-<li>chmod u=rwx,g=rx,o=x 文件/目录名 等价于 ==chmod 751 文件/目录名==</li>
-</ul>
-</li>
-</ul>
-<h3 id="修改所有者chown"><a href="#修改所有者chown" class="headerlink" title="修改所有者chown"></a>修改所有者chown</h3><ul>
-<li>chown [选项] newowner 文件/目录，改变所有者</li>
-<li>chmod [选项] newowner:newgroup 文件/目录，改变所有者和所在组</li>
-<li>选项说明<ul>
-<li>-R，如果是目录，则使其下所有子文件或目录递归生效</li>
-</ul>
+<li><p>第一种方式：+、-、=变更权限（u：所有者，g：所在组，o：其他组，a：所有人）</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">chmod u=rwx,g=rx,o=x 文件/目录名</span><br><span class="line">chmod o+w 文件/目录名</span><br><span class="line">chmod a-x 文件/目录名</span><br></pre></td></tr></table></figure></li>
+<li><p>第二种方式：通过数字变更权限（r=4，w=2，x=1）</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">chmod u=rwx,g=rx,o=x 文件/目录名</span><br><span class="line"><span class="comment"># 等价于</span></span><br><span class="line">chmod 751 文件/目录名</span><br></pre></td></tr></table></figure>
+<h3 id="修改所有者chown"><a href="#修改所有者chown" class="headerlink" title="修改所有者chown"></a>修改所有者chown</h3></li>
+<li><p>改变所有者</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chown [选项] newowner 文件/目录</span><br></pre></td></tr></table></figure></li>
+<li><p>改变所有者和所在组</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chown [选项] newowner:newgroup 文件/目录</span><br></pre></td></tr></table></figure></li>
+<li><p>选项说明</p>
+<table>
+<thead>
+<tr>
+<th align="center">选项</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-R</td>
+<td align="center">如果是目录，则使其下所有子文件或目录递归生效</td>
+</tr>
+</tbody></table>
 </li>
 </ul>
-<h3 id="修改所在组chgrp"><a href="#修改所在组chgrp" class="headerlink" title="修改所在组chgrp"></a>修改所在组chgrp</h3><ul>
-<li>chgrp [-R] newgroup 文件/目录，改变所在组</li>
-</ul>
+<h3 id="修改所在组chgrp"><a href="#修改所在组chgrp" class="headerlink" title="修改所在组chgrp"></a>修改所在组chgrp</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chgrp [-R] newgroup 文件/目录 <span class="comment"># 修改所在组</span></span><br></pre></td></tr></table></figure>
 
       
 
@@ -545,104 +727,89 @@
       
         <h3 id="基本介绍"><a href="#基本介绍" class="headerlink" title="基本介绍"></a>基本介绍</h3><p>Linux系统是一个多用户多任务的操作系统，任何一个要使用系统资源的用户，都必须首先向系统管理员申请一个账号，然后以这个账号的身份进入系统</p>
 <h3 id="添加用户"><a href="#添加用户" class="headerlink" title="添加用户"></a>添加用户</h3><ul>
-<li>基本语法<ul>
-<li>useradd 用户名</li>
+<li><p>基本语法</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">useradd 用户名</span><br></pre></td></tr></table></figure></li>
+<li><p>细节说明</p>
+<ul>
+<li><p>当创建用户成功后，会自动创建和用户名同名的家目录</p>
+</li>
+<li><p>也可以通过一下指令给新创建的用户指定家目录</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">useradd -d 指定目录 新的用户名</span><br></pre></td></tr></table></figure>
+<h3 id="指定-修改密码"><a href="#指定-修改密码" class="headerlink" title="指定/修改密码"></a>指定/修改密码</h3></li>
 </ul>
 </li>
-<li>细节说明<ul>
-<li>当创建用户成功后，会自动创建和用户名同名的家目录</li>
-<li>也可以通过 useradd -d 指定目录 新的用户名，给新创建的用户指定家目录</li>
-</ul>
-</li>
-</ul>
-<h3 id="指定-修改密码"><a href="#指定-修改密码" class="headerlink" title="指定/修改密码"></a>指定/修改密码</h3><ul>
-<li>基本语法<ul>
-<li>passwd 用户名</li>
-</ul>
-</li>
-<li>补充<ul>
-<li>显示当前所在绝对路径 pwd</li>
-</ul>
-</li>
-</ul>
-<h3 id="删除用户"><a href="#删除用户" class="headerlink" title="删除用户"></a>删除用户</h3><ul>
-<li>基本语法<ul>
-<li>userdel 用户名，删除用户但保留用户主目录</li>
-<li>userdel -r 用户名，删除用户以及用户主目录</li>
-</ul>
-</li>
-<li>细节说明<ul>
+<li><p>基本语法</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">passwd 用户名</span><br></pre></td></tr></table></figure>
+<h3 id="删除用户"><a href="#删除用户" class="headerlink" title="删除用户"></a>删除用户</h3></li>
+<li><p>基本语法</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">userdel 用户名 <span class="comment"># 删除用户但保留用户主目录</span></span><br><span class="line">userdel -r 用户名 <span class="comment"># 删除用户以及用户主目录</span></span><br></pre></td></tr></table></figure></li>
+<li><p>细节说明</p>
+<ul>
 <li>是否保留用户主目录？一般情况建议保留</li>
 </ul>
 </li>
 </ul>
 <h3 id="查询用户信息"><a href="#查询用户信息" class="headerlink" title="查询用户信息"></a>查询用户信息</h3><ul>
-<li>基本语法<ul>
-<li>id 用户名</li>
-</ul>
-</li>
-<li>细节说明<ul>
+<li><p>基本语法</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id 用户名</span><br></pre></td></tr></table></figure></li>
+<li><p>细节说明</p>
+<ul>
 <li>当用户不存在时，返回无此用户</li>
 </ul>
 </li>
 </ul>
 <h3 id="切换用户"><a href="#切换用户" class="headerlink" title="切换用户"></a>切换用户</h3><ul>
-<li>介绍<ul>
-<li>在操作Linux中，如果当前用户的权限不够，可以通过 su - 指令切换到高权限用户，比如root</li>
-</ul>
+<li><p>在Linux中，如果当前用户的权限不够，可以通过 su - 指令切换到高权限用户，比如root</p>
 </li>
-<li>基本语法<ul>
-<li>su - 切换用户名</li>
-</ul>
-</li>
-<li>细节说明<ul>
+<li><p>基本语法</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">su - 切换用户名</span><br></pre></td></tr></table></figure></li>
+<li><p>细节说明</p>
+<ul>
 <li>从权限高的用户切换到权限低的用户，不需要输入密码，反之需要</li>
 <li>当需要返回到原来用户时，使用exit/logout指令</li>
 </ul>
 </li>
 </ul>
 <h3 id="查看当前用户信息"><a href="#查看当前用户信息" class="headerlink" title="查看当前用户信息"></a>查看当前用户信息</h3><ul>
-<li>基本语法<ul>
-<li>whoami / who am i</li>
-</ul>
-</li>
-</ul>
-<h3 id="用户组"><a href="#用户组" class="headerlink" title="用户组"></a>用户组</h3><ul>
-<li>介绍<ul>
+<li><p>基本语法</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">whoami</span><br><span class="line"><span class="comment"># or</span></span><br><span class="line">who am i</span><br></pre></td></tr></table></figure>
+<h3 id="用户组"><a href="#用户组" class="headerlink" title="用户组"></a>用户组</h3></li>
+<li><p>介绍</p>
+<ul>
 <li>类似于角色，系统可以对有共性的多个用户进行统一的管理</li>
 </ul>
 </li>
-<li>新增组<ul>
-<li>groupadd 组名</li>
+<li><p>新增组</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">groupadd 组名</span><br></pre></td></tr></table></figure></li>
+<li><p>删除组</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">groupdel 组名</span><br></pre></td></tr></table></figure></li>
+<li><p>增加用户时直接加上组</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">useradd -g 用户组 用户名</span><br></pre></td></tr></table></figure></li>
+<li><p>修改用户的组</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">usermod -g 用户组 用户名</span><br></pre></td></tr></table></figure>
+<h3 id="用户和组相关的文件"><a href="#用户和组相关的文件" class="headerlink" title="用户和组相关的文件"></a>用户和组相关的文件</h3></li>
+<li><p>/etc/passwd文件</p>
+<ul>
+<li><p>用户（user）的配置文件，记录用户的各种信息</p>
+</li>
+<li><p>每行含义</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">用户名:口令:用户标识号:组标识号:注释性描述:主目录:登录Shell</span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
-<li>删除组<ul>
-<li>groupdel 组名</li>
+<li><p>/etc/shadow 文件</p>
+<ul>
+<li><p>口令的配置文件</p>
+</li>
+<li><p>每行含义</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">登录名:加密口令:最后一次修改时间:最小时间间隔:最大时间间隔:警告时间:不活动时间:失效时间:标志</span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
-<li>增加用户时直接加上组<ul>
-<li>useradd -g 用户组 用户名</li>
-</ul>
+<li><p>/etc/group文件</p>
+<ul>
+<li><p>组（group）的配置文件，记录Linux包含的组的信息</p>
 </li>
-<li>修改用户的组<ul>
-<li>usermod -g 用户组 用户名</li>
-</ul>
-</li>
-</ul>
-<h3 id="用户和组相关的文件"><a href="#用户和组相关的文件" class="headerlink" title="用户和组相关的文件"></a>用户和组相关的文件</h3><ul>
-<li>/etc/passwd文件<ul>
-<li>用户（user）的配置文件，记录用户的各种信息</li>
-<li>每行含义：用户名:口令:用户标识号:组标识号:注释性描述:主目录:登录Shell</li>
-</ul>
-</li>
-<li>/etc/shadow 文件<ul>
-<li>口令的配置文件</li>
-<li>每行含义：登录名:加密口令:最后一次修改时间:最小时间间隔:最大时间间隔:警告时间:不活动时间:失效时间:标志</li>
-</ul>
-</li>
-<li>/etc/group文件<ul>
-<li>组（group）的配置文件，记录Linux包含的组的信息</li>
-<li>每行含义：组名:口令:组标识号:组内用户列表</li>
+<li><p>每行含义</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">组名:口令:组标识号:组内用户列表</span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
 </ul>
@@ -793,25 +960,22 @@
 </ul>
 <p><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/%E8%87%AA%E5%8A%A8%E8%8E%B7%E5%8F%96IP.png" alt="自动获取IP"></p>
 <ul>
-<li>第二种方法（指定ip）<ul>
-<li>直接修改配置文件来指定IP，并可以连接到外网<ul>
-<li>编辑：vi /etc/sysconfig/network-scripts/ifcfg-ens33</li>
-<li>要求：将IP地址配置成静态的</li>
-</ul>
-</li>
-<li>ifcfg-ens33文件说明<ul>
+<li><p>第二种方法（指定ip）</p>
+<ul>
+<li><p>直接修改配置文件来指定IP，并可以连接到外网</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 要求：将IP地址配置成静态的</span></span><br><span class="line">vi /etc/sysconfig/network-scripts/ifcfg-ens33</span><br></pre></td></tr></table></figure></li>
+<li><p>ifcfg-ens33文件说明</p>
+<ul>
 <li><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/ifcfg-ens33%E6%96%87%E4%BB%B6%E8%AF%B4%E6%98%8E.png" alt="ifcfg-ens33文件说明"></li>
 </ul>
 </li>
-<li>重启网络服务或者重启系统生效<ul>
-<li>service network restart</li>
-<li>reboot</li>
+<li><p>重启网络服务或者重启系统生效</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart network.service</span><br><span class="line">reboot</span><br></pre></td></tr></table></figure>
+<h3 id="设置主机名和hosts映射"><a href="#设置主机名和hosts映射" class="headerlink" title="设置主机名和hosts映射"></a>设置主机名和hosts映射</h3></li>
 </ul>
 </li>
 </ul>
-</li>
-</ul>
-<h3 id="设置主机名和hosts映射"><a href="#设置主机名和hosts映射" class="headerlink" title="设置主机名和hosts映射"></a>设置主机名和hosts映射</h3><h4 id="设置主机名"><a href="#设置主机名" class="headerlink" title="设置主机名"></a>设置主机名</h4><ul>
+<h4 id="设置主机名"><a href="#设置主机名" class="headerlink" title="设置主机名"></a>设置主机名</h4><ul>
 <li>为了方便记忆，可以给Linux系统设置主机名，也可以根据需要修改主机名</li>
 <li>指令hostname：查看主机名</li>
 <li>在/etc/hostname文件中修改主机名，修改后重启生效</li>
@@ -834,14 +998,14 @@
 <li>它是互联网上作为==域名和IP地址==互相映射的一个分布式数据库</li>
 </ul>
 <h4 id="应用实例：用户在浏览器输入了www-baidu-com"><a href="#应用实例：用户在浏览器输入了www-baidu-com" class="headerlink" title="应用实例：用户在浏览器输入了www.baidu.com"></a>应用实例：用户在浏览器输入了<a target="_blank" rel="noopener" href="http://www.baidu.com/">www.baidu.com</a></h4><ul>
-<li>浏览器先检查浏览器缓存中有没有该域名解析IP地址，有就先调用这个IP完成解析；如果没有，则检查操作系统DNS解析器缓存，如果有直接返回IP完成解析。这两个缓存可以理解为==本地解析器缓存==</li>
-<li>一般来说，当电脑第一次成功访问某一网站后，在一定时间内浏览器或操作系统会缓存它的IP地址（DNS解析记录）。可以在cmd窗口输入<ul>
-<li>ipconfig /displaydns，DNS域名解析缓存</li>
-<li>ipconfig /flushdns，手动清理dns缓存</li>
-</ul>
+<li><p>浏览器先检查浏览器缓存中有没有该域名解析IP地址，有就先调用这个IP完成解析；如果没有，则检查操作系统DNS解析器缓存，如果有直接返回IP完成解析。这两个缓存可以理解为==本地解析器缓存==</p>
 </li>
-<li>如果本地解析器缓存没有找到对应映射，则检查系统中hosts文件中有没有配置对应的域名IP映射，如果有则完成解析并返回</li>
-<li>如果以上均为找到对应的IP，则到域名服务DNS进行解析域；若还未找到则提示域名不存在</li>
+<li><p>一般来说，当电脑第一次成功访问某一网站后，在一定时间内浏览器或操作系统会缓存它的IP地址（DNS解析记录）。可以在cmd窗口输入</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># DNS域名解析缓存</span></span><br><span class="line">ipconfig /displaydns</span><br><span class="line"></span><br><span class="line"><span class="comment"># 手动清理dns缓存</span></span><br><span class="line">ipconfig /flushdns</span><br></pre></td></tr></table></figure></li>
+<li><p>如果本地解析器缓存没有找到对应映射，则检查系统中hosts文件中有没有配置对应的域名IP映射，如果有则完成解析并返回</p>
+</li>
+<li><p>如果以上均为找到对应的IP，则到域名服务DNS进行解析域；若还未找到则提示域名不存在</p>
+</li>
 </ul>
 
       
@@ -907,31 +1071,57 @@
       
         <h3 id="指定运行级别"><a href="#指定运行级别" class="headerlink" title="指定运行级别"></a>指定运行级别</h3><ul>
 <li><p>运行级别说明</p>
-<ul>
-<li>0：关机</li>
-<li>1：单用户【找回丢失密码】</li>
-<li>2：多用户状态没有网络服务【很少用到】</li>
-<li>3：多用户状态有网络服务【不带图形界面，用的最多】</li>
-<li>4：系统未使用保留给用户</li>
-<li>5：图形界面</li>
-<li>6：系统重启</li>
-</ul>
-<p>常用运行级别是3和5，也可以指定默认运行级别，切换命令：init [0123456]</p>
-</li>
+<table>
+<thead>
+<tr>
+<th align="center">级别</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">0</td>
+<td align="center">关机</td>
+</tr>
+<tr>
+<td align="center">1</td>
+<td align="center">单用户【找回丢失密码】</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="center">多用户状态没有网络服务【很少用到】</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="center">多用户状态有网络服务【不带图形界面，用的最多】</td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td align="center">系统未使用保留给用户</td>
+</tr>
+<tr>
+<td align="center">5</td>
+<td align="center">图形界面</td>
+</tr>
+<tr>
+<td align="center">6</td>
+<td align="center">系统重启</td>
+</tr>
+</tbody></table>
+<p>==常用运行级别是3和5==，也可以指定默认运行级别，切换命令</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">init [0123456]</span><br></pre></td></tr></table></figure></li>
 <li><p>查看当前运行级别</p>
-<ul>
-<li>systemctl get-default</li>
-</ul>
-</li>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl get-default</span><br></pre></td></tr></table></figure></li>
 <li><p>设置运行级别</p>
 <ul>
-<li>systemctl set-default multi-user.target，指定运行级别是3</li>
-<li>systemctl set-default graphical.target，指定运行级别是5</li>
+<li><p>指定运行级别是3</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl set-default multi-user.target</span><br></pre></td></tr></table></figure></li>
+<li><p>指定运行级别是5</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl set-default graphical.target</span><br></pre></td></tr></table></figure>
+<h3 id="找回root密码"><a href="#找回root密码" class="headerlink" title="找回root密码"></a>找回root密码</h3></li>
 </ul>
 </li>
-</ul>
-<h3 id="找回root密码"><a href="#找回root密码" class="headerlink" title="找回root密码"></a>找回root密码</h3><ul>
-<li>首先，启动系统进入开机界面，在界面中按“e”进入编辑界面，如图</li>
+<li><p>首先，启动系统进入开机界面，在界面中按“e”进入编辑界面，如图</p>
+</li>
 </ul>
 <p><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E5%AE%9E%E7%94%A8%E6%8C%87%E4%BB%A4/%E5%90%AF%E5%8A%A8%E7%95%8C%E9%9D%A2.png" alt="启动界面"></p>
 <ul>
@@ -944,7 +1134,7 @@
 <li><p>接着在光标闪烁的位置输入：mount -o remount,rw /（注意，各个单词之间有空格），完成后按键盘的回车键（Enter），如图</p>
 <p><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E5%AE%9E%E7%94%A8%E6%8C%87%E4%BB%A4/%E8%BE%93%E5%91%BD%E4%BB%A41.png" alt="输命令1"></p>
 </li>
-<li><p>在新的一行最后面输入：passwd，完成后按键盘的回车键（Enter），输入密码，然后再次确认密码即可。密码修改成功后，会显示passwd….样式，说明密码修改成功，如图</p>
+<li><p>在新的一行最后面输入：passwd，完成后按键盘的回车键（Enter），输入密码，然后再次确认密码即可。密码修改成功后，会显示passwd: xxx successfully样式，说明密码修改成功，如图</p>
 <p><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E5%AE%9E%E7%94%A8%E6%8C%87%E4%BB%A4/%E8%BE%93%E5%91%BD%E4%BB%A42.png" alt="输命令2"></p>
 </li>
 <li><p>接着在鼠标闪烁的位置输入：touch /.autorelabel，完成后按键盘的回车键（Enter）</p>
@@ -953,103 +1143,144 @@
 </li>
 </ul>
 <h3 id="帮助指令"><a href="#帮助指令" class="headerlink" title="帮助指令"></a>帮助指令</h3><ul>
-<li>man 获得帮助信息<ul>
-<li>基本语法：man [命令或配置文件]</li>
-</ul>
-</li>
-<li>help指令<ul>
-<li>基本语法：help 命令（获得shell内置命令的帮助信息）</li>
-</ul>
-</li>
-</ul>
-<h3 id="文件目录类指令"><a href="#文件目录类指令" class="headerlink" title="文件目录类指令"></a>文件目录类指令</h3><ul>
+<li><p>man 获得帮助信息</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">man [命令或配置文件]</span><br></pre></td></tr></table></figure></li>
+<li><p>help指令</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">help</span> 命令 <span class="comment"># 获得shell内置命令的帮助信息</span></span><br></pre></td></tr></table></figure>
+<h3 id="文件目录类指令"><a href="#文件目录类指令" class="headerlink" title="文件目录类指令"></a>文件目录类指令</h3></li>
 <li><p>pwd</p>
-<ul>
-<li>基本语法：pwd，显示当前工作目录的绝对路径</li>
-</ul>
-</li>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">pwd</span> <span class="comment"># 显示当前工作目录的绝对路径</span></span><br></pre></td></tr></table></figure></li>
 <li><p>ls</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls [选项] [目录或文件]</span><br></pre></td></tr></table></figure>
 <ul>
-<li>基本语法：ls [选项] [目录或文件]</li>
-<li>常用选项<ul>
-<li>-a，显示当前目录所有的文件和目录，包括隐藏的</li>
-<li>-l，以列表的方式显示信息</li>
-<li>-lh，以人能理解的方式显示</li>
-</ul>
+<li><p>常用选项</p>
+<table>
+<thead>
+<tr>
+<th align="center">选项</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-a</td>
+<td align="center">显示当前目录所有的文件和目录，包括隐藏的</td>
+</tr>
+<tr>
+<td align="center">-l</td>
+<td align="center">以列表的方式显示信息</td>
+</tr>
+<tr>
+<td align="center">-lh</td>
+<td align="center">以人能理解的方式显示</td>
+</tr>
+</tbody></table>
 </li>
 </ul>
 </li>
 <li><p>cd</p>
-<ul>
-<li>基本语法：cd [参数]，切换到指定目录</li>
-<li>cd ~或cd，回到自己家目录</li>
-<li>cd ..，回到当前目录的上一级目录</li>
-</ul>
-</li>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> [参数] <span class="comment"># 切换到指定目录</span></span><br><span class="line"><span class="built_in">cd</span> ~ or <span class="built_in">cd</span> <span class="comment"># 回到自己家目录</span></span><br><span class="line"><span class="built_in">cd</span> .. <span class="comment"># 回到当前目录的上一级目录</span></span><br></pre></td></tr></table></figure></li>
 <li><p>mkdir</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir [选项] 目录</span><br></pre></td></tr></table></figure>
 <ul>
-<li>基本语法：mkdir [选项] 要创建的目录</li>
-<li>常用选项<ul>
-<li>-p，创建多级目录</li>
-</ul>
+<li><p>常用选项</p>
+<table>
+<thead>
+<tr>
+<th align="center">选项</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-p</td>
+<td align="center">创建多级目录</td>
+</tr>
+</tbody></table>
 </li>
 </ul>
 </li>
 <li><p>rmdir</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rmdir [选项] 要删除的空目录</span><br></pre></td></tr></table></figure>
 <ul>
-<li>基本语法：rmdir [选项] 要删除的空目录</li>
-<li>使用细节<ul>
-<li>rmdir删除的是空目录，如果目录里面有内容是无法删除的</li>
-<li>如果需要删除非空目录，使用命令：rm -rf 要删除的目录</li>
+<li><p>使用细节</p>
+<ul>
+<li><p>rmdir删除的是空目录，如果目录里面有内容是无法删除的</p>
+</li>
+<li><p>如果需要删除非空目录，使用命令</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -rf 要删除的目录</span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
 </ul>
 </li>
 <li><p>touch</p>
-<ul>
-<li>基本语法：touch 文件名称，创建一个空文件</li>
-</ul>
-</li>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">touch 文件名 <span class="comment"># 创建一个空文件</span></span><br></pre></td></tr></table></figure></li>
 <li><p>cp</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp [选项] <span class="built_in">source</span> dest <span class="comment"># 拷贝文件到指定目录</span></span><br></pre></td></tr></table></figure>
 <ul>
-<li>基本语法：cp [选项] source dest，拷贝文件到指定目录</li>
-<li>常用选项<ul>
-<li>-r，递归复制整个文件夹</li>
-</ul>
+<li><p>常用选项</p>
+<table>
+<thead>
+<tr>
+<th align="center">选项</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-r</td>
+<td align="center">递归复制整个文件夹</td>
+</tr>
+</tbody></table>
 </li>
-<li>使用细节<ul>
+<li><p>使用细节</p>
+<ul>
 <li>强制覆盖不提示的方法：\cp</li>
 </ul>
 </li>
 </ul>
 </li>
 <li><p>rm</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm [选项] 要删除的文件或目录</span><br></pre></td></tr></table></figure>
 <ul>
-<li>基本语法：rm [选项] 要删除的文件或目录</li>
-<li>常用选项<ul>
-<li>-r，递归删除整个文件夹</li>
-<li>-f，强制删除不提示</li>
-</ul>
+<li><p>常用选项</p>
+<table>
+<thead>
+<tr>
+<th align="center">选项</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-r</td>
+<td align="center">递归删除整个文件夹</td>
+</tr>
+<tr>
+<td align="center">-f</td>
+<td align="center">强制删除不提示</td>
+</tr>
+</tbody></table>
 </li>
 </ul>
 </li>
 <li><p>mv</p>
-<ul>
-<li>基本语法<ul>
-<li>mv oldNmaeFile newNameFile，重命名</li>
-<li>mv /temp/movefile /targetFolder，移动文件</li>
-</ul>
-</li>
-</ul>
-</li>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mv oldNmaeFile newNameFile <span class="comment"># 重命名</span></span><br><span class="line">mv /temp/movefile /targetFolder <span class="comment"># 移动文件</span></span><br></pre></td></tr></table></figure></li>
 <li><p>cat</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat [选项] 要查看的文件</span><br></pre></td></tr></table></figure>
 <ul>
-<li>基本语法：cat [选项] 要查看的文件</li>
-<li>常用选项<ul>
-<li>-n，显示行号</li>
-</ul>
+<li><p>常用选项</p>
+<table>
+<thead>
+<tr>
+<th align="center">选项</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-n</td>
+<td align="center">显示行号</td>
+</tr>
+</tbody></table>
 </li>
-<li>使用细节<ul>
+<li><p>使用细节</p>
+<ul>
 <li>cat只能浏览文件，而无法修改文件，为了浏览方便一般会带上管道命令 | more</li>
 </ul>
 </li>
@@ -1057,10 +1288,10 @@
 </li>
 <li><p>more</p>
 <ul>
-<li><p>more指令是一个基于VI编辑器的文本过滤器，它以全屏方式按页显示文本文件的内容</p>
+<li><p>more指令是一个基于VI编辑器的==文本过滤器==，它以全屏方式按页显示文本文件的内容</p>
 </li>
-<li><p>基本语法：more 要查看的文件</p>
-</li>
+<li><p>基本用法</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">more 要查看的文件</span><br></pre></td></tr></table></figure></li>
 <li><p>more指令内置的若干快捷键</p>
 <table>
 <thead>
@@ -1105,8 +1336,8 @@
 <ul>
 <li><p>less指令是用来分屏查看文件内容，他的功能与more指令类似，但是比more指令更加强大，支持各种显示终端。less在显示文件内容时，并不是一次将整个文件加载之后再显示，而是根据显示需要加载内容，对于显示大型文件具有较高的效率</p>
 </li>
-<li><p>基本用法：less 要查看的文件</p>
-</li>
+<li><p>基本用法</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">less 要查看的文件</span><br></pre></td></tr></table></figure></li>
 <li><p>快捷键</p>
 <table>
 <thead>
@@ -1145,162 +1376,204 @@
 </li>
 <li><p>echo</p>
 <ul>
-<li>echo输出内容到控制台</li>
-<li>基本语法：echo [选项] [输出内容]，例如：echo $PATH，echo “hello world”</li>
+<li><p>echo输出内容到控制台</p>
+</li>
+<li><p>基本语法</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> [选项] [输出内容]</span><br><span class="line"><span class="comment"># 例如</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$PATH</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;hello world&quot;</span></span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
 <li><p>head</p>
 <ul>
-<li>head用于显示文件的开头部分内容，默认情况下显示文件的前10行内容</li>
-<li>基本语法<ul>
-<li>head 文件，查看文件前10行内容</li>
-<li>head -n 5 文件，查看文件前5行内容</li>
-</ul>
+<li><p>head用于显示文件的开头部分内容，默认情况下显示文件的前10行内容</p>
 </li>
+<li><p>基本语法</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">head 文件 <span class="comment"># 查看文件前10行内容</span></span><br><span class="line">head -n 5 文件 <span class="comment"># 查看文件前5行内容</span></span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
 <li><p>tail</p>
 <ul>
-<li>tail用于显示文件的尾部部分内容，默认情况下显示文件的尾10行内容</li>
-<li>基本语法<ul>
-<li>tail 文件，查看文件尾10行内容</li>
-<li>tail -n 5 文件，查看文件尾5行内容</li>
-<li>tail -f 文件，实时追踪该文件的所有更新</li>
-</ul>
+<li><p>tail用于显示文件的尾部部分内容，默认情况下显示文件的尾10行内容</p>
 </li>
+<li><p>基本语法</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tail 文件 <span class="comment"># 查看文件尾10行内容</span></span><br><span class="line">tail -n 5 文件 <span class="comment"># 查看文件尾5行内容</span></span><br><span class="line">tail -f 文件 <span class="comment"># 实时追踪该文件的所有更新</span></span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
 <li><p>&gt;和&gt;&gt;</p>
-</li>
-<li><p>&gt;输出重定向，&gt;&gt;追加</p>
-</li>
-<li><p>基本语法</p>
 <ul>
-<li>ls -l &gt; 文件，列表的内容==覆盖==写入文件中</li>
-<li>ls -al &gt;&gt; 文件，列表的内容追加到文件的末尾</li>
-<li>cat 文件1 &gt; 文件2，将文件1的内容覆盖到文件2</li>
-<li>echo “内容” &gt;&gt; 文件，将本应显示在控制台的“内容”追加到文件末尾</li>
+<li>&gt;输出重定向，&gt;&gt;追加</li>
 </ul>
 </li>
+<li><p>基本语法</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ls -l &gt; 文件 <span class="comment"># 列表的内容覆盖写入文件中</span></span><br><span class="line">ls -al &gt;&gt; 文件 <span class="comment"># 列表的内容追加到文件的末尾</span></span><br><span class="line">cat 文件1 &gt; 文件2 <span class="comment"># 将文件1的内容覆盖到文件2</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;内容&quot;</span> &gt;&gt; 文件 <span class="comment"># 将本应显示在控制台的“内容”追加到文件末尾</span></span><br></pre></td></tr></table></figure></li>
 <li><p>ln</p>
 <ul>
-<li>软链接也叫符号链接，类似于Windows里面的快捷方式，主要存放了链接其他文件的路径</li>
-<li>基本语法：ln -s [原文件或目录] [软链接名]，给原文件创建一个软链接</li>
+<li><p>软链接也叫符号链接，类似于Windows里面的快捷方式，主要存放了链接其他文件的路径</p>
+</li>
+<li><p>基本语法</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln -s [原文件或目录] [软链接名] <span class="comment"># 给原文件创建一个软链接</span></span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
 <li><p>history</p>
 <ul>
-<li>查看已经执行过的历史指令，也可以执行历史指</li>
-<li>基本语法<ul>
-<li>history，查看所有历史指令</li>
-<li>history 10，查看最近的10个历史指令</li>
-<li>!编号，执行某个历史编号指令</li>
+<li><p>查看已经执行过的历史指令，也可以执行历史指令</p>
+</li>
+<li><p>基本语法</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">history</span> <span class="comment"># 查看所有历史指令</span></span><br><span class="line"><span class="built_in">history</span> 10 <span class="comment"># 查看最近的10个历史指令</span></span><br><span class="line">!编号 <span class="comment"># 执行某个历史编号指令</span></span><br></pre></td></tr></table></figure>
+<h3 id="时间日期类指令"><a href="#时间日期类指令" class="headerlink" title="时间日期类指令"></a>时间日期类指令</h3></li>
 </ul>
+</li>
+<li><p>date</p>
+<ul>
+<li><p>显示当前日期</p>
+</li>
+<li><p>基本语法</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">date <span class="comment"># 显示当前时间</span></span><br><span class="line">date +%Y <span class="comment"># 显示当前年份</span></span><br><span class="line">date +%m <span class="comment"># 显示当前月份</span></span><br><span class="line">date +%d <span class="comment"># 显示当前是哪一天</span></span><br><span class="line">date <span class="string">&quot;+%Y-%m-%d %H:%M:%S&quot;</span> <span class="comment"># 显示年月日时分秒</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>date</p>
+<ul>
+<li><p>设置日期</p>
+</li>
+<li><p>基本语法</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">date -s 字符串时间</span><br><span class="line"><span class="comment"># 例如</span></span><br><span class="line">date -s <span class="string">&quot;2020-1-1 20:01:01&quot;</span></span><br></pre></td></tr></table></figure>
+
 </li>
 </ul>
 </li>
+<li><p>cal</p>
+<ul>
+<li><p>查看日历</p>
+</li>
+<li><p>基本语法</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cal [选项] <span class="comment"># 不加选项显示本月日历</span></span><br><span class="line"><span class="comment"># 若要显示2020日历，则是</span></span><br><span class="line">cal 2020</span><br></pre></td></tr></table></figure>
+<h3 id="搜索查找类"><a href="#搜索查找类" class="headerlink" title="搜索查找类"></a>搜索查找类</h3></li>
 </ul>
-<h3 id="时间日期类指令"><a href="#时间日期类指令" class="headerlink" title="时间日期类指令"></a>时间日期类指令</h3><ul>
-<li>date<ul>
-<li>显示当前日期</li>
-<li>基本语法<ul>
-<li>date，显示当前时间</li>
-<li>date +%Y，显示当前年份</li>
-<li>date +%m，显示当前月份</li>
-<li>date +%d，显示当前是哪一天</li>
-<li>date “+%Y-%m-%d %H:%M:%S”，显示年月日时分秒</li>
+</li>
+<li><p>find</p>
+<ul>
+<li><p>find指令将从指定目录向下递归地遍历其各个子目录，将满足条件的文件或目录显示在终端</p>
+</li>
+<li><p>基本语法</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find [搜索范围] [选项]</span><br></pre></td></tr></table></figure></li>
+<li><p>选项说明</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">-name &lt;查询方式&gt; <span class="comment"># 按照指定的文件名查找模式查找文件</span></span><br><span class="line"><span class="comment"># 例如</span></span><br><span class="line">find /home -name hello.txt</span><br><span class="line"></span><br><span class="line">-user &lt;用户名&gt; <span class="comment"># 查找属于指定用户名的所有文件</span></span><br><span class="line"><span class="comment"># 例如</span></span><br><span class="line">find /opt -user root</span><br><span class="line"></span><br><span class="line">-size &lt;文件大小&gt; <span class="comment"># 按照指定的文件大小查找文件</span></span><br><span class="line"><span class="comment"># 例如</span></span><br><span class="line">find / -size +(-)200M(k,G) <span class="comment"># 从整个系统下查找大于（小于）200M(k,G)的文件</span></span><br></pre></td></tr></table></figure></li>
 </ul>
+</li>
+<li><p>locate</p>
+<ul>
+<li><p>locate指令可以==快速定位文件路径==。该指令利用事先建立的系统中所有文件名称及路径的locate数据库实现快速定位给定的文件。locate指令无需遍历整个文件系统，查询速度较快。为了保证查询结果的准确度，管理员必须定期更新locate时刻</p>
+</li>
+<li><p>基本语法</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">locate 搜索文件</span><br></pre></td></tr></table></figure></li>
+<li><p>特别说明：由于locate指令基于数据库进行查询，所以第一次运行前，必须使用updatedb指令创建locate数据库</p>
 </li>
 </ul>
 </li>
-<li>date<ul>
-<li>设置日期</li>
-<li>基本语法：date -s 字符串时间，如date -s “2020-1-1 20:01:01”</li>
+<li><p>which</p>
+<ul>
+<li><p>查看某个指令在哪个目录下</p>
+</li>
+<li><p>基本语法</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">which</span> 指令</span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
-<li>cal<ul>
-<li>查看日历</li>
-<li>基本语法：cal [选项]，不加选项显示本月日历；若要显示2020日历，则是：cal 2020</li>
-</ul>
+<li><p>grep</p>
+<ul>
+<li><p>grep指令过滤查找，通常结合管道符号”|”使用，表示将前一个命令的处理结果输出传递给后面的命令处理</p>
 </li>
-</ul>
-<h3 id="搜索查找类"><a href="#搜索查找类" class="headerlink" title="搜索查找类"></a>搜索查找类</h3><ul>
-<li>find<ul>
-<li>find指令将从指定目录向下递归地遍历其各个子目录，将满足条件的文件或目录显示在终端</li>
-<li>基本语法：find [搜索范围] [选项]</li>
-<li>选项说明<ul>
-<li>-name&lt;查询方式&gt;，按照指定的文件名查找模式查找文件<ul>
-<li>如：find /home -name hello.txt</li>
-</ul>
-</li>
-<li>-user&lt;用户名&gt;，查找属于指定用户名的所有文件<ul>
-<li>如：find /opt -user root</li>
-</ul>
-</li>
-<li>-size&lt;文件大小&gt;，按照指定的文件大小查找文件<ul>
-<li>如：find / -size +(-)200M(k,G)，从整个系统下查找大于（小于）200M(k,G)的文件</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>locate<ul>
-<li>locate指令可以快速定位文件路径。该指令利用事先建立的系统中所有文件名称及路径的locate数据库实现快速定位给定的文件。locate指令无需遍历整个文件系统，查询速度较快。为了保证查询结果的准确度，管理员必须定期更新locate时刻</li>
-<li>基本语法：locate 搜索文件</li>
-<li>特别说明：由于locate指令基于数据库进行查询，所以第一次运行前，必须使用updatedb指令创建locate数据库</li>
-</ul>
-</li>
-<li>which<ul>
-<li>查看某个指令在哪个目录下</li>
-<li>基本语法：which 指令</li>
-</ul>
-</li>
-<li>grep<ul>
-<li>grep指令过滤查找，通常结合管道符号”|”使用，表示将前一个命令的处理结果输出传递给后面的命令处理</li>
-<li>基本语法：grep [选项] 查找内容 源文件</li>
-<li>常用选项<ul>
-<li>-n，显示匹配行及行号</li>
-<li>-i，忽略字母大小写</li>
-</ul>
+<li><p>基本语法</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep [选项] 查找内容 源文件</span><br></pre></td></tr></table></figure></li>
+<li><p>常用选项</p>
+<table>
+<thead>
+<tr>
+<th align="center">选项</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-n</td>
+<td align="center">显示匹配行及行号</td>
+</tr>
+<tr>
+<td align="center">-i</td>
+<td align="center">忽略字母大小写</td>
+</tr>
+</tbody></table>
 </li>
 </ul>
 </li>
 </ul>
 <h3 id="压缩和解压类指令"><a href="#压缩和解压类指令" class="headerlink" title="压缩和解压类指令"></a>压缩和解压类指令</h3><ul>
-<li>gzip/gunzip<ul>
-<li>gzip用于压缩文件，gunzip用于解压文件</li>
-<li>基本语法<ul>
-<li>gzip 文件，压缩文件，只能将文件压缩成*.gz文件</li>
-<li>gunzip 文件.gz，解压文件</li>
+<li><p>gzip/gunzip</p>
+<ul>
+<li><p>gzip用于压缩文件，gunzip用于解压文件</p>
+</li>
+<li><p>基本语法</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gzip 文件 <span class="comment"># 压缩文件，只能将文件压缩成*.gz文件</span></span><br><span class="line">gunzip 文件.gz <span class="comment"># 解压文件</span></span><br></pre></td></tr></table></figure></li>
 </ul>
+</li>
+<li><p>zip/unzip</p>
+<ul>
+<li><p>在项目打包发布中很有用</p>
+</li>
+<li><p>基本语法</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">zip [选项] xxx.zip 将要压缩的内容 <span class="comment"># 压缩文件和目录</span></span><br><span class="line">unzip [选项] xxx.zip <span class="comment"># 解压文件</span></span><br></pre></td></tr></table></figure></li>
+<li><p>常用选项</p>
+<table>
+<thead>
+<tr>
+<th align="center">选项</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-r</td>
+<td align="center">递归压缩，即压缩目录（zip）</td>
+</tr>
+<tr>
+<td align="center">-d &lt;目录&gt;</td>
+<td align="center">指定解压后文件的存放目录（unzip）</td>
+</tr>
+</tbody></table>
 </li>
 </ul>
 </li>
-<li>zip/unzip<ul>
-<li>在项目打包发布中很有用</li>
-<li>基本语法<ul>
-<li>zip [选项] xxx.zip 将要压缩的内容，压缩文件和目录</li>
-<li>unzip [选项] xxx.zip，解压文件</li>
-</ul>
+<li><p>tar</p>
+<ul>
+<li><p>tar指令==即可以打包压缩也可以解压==，最后打包的文件是.tar.gz文件</p>
 </li>
-<li>常用选项<ul>
-<li>-r，递归压缩，即压缩目录（zip）</li>
-<li>-d&lt;目录&gt;，指定解压后文件的存放目录（unzip）</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>tar<ul>
-<li>tar指令==即可以打包压缩也可以解压==，最后打包的文件是.tar.gz文件</li>
-<li>基本语法：tar [选项] xxx.tar.gz 打包的内容，打包目录或文件，压缩后的文件格式.tar.gz</li>
-<li>选项说明<ul>
-<li>-c，产生.tar打包文件</li>
-<li>-v，显示详细信息</li>
-<li>-f，指定压缩后的文件名</li>
-<li>-z，打包同时压缩</li>
-<li>-x，解包.tar文件</li>
-</ul>
+<li><p>基本语法</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar [选项] xxx.tar.gz 打包的内容 <span class="comment"># 打包目录或文件，压缩后的文件格式.tar.gz</span></span><br></pre></td></tr></table></figure></li>
+<li><p>选项说明</p>
+<table>
+<thead>
+<tr>
+<th align="center">选项</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-c</td>
+<td align="center">产生.tar打包文件</td>
+</tr>
+<tr>
+<td align="center">-v</td>
+<td align="center">显示详细信息</td>
+</tr>
+<tr>
+<td align="center">-f</td>
+<td align="center">指定压缩后的文件名</td>
+</tr>
+<tr>
+<td align="center">-z</td>
+<td align="center">打包同时压缩</td>
+</tr>
+<tr>
+<td align="center">-x</td>
+<td align="center">解包.tar文件</td>
+</tr>
+</tbody></table>
 </li>
 </ul>
 </li>
@@ -1387,97 +1660,190 @@
 <li>一般系统的服务都是以后台进程的方式存在，而且都会常驻在系统中，直到关机才结束</li>
 </ul>
 <h3 id="显示系统执行的进程"><a href="#显示系统执行的进程" class="headerlink" title="显示系统执行的进程"></a>显示系统执行的进程</h3><ul>
-<li>ps命令是用来查看目前系统中有哪些进程正在执行，以及它们执行的状况。可以不加任何参数<img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/ps%E6%8C%87%E4%BB%A4.png" alt="ps指令"></li>
-<li>参数说明<ul>
-<li>-a，显示当前终端的==所有进程信息==</li>
-<li>-u，以用户的格式显示进程信息</li>
-<li>-x，显示后台进程运行的参数</li>
-<li>-ef，以==全格式==显示当前所有的进程<img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/ps%20-ef%E6%8C%87%E4%BB%A4.png" alt="ps -ef指令"></li>
+<li><p>ps命令是用来查看目前系统中有哪些进程正在执行，以及它们执行的状况。可以不加任何参数<img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/ps%E6%8C%87%E4%BB%A4.png" alt="ps指令"></p>
+</li>
+<li><p>参数说明</p>
+<table>
+<thead>
+<tr>
+<th align="center">参数</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-a</td>
+<td align="center">显示当前终端的==所有进程信息==</td>
+</tr>
+<tr>
+<td align="center">-u</td>
+<td align="center">以用户的格式显示进程信息</td>
+</tr>
+<tr>
+<td align="center">-x</td>
+<td align="center">显示后台进程运行的参数</td>
+</tr>
+<tr>
+<td align="center">-ef</td>
+<td align="center">以==全格式==显示当前所有的进程</td>
+</tr>
+</tbody></table>
+<p><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/ps%20-ef%E6%8C%87%E4%BB%A4.png" alt="ps -ef指令"></p>
+</li>
+<li><p>ps显示的信息选项</p>
+<table>
+<thead>
+<tr>
+<th align="center">符号</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">PID</td>
+<td align="center">进程识别号</td>
+</tr>
+<tr>
+<td align="center">TTY</td>
+<td align="center">终端机号</td>
+</tr>
+<tr>
+<td align="center">TIME</td>
+<td align="center">此进程使用CPU总时间</td>
+</tr>
+<tr>
+<td align="center">CMD</td>
+<td align="center">正在执行的命令或进程名</td>
+</tr>
+<tr>
+<td align="center">USER</td>
+<td align="center">用户名称</td>
+</tr>
+<tr>
+<td align="center">%CPU</td>
+<td align="center">==进程占用CPU的百分比==</td>
+</tr>
+<tr>
+<td align="center">%MEM</td>
+<td align="center">==进程占用物理内存的百分比==</td>
+</tr>
+<tr>
+<td align="center">VSZ</td>
+<td align="center">==进程占用的虚拟内存大小（单位：KB）==</td>
+</tr>
+<tr>
+<td align="center">RSS</td>
+<td align="center">==进程占用的物理内存大小（单位：KB）==</td>
+</tr>
+<tr>
+<td align="center">STAT</td>
+<td align="center">进程状态，其中S-睡眠，s-表示该进程是会话的先导进程，N-表示进程拥有比普通优先级更低的优先级，R-正在运行，D-短期等待，Z-僵死进程，T-被跟踪或者被停止等待</td>
+</tr>
+<tr>
+<td align="center">START</td>
+<td align="center">进程的启动时间</td>
+</tr>
+<tr>
+<td align="center">COMMAND</td>
+<td align="center">启动进程所用的命令和参数（过长会被截断显示）</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>ps详解</p>
+<ul>
+<li><p>指令</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -aux | grep xxx <span class="comment"># 比如看看有没有sshd服务</span></span><br></pre></td></tr></table></figure></li>
+<li><p>指令</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -ef | grep xxx <span class="comment"># 比如查看sshd的父进程</span></span><br></pre></td></tr></table></figure>
+<h3 id="终止进程"><a href="#终止进程" class="headerlink" title="终止进程"></a>终止进程</h3></li>
 </ul>
 </li>
-<li>ps显示的信息选项<ul>
-<li>PID，进程识别号</li>
-<li>TTY，终端机号</li>
-<li>TIME，此进程使用CPU总时间</li>
-<li>CMD，正在执行的命令或进程名</li>
-<li>USER，用户名称</li>
-<li>%CPU，==进程占用CPU的百分比==</li>
-<li>%MEM，==进程占用物理内存的百分比==</li>
-<li>VSZ，==进程占用的虚拟内存大小（单位：KB）==</li>
-<li>RSS，==进程占用的物理内存大小（单位：KB）==</li>
-<li>STAT：进程状态，其中S-睡眠，s-表示该进程是会话的先导进程，N-表示进程拥有比普通优先级更低的优先级，R-正在运行，D-短期等待，Z-僵死进程，T-被跟踪或者被停止等待</li>
-<li>START：进程的启动时间</li>
-<li>COMMAND：启动进程所用的命令和参数（过长会被截断显示）</li>
+<li><p>若是某个进程执行一半需要停止或是已消耗了很大的系统资源时，此时可以考虑停止该进程</p>
+</li>
+<li><p>基本语法</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">kill</span> [选项] 进程号 <span class="comment"># 通过进程号杀死进程</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过进程名杀死进程（子进程也会被干掉），也支持通配符</span></span><br><span class="line"><span class="comment"># 这在系统因负载过大而变得很慢时很有用</span></span><br><span class="line">killall 进程名</span><br></pre></td></tr></table></figure></li>
+<li><p>常用选项</p>
+<table>
+<thead>
+<tr>
+<th align="center">选项</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-9</td>
+<td align="center">表示强迫进程立即停止</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>实例</p>
+<ul>
+<li><p>踢掉某个非法登录用户</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">kill</span> 非法用户登录的shell对应的进程号</span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>终止远程登录服务sshd，在适当时候再次重启sshd服务</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">kill</span> sshd对应的进程号</span><br><span class="line"><span class="comment"># 重启</span></span><br><span class="line">/bin/systemctl start sshd.service</span><br></pre></td></tr></table></figure></li>
+<li><p>终止多个gedit</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">killall gedit</span><br></pre></td></tr></table></figure></li>
+<li><p>强制杀掉一个终端</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">kill</span> -9 bash对应的进程号</span><br></pre></td></tr></table></figure>
+<h3 id="查看进程树"><a href="#查看进程树" class="headerlink" title="查看进程树"></a>查看进程树</h3></li>
 </ul>
 </li>
-<li>ps详解<ul>
-<li>指令：ps -aux | grep xxx，比如看看有没有sshd服务</li>
-<li>指令：ps -ef | grep xxx，比如查看sshd的==父进程==</li>
-</ul>
-</li>
-</ul>
-<h3 id="终止进程"><a href="#终止进程" class="headerlink" title="终止进程"></a>终止进程</h3><ul>
-<li>若是某个进程执行一半需要停止时，或是已消耗了很大的系统资源时，此时可以考虑停止该进程</li>
-<li>基本语法<ul>
-<li>kill [选项] 进程号，通过进程号杀死进程</li>
-<li>killall 进程名，通过进程名杀死进程（子进程也会被干掉），也支持通配符，这在系统因负载过大而变得很慢时很有用</li>
-</ul>
-</li>
-<li>常用选项<ul>
-<li>-9，表示强迫进程立即停止</li>
-</ul>
-</li>
-<li>实例<ul>
-<li>踢掉某个非法登录用户<ul>
-<li>kill 非法用户登录的shell对应的进程号</li>
-</ul>
-</li>
-<li>终止远程登录服务sshd，在适当时候再次重启sshd服务<ul>
-<li>kill sshd对应的进程号</li>
-<li>重启：/bin/systemctl start sshd.service</li>
-</ul>
-</li>
-<li>终止多个gedit<ul>
-<li>killall gedit</li>
-</ul>
-</li>
-<li>强制杀掉一个终端<ul>
-<li>kill -9 bash对应的进程号</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="查看进程树"><a href="#查看进程树" class="headerlink" title="查看进程树"></a>查看进程树</h3><ul>
-<li>基本语法：pstree [选项]，可以更加直观地查看进程信息</li>
-<li>常用选项<ul>
-<li>-p，显示进程的PID</li>
-<li>-u，显示进程所属用户<img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/%E8%BF%9B%E7%A8%8B%E6%A0%91.png" alt="进程树"></li>
+<li><p>基本语法</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pstree [选项] <span class="comment"># 可以更加直观地查看进程信息</span></span><br></pre></td></tr></table></figure></li>
+<li><p>常用选项</p>
+<table>
+<thead>
+<tr>
+<th align="center">选项</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-p</td>
+<td align="center">显示进程的PID</td>
+</tr>
+<tr>
+<td align="center">-u</td>
+<td align="center">显示进程所属用户</td>
+</tr>
+</tbody></table>
+<ul>
+<li><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/%E8%BF%9B%E7%A8%8B%E6%A0%91.png" alt="进程树"></li>
 </ul>
 </li>
 </ul>
 <h3 id="服务（service）管理"><a href="#服务（service）管理" class="headerlink" title="服务（service）管理"></a>服务（service）管理</h3><ul>
-<li><p>服务（service）本质就是进程，但是是运行在后台的，通常都会监听某个端口，等待其他程序的请求，比如mysql，sshd，防火墙等，因此我们又称为==守护进程==，是Linux中非常重要的知识点<img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/%E6%9C%8D%E5%8A%A1%E5%8E%9F%E7%90%86%E5%9B%BE.png" alt="服务原理图"></p>
+<li><p>服务（service）本质就是进程，但是是运行在后台的，通常都会监听某个端口，等待其他程序的请求，比如mysql，sshd，防火墙等，因此我们又称为==守护进程==，是Linux中非常重要的知识点!</p>
+<p><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/%E6%9C%8D%E5%8A%A1%E5%8E%9F%E7%90%86%E5%9B%BE.png" alt="服务原理图"></p>
 </li>
 <li><p>service管理指令</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service 服务名 [start | stop | restart | reload | status]</span><br></pre></td></tr></table></figure>
 <ul>
-<li>service 服务名 [start | stop | restart | reload | status]</li>
-<li>service指令管理的服务在/etc/init.d查看<img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/service%E6%8C%87%E4%BB%A4%E7%AE%A1%E7%90%86%E6%9F%A5%E7%9C%8B.png" alt="service指令管理查看"></li>
-<li>在CentOS7.0后很多服务不再使用service，而是systemctl</li>
+<li><p>service指令管理的服务在/etc/init.d查看<img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/service%E6%8C%87%E4%BB%A4%E7%AE%A1%E7%90%86%E6%9F%A5%E7%9C%8B.png" alt="service指令管理查看"></p>
+</li>
+<li><p>在CentOS7.0后很多服务不再使用service，而是systemctl</p>
+</li>
 </ul>
 </li>
 <li><p>systemctl管理指令</p>
 <ul>
-<li>基本语法：systemctl [start | stop | restart | status] 服务名</li>
-<li>systemctl指令管理的服务在/usr/lib/systemd/system查看</li>
+<li><p>基本语法</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl [start | stop | restart | status] 服务名</span><br></pre></td></tr></table></figure></li>
+<li><p>systemctl指令管理的服务在/usr/lib/systemd/system查看</p>
+</li>
 </ul>
 </li>
 <li><p>systemctl设置服务的自启动状态</p>
 <ul>
-<li>systemctl list-unit-files [| grep 服务名]，查看服务开机启动状态，grep可进行过滤</li>
-<li>==systemctl enable 服务名，设置服务开机启动==（永久生效）</li>
-<li>==systemctl disable 服务名，关闭服务开机启动==（永久生效）</li>
-<li>systemctl is-enabled 服务名，查询某个服务是否是自启动的</li>
+<li><p>查看服务开机启动状态，grep可进行过滤</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl list-unit-files [| grep 服务名]</span><br></pre></td></tr></table></figure></li>
+<li><p>设置服务开机启动（永久生效）</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> 服务名</span><br></pre></td></tr></table></figure></li>
+<li><p>关闭服务开机启动（永久生效）</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl <span class="built_in">disable</span> 服务名</span><br></pre></td></tr></table></figure></li>
+<li><p>查询某个服务是否是自启动的</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl is-enabled 服务名</span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
 <li><p>查看服务名</p>
@@ -1488,52 +1854,89 @@
 </li>
 <li><p>chkconfig指令</p>
 <ul>
-<li>介绍<ul>
+<li><p>介绍</p>
+<ul>
 <li>通过chkconfig指令可以给服务的各个==运行级别==设置==自启动/关闭==</li>
 <li>chkconfig指令管理的服务在/etc/init.d查看</li>
 </ul>
 </li>
-<li>基本语法<ul>
-<li>chkconfig –list [| grep xxx]</li>
-<li>chkconfig 服务名 –list</li>
-<li>chkconfig –level 5（指定级别） 服务名 on/off</li>
-</ul>
+<li><p>基本语法</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">chkconfig --list [| grep xxx]</span><br><span class="line">chkconfig 服务名 --list</span><br><span class="line">chkconfig --level 5（指定级别） 服务名 on/off</span><br></pre></td></tr></table></figure></li>
+<li><p>==chkconfig重新设置服务后自启动或关闭，需重启机器生效==</p>
 </li>
-<li>==chkconfig重新设置服务后自启动或关闭，需重启机器生效==</li>
 </ul>
 </li>
 <li><p>打开或关闭指定端口</p>
 <ul>
-<li>在真正的生产环境，往往需要将防火墙打开，但问题在于如果我们把防火墙打开，那么外部请求数据包就不能跟服务器监听端口通讯。这时就需要打开指定的端口，如80、22、8080等</li>
-<li>firewall指令<ul>
-<li>打开端口：firewall-cmd –permanent –add-port=端口号/协议（==使用netstat -anp查看==）</li>
-<li>关闭端口：firewall-cmd –permanent –remove-port=端口号/协议</li>
-<li>重新载入才能生效：firewall-cmd –reload</li>
-<li>查询端口是否开放：firewall-cmd –query-port=端口号/协议</li>
+<li><p>在真正的生产环境，往往需要将防火墙打开，但问题在于如果我们把防火墙打开，那么外部请求数据包就不能跟服务器监听端口通讯。这时就需要打开指定的端口，如80、22、8080等</p>
+</li>
+<li><p>firewall指令</p>
+<ul>
+<li><p>打开端口（==使用netstat -anp查看==）</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --permanent --add-port=端口号/协议</span><br></pre></td></tr></table></figure></li>
+<li><p>关闭端口</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --permanent --remove-port=端口号/协议</span><br></pre></td></tr></table></figure></li>
+<li><p>重新载入才能生效</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure></li>
+<li><p>查询端口是否开放</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --query-port=端口号/协议</span><br></pre></td></tr></table></figure>
+<h3 id="动态监控进程"><a href="#动态监控进程" class="headerlink" title="动态监控进程"></a>动态监控进程</h3></li>
 </ul>
 </li>
 </ul>
 </li>
-</ul>
-<h3 id="动态监控进程"><a href="#动态监控进程" class="headerlink" title="动态监控进程"></a>动态监控进程</h3><ul>
 <li><p>top与ps命令很相似，它们都是用来显示正在执行的进程。top与ps最大的不同之处在于，top在执行一段时间可以更新正在运行的进程</p>
 </li>
-<li><p>基本语法：top [选项]</p>
-</li>
+<li><p>基本语法</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">top [选项]</span><br></pre></td></tr></table></figure></li>
 <li><p>常用选项</p>
-<ul>
-<li>-d 秒数，指定top命令每隔几秒更新，默认是3秒</li>
-<li>-i，使top不显示任何闲置或僵死进程</li>
-<li>-p，通过指定监控进程ID来仅仅监控某个进程的状态<img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/top%E6%8C%87%E4%BB%A4.png" alt="top指令"></li>
-</ul>
+<table>
+<thead>
+<tr>
+<th align="center">选项</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-d 秒数</td>
+<td align="center">指定top命令每隔几秒更新，默认是3秒</td>
+</tr>
+<tr>
+<td align="center">-i</td>
+<td align="center">使top不显示任何闲置或僵死进程</td>
+</tr>
+<tr>
+<td align="center">-p</td>
+<td align="center">通过指定监控进程ID来仅仅监控某个进程的状态</td>
+</tr>
+</tbody></table>
+<p><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/top%E6%8C%87%E4%BB%A4.png" alt="top指令"></p>
 </li>
 <li><p>交互操作说明</p>
-<ul>
-<li>p，以CPU使用率排序（默认就是此项）</li>
-<li>M，以内存的使用率排序</li>
-<li>N，以PID排序</li>
-<li>q，退出top</li>
-</ul>
+<table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th align="center">功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">p</td>
+<td align="center">以CPU使用率排序（默认就是此项）</td>
+</tr>
+<tr>
+<td align="center">M</td>
+<td align="center">以内存的使用率排序</td>
+</tr>
+<tr>
+<td align="center">N</td>
+<td align="center">以PID排序</td>
+</tr>
+<tr>
+<td align="center">q</td>
+<td align="center">退出top</td>
+</tr>
+</tbody></table>
 </li>
 <li><p>应用实例</p>
 <ul>
@@ -1551,11 +1954,26 @@
 <h3 id="监控网络状态"><a href="#监控网络状态" class="headerlink" title="监控网络状态"></a>监控网络状态</h3><ul>
 <li><p>查看系统网络情况netstat</p>
 <ul>
-<li>基本语法：netstat [选项]</li>
-<li>选项说明<ul>
-<li>-an，按一定顺序排列输出</li>
-<li>-p，显示哪个进程在调用<img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/netstat%E6%8C%87%E4%BB%A4.png" alt="netstat指令"></li>
-</ul>
+<li><p>基本语法</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat [选项]</span><br></pre></td></tr></table></figure></li>
+<li><p>选项说明</p>
+<table>
+<thead>
+<tr>
+<th align="center">选项</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-an</td>
+<td align="center">按一定顺序排列输出</td>
+</tr>
+<tr>
+<td align="center">-p</td>
+<td align="center">显示哪个进程在调用</td>
+</tr>
+</tbody></table>
+<p><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/netstat%E6%8C%87%E4%BB%A4.png" alt="netstat指令"></p>
 </li>
 </ul>
 </li>
@@ -1628,16 +2046,40 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="基本介绍"><a href="#基本介绍" class="headerlink" title="基本介绍"></a>基本介绍</h3><ul>
-<li>shutdown -h now  立刻进行关机</li>
-<li>shutdown -h 1  “hello，1分钟后会关机了”</li>
-<li>shutdown -r now  现在重新启动计算机</li>
-<li>halt  关机【作用和上面一样】</li>
-<li>reboot  现在重新启动计算机</li>
-<li>sync  把内存的数据同步到磁盘</li>
-</ul>
+        <h3 id="基本介绍"><a href="#基本介绍" class="headerlink" title="基本介绍"></a>基本介绍</h3><table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th align="center">功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">shutdown -h now</td>
+<td align="center">立刻进行关机</td>
+</tr>
+<tr>
+<td align="center">shutdown -h 1</td>
+<td align="center">“hello，1分钟后会关机了”</td>
+</tr>
+<tr>
+<td align="center">shutdown -r now</td>
+<td align="center">现在重新启动计算机</td>
+</tr>
+<tr>
+<td align="center">halt</td>
+<td align="center">关机【作用和上面一样】</td>
+</tr>
+<tr>
+<td align="center">reboot</td>
+<td align="center">现在重新启动计算机</td>
+</tr>
+<tr>
+<td align="center">sync</td>
+<td align="center">把内存的数据同步到磁盘</td>
+</tr>
+</tbody></table>
 <h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><ul>
-<li>不管是重启系统还是关闭系统，首先要运行sync命令，把内存中的数据写到磁盘中</li>
+<li>不管是重启系统还是关闭系统，首先要==运行sync命令==，把内存中的数据写到磁盘中</li>
 <li>目前的shutdown/reboot/halt等命令已经在关机前进行了sync</li>
 </ul>
 
@@ -1653,157 +2095,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E5%85%B3%E6%9C%BA-%E9%87%8D%E5%90%AF%E5%91%BD%E4%BB%A4/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Linux实操篇之定时任务调度" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6/">Linux实操篇之定时任务调度</a>
-    </h1>
-  
-
-        
-        <a href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6/" class="archive-article-date">
-  	<time datetime="2021-02-20T20:53:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="crond-任务调度"><a href="#crond-任务调度" class="headerlink" title="crond 任务调度"></a>crond 任务调度</h3><ul>
-<li>通过crontab指令进行定时任务的设置</li>
-<li>概述<ul>
-<li>任务调度是指系统在==某个时间执行==的==特定的命令==或程序</li>
-<li>任务调度分类：<ul>
-<li>系统工作：有些重要的工作必须周而复始地执行，如病毒扫描等</li>
-<li>个别用户工作：个别用户可能希望执行某些程序，比如对MySQL数据库的备份</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>基本语法：crontab [选项]</li>
-<li>常用选项<ul>
-<li>-e，编辑crontab定时任务</li>
-<li>-l，查询crontab任务</li>
-<li>-r，删除当前用户所有的crontab任务</li>
-<li>service crond restart，重启任务调度</li>
-</ul>
-</li>
-<li>快速入门<ul>
-<li>设置任务调度文件：/etc/crontab</li>
-<li>设置个人任务调度，执行crontab -e 命令，接着输入任务到调度文件<ul>
-<li>例如：*/1 * * * * ls -l /etc/ &gt; /tmp/to.txt，意思是每小时的每分钟执行此命令</li>
-</ul>
-</li>
-<li>参数细节说明<ul>
-<li>第一个”*”，一小时当中的第几分钟，范围0-59</li>
-<li>第二个”*”，一天中的第几小时，范围0-23</li>
-<li>第三个”*”，一个月中的第几天，范围1-31</li>
-<li>第四个”*”，一年中的第几月，范围1-12</li>
-<li>第五个”*”，一周当中的星期几，范围0-7（==0和7都代表星期日==）</li>
-</ul>
-</li>
-<li>特殊符号说明<ul>
-<li>*，代表==任何时间==<ul>
-<li>例如第一个 “*” 就代表一小时中每分钟都执行一次的意思</li>
-</ul>
-</li>
-<li>, 代表不连续的时间<ul>
-<li>例如”0 8,12,16 * * * 命令”，代表在每天的8点0分，12点0分，16点0分都执行一次命令</li>
-</ul>
-</li>
-<li>-，代表连续的时间范围<ul>
-<li>例如”0 5 * * 1-6 命令”，代表在周一到周六的凌晨5点0分执行命令</li>
-</ul>
-</li>
-<li>*/n，代表每隔多久执行一次<ul>
-<li>例如”*/10 * * * * 命令”，代表每隔10分钟就执行一次命令</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="at定时任务"><a href="#at定时任务" class="headerlink" title="at定时任务"></a>at定时任务</h3><ul>
-<li>基本介绍<ul>
-<li>at命令是==一次性==定时计划任务，执行完一个任务后不再执行此任务了</li>
-<li>at的守护进程atd会以后台模式运行，检查作业队列来运行</li>
-<li>默认情况下，atd守护进程每60秒检查作业队列，有作业时，会检查作业运行时间，如果时间与当前时间匹配，则运行此作业</li>
-<li>在使用at命令的时候，==一定要保证atd进程的启动==，可以使用指令：<strong>ps -ef | grep atd</strong>来查看</li>
-</ul>
-</li>
-<li>命令格式<ul>
-<li>at [选项] [时间]，Ctrl+D（2次）结束at命令的输入</li>
-</ul>
-</li>
-<li>命令选项<ul>
-<li>-m，当指定的任务被完成后，将给用户发送邮件，即使没有标准输出</li>
-<li>-I，atq的别名，查询任务</li>
-<li>-d，atrm的别名，删除任务</li>
-<li>-v，显示任务将被执行的时间</li>
-<li>-c，打印任务的内容到标准输出</li>
-<li>-V，显示版本信息</li>
-<li>-q &lt;队列&gt;，使用指定的队列</li>
-<li>-f &lt;文件&gt;，从指定文件读入任务而不是从标准输入读入</li>
-<li>-t &lt;时间参数&gt;，以时间参数的形式提交要运行的任务</li>
-</ul>
-</li>
-<li>时间定义<ul>
-<li>接受在当天的hh:mm（小时:分钟）式的时间指定。==假如该时间已过去，那就会在第二天执行==</li>
-<li>使用midnight（深夜），noon（中午），teatime（饮茶时间，一般下午4点）等比较模糊的词语来指定时间</li>
-<li>采用12小时计时制，即在时间后面加上AM（上午）或PM（下午）来说明是上午还是下午。</li>
-<li>指定命令执行的具体日期，指定格式为month day或mm/dd/yy或dd.mm.yy，指定的日期必须跟在指定时间的后面。例如：04:00 2021-03-1</li>
-<li>使用相对计时法。指定格式为：now + count time-units，now就是当前时间，time-units是时间单位，这里能够是minutes（分钟）、hours（小时）、days（天）、weeks（星期）。count是时间的数量（几小时，几天或几分钟）。例如：now +5 minutes</li>
-<li>直接使用today（今天）、tomorrow（明天）来指定完成命令的时间</li>
-</ul>
-</li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6/">展开全文 >></a>
         </p>
       
 

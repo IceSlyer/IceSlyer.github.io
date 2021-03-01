@@ -8,15 +8,15 @@
   <link rel="dns-prefetch" href="http://example.com">
   <title>Git常用操作 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="常用指令 git init，初始化一个新的Git仓库  git status，查看当前git状态  git log，查看git历史版本信息  git config –list，查看配置信息（Q键退出list）  git clone 仓库地址，从github上克隆一个仓库到本地  git branch 分支名，创建新的分支   设置签名 git config user.name “…”  git c">
+  <meta name="description" content="常用指令 初始化一个新的Git仓库 1git init 查看当前git状态 1git status 查看git历史版本信息 1git log 查看配置信息（Q键退出list） 1git config --list 从github上克隆一个仓库到本地 1git clone 仓库地址 创建新的分支 1git branch 分支名 设置签名 项目&#x2F;仓库级别签名，仅在当前本地库范围内有效（cat .git">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Git常用操作">
 <meta property="og:url" content="http://example.com/2021/02/21/Git%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="常用指令 git init，初始化一个新的Git仓库  git status，查看当前git状态  git log，查看git历史版本信息  git config –list，查看配置信息（Q键退出list）  git clone 仓库地址，从github上克隆一个仓库到本地  git branch 分支名，创建新的分支   设置签名 git config user.name “…”  git c">
+<meta property="og:description" content="常用指令 初始化一个新的Git仓库 1git init 查看当前git状态 1git status 查看git历史版本信息 1git log 查看配置信息（Q键退出list） 1git config --list 从github上克隆一个仓库到本地 1git clone 仓库地址 创建新的分支 1git branch 分支名 设置签名 项目&#x2F;仓库级别签名，仅在当前本地库范围内有效（cat .git">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-02-20T21:15:38.000Z">
-<meta property="article:modified_time" content="2021-02-20T21:15:51.720Z">
+<meta property="article:modified_time" content="2021-03-01T16:24:32.732Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -165,108 +165,96 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h3 id="常用指令"><a href="#常用指令" class="headerlink" title="常用指令"></a>常用指令</h3><ul>
-<li><p>git init，初始化一个新的Git仓库</p>
-</li>
-<li><p>git status，查看当前git状态</p>
-</li>
-<li><p>git log，查看git历史版本信息</p>
-</li>
-<li><p>git config –list，查看配置信息（Q键退出list）</p>
-</li>
-<li><p>git clone 仓库地址，从github上克隆一个仓库到本地</p>
-</li>
-<li><p>git branch 分支名，创建新的分支</p>
-</li>
-</ul>
-<h3 id="设置签名"><a href="#设置签名" class="headerlink" title="设置签名"></a>设置签名</h3><ul>
-<li><p>git config user.name “…”</p>
-</li>
-<li><p>git config user.email “…”，项目级别/仓库级别签名，仅在当前本地库范围内有效（cat .git/config 查看）</p>
-</li>
-<li><p>git config –global user.name “…”</p>
-</li>
-<li><p>git config –global user.email “…”，系统用户级别，登陆当前操作系统的用户范围（cat ~/.gitconfig 查看）</p>
-</li>
-</ul>
-<h3 id="在本地库创建远程库地址别名"><a href="#在本地库创建远程库地址别名" class="headerlink" title="在本地库创建远程库地址别名"></a>在本地库创建远程库地址别名</h3><ul>
-<li><p>git remote -v，查看远程库地址</p>
-</li>
-<li><p>git remote add origin 远程库地址（HTTP或SSH地址）</p>
-</li>
-<li><p>git push origin 分支名，推送到远程库的某个分支</p>
+<li><p>初始化一个新的Git仓库</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure></li>
+<li><p>查看当前git状态</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git status</span><br></pre></td></tr></table></figure></li>
+<li><p>查看git历史版本信息</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">log</span></span><br></pre></td></tr></table></figure></li>
+<li><p>查看配置信息（Q键退出list）</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --list</span><br></pre></td></tr></table></figure></li>
+<li><p>从github上克隆一个仓库到本地</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> 仓库地址</span><br></pre></td></tr></table></figure></li>
+<li><p>创建新的分支</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch 分支名</span><br></pre></td></tr></table></figure>
+<h3 id="设置签名"><a href="#设置签名" class="headerlink" title="设置签名"></a>设置签名</h3></li>
+<li><p>项目/仓库级别签名，仅在当前本地库范围内有效（cat .git/config 查看）</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config user.name <span class="string">&quot;...&quot;</span></span><br><span class="line">git config user.email <span class="string">&quot;...&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>系统用户级别，登陆当前操作系统的用户范围（cat ~/.gitconfig 查看）</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name <span class="string">&quot;...&quot;</span></span><br><span class="line">git config --global user.email <span class="string">&quot;...&quot;</span></span><br></pre></td></tr></table></figure>
+<h3 id="在本地库创建远程库地址别名"><a href="#在本地库创建远程库地址别名" class="headerlink" title="在本地库创建远程库地址别名"></a>在本地库创建远程库地址别名</h3></li>
+<li><p>查看远程库地址</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git remote -v</span><br><span class="line">git remote add origin 远程库地址（HTTP或SSH地址）</span><br></pre></td></tr></table></figure></li>
+<li><p>推送到远程库的某个分支</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin 分支名</span><br></pre></td></tr></table></figure>
 <ul>
 <li>两个不相干的库就在后面添加 –allow-unrelated-histories 强制合并分支</li>
 </ul>
 </li>
 </ul>
 <h3 id="添加、修改文件步骤"><a href="#添加、修改文件步骤" class="headerlink" title="添加、修改文件步骤"></a>添加、修改文件步骤</h3><ul>
-<li><p>touch 文件名，新建一个文件</p>
+<li><p>新建一个文件</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">touch 文件名</span><br></pre></td></tr></table></figure></li>
+<li><p>添加文件到暂存区</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git add 文件名</span><br><span class="line">git add -A <span class="comment"># 添加所有文件</span></span><br></pre></td></tr></table></figure></li>
+<li><p>将文件从暂存区提交到本地仓库</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git commit -m <span class="string">&#x27;描述信息&#x27;</span></span><br><span class="line">git commit -a <span class="comment"># 提交所有文件</span></span><br></pre></td></tr></table></figure></li>
+<li><p>将本地仓库推送到远程仓库</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git push</span><br><span class="line">git push -u origin master -f <span class="comment"># 强制push</span></span><br></pre></td></tr></table></figure>
+<h3 id="删除文件步骤"><a href="#删除文件步骤" class="headerlink" title="删除文件步骤"></a>删除文件步骤</h3></li>
+<li><p>通过git删除仓库文件</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git rm 文件名</span><br></pre></td></tr></table></figure></li>
+<li><p>添加到暂存区</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add 文件名</span><br></pre></td></tr></table></figure></li>
+<li><p>提交到本地仓库</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m <span class="string">&#x27;描述信息&#x27;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>同步到远程仓库</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push</span><br></pre></td></tr></table></figure>
+<h3 id="查看版本日志信息"><a href="#查看版本日志信息" class="headerlink" title="查看版本日志信息"></a>查看版本日志信息</h3></li>
+<li><p>显示详细信息</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">log</span></span><br></pre></td></tr></table></figure></li>
+<li><p>显示简洁信息</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">log</span> --pretty=oneline </span><br></pre></td></tr></table></figure></li>
+<li><p>显示更简洁</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">log</span> --oneline</span><br></pre></td></tr></table></figure></li>
+<li><p>显示了移动到某个版本需要移动的步数</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reflog</span><br></pre></td></tr></table></figure>
+<h3 id="移动到某个版本"><a href="#移动到某个版本" class="headerlink" title="移动到某个版本"></a>移动到某个版本</h3></li>
+<li><p>基于索引值移动到某个版本</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard 索引值（哈希）</span><br></pre></td></tr></table></figure></li>
+<li><p>后退一个版本(一个^后退一步，n个^后退n步)</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard^</span><br></pre></td></tr></table></figure></li>
+<li><p>后退n个版本</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard~n</span><br></pre></td></tr></table></figure>
+<h3 id="分支相关"><a href="#分支相关" class="headerlink" title="分支相关"></a>分支相关</h3></li>
+<li><p>查看所有分支</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -v</span><br></pre></td></tr></table></figure></li>
+<li><p>创建一个新分支</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch 新分支名</span><br></pre></td></tr></table></figure></li>
+<li><p>push到新分支上</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push -u origin 新分支名</span><br></pre></td></tr></table></figure></li>
+<li><p>切换分支</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout 分支名</span><br></pre></td></tr></table></figure></li>
+<li><p>将修改过的分支合并到主分支（==操作是在master分支上执行的==）</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git merge 分支名</span><br></pre></td></tr></table></figure>
+<h3 id="设置SSH免密登陆"><a href="#设置SSH免密登陆" class="headerlink" title="设置SSH免密登陆"></a>设置SSH免密登陆</h3></li>
+<li><p>进入当前用户家目录</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span>~</span><br></pre></td></tr></table></figure></li>
+<li><p>删除.ssh目录</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -r .ssh</span><br></pre></td></tr></table></figure></li>
+<li><p>生成.ssh密钥目录</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C 邮箱地址</span><br></pre></td></tr></table></figure></li>
+<li><p>进入.ssh目录查看文件</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> .ssh/</span><br><span class="line">ls -l</span><br></pre></td></tr></table></figure></li>
+<li><p>查看id_rsa.pub文件内容</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat id_rsa.pub</span><br></pre></td></tr></table></figure></li>
+<li><p>复制id_rsa.pub文件内容，登陆GitHub，点击用户头像-&gt;Setting-&gt;SSH and GPG keys</p>
 </li>
-<li><p>git add 文件名，提交文件到暂存区</p>
-<ul>
-<li>git add -A，提交所有文件</li>
-</ul>
+<li><p>点击New SSH Key，输入复制的密钥</p>
 </li>
-<li><p>git commit -m  ‘提交描述’，将文件从暂存区提交到本地仓库</p>
-<ul>
-<li>git commit -a，提交所有文件</li>
-</ul>
+<li><p>回到Git bash创建远程地址别名</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin_ssh 远程库SSH地址</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>git push，将本地仓库提交到远程仓库</p>
-<ul>
-<li>git push -u origin master -f，强制push</li>
-</ul>
-</li>
-</ul>
-<h3 id="删除文件步骤"><a href="#删除文件步骤" class="headerlink" title="删除文件步骤"></a>删除文件步骤</h3><ul>
-<li><p>git rm 文件名，通过git删除仓库文件</p>
-</li>
-<li><p>git add 文件名，提交到暂存区</p>
-</li>
-<li><p>git commit -m ‘提交描述’</p>
-</li>
-<li><p>git push，同步到远程仓库</p>
-</li>
-</ul>
-<h3 id="查看版本日志信息"><a href="#查看版本日志信息" class="headerlink" title="查看版本日志信息"></a>查看版本日志信息</h3><ul>
-<li><p>git log，显示详细信息</p>
-</li>
-<li><p>git log –pretty=oneline ，显示简洁信息</p>
-</li>
-<li><p>git log –oneline，显示更简洁</p>
-</li>
-<li><p>git reflog，显示了移动到某个版本需要移动的步数</p>
-</li>
-</ul>
-<h3 id="移动到某个版本"><a href="#移动到某个版本" class="headerlink" title="移动到某个版本"></a>移动到某个版本</h3><ul>
-<li><p>git reset –hard 索引值（哈希），基于索引值移动到某个版本</p>
-</li>
-<li><p>git reset –hard^，后退一个版本(一个^后退一步，n个^后退n步)</p>
-</li>
-<li><p>git reset –hard~n，后退n个版本</p>
-</li>
-</ul>
-<h3 id="分支相关"><a href="#分支相关" class="headerlink" title="分支相关"></a>分支相关</h3><ul>
-<li><p>git branch -v，查看所有分支</p>
-</li>
-<li><p>git branch 分支名，创建一个新分支</p>
-</li>
-<li><p>git push -u origin 分支名，push到新分支上</p>
-</li>
-<li><p>git checkout 分支名，切换分支</p>
-</li>
-<li><p>git merge 分支名，将修改过的分支合并到主分支（==操作是在master分支上执行的==）</p>
-</li>
-</ul>
-<h3 id="设置SSH免密登陆"><a href="#设置SSH免密登陆" class="headerlink" title="设置SSH免密登陆"></a>设置SSH免密登陆</h3><ul>
-<li>cd~，进入当前用户家目录</li>
-<li>rm -r .ssh，删除.ssh目录</li>
-<li>ssh-keygen -t rsa -C 邮箱地址，生成.ssh密钥目录</li>
-<li>cd .ssh/ + ls -l，进入.ssh目录查看文件</li>
-<li>cat id_rsa.pub，查看id_rsa.pub文件内容</li>
-<li>复制id_rsa.pub文件内容，登陆GitHub，点击用户头像-&gt;Setting-&gt;SSH and GPG keys</li>
-<li>点击New SSH Key，输入复制的密钥</li>
-<li>git remote add origin_ssh 远程库SSH地址，回到Git bash创建远程地址别名</li>
 </ul>
 
       

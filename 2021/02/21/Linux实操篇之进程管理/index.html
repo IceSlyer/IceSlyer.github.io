@@ -25,7 +25,7 @@
 <meta property="og:image" content="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/top%E6%8C%87%E4%BB%A4.png">
 <meta property="og:image" content="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/netstat%E6%8C%87%E4%BB%A4.png">
 <meta property="article:published_time" content="2021-02-20T20:55:32.000Z">
-<meta property="article:modified_time" content="2021-02-20T20:55:59.725Z">
+<meta property="article:modified_time" content="2021-03-01T15:34:12.518Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/Windows%E8%BF%9B%E7%A8%8B.png">
@@ -194,97 +194,190 @@
 <li>一般系统的服务都是以后台进程的方式存在，而且都会常驻在系统中，直到关机才结束</li>
 </ul>
 <h3 id="显示系统执行的进程"><a href="#显示系统执行的进程" class="headerlink" title="显示系统执行的进程"></a>显示系统执行的进程</h3><ul>
-<li>ps命令是用来查看目前系统中有哪些进程正在执行，以及它们执行的状况。可以不加任何参数<img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/ps%E6%8C%87%E4%BB%A4.png" alt="ps指令"></li>
-<li>参数说明<ul>
-<li>-a，显示当前终端的==所有进程信息==</li>
-<li>-u，以用户的格式显示进程信息</li>
-<li>-x，显示后台进程运行的参数</li>
-<li>-ef，以==全格式==显示当前所有的进程<img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/ps%20-ef%E6%8C%87%E4%BB%A4.png" alt="ps -ef指令"></li>
+<li><p>ps命令是用来查看目前系统中有哪些进程正在执行，以及它们执行的状况。可以不加任何参数<img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/ps%E6%8C%87%E4%BB%A4.png" alt="ps指令"></p>
+</li>
+<li><p>参数说明</p>
+<table>
+<thead>
+<tr>
+<th align="center">参数</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-a</td>
+<td align="center">显示当前终端的==所有进程信息==</td>
+</tr>
+<tr>
+<td align="center">-u</td>
+<td align="center">以用户的格式显示进程信息</td>
+</tr>
+<tr>
+<td align="center">-x</td>
+<td align="center">显示后台进程运行的参数</td>
+</tr>
+<tr>
+<td align="center">-ef</td>
+<td align="center">以==全格式==显示当前所有的进程</td>
+</tr>
+</tbody></table>
+<p><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/ps%20-ef%E6%8C%87%E4%BB%A4.png" alt="ps -ef指令"></p>
+</li>
+<li><p>ps显示的信息选项</p>
+<table>
+<thead>
+<tr>
+<th align="center">符号</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">PID</td>
+<td align="center">进程识别号</td>
+</tr>
+<tr>
+<td align="center">TTY</td>
+<td align="center">终端机号</td>
+</tr>
+<tr>
+<td align="center">TIME</td>
+<td align="center">此进程使用CPU总时间</td>
+</tr>
+<tr>
+<td align="center">CMD</td>
+<td align="center">正在执行的命令或进程名</td>
+</tr>
+<tr>
+<td align="center">USER</td>
+<td align="center">用户名称</td>
+</tr>
+<tr>
+<td align="center">%CPU</td>
+<td align="center">==进程占用CPU的百分比==</td>
+</tr>
+<tr>
+<td align="center">%MEM</td>
+<td align="center">==进程占用物理内存的百分比==</td>
+</tr>
+<tr>
+<td align="center">VSZ</td>
+<td align="center">==进程占用的虚拟内存大小（单位：KB）==</td>
+</tr>
+<tr>
+<td align="center">RSS</td>
+<td align="center">==进程占用的物理内存大小（单位：KB）==</td>
+</tr>
+<tr>
+<td align="center">STAT</td>
+<td align="center">进程状态，其中S-睡眠，s-表示该进程是会话的先导进程，N-表示进程拥有比普通优先级更低的优先级，R-正在运行，D-短期等待，Z-僵死进程，T-被跟踪或者被停止等待</td>
+</tr>
+<tr>
+<td align="center">START</td>
+<td align="center">进程的启动时间</td>
+</tr>
+<tr>
+<td align="center">COMMAND</td>
+<td align="center">启动进程所用的命令和参数（过长会被截断显示）</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>ps详解</p>
+<ul>
+<li><p>指令</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -aux | grep xxx <span class="comment"># 比如看看有没有sshd服务</span></span><br></pre></td></tr></table></figure></li>
+<li><p>指令</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -ef | grep xxx <span class="comment"># 比如查看sshd的父进程</span></span><br></pre></td></tr></table></figure>
+<h3 id="终止进程"><a href="#终止进程" class="headerlink" title="终止进程"></a>终止进程</h3></li>
 </ul>
 </li>
-<li>ps显示的信息选项<ul>
-<li>PID，进程识别号</li>
-<li>TTY，终端机号</li>
-<li>TIME，此进程使用CPU总时间</li>
-<li>CMD，正在执行的命令或进程名</li>
-<li>USER，用户名称</li>
-<li>%CPU，==进程占用CPU的百分比==</li>
-<li>%MEM，==进程占用物理内存的百分比==</li>
-<li>VSZ，==进程占用的虚拟内存大小（单位：KB）==</li>
-<li>RSS，==进程占用的物理内存大小（单位：KB）==</li>
-<li>STAT：进程状态，其中S-睡眠，s-表示该进程是会话的先导进程，N-表示进程拥有比普通优先级更低的优先级，R-正在运行，D-短期等待，Z-僵死进程，T-被跟踪或者被停止等待</li>
-<li>START：进程的启动时间</li>
-<li>COMMAND：启动进程所用的命令和参数（过长会被截断显示）</li>
+<li><p>若是某个进程执行一半需要停止或是已消耗了很大的系统资源时，此时可以考虑停止该进程</p>
+</li>
+<li><p>基本语法</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">kill</span> [选项] 进程号 <span class="comment"># 通过进程号杀死进程</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过进程名杀死进程（子进程也会被干掉），也支持通配符</span></span><br><span class="line"><span class="comment"># 这在系统因负载过大而变得很慢时很有用</span></span><br><span class="line">killall 进程名</span><br></pre></td></tr></table></figure></li>
+<li><p>常用选项</p>
+<table>
+<thead>
+<tr>
+<th align="center">选项</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-9</td>
+<td align="center">表示强迫进程立即停止</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>实例</p>
+<ul>
+<li><p>踢掉某个非法登录用户</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">kill</span> 非法用户登录的shell对应的进程号</span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>终止远程登录服务sshd，在适当时候再次重启sshd服务</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">kill</span> sshd对应的进程号</span><br><span class="line"><span class="comment"># 重启</span></span><br><span class="line">/bin/systemctl start sshd.service</span><br></pre></td></tr></table></figure></li>
+<li><p>终止多个gedit</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">killall gedit</span><br></pre></td></tr></table></figure></li>
+<li><p>强制杀掉一个终端</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">kill</span> -9 bash对应的进程号</span><br></pre></td></tr></table></figure>
+<h3 id="查看进程树"><a href="#查看进程树" class="headerlink" title="查看进程树"></a>查看进程树</h3></li>
 </ul>
 </li>
-<li>ps详解<ul>
-<li>指令：ps -aux | grep xxx，比如看看有没有sshd服务</li>
-<li>指令：ps -ef | grep xxx，比如查看sshd的==父进程==</li>
-</ul>
-</li>
-</ul>
-<h3 id="终止进程"><a href="#终止进程" class="headerlink" title="终止进程"></a>终止进程</h3><ul>
-<li>若是某个进程执行一半需要停止时，或是已消耗了很大的系统资源时，此时可以考虑停止该进程</li>
-<li>基本语法<ul>
-<li>kill [选项] 进程号，通过进程号杀死进程</li>
-<li>killall 进程名，通过进程名杀死进程（子进程也会被干掉），也支持通配符，这在系统因负载过大而变得很慢时很有用</li>
-</ul>
-</li>
-<li>常用选项<ul>
-<li>-9，表示强迫进程立即停止</li>
-</ul>
-</li>
-<li>实例<ul>
-<li>踢掉某个非法登录用户<ul>
-<li>kill 非法用户登录的shell对应的进程号</li>
-</ul>
-</li>
-<li>终止远程登录服务sshd，在适当时候再次重启sshd服务<ul>
-<li>kill sshd对应的进程号</li>
-<li>重启：/bin/systemctl start sshd.service</li>
-</ul>
-</li>
-<li>终止多个gedit<ul>
-<li>killall gedit</li>
-</ul>
-</li>
-<li>强制杀掉一个终端<ul>
-<li>kill -9 bash对应的进程号</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="查看进程树"><a href="#查看进程树" class="headerlink" title="查看进程树"></a>查看进程树</h3><ul>
-<li>基本语法：pstree [选项]，可以更加直观地查看进程信息</li>
-<li>常用选项<ul>
-<li>-p，显示进程的PID</li>
-<li>-u，显示进程所属用户<img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/%E8%BF%9B%E7%A8%8B%E6%A0%91.png" alt="进程树"></li>
+<li><p>基本语法</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pstree [选项] <span class="comment"># 可以更加直观地查看进程信息</span></span><br></pre></td></tr></table></figure></li>
+<li><p>常用选项</p>
+<table>
+<thead>
+<tr>
+<th align="center">选项</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-p</td>
+<td align="center">显示进程的PID</td>
+</tr>
+<tr>
+<td align="center">-u</td>
+<td align="center">显示进程所属用户</td>
+</tr>
+</tbody></table>
+<ul>
+<li><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/%E8%BF%9B%E7%A8%8B%E6%A0%91.png" alt="进程树"></li>
 </ul>
 </li>
 </ul>
 <h3 id="服务（service）管理"><a href="#服务（service）管理" class="headerlink" title="服务（service）管理"></a>服务（service）管理</h3><ul>
-<li><p>服务（service）本质就是进程，但是是运行在后台的，通常都会监听某个端口，等待其他程序的请求，比如mysql，sshd，防火墙等，因此我们又称为==守护进程==，是Linux中非常重要的知识点<img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/%E6%9C%8D%E5%8A%A1%E5%8E%9F%E7%90%86%E5%9B%BE.png" alt="服务原理图"></p>
+<li><p>服务（service）本质就是进程，但是是运行在后台的，通常都会监听某个端口，等待其他程序的请求，比如mysql，sshd，防火墙等，因此我们又称为==守护进程==，是Linux中非常重要的知识点!</p>
+<p><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/%E6%9C%8D%E5%8A%A1%E5%8E%9F%E7%90%86%E5%9B%BE.png" alt="服务原理图"></p>
 </li>
 <li><p>service管理指令</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service 服务名 [start | stop | restart | reload | status]</span><br></pre></td></tr></table></figure>
 <ul>
-<li>service 服务名 [start | stop | restart | reload | status]</li>
-<li>service指令管理的服务在/etc/init.d查看<img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/service%E6%8C%87%E4%BB%A4%E7%AE%A1%E7%90%86%E6%9F%A5%E7%9C%8B.png" alt="service指令管理查看"></li>
-<li>在CentOS7.0后很多服务不再使用service，而是systemctl</li>
+<li><p>service指令管理的服务在/etc/init.d查看<img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/service%E6%8C%87%E4%BB%A4%E7%AE%A1%E7%90%86%E6%9F%A5%E7%9C%8B.png" alt="service指令管理查看"></p>
+</li>
+<li><p>在CentOS7.0后很多服务不再使用service，而是systemctl</p>
+</li>
 </ul>
 </li>
 <li><p>systemctl管理指令</p>
 <ul>
-<li>基本语法：systemctl [start | stop | restart | status] 服务名</li>
-<li>systemctl指令管理的服务在/usr/lib/systemd/system查看</li>
+<li><p>基本语法</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl [start | stop | restart | status] 服务名</span><br></pre></td></tr></table></figure></li>
+<li><p>systemctl指令管理的服务在/usr/lib/systemd/system查看</p>
+</li>
 </ul>
 </li>
 <li><p>systemctl设置服务的自启动状态</p>
 <ul>
-<li>systemctl list-unit-files [| grep 服务名]，查看服务开机启动状态，grep可进行过滤</li>
-<li>==systemctl enable 服务名，设置服务开机启动==（永久生效）</li>
-<li>==systemctl disable 服务名，关闭服务开机启动==（永久生效）</li>
-<li>systemctl is-enabled 服务名，查询某个服务是否是自启动的</li>
+<li><p>查看服务开机启动状态，grep可进行过滤</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl list-unit-files [| grep 服务名]</span><br></pre></td></tr></table></figure></li>
+<li><p>设置服务开机启动（永久生效）</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> 服务名</span><br></pre></td></tr></table></figure></li>
+<li><p>关闭服务开机启动（永久生效）</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl <span class="built_in">disable</span> 服务名</span><br></pre></td></tr></table></figure></li>
+<li><p>查询某个服务是否是自启动的</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl is-enabled 服务名</span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
 <li><p>查看服务名</p>
@@ -295,52 +388,89 @@
 </li>
 <li><p>chkconfig指令</p>
 <ul>
-<li>介绍<ul>
+<li><p>介绍</p>
+<ul>
 <li>通过chkconfig指令可以给服务的各个==运行级别==设置==自启动/关闭==</li>
 <li>chkconfig指令管理的服务在/etc/init.d查看</li>
 </ul>
 </li>
-<li>基本语法<ul>
-<li>chkconfig –list [| grep xxx]</li>
-<li>chkconfig 服务名 –list</li>
-<li>chkconfig –level 5（指定级别） 服务名 on/off</li>
-</ul>
+<li><p>基本语法</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">chkconfig --list [| grep xxx]</span><br><span class="line">chkconfig 服务名 --list</span><br><span class="line">chkconfig --level 5（指定级别） 服务名 on/off</span><br></pre></td></tr></table></figure></li>
+<li><p>==chkconfig重新设置服务后自启动或关闭，需重启机器生效==</p>
 </li>
-<li>==chkconfig重新设置服务后自启动或关闭，需重启机器生效==</li>
 </ul>
 </li>
 <li><p>打开或关闭指定端口</p>
 <ul>
-<li>在真正的生产环境，往往需要将防火墙打开，但问题在于如果我们把防火墙打开，那么外部请求数据包就不能跟服务器监听端口通讯。这时就需要打开指定的端口，如80、22、8080等</li>
-<li>firewall指令<ul>
-<li>打开端口：firewall-cmd –permanent –add-port=端口号/协议（==使用netstat -anp查看==）</li>
-<li>关闭端口：firewall-cmd –permanent –remove-port=端口号/协议</li>
-<li>重新载入才能生效：firewall-cmd –reload</li>
-<li>查询端口是否开放：firewall-cmd –query-port=端口号/协议</li>
+<li><p>在真正的生产环境，往往需要将防火墙打开，但问题在于如果我们把防火墙打开，那么外部请求数据包就不能跟服务器监听端口通讯。这时就需要打开指定的端口，如80、22、8080等</p>
+</li>
+<li><p>firewall指令</p>
+<ul>
+<li><p>打开端口（==使用netstat -anp查看==）</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --permanent --add-port=端口号/协议</span><br></pre></td></tr></table></figure></li>
+<li><p>关闭端口</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --permanent --remove-port=端口号/协议</span><br></pre></td></tr></table></figure></li>
+<li><p>重新载入才能生效</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure></li>
+<li><p>查询端口是否开放</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --query-port=端口号/协议</span><br></pre></td></tr></table></figure>
+<h3 id="动态监控进程"><a href="#动态监控进程" class="headerlink" title="动态监控进程"></a>动态监控进程</h3></li>
 </ul>
 </li>
 </ul>
 </li>
-</ul>
-<h3 id="动态监控进程"><a href="#动态监控进程" class="headerlink" title="动态监控进程"></a>动态监控进程</h3><ul>
 <li><p>top与ps命令很相似，它们都是用来显示正在执行的进程。top与ps最大的不同之处在于，top在执行一段时间可以更新正在运行的进程</p>
 </li>
-<li><p>基本语法：top [选项]</p>
-</li>
+<li><p>基本语法</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">top [选项]</span><br></pre></td></tr></table></figure></li>
 <li><p>常用选项</p>
-<ul>
-<li>-d 秒数，指定top命令每隔几秒更新，默认是3秒</li>
-<li>-i，使top不显示任何闲置或僵死进程</li>
-<li>-p，通过指定监控进程ID来仅仅监控某个进程的状态<img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/top%E6%8C%87%E4%BB%A4.png" alt="top指令"></li>
-</ul>
+<table>
+<thead>
+<tr>
+<th align="center">选项</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-d 秒数</td>
+<td align="center">指定top命令每隔几秒更新，默认是3秒</td>
+</tr>
+<tr>
+<td align="center">-i</td>
+<td align="center">使top不显示任何闲置或僵死进程</td>
+</tr>
+<tr>
+<td align="center">-p</td>
+<td align="center">通过指定监控进程ID来仅仅监控某个进程的状态</td>
+</tr>
+</tbody></table>
+<p><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/top%E6%8C%87%E4%BB%A4.png" alt="top指令"></p>
 </li>
 <li><p>交互操作说明</p>
-<ul>
-<li>p，以CPU使用率排序（默认就是此项）</li>
-<li>M，以内存的使用率排序</li>
-<li>N，以PID排序</li>
-<li>q，退出top</li>
-</ul>
+<table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th align="center">功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">p</td>
+<td align="center">以CPU使用率排序（默认就是此项）</td>
+</tr>
+<tr>
+<td align="center">M</td>
+<td align="center">以内存的使用率排序</td>
+</tr>
+<tr>
+<td align="center">N</td>
+<td align="center">以PID排序</td>
+</tr>
+<tr>
+<td align="center">q</td>
+<td align="center">退出top</td>
+</tr>
+</tbody></table>
 </li>
 <li><p>应用实例</p>
 <ul>
@@ -358,11 +488,26 @@
 <h3 id="监控网络状态"><a href="#监控网络状态" class="headerlink" title="监控网络状态"></a>监控网络状态</h3><ul>
 <li><p>查看系统网络情况netstat</p>
 <ul>
-<li>基本语法：netstat [选项]</li>
-<li>选项说明<ul>
-<li>-an，按一定顺序排列输出</li>
-<li>-p，显示哪个进程在调用<img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/netstat%E6%8C%87%E4%BB%A4.png" alt="netstat指令"></li>
-</ul>
+<li><p>基本语法</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat [选项]</span><br></pre></td></tr></table></figure></li>
+<li><p>选项说明</p>
+<table>
+<thead>
+<tr>
+<th align="center">选项</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-an</td>
+<td align="center">按一定顺序排列输出</td>
+</tr>
+<tr>
+<td align="center">-p</td>
+<td align="center">显示哪个进程在调用</td>
+</tr>
+</tbody></table>
+<p><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/netstat%E6%8C%87%E4%BB%A4.png" alt="netstat指令"></p>
 </li>
 </ul>
 </li>

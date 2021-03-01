@@ -142,6 +142,130 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Java基础知识之进程和线程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/02/21/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%B9%8B%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B/">Java基础知识之进程和线程</a>
+    </h1>
+  
+
+        
+        <a href="/2021/02/21/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%B9%8B%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B/" class="archive-article-date">
+  	<time datetime="2021-02-20T21:12:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="进程概念"><a href="#进程概念" class="headerlink" title="进程概念"></a><strong>进程概念</strong></h3><ul>
+<li>进程是指运行中的应用程序，每个进程都有自己独立的地址空间（内存空间），比如用户点击桌面的ie浏览器，就启动了一个进程，操作系统就会为该进程分配独立的地址空间。当用户再次点击桌面的ie浏览器，又启动了一个进程，操作系统将为新的进程分配新的独立的地址空间。</li>
+</ul>
+<h3 id="线程概念"><a href="#线程概念" class="headerlink" title="线程概念"></a><strong>线程概念</strong></h3><ul>
+<li>线程是进程中的一个实体，是被系统独立调用和分派的基本单位。线程自己不拥有系统资源，只拥有一点在运行中必不可少的资源，但它可与同属一个进程的其他线程共享进程所拥有的全部资源。一个线程可以创建和撤销另一个线程，同一进程中的多个线程之间可以并发执行。线程有就绪、阻塞和运行三种基本状态。</li>
+<li>线程是轻量级的进程；线程没有独立的地址空间；线程是由进程创建的（寄生在进程）；一个进程可以拥有多个线程（即常说的多线程编程）</li>
+<li>线程有几种状态<ul>
+<li>新建状态（new）</li>
+<li>就绪状态（Runnable）</li>
+<li>运行状态（Running）</li>
+<li>阻塞状态（Blocked）</li>
+<li>死亡状态（Dead）</li>
+</ul>
+</li>
+<li>只要应用程序涉及到并发，就离不开多线程编程</li>
+</ul>
+<h3 id="线程使用"><a href="#线程使用" class="headerlink" title="线程使用"></a><strong>线程使用</strong></h3><ul>
+<li><p>Java中一个类要当作线程来使用有两种方法</p>
+<ul>
+<li>继承Thread类，并重写run函数</li>
+<li>实现Runnable接口，并重写run函数</li>
+</ul>
+</li>
+<li><p>因为Java是单继承的，在某些情况下一个类可能已经继承了某个父类，这时再用继承Thread类方法来创建线程显然不可能。所以Java设计者们提供了另外一个方式创建线程，即通过实现Runnable接口来创建线程。</p>
+</li>
+<li><p>继承Thread和实现Runnable的区别</p>
+<ul>
+<li>尽可能使用实现Runnable接口的方式来创建线程</li>
+<li>在使用Thread的时候只需要new一个实例出来，调用start()方法即可启动一个线程</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Thread test = <span class="keyword">new</span> Thread();</span><br><span class="line"></span><br><span class="line">test.start();</span><br></pre></td></tr></table></figure>
+<ul>
+<li>在使用Runnable的时候需要先new一个实现Runnable的实例，之后用Thread调用</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Test implements Runnable</span><br><span class="line"></span><br><span class="line">Test test = <span class="keyword">new</span> Test();</span><br><span class="line"></span><br><span class="line">Thread t = <span class="keyword">new</span> Thread(test);</span><br><span class="line"></span><br><span class="line">t.start();</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>线程对象只能启动一个线程</p>
+<ul>
+<li>不管是通过继承Thread，还是通过实现Runnbale接口创建线程，他们的一个对象只能启动（即start）一次；否则就会抛出异常illegalThreadStateException</li>
+</ul>
+</li>
+<li><p>线程的同步</p>
+<ul>
+<li>多线程并发给我们编程带来很多好处，完成更有效率的程序，但是也给我们带来线程安全的问题</li>
+<li>解决问题的关键就是要保证容易出问题的代码的原子性，即当a线程在执行某段代码的时候，别的线程必须等到a线程执行完后它才能执行这段代码</li>
+<li>Java处理线程同步的方法</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">synchronized</span>(object)&#123;</span><br><span class="line"></span><br><span class="line"><span class="comment">//你需要同步的代码</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>对同步机制的解释</p>
+<ul>
+<li>Java任意类型的对象都有一个标志位，该标志位具有0，1两种状态，其开始状态为1，当某个线程执行了synchronized（object）语句后，object对象的标志位变为0的状态，直到执行完整个synchronized语句中的代码块后，该对象的标志位又回到1状态</li>
+<li>当一个线程执行到synchronized（object）语句的时候，先检查object对象的标志位，如果为0状态，表明已经有另外的线程正在执行synchronized包括的代码，那么这个线程将暂时阻塞，让出cpu资源，直到另外的线程执行完相关的同步代码，并将object对象的标志位变为1状态，这个线程的阻塞就被取消，线程能继续运行，然后该线程又将object的标志位变为0状态，防止其他的线程再进入相关的同步代码块中</li>
+<li>如果有多个线程因等待同一个对象的标志位而处于阻塞状态时，当该对象的标志位恢复到1状态时，只会有一个线程能够进入同步代码执行，其他的线程仍然处于阻塞的状态<ul>
+<li>上面说的对象的标志位用术语讲就是对象锁，文件锁</li>
+<li>object可以是任意类型对象</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/02/21/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%B9%8B%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Java基础知识之图形界面编程基础" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1221,13 +1345,12 @@
 <li><p>首先，我们在现有的Linux添加一块大小20G的硬盘（具体步骤之前有记录，这里不再赘述，只需注意一点，在指定磁盘大小时候，将虚拟磁盘存储为==单个文件==）</p>
 </li>
 <li><p>添加完成后，点击确定，然后启动现有的linux。通过fdisk来给我们的/dev/sdb进行分区</p>
+<p><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E5%AE%9A%E5%88%B6%E8%87%AA%E5%B7%B1%E7%9A%84Linux%E7%B3%BB%E7%BB%9F/%E5%AE%9A%E5%88%B6minLinux%E4%B9%8B%E6%9F%A5%E7%9C%8B%E7%A3%81%E7%9B%98.png" alt="定制minLinux之查看磁盘"></p>
 <ul>
-<li><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E5%AE%9A%E5%88%B6%E8%87%AA%E5%B7%B1%E7%9A%84Linux%E7%B3%BB%E7%BB%9F/%E5%AE%9A%E5%88%B6minLinux%E4%B9%8B%E6%9F%A5%E7%9C%8B%E7%A3%81%E7%9B%98.png" alt="定制minLinux之查看磁盘"></li>
-<li>磁盘分区<ul>
-<li><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E5%AE%9A%E5%88%B6%E8%87%AA%E5%B7%B1%E7%9A%84Linux%E7%B3%BB%E7%BB%9F/%E5%AE%9A%E5%88%B6minLinux%E4%B9%8B%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA.png" alt="定制minLinux之磁盘分区"></li>
-<li><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E5%AE%9A%E5%88%B6%E8%87%AA%E5%B7%B1%E7%9A%84Linux%E7%B3%BB%E7%BB%9F/%E5%AE%9A%E5%88%B6minLinux%E4%B9%8B%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA2.png" alt="定制minLinux之磁盘分区2"></li>
-<li><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E5%AE%9A%E5%88%B6%E8%87%AA%E5%B7%B1%E7%9A%84Linux%E7%B3%BB%E7%BB%9F/%E5%AE%9A%E5%88%B6minLinux%E4%B9%8B%E6%9F%A5%E7%9C%8B%E5%88%86%E5%8C%BA.png" alt="定制minLinux之查看分区"></li>
-</ul>
+<li><p>磁盘分区</p>
+<p><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E5%AE%9A%E5%88%B6%E8%87%AA%E5%B7%B1%E7%9A%84Linux%E7%B3%BB%E7%BB%9F/%E5%AE%9A%E5%88%B6minLinux%E4%B9%8B%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA.png" alt="定制minLinux之磁盘分区"></p>
+<p><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E5%AE%9A%E5%88%B6%E8%87%AA%E5%B7%B1%E7%9A%84Linux%E7%B3%BB%E7%BB%9F/%E5%AE%9A%E5%88%B6minLinux%E4%B9%8B%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA2.png" alt="定制minLinux之磁盘分区2"></p>
+<p><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E5%AE%9A%E5%88%B6%E8%87%AA%E5%B7%B1%E7%9A%84Linux%E7%B3%BB%E7%BB%9F/%E5%AE%9A%E5%88%B6minLinux%E4%B9%8B%E6%9F%A5%E7%9C%8B%E5%88%86%E5%8C%BA.png" alt="定制minLinux之查看分区"></p>
 </li>
 </ul>
 </li>
@@ -1236,22 +1359,19 @@
 <li><p>然后创建目录并挂载新的磁盘</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /mnt/boot /mnt/sysroot</span><br><span class="line">mount /dev/sdb1 /mnt/boot</span><br><span class="line">mount /dev/sdb2 /mnt/sysroot</span><br></pre></td></tr></table></figure></li>
 <li><p>安装grub，把内核文件拷贝至目标磁盘</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">grub2 -install --root-directory=/mnt /dev/sdb</span><br><span class="line">hexdump -C -n 512 /dev/sdb <span class="comment"># 看一下二进制确认我们是否安装成功</span></span><br><span class="line">rm -rf /mnt/boot/*</span><br><span class="line">cp -rf /boot/* /mnt/boot/</span><br></pre></td></tr></table></figure>
-
-</li>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">grub2 -install --root-directory=/mnt /dev/sdb</span><br><span class="line">hexdump -C -n 512 /dev/sdb <span class="comment"># 看一下二进制确认我们是否安装成功</span></span><br><span class="line">rm -rf /mnt/boot/*</span><br><span class="line">cp -rf /boot/* /mnt/boot/</span><br></pre></td></tr></table></figure></li>
 <li><p>修改grub2/grub.cfg文件，标红的部分是需要使用指令==lsblk -f==来查看的</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /mnt/boot/gurb2/grub.cfg</span><br></pre></td></tr></table></figure>
-<ul>
-<li><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E5%AE%9A%E5%88%B6%E8%87%AA%E5%B7%B1%E7%9A%84Linux%E7%B3%BB%E7%BB%9F/%E5%AE%9A%E5%88%B6minLinux%E4%B9%8B%E6%9F%A5%E7%9C%8BUUID.png" alt="定制minLinux之查看UUID"></li>
-<li><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E5%AE%9A%E5%88%B6%E8%87%AA%E5%B7%B1%E7%9A%84Linux%E7%B3%BB%E7%BB%9F/%E5%AE%9A%E5%88%B6minLinux%E4%B9%8B%E4%BF%AE%E6%94%B9grub.cfg%E6%96%87%E4%BB%B6.png" alt="定制minLinux之修改grub.cfg文件"></li>
-<li><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E5%AE%9A%E5%88%B6%E8%87%AA%E5%B7%B1%E7%9A%84Linux%E7%B3%BB%E7%BB%9F/%E5%AE%9A%E5%88%B6minLinux%E4%B9%8B%E4%BF%AE%E6%94%B9grub.cfg%E6%96%87%E4%BB%B62.png" alt="定制minLinux之修改grub.cfg文件2"></li>
-</ul>
+<p><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E5%AE%9A%E5%88%B6%E8%87%AA%E5%B7%B1%E7%9A%84Linux%E7%B3%BB%E7%BB%9F/%E5%AE%9A%E5%88%B6minLinux%E4%B9%8B%E6%9F%A5%E7%9C%8BUUID.png" alt="定制minLinux之查看UUID"></p>
+<p><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E5%AE%9A%E5%88%B6%E8%87%AA%E5%B7%B1%E7%9A%84Linux%E7%B3%BB%E7%BB%9F/%E5%AE%9A%E5%88%B6minLinux%E4%B9%8B%E4%BF%AE%E6%94%B9grub.cfg%E6%96%87%E4%BB%B6.png" alt="定制minLinux之修改grub.cfg文件"></p>
+<p><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E5%AE%9A%E5%88%B6%E8%87%AA%E5%B7%B1%E7%9A%84Linux%E7%B3%BB%E7%BB%9F/%E5%AE%9A%E5%88%B6minLinux%E4%B9%8B%E4%BF%AE%E6%94%B9grub.cfg%E6%96%87%E4%BB%B62.png" alt="定制minLinux之修改grub.cfg文件2"></p>
 </li>
 <li><p>创建目标主机的根文件系统</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir -pv /mnt/sysroot/&#123;etc/rc.d,usr,var,proc,sys,dev,lib,lib64,bin,sbin,boot,srv,mnt,media,home,root&#125;</span><br></pre></td></tr></table></figure></li>
 <li><p>拷贝需要的bash（也可以拷贝你需要的指令）和库文件给新的系统使用</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cp /lib64/*.* /mnt/sysroot/lib64/</span><br><span class="line">cp /bin/bash /mnt/sysroot/bin/</span><br></pre></td></tr></table></figure></li>
-<li><p>现在我们就可以创建一个新的虚拟机，然后将默认分配的硬盘移除掉，==指向我们刚刚创建的磁盘==<img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E5%AE%9A%E5%88%B6%E8%87%AA%E5%B7%B1%E7%9A%84Linux%E7%B3%BB%E7%BB%9F/%E5%AE%9A%E5%88%B6minLinux%E4%B9%8B%E9%80%89%E6%8B%A9%E7%8E%B0%E6%9C%89%E7%A3%81%E7%9B%98.png" alt="定制minLinux之选择现有磁盘"><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E5%AE%9A%E5%88%B6%E8%87%AA%E5%B7%B1%E7%9A%84Linux%E7%B3%BB%E7%BB%9F/%E5%AE%9A%E5%88%B6minLinux%E4%B9%8B%E6%8C%87%E5%90%91%E6%96%B0%E7%A3%81%E7%9B%98.png" alt="定制minLinux之指向新磁盘"></p>
+<li><p>现在我们就可以创建一个新的虚拟机，然后将默认分配的硬盘移除掉，==指向我们刚刚创建的磁盘==</p>
+<p><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E5%AE%9A%E5%88%B6%E8%87%AA%E5%B7%B1%E7%9A%84Linux%E7%B3%BB%E7%BB%9F/%E5%AE%9A%E5%88%B6minLinux%E4%B9%8B%E9%80%89%E6%8B%A9%E7%8E%B0%E6%9C%89%E7%A3%81%E7%9B%98.png" alt="定制minLinux之选择现有磁盘"><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E5%AE%9A%E5%88%B6%E8%87%AA%E5%B7%B1%E7%9A%84Linux%E7%B3%BB%E7%BB%9F/%E5%AE%9A%E5%88%B6minLinux%E4%B9%8B%E6%8C%87%E5%90%91%E6%96%B0%E7%A3%81%E7%9B%98.png" alt="定制minLinux之指向新磁盘"></p>
 </li>
 <li><p>然后开启虚拟机</p>
 </li>
@@ -1407,9 +1527,9 @@
 </li>
 <li><p>配置文件：/etc/rsyslog.conf</p>
 <ul>
-<li><p>编辑文件的格式为：*.*，其中第一个*代表日志类型，第二个*代表日志级别</p>
-</li>
-<li><p>日志类型分为</p>
+<li><p>编辑文件的格式为</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">*.* <span class="comment"># 其中第一个*代表日志类型，第二个*代表日志级别</span></span><br></pre></td></tr></table></figure></li>
+<li><p>日志类型和日志级别</p>
 <table>
 <thead>
 <tr>
@@ -1537,69 +1657,69 @@
 <table>
 <thead>
 <tr>
-<th>参数</th>
-<th>说明</th>
+<th align="center">参数</th>
+<th align="center">说明</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>daily</td>
-<td>日志的轮替周期是每天</td>
+<td align="center">daily</td>
+<td align="center">日志的轮替周期是每天</td>
 </tr>
 <tr>
-<td>weekly</td>
-<td>日志的轮替周期是每周</td>
+<td align="center">weekly</td>
+<td align="center">日志的轮替周期是每周</td>
 </tr>
 <tr>
-<td>monthly</td>
-<td>日志的轮替周期是每月</td>
+<td align="center">monthly</td>
+<td align="center">日志的轮替周期是每月</td>
 </tr>
 <tr>
-<td>rotate 数字</td>
-<td>保留的日志文件的个数；0指没有备份</td>
+<td align="center">rotate 数字</td>
+<td align="center">保留的日志文件的个数；0指没有备份</td>
 </tr>
 <tr>
-<td>compress</td>
-<td>日志轮替时，旧的日志进行压缩</td>
+<td align="center">compress</td>
+<td align="center">日志轮替时，旧的日志进行压缩</td>
 </tr>
 <tr>
-<td>create mode owner group</td>
-<td>建立新日志，同时指定新日志的权限与所有者和所属组</td>
+<td align="center">create mode owner group</td>
+<td align="center">建立新日志，同时指定新日志的权限与所有者和所属组</td>
 </tr>
 <tr>
-<td>mail address</td>
-<td>当日志轮替时，输出内容通过邮件发送到指定的邮件地址</td>
+<td align="center">mail address</td>
+<td align="center">当日志轮替时，输出内容通过邮件发送到指定的邮件地址</td>
 </tr>
 <tr>
-<td>missingok</td>
-<td>日过日志不存在，则忽略该日志的警告信息</td>
+<td align="center">missingok</td>
+<td align="center">日过日志不存在，则忽略该日志的警告信息</td>
 </tr>
 <tr>
-<td>notifempty</td>
-<td>如果日志文件为空，则不进行日志轮替</td>
+<td align="center">notifempty</td>
+<td align="center">如果日志文件为空，则不进行日志轮替</td>
 </tr>
 <tr>
-<td>minsize 大小</td>
-<td>日志轮替的最小值，也就是日志一定要达到这个最小值才会轮替</td>
+<td align="center">minsize 大小</td>
+<td align="center">日志轮替的最小值，也就是日志一定要达到这个最小值才会轮替</td>
 </tr>
 <tr>
-<td>size 大小</td>
-<td>日志只有大于指定大小才进行轮替</td>
+<td align="center">size 大小</td>
+<td align="center">日志只有大于指定大小才进行轮替</td>
 </tr>
 <tr>
-<td>dateext</td>
-<td>使用日期作为日志轮替文件的后缀</td>
+<td align="center">dateext</td>
+<td align="center">使用日期作为日志轮替文件的后缀</td>
 </tr>
 <tr>
-<td>sharedscripts</td>
-<td>在此关键字之后的脚本只执行一次</td>
+<td align="center">sharedscripts</td>
+<td align="center">在此关键字之后的脚本只执行一次</td>
 </tr>
 <tr>
-<td>prerotate/endscript</td>
-<td>在日志轮替之前执行脚本命令</td>
+<td align="center">prerotate/endscript</td>
+<td align="center">在日志轮替之前执行脚本命令</td>
 </tr>
 <tr>
-<td>postrotate/endscript</td>
-<td>在日志轮替之后执行脚本命令</td>
+<td align="center">postrotate/endscript</td>
+<td align="center">在日志轮替之后执行脚本命令</td>
 </tr>
 </tbody></table>
 </li>
@@ -1607,7 +1727,7 @@
 <ul>
 <li>第一种方法是直接在/etc/logrotate.conf配置文件中写入该日志的轮替策略</li>
 <li>第二种方法是在/etc/logrotate.d/目录中新建该日志的轮替文件，在该轮替文件中写入正确的轮替策略；因为该目录中的文件都会被”include”到主配置文件中，所以也可以把日志加入轮替。推荐使用这种方法，因为系统中需要轮替的日志非常多，如果全部直接写入/etc/logrotate.conf配置文件，那么这个文件的可管理性就非常差，不利于此文件的维护</li>
-<li>/etc/logrotate.d/目录下的配置轮替文件<img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E6%97%A5%E5%BF%97%E7%AE%A1%E7%90%86/logrotate.d%E9%85%8D%E7%BD%AE%E8%BD%AE%E6%9B%BF%E6%96%87%E4%BB%B6.png" alt="logrotate.d配置轮替文件"></li>
+<li>/etc/logrotate.d/目录下配置的轮替文件<img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E6%97%A5%E5%BF%97%E7%AE%A1%E7%90%86/logrotate.d%E9%85%8D%E7%BD%AE%E8%BD%AE%E6%9B%BF%E6%96%87%E4%BB%B6.png" alt="logrotate.d配置轮替文件"></li>
 </ul>
 </li>
 <li><p>应用实例</p>
@@ -1624,13 +1744,20 @@
 </li>
 </ul>
 <h3 id="查看内存日志"><a href="#查看内存日志" class="headerlink" title="查看内存日志"></a>查看内存日志</h3><ul>
-<li>journalctl，查看全部</li>
-<li>journalctl -n 3，查看最新3条</li>
-<li>journalctl -since 19:00 –until 19:10:10，查看起始时间到结束时间的日志</li>
-<li>journalctl -p err，报错日志</li>
-<li>journalctl -o verbose，日志详细内容</li>
-<li>journalctl _PID=1245 _COMM=sshd，查看包含这些参数的日志或journalctl | grep sshd</li>
-<li>注意：journalctl 查看的是==内存日志==，重启清空</li>
+<li><p>查看全部</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">journalctl</span><br></pre></td></tr></table></figure></li>
+<li><p>查看最新3条</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">journalctl -n 3</span><br></pre></td></tr></table></figure></li>
+<li><p>查看起始时间到结束时间的日志</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">journalctl -since 19:00 --until 19:10:10</span><br></pre></td></tr></table></figure></li>
+<li><p>报错日志</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">journalctl -p err</span><br></pre></td></tr></table></figure></li>
+<li><p>日志详细内容</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">journalctl -o verbose</span><br></pre></td></tr></table></figure></li>
+<li><p>查看包含这些参数的日志</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">journalctl _PID=1245 _COMM=sshd</span><br><span class="line"><span class="comment"># 或</span></span><br><span class="line">journalctl | grep sshd</span><br></pre></td></tr></table></figure></li>
+<li><p>注意journalctl 查看的是==内存日志==，重启清空</p>
+</li>
 </ul>
 
       
@@ -1700,22 +1827,26 @@
 <li>对于大数据程序员来说，需要编写Shell程序来管理集群</li>
 </ul>
 <h3 id="Shell是什么"><a href="#Shell是什么" class="headerlink" title="Shell是什么"></a>Shell是什么</h3><ul>
-<li>Shell是一个==命令行解释器==，它为用户提供了一个向Linux内核发送请求以便运行程序的界面系统级程序，用户可以用Shell来启动、挂起、停止甚至编写一些程序</li>
-<li><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/Shell%E7%BC%96%E7%A8%8B/Shell%E7%A4%BA%E6%84%8F%E5%9B%BE.png" alt="Shell示意图"></li>
+<li><p>Shell是一个==命令行解释器==，它为用户提供了一个向Linux内核发送请求以便运行程序的界面系统级程序，用户可以用Shell来启动、挂起、停止甚至编写一些程序</p>
+<p><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/Shell%E7%BC%96%E7%A8%8B/Shell%E7%A4%BA%E6%84%8F%E5%9B%BE.png" alt="Shell示意图"></p>
+</li>
 </ul>
 <h3 id="Shell脚本的执行方式"><a href="#Shell脚本的执行方式" class="headerlink" title="Shell脚本的执行方式"></a>Shell脚本的执行方式</h3><ul>
-<li>脚本的格式要求<ul>
-<li>脚本以#!/bin/bash开头</li>
+<li><p>脚本的格式要求</p>
+<ul>
+<li>脚本以<code>#!/bin/bash</code>开头</li>
 <li>脚本需要有可执行权限</li>
 </ul>
 </li>
-<li>脚本的常用执行方式<ul>
+<li><p>脚本的常用执行方式</p>
+<ul>
 <li>输入脚本的绝对路径或相对路径，==首先要赋予脚本执行权限，再执行脚本==</li>
 <li>sh 脚本，==不用赋予脚本执行权限，直接执行即可==</li>
 </ul>
 </li>
-<li>编写第一个Shell脚本</li>
-<li><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/Shell%E7%BC%96%E7%A8%8B/%E7%AC%AC%E4%B8%80%E4%B8%AAShell%E8%84%9A%E6%9C%AC.png" alt="第一个Shell脚本"></li>
+<li><p>编写第一个Shell脚本</p>
+<p><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/Shell%E7%BC%96%E7%A8%8B/%E7%AC%AC%E4%B8%80%E4%B8%AAShell%E8%84%9A%E6%9C%AC.png" alt="第一个Shell脚本"></p>
+</li>
 </ul>
 <h3 id="Shell变量"><a href="#Shell变量" class="headerlink" title="Shell变量"></a>Shell变量</h3><ul>
 <li><p>介绍</p>
@@ -1728,101 +1859,176 @@
 <li><p>shell变量定义</p>
 <ul>
 <li><p>基本语法</p>
-<ul>
-<li>定义变量：变量名=值</li>
-<li>撤销变量：unset 变量名</li>
-<li>声明静态变量：readonly变量，==注意：不能unset==</li>
-</ul>
-</li>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">变量名=值 <span class="comment"># 定义变量</span></span><br><span class="line"><span class="built_in">unset</span> 变量名 <span class="comment"># 撤销变量</span></span><br><span class="line"><span class="built_in">readonly</span> 变量 <span class="comment"># 声明静态变量，注意不能撤销</span></span><br></pre></td></tr></table></figure></li>
 <li><p>定义变量的规则</p>
 <ul>
-<li>变量名可以由字母、数字和下划线组成，但是不能以数字开头，如5A=200（x）</li>
+<li>变量名可以由字母、数字和下划线组成，但是不能以数字开头，如<del>5A=200</del></li>
 <li>等号两侧不能有空格</li>
 <li>变量名一般习惯大写</li>
 </ul>
 </li>
 <li><p>将命令的返回值赋给变量</p>
-<ul>
-<li>A=` date``反引号运行里面的命令，并把结果返回给变量A</li>
-<li>A=$(date)等价于反引号</li>
-</ul>
-</li>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">A=`date` <span class="comment"># 反引号运行里面的命令，并把结果返回给变量A</span></span><br><span class="line">A=$(date) <span class="comment"># 与上面等价</span></span><br></pre></td></tr></table></figure></li>
 <li><p>Shell脚本多行注释</p>
-<ul>
-<li><p>:&lt;&lt;! 内容 !</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">:&lt;&lt;!</span><br><span class="line">内容</span><br><span class="line">!</span><br></pre></td></tr></table></figure>
 <p><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/Shell%E7%BC%96%E7%A8%8B/Shell%E5%A4%9A%E8%A1%8C%E6%B3%A8%E9%87%8A.png" alt="Shell多行注释"></p>
 </li>
 </ul>
 </li>
 </ul>
-</li>
-</ul>
 <h3 id="设置环境变量"><a href="#设置环境变量" class="headerlink" title="设置环境变量"></a>设置环境变量</h3><ul>
-<li>基本语法<ul>
-<li>export 变量名=值，将Shell变量输出为环境变量（==全局变量==）</li>
-<li>source 配置文件，让修改后的配置信息立即生效</li>
-<li>echo $变量名，查询环境变量的值</li>
-</ul>
+<li><p>基本语法</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> 变量名=值 <span class="comment"># 将Shell变量输出为环境变量（全局变量）</span></span><br><span class="line"><span class="built_in">source</span> 配置文件 <span class="comment"># 让修改后的配置信息立即生效</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$VAR</span> <span class="comment"># 查询环境变量的值</span></span><br></pre></td></tr></table></figure>
+<h3 id="位置参数变量"><a href="#位置参数变量" class="headerlink" title="位置参数变量"></a>位置参数变量</h3></li>
+<li><p>当我们执行一个Shell脚本时，如果希望获取到命令行的参数信息，就可以使用位置参数变量</p>
+<ul>
+<li><p>如：./myshell.sh 100 200，这个就是一个执行Shell的命令行，可以在myshell脚本中获取到参数信息</p>
+<p><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/Shell%E7%BC%96%E7%A8%8B/Shell%E8%84%9A%E6%9C%AC%E4%BD%8D%E7%BD%AE%E5%8F%82%E6%95%B0.png" alt="Shell脚本位置参数"></p>
 </li>
 </ul>
-<h3 id="位置参数变量"><a href="#位置参数变量" class="headerlink" title="位置参数变量"></a>位置参数变量</h3><ul>
-<li>当我们执行一个Shell脚本时，如果希望获取到命令行的参数信息，就可以使用到位置参数变量<ul>
-<li>如：./myshell.sh 100 200，这个就是一个执行Shell的命令行，可以再myshell脚本中获取到参数信息<img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/Shell%E7%BC%96%E7%A8%8B/Shell%E8%84%9A%E6%9C%AC%E4%BD%8D%E7%BD%AE%E5%8F%82%E6%95%B0.png" alt="Shell脚本位置参数"></li>
-</ul>
 </li>
-<li>基本语法<ul>
-<li>$n，n为数字，$0代表命令本身，$1-$9代表第一到第九个参数，十以上的参数需要大括号包含，如${10}</li>
-<li>$*，这个变量代表命令行中所有的参数，$*把所有的参数看成一个整体</li>
-<li>$@，这个变量也代表命令行中所有的参数，不过$@把==每个参数区分对待==</li>
-<li>$#，这个变量代表命令行中所有==参数的个数==</li>
-</ul>
+<li><p>基本语法</p>
+<table>
+<thead>
+<tr>
+<th align="center">变量</th>
+<th align="center">意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">$n</td>
+<td align="center">n为数字，$0代表命令本身，$1-$9代表第一到第九个参数，十以上的参数需要大括号包含，如${10}</td>
+</tr>
+<tr>
+<td align="center">$*</td>
+<td align="center">代表命令行中所有的参数，$*把所有的参数看成一个整体</td>
+</tr>
+<tr>
+<td align="center">$@</td>
+<td align="center">代表命令行中所有的参数，不过$@把==每个参数区分对待==</td>
+</tr>
+<tr>
+<td align="center">$#</td>
+<td align="center">代表命令行中所有==参数的个数==</td>
+</tr>
+</tbody></table>
 </li>
 </ul>
 <h3 id="预定义变量"><a href="#预定义变量" class="headerlink" title="预定义变量"></a>预定义变量</h3><ul>
-<li>即Shell设计者事先已经定义好的变量，可以直接在Shell脚本中使用</li>
-<li>基本语法<ul>
-<li>$$，当前进程的进程号（PID）</li>
-<li>$!，后台运行的最后一个进程的进程号</li>
-<li>$?，最后一次执行的命令的返回状态，如果这个变量的值为0，证明上一个命令正确执行；如果这个变量的值为非0，则证明上一个命令执行不正确<img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/Shell%E7%BC%96%E7%A8%8B/%E9%A2%84%E5%AE%9A%E4%B9%89%E5%8F%98%E9%87%8F.png" alt="预定义变量"></li>
-</ul>
+<li><p>即Shell设计者事先已经定义好的变量，可以直接在Shell脚本中使用</p>
+</li>
+<li><p>基本语法</p>
+<table>
+<thead>
+<tr>
+<th align="center">变量</th>
+<th align="center">意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">$$</td>
+<td align="center">当前进程的进程号（PID）</td>
+</tr>
+<tr>
+<td align="center">$!</td>
+<td align="center">后台运行的最后一个进程的进程号</td>
+</tr>
+<tr>
+<td align="center">$?</td>
+<td align="center">最后一次执行的命令的返回状态，如果这个变量的值为0，证明上一个命令正确执行；如果这个变量的值为非0，则证明上一个命令执行不正确</td>
+</tr>
+</tbody></table>
+<p><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/Shell%E7%BC%96%E7%A8%8B/%E9%A2%84%E5%AE%9A%E4%B9%89%E5%8F%98%E9%87%8F.png" alt="预定义变量"></p>
 </li>
 </ul>
 <h3 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h3><ul>
-<li>基本语法<ul>
-<li>“$((运算式))” 或 “$[运算式]” 或 expr m + n，注意expr运算符间要有==空格==</li>
-<li>expr m - n</li>
-<li>expr \*,/,%，乘，除，取余</li>
-<li>如果希望将expr的结果赋给某个变量，使用==反引号``==</li>
-</ul>
+<li><p>基本语法</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;<span class="subst">$((运算式)</span>)&quot;</span></span><br><span class="line">or</span><br><span class="line"><span class="string">&quot;$[运算式]&quot;</span></span><br><span class="line">or</span><br><span class="line">expr m + n <span class="comment"># 注意expr运算符间要有空格</span></span><br><span class="line">expr m - n</span><br><span class="line">expr \*,/,% <span class="comment"># 乘，除，取余</span></span><br><span class="line"><span class="comment"># 如果希望将expr的结果赋给某个变量，使用反引号``</span></span><br></pre></td></tr></table></figure>
+<h3 id="条件判断"><a href="#条件判断" class="headerlink" title="条件判断"></a>条件判断</h3></li>
+<li><p>基本语法</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[ condition ] <span class="comment"># 注意condition前后要有空格，非空返回true</span></span><br></pre></td></tr></table></figure></li>
+<li><p>常用判断条件</p>
+<ul>
+<li><p>=，字符串比较</p>
 </li>
-</ul>
-<h3 id="条件判断"><a href="#条件判断" class="headerlink" title="条件判断"></a>条件判断</h3><ul>
-<li>基本语法：[ condition ]，注意condition前后要有空格<ul>
-<li>非空返回true</li>
-</ul>
+<li><p>两个整数的比较</p>
+<table>
+<thead>
+<tr>
+<th align="center">符号</th>
+<th align="center">意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-lt</td>
+<td align="center">小于</td>
+</tr>
+<tr>
+<td align="center">-le</td>
+<td align="center">小于等于</td>
+</tr>
+<tr>
+<td align="center">-eq</td>
+<td align="center">等于</td>
+</tr>
+<tr>
+<td align="center">-gt</td>
+<td align="center">大于</td>
+</tr>
+<tr>
+<td align="center">-ge</td>
+<td align="center">大于等于</td>
+</tr>
+<tr>
+<td align="center">-ne</td>
+<td align="center">不等于</td>
+</tr>
+</tbody></table>
 </li>
-<li>常用判断条件<ul>
-<li>=，字符串比较</li>
-<li>两个整数的比较<ul>
-<li>-lt，小于</li>
-<li>le，小于等于</li>
-<li>-eq，等于</li>
-<li>-gt，大于</li>
-<li>-ge，大于等于</li>
-<li>-ne，不等于</li>
-</ul>
+<li><p>按照文件权限进行判断</p>
+<table>
+<thead>
+<tr>
+<th align="center">符号</th>
+<th align="center">意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-r</td>
+<td align="center">有读的权限</td>
+</tr>
+<tr>
+<td align="center">-w</td>
+<td align="center">有写的权限</td>
+</tr>
+<tr>
+<td align="center">-x</td>
+<td align="center">有执行的权限</td>
+</tr>
+</tbody></table>
 </li>
-<li>按照文件权限进行判断<ul>
-<li>-r，有读的权限</li>
-<li>-w，有写的权限</li>
-<li>-x，有执行的权限</li>
-</ul>
-</li>
-<li>按照文件类型进行判断<ul>
-<li>-f，文件存在并且是一个常规的文件</li>
-<li>-e，文件存在</li>
-<li>-d，文件存在并是一个目录<img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/Shell%E7%BC%96%E7%A8%8B/Shell%E6%9D%A1%E4%BB%B6%E5%88%A4%E6%96%AD.png" alt="Shell条件判断"></li>
-</ul>
+<li><p>按照文件类型进行判断</p>
+<table>
+<thead>
+<tr>
+<th align="center">符号</th>
+<th align="center">意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-f</td>
+<td align="center">文件存在并且是一个常规的文件</td>
+</tr>
+<tr>
+<td align="center">-e</td>
+<td align="center">文件存在</td>
+</tr>
+<tr>
+<td align="center">-d</td>
+<td align="center">文件存在并是一个目录</td>
+</tr>
+</tbody></table>
+<p><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/Shell%E7%BC%96%E7%A8%8B/Shell%E6%9D%A1%E4%BB%B6%E5%88%A4%E6%96%AD.png" alt="Shell条件判断"></p>
 </li>
 </ul>
 </li>
@@ -1841,14 +2047,28 @@
 <p><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/Shell%E7%BC%96%E7%A8%8B/while%E5%BE%AA%E7%8E%AF.png" alt="while循环"></p>
 </li>
 </ul>
-<h3 id="read读取控制台输入"><a href="#read读取控制台输入" class="headerlink" title="read读取控制台输入"></a>read读取控制台输入</h3><ul>
-<li>read(选项)(参数)</li>
-<li>选项<ul>
-<li>-p，指定读取值时的提示符</li>
-<li>-t，指定读取值时的等待时间（秒），如果没有在指定的时间内输入，就不再等待了</li>
-</ul>
+<h3 id="read读取控制台输入"><a href="#read读取控制台输入" class="headerlink" title="read读取控制台输入"></a>read读取控制台输入</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">read</span> [选项] (参数)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>选项</p>
+<table>
+<thead>
+<tr>
+<th align="center">选项</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-p</td>
+<td align="center">指定读取值时的提示符</td>
+</tr>
+<tr>
+<td align="center">-t</td>
+<td align="center">指定读取值时的等待时间（秒），如果没有在指定的时间内输入，就不再等待了</td>
+</tr>
+</tbody></table>
 </li>
-<li>参数<ul>
+<li><p>参数</p>
+<ul>
 <li>变量：指定读取值的变量名<img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/Shell%E7%BC%96%E7%A8%8B/read%E8%AF%BB%E5%8F%96%E6%8E%A7%E5%88%B6%E5%8F%B0%E8%BE%93%E5%85%A5.png" alt="read读取控制台输入"></li>
 </ul>
 </li>
@@ -1858,23 +2078,24 @@
 </li>
 <li><p>系统函数</p>
 <ul>
-<li>basename，返回完整路径最后 / 的部分，==常用于获取文件名==<ul>
-<li>basename [pathname] [suffix]</li>
-<li>basename [string] [suffix]</li>
+<li><p>basename，返回完整路径最后 / 的部分，==常用于获取文件名==</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">basename [pathname] [suffix]</span><br><span class="line">basename [string] [suffix]</span><br></pre></td></tr></table></figure>
+<ul>
 <li>basename命令会删掉所有的前缀==包括最后一个 ‘/‘ 字符==，然后将字符串显示出来</li>
-<li>选项：[suffix]为后缀，如果suffix被指定了，basename会将pathname或string中的suffix去掉</li>
+<li>选项[suffix]为后缀，如果suffix被指定了，basename会将pathname或string中的suffix去掉</li>
 </ul>
 </li>
-<li>dirname，返回完整路径最后 / 的前面的部分，常用于返回路径部分<ul>
-<li>dirname 文件绝对路径，从给定的包含绝对路径的文件名中去除文件名，然后返回剩下的路径</li>
-</ul>
-</li>
+<li><p>dirname，返回完整路径最后 / 的前面的部分，常用于返回路径部分</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 从给定的包含文件名的绝对路径中去除文件名，然后返回剩下的路径</span></span><br><span class="line">dirname 文件绝对路径</span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
 <li><p>自定义函数</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[ function ] funname[()]</span><br><span class="line">&#123;</span><br><span class="line">	Action;</span><br><span class="line">	[return int;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
-<li>调用直接写函数名：funname [参数]<img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/Shell%E7%BC%96%E7%A8%8B/%E8%87%AA%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0getSum.png" alt="自定义函数getSum"></li>
+<li><p>调用时直接写函数名</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">funname [参数]</span><br></pre></td></tr></table></figure>
+<p><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/Shell%E7%BC%96%E7%A8%8B/%E8%87%AA%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0getSum.png" alt="自定义函数getSum"></p>
+</li>
 </ul>
 </li>
 </ul>
@@ -1888,8 +2109,7 @@
 </ul>
 </li>
 <li><p>Shell脚本代码<img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/Shell%E7%BC%96%E7%A8%8B/Shell%E7%BC%96%E7%A8%8B%E7%BB%BC%E5%90%88%E6%A1%88%E4%BE%8B01.png" alt="Shell编程综合案例01"></p>
-</li>
-<li><p><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/Shell%E7%BC%96%E7%A8%8B/Shell%E7%BC%96%E7%A8%8B%E7%BB%BC%E5%90%88%E6%A1%88%E4%BE%8B02.png" alt="Shell编程综合案例02"></p>
+<p><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/Shell%E7%BC%96%E7%A8%8B/Shell%E7%BC%96%E7%A8%8B%E7%BB%BC%E5%90%88%E6%A1%88%E4%BE%8B02.png" alt="Shell编程综合案例02"></p>
 </li>
 </ul>
 
@@ -1960,7 +2180,7 @@
 <li>安装（略）</li>
 </ul>
 <h3 id="Ubuntu的root用户"><a href="#Ubuntu的root用户" class="headerlink" title="Ubuntu的root用户"></a>Ubuntu的root用户</h3><ul>
-<li>安装Ubuntu成功后，都是普通用户权限，并没有最高的root权限；如果需要使用root权限，通常都要在命令前面加上sudo，这会很不方便。我们一般使用su命令来直接切换到root用户的，但是如果没有给root设置初始密码，就会抛出权限失败的问题，所以我们只要给root设置一个初始密码就好了</li>
+<li>安装Ubuntu成功后，都是普通用户权限，并没有最高的root权限；如果需要使用root权限，通常都要在命令前面加上sudo，这会很不方便。我们一般使用su命令来直接切换到root用户，但是如果没有给root设置初始密码，就会抛出权限失败的问题，所以我们只要给root设置一个初始密码就好了</li>
 <li>给root用户设置密码并使用<ul>
 <li>输入sudo passwd 命令，输入一般用户密码并设定root用户密码</li>
 <li>设定root名成功后，输入su命令，并输入root密码，就成功切换到root用户了</li>
@@ -1984,135 +2204,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2021/02/21/Linux%E4%B9%8Bpython%E5%AE%9A%E5%88%B6%E7%AF%87%E4%B9%8BPython%E5%BC%80%E5%8F%91%E5%B9%B3%E5%8F%B0Ubuntu/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Linux之python定制篇之APT软件管理和远程登录" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/02/21/Linux%E4%B9%8Bpython%E5%AE%9A%E5%88%B6%E7%AF%87%E4%B9%8BAPT%E8%BD%AF%E4%BB%B6%E7%AE%A1%E7%90%86%E5%92%8C%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/">Linux之python定制篇之APT软件管理和远程登录</a>
-    </h1>
-  
-
-        
-        <a href="/2021/02/21/Linux%E4%B9%8Bpython%E5%AE%9A%E5%88%B6%E7%AF%87%E4%B9%8BAPT%E8%BD%AF%E4%BB%B6%E7%AE%A1%E7%90%86%E5%92%8C%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/" class="archive-article-date">
-  	<time datetime="2021-02-20T21:02:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="apt介绍"><a href="#apt介绍" class="headerlink" title="apt介绍"></a>apt介绍</h3><ul>
-<li>apt是Advanced Packaging Tool的简称，是一款==安装包管理工具==。在Ubuntu下，我们可以使用apt命令进行软件包的安装、删除、清理等，类似于Windows中的软件管理工具</li>
-<li>apt原理<img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/APT%E8%BD%AF%E4%BB%B6%E7%AE%A1%E7%90%86%E5%92%8C%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/APT%E8%BD%AF%E4%BB%B6%E7%AE%A1%E7%90%86%E5%8E%9F%E7%90%86.png" alt="APT软件管理原理"></li>
-</ul>
-<h3 id="Ubuntu软件操作的相关命令"><a href="#Ubuntu软件操作的相关命令" class="headerlink" title="Ubuntu软件操作的相关命令"></a>Ubuntu软件操作的相关命令</h3><ul>
-<li>==sudo apt-get update==，更新源</li>
-<li>==sudo apt-get install package==，安装包</li>
-<li>==sudo apt-get remove package==，删除包</li>
-<li>sudo apt-cache search package，搜索软件包</li>
-<li>==sudo apt-cache show package==，获取包的相关信息，如说明、大小、版本等</li>
-<li>sudo apt-get install package –reinstall，重新安装包</li>
-<li>sudo apt-get -f install，修复安装</li>
-<li>sudo apt-get remove package –purge，删除包（包含配置文件等）</li>
-<li>sudo apt-get build-dep package，安装相关的编译环境</li>
-<li>sudo apt-get upgrade，更新已安装的包</li>
-<li>sudo apt-get dist-upgrade，升级系统</li>
-<li>sudo apt-cache depends package，了解使用该包依赖哪些包</li>
-<li>sudo apt-cache rdepends package，查看该包被哪些包依赖</li>
-<li>==sudo apt-get source package==，下载该包的源代码</li>
-</ul>
-<h3 id="更新Ubuntu软件下载地址"><a href="#更新Ubuntu软件下载地址" class="headerlink" title="更新Ubuntu软件下载地址"></a>更新Ubuntu软件下载地址</h3><ul>
-<li><p>寻找国内镜像源：<a target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/![%E6%B8%85%E5%8D%8E%E9%95%9C%E5%83%8F%E7%BD%91%E7%AB%99](https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/APT%E8%BD%AF%E4%BB%B6%E7%AE%A1%E7%90%86%E5%92%8C%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/%E6%B8%85%E5%8D%8E%E9%95%9C%E5%83%8F%E7%BD%91%E7%AB%99.png)">https://mirrors.tuna.tsinghua.edu.cn/![清华镜像网站](https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/APT%E8%BD%AF%E4%BB%B6%E7%AE%A1%E7%90%86%E5%92%8C%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/%E6%B8%85%E5%8D%8E%E9%95%9C%E5%83%8F%E7%BD%91%E7%AB%99.png)</a></p>
-</li>
-<li><p><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/APT%E8%BD%AF%E4%BB%B6%E7%AE%A1%E7%90%86%E5%92%8C%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/Ubuntu%E9%95%9C%E5%83%8F%E4%BD%BF%E7%94%A8%E5%B8%AE%E5%8A%A9.png" alt="Ubuntu镜像使用帮助"></p>
-</li>
-<li><p>备份Ubuntu默认的源地址：sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak</p>
-</li>
-<li><p>更新源服务器列表</p>
-<ul>
-<li>先清空sources.list文件：echo ‘’ &gt; sources.list</li>
-<li>复制镜像网站的地址拷贝到sources.list文件<ul>
-<li><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/APT%E8%BD%AF%E4%BB%B6%E7%AE%A1%E7%90%86%E5%92%8C%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/%E5%A4%8D%E5%88%B6%E9%95%9C%E5%83%8F%E7%BD%91%E7%AB%99%E5%9C%B0%E5%9D%80.png" alt="复制镜像网站地址"></li>
-<li><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/APT%E8%BD%AF%E4%BB%B6%E7%AE%A1%E7%90%86%E5%92%8C%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/%E6%8B%B7%E8%B4%9D%E5%88%B0sources.list%E6%96%87%E4%BB%B6.png" alt="拷贝到sources.list文件"></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>更新源：sudo apt-get update</p>
-</li>
-</ul>
-<h3 id="远程登录Ubuntu"><a href="#远程登录Ubuntu" class="headerlink" title="远程登录Ubuntu"></a>远程登录Ubuntu</h3><ul>
-<li><p>ssh介绍</p>
-<ul>
-<li>SSH为Secure Shell的缩写，由IETF的网络工作小组（Network Working Group）所制定；SSH为建立在应用层和传输层基础上的安全协议。SSH是目前较可靠，专为==远程登录会话和其他网络服务==提供安全性的协议，几乎所有UNIX/Linux平台都可以运行SSH</li>
-<li>使用SSH服务需要安装相应的服务器和客户端。如果A机器想被B机器远程控制，那么A机器需要安装SSH服务器，B机器需要安装SSH客户端</li>
-<li>和CentOS不一样，Ubuntu默认没有安装SSHD服务（==使用netstat指令查看：apt install net-tools==），因此我们不能远程登录</li>
-</ul>
-</li>
-<li><p>安装SSH和启用</p>
-<ul>
-<li>sudo apt-get install openssh-server<ul>
-<li>执行该指令后，在当前这台Linux上就安装了SSH服务端和客户端</li>
-</ul>
-</li>
-<li>service sshd restart<ul>
-<li>执行该指令后，就启动了sshd服务，会监听端口22</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>从一台Linux系统登录到另一台Linux系统（在创建服务器集群时会使用该技术）</p>
-<ul>
-<li>基本语法：ssh 用户名@IP，如ssh <a href="mailto:&#x73;&#x6c;&#121;&#101;&#114;&#x40;&#x31;&#x39;&#50;&#46;&#x31;&#54;&#56;&#46;&#50;&#48;&#x30;&#46;&#x31;&#x32;&#x38;">&#x73;&#x6c;&#121;&#101;&#114;&#x40;&#x31;&#x39;&#50;&#46;&#x31;&#54;&#56;&#46;&#50;&#48;&#x30;&#46;&#x31;&#x32;&#x38;</a></li>
-<li>登出：exit或logout</li>
-</ul>
-</li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/02/21/Linux%E4%B9%8Bpython%E5%AE%9A%E5%88%B6%E7%AF%87%E4%B9%8BAPT%E8%BD%AF%E4%BB%B6%E7%AE%A1%E7%90%86%E5%92%8C%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/">展开全文 >></a>
         </p>
       
 

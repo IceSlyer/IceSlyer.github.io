@@ -8,15 +8,15 @@
   <link rel="dns-prefetch" href="http://example.com">
   <title>Linux实操篇之定时任务调度 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="crond 任务调度 通过crontab指令进行定时任务的设置 概述 任务调度是指系统在&#x3D;&#x3D;某个时间执行&#x3D;&#x3D;的&#x3D;&#x3D;特定的命令&#x3D;&#x3D;或程序 任务调度分类： 系统工作：有些重要的工作必须周而复始地执行，如病毒扫描等 个别用户工作：个别用户可能希望执行某些程序，比如对MySQL数据库的备份     基本语法：crontab [选项] 常用选项 -e，编辑crontab定时任务 -l，查询crontab任务">
+  <meta name="description" content="crond 任务调度 通过crontab指令进行定时任务的设置  概述  任务调度是指系统在&#x3D;&#x3D;某个时间&#x3D;&#x3D;执行的&#x3D;&#x3D;特定的命令&#x3D;&#x3D;或程序  任务调度分类：    类别 说明    系统工作 有些重要的工作必须周而复始地执行，如病毒扫描等   个别用户工作 个别用户可能希望执行某些程序，比如对MySQL数据库的备份      基本语法 1crontab [选项] 常用选项    选项 说明">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux实操篇之定时任务调度">
 <meta property="og:url" content="http://example.com/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="crond 任务调度 通过crontab指令进行定时任务的设置 概述 任务调度是指系统在&#x3D;&#x3D;某个时间执行&#x3D;&#x3D;的&#x3D;&#x3D;特定的命令&#x3D;&#x3D;或程序 任务调度分类： 系统工作：有些重要的工作必须周而复始地执行，如病毒扫描等 个别用户工作：个别用户可能希望执行某些程序，比如对MySQL数据库的备份     基本语法：crontab [选项] 常用选项 -e，编辑crontab定时任务 -l，查询crontab任务">
+<meta property="og:description" content="crond 任务调度 通过crontab指令进行定时任务的设置  概述  任务调度是指系统在&#x3D;&#x3D;某个时间&#x3D;&#x3D;执行的&#x3D;&#x3D;特定的命令&#x3D;&#x3D;或程序  任务调度分类：    类别 说明    系统工作 有些重要的工作必须周而复始地执行，如病毒扫描等   个别用户工作 个别用户可能希望执行某些程序，比如对MySQL数据库的备份      基本语法 1crontab [选项] 常用选项    选项 说明">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-02-20T20:53:48.000Z">
-<meta property="article:modified_time" content="2021-02-20T20:54:13.681Z">
+<meta property="article:modified_time" content="2021-03-01T15:34:32.465Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -165,85 +165,189 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h3 id="crond-任务调度"><a href="#crond-任务调度" class="headerlink" title="crond 任务调度"></a>crond 任务调度</h3><ul>
-<li>通过crontab指令进行定时任务的设置</li>
-<li>概述<ul>
-<li>任务调度是指系统在==某个时间执行==的==特定的命令==或程序</li>
-<li>任务调度分类：<ul>
-<li>系统工作：有些重要的工作必须周而复始地执行，如病毒扫描等</li>
-<li>个别用户工作：个别用户可能希望执行某些程序，比如对MySQL数据库的备份</li>
-</ul>
+<li><p>通过crontab指令进行定时任务的设置</p>
+</li>
+<li><p>概述</p>
+<ul>
+<li><p>任务调度是指系统在==某个时间==执行的==特定的命令==或程序</p>
+</li>
+<li><p>任务调度分类：</p>
+<table>
+<thead>
+<tr>
+<th align="center">类别</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">系统工作</td>
+<td align="center">有些重要的工作必须周而复始地执行，如病毒扫描等</td>
+</tr>
+<tr>
+<td align="center">个别用户工作</td>
+<td align="center">个别用户可能希望执行某些程序，比如对MySQL数据库的备份</td>
+</tr>
+</tbody></table>
 </li>
 </ul>
 </li>
-<li>基本语法：crontab [选项]</li>
-<li>常用选项<ul>
-<li>-e，编辑crontab定时任务</li>
-<li>-l，查询crontab任务</li>
-<li>-r，删除当前用户所有的crontab任务</li>
-<li>service crond restart，重启任务调度</li>
-</ul>
+<li><p>基本语法</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crontab [选项]</span><br></pre></td></tr></table></figure></li>
+<li><p>常用选项</p>
+<table>
+<thead>
+<tr>
+<th align="center">选项</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-e</td>
+<td align="center">编辑crontab定时任务</td>
+</tr>
+<tr>
+<td align="center">-l</td>
+<td align="center">查询crontab任务</td>
+</tr>
+<tr>
+<td align="center">-r</td>
+<td align="center">删除当前用户所有的crontab任务</td>
+</tr>
+</tbody></table>
 </li>
-<li>快速入门<ul>
-<li>设置任务调度文件：/etc/crontab</li>
-<li>设置个人任务调度，执行crontab -e 命令，接着输入任务到调度文件<ul>
+<li><p>重启任务调度</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service crond restart</span><br></pre></td></tr></table></figure></li>
+<li><p>快速入门</p>
+<ul>
+<li><p>设置任务调度文件</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/crontab</span><br></pre></td></tr></table></figure></li>
+<li><p>设置个人任务调度，执行crontab -e 命令，接着输入任务到调度文件</p>
+<ul>
 <li>例如：*/1 * * * * ls -l /etc/ &gt; /tmp/to.txt，意思是每小时的每分钟执行此命令</li>
 </ul>
 </li>
-<li>参数细节说明<ul>
-<li>第一个”*”，一小时当中的第几分钟，范围0-59</li>
-<li>第二个”*”，一天中的第几小时，范围0-23</li>
-<li>第三个”*”，一个月中的第几天，范围1-31</li>
-<li>第四个”*”，一年中的第几月，范围1-12</li>
-<li>第五个”*”，一周当中的星期几，范围0-7（==0和7都代表星期日==）</li>
-</ul>
+<li><p>参数细节说明</p>
+<table>
+<thead>
+<tr>
+<th align="center">参数</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">第一个”*”</td>
+<td align="center">一小时当中的第几分钟，范围0-59</td>
+</tr>
+<tr>
+<td align="center">第二个”*”</td>
+<td align="center">一天中的第几小时，范围0-23</td>
+</tr>
+<tr>
+<td align="center">第三个”*”</td>
+<td align="center">一个月中的第几天，范围1-31</td>
+</tr>
+<tr>
+<td align="center">第四个”*”</td>
+<td align="center">一年中的第几月，范围1-12</td>
+</tr>
+<tr>
+<td align="center">第五个”*”</td>
+<td align="center">一周当中的星期几，范围0-7（==0和7都代表星期日==）</td>
+</tr>
+</tbody></table>
 </li>
-<li>特殊符号说明<ul>
-<li>*，代表==任何时间==<ul>
-<li>例如第一个 “*” 就代表一小时中每分钟都执行一次的意思</li>
-</ul>
-</li>
-<li>, 代表不连续的时间<ul>
-<li>例如”0 8,12,16 * * * 命令”，代表在每天的8点0分，12点0分，16点0分都执行一次命令</li>
-</ul>
-</li>
-<li>-，代表连续的时间范围<ul>
-<li>例如”0 5 * * 1-6 命令”，代表在周一到周六的凌晨5点0分执行命令</li>
-</ul>
-</li>
-<li>*/n，代表每隔多久执行一次<ul>
-<li>例如”*/10 * * * * 命令”，代表每隔10分钟就执行一次命令</li>
-</ul>
-</li>
-</ul>
+<li><p>特殊符号说明</p>
+<table>
+<thead>
+<tr>
+<th align="center">符号</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">*</td>
+<td align="center">代表==任何时间==；例如第一个 “*” 就代表一小时中每分钟都执行一次的意思</td>
+</tr>
+<tr>
+<td align="center">,</td>
+<td align="center">代表不连续的时间；例如”0 8,12,16 * * * 命令”，代表在每天的8点0分，12点0分，16点0分都执行一次命令</td>
+</tr>
+<tr>
+<td align="center">-</td>
+<td align="center">代表连续的时间范围；例如”0 5 * * 1-6 命令”，代表在周一到周六的凌晨5点0分执行命令</td>
+</tr>
+<tr>
+<td align="center">*/n</td>
+<td align="center">代表每隔多久执行一次；例如”*/10 * * * * 命令”，代表每隔10分钟就执行一次命令</td>
+</tr>
+</tbody></table>
 </li>
 </ul>
 </li>
 </ul>
 <h3 id="at定时任务"><a href="#at定时任务" class="headerlink" title="at定时任务"></a>at定时任务</h3><ul>
-<li>基本介绍<ul>
-<li>at命令是==一次性==定时计划任务，执行完一个任务后不再执行此任务了</li>
-<li>at的守护进程atd会以后台模式运行，检查作业队列来运行</li>
-<li>默认情况下，atd守护进程每60秒检查作业队列，有作业时，会检查作业运行时间，如果时间与当前时间匹配，则运行此作业</li>
-<li>在使用at命令的时候，==一定要保证atd进程的启动==，可以使用指令：<strong>ps -ef | grep atd</strong>来查看</li>
+<li><p>基本介绍</p>
+<ul>
+<li><p>at命令是==一次性==定时计划任务，执行完一个任务后不再执行此任务了</p>
+</li>
+<li><p>at的守护进程atd会以后台模式运行，检查作业队列来运行</p>
+</li>
+<li><p>默认情况下，atd守护进程每60秒检查作业队列，有作业时，会检查作业运行时间，如果时间与当前时间匹配，则运行此作业</p>
+</li>
+<li><p>在使用at命令的时候，==一定要保证atd进程的启动==，可以使用以下指令来查看</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -ef | grep atd</span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
-<li>命令格式<ul>
-<li>at [选项] [时间]，Ctrl+D（2次）结束at命令的输入</li>
-</ul>
+<li><p>命令格式</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">at [选项] [时间] <span class="comment"># Ctrl+D（2次）结束at命令的输入</span></span><br></pre></td></tr></table></figure></li>
+<li><p>命令选项</p>
+<table>
+<thead>
+<tr>
+<th align="center">选项</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-m</td>
+<td align="center">当指定的任务被完成后，将给用户发送邮件，即使没有标准输出</td>
+</tr>
+<tr>
+<td align="center">-l</td>
+<td align="center">atq的别名，查询任务</td>
+</tr>
+<tr>
+<td align="center">-d</td>
+<td align="center">atrm的别名，删除任务</td>
+</tr>
+<tr>
+<td align="center">-v</td>
+<td align="center">显示任务将被执行的时间</td>
+</tr>
+<tr>
+<td align="center">-c</td>
+<td align="center">打印任务的内容到标准输出</td>
+</tr>
+<tr>
+<td align="center">-V</td>
+<td align="center">显示版本信息</td>
+</tr>
+<tr>
+<td align="center">-q &lt;队列&gt;</td>
+<td align="center">使用指定的队列</td>
+</tr>
+<tr>
+<td align="center">-f &lt;文件&gt;</td>
+<td align="center">从指定文件读入任务而不是从标准输入读入</td>
+</tr>
+<tr>
+<td align="center">-t &lt;时间参数&gt;</td>
+<td align="center">以时间参数的形式提交要运行的任务</td>
+</tr>
+</tbody></table>
 </li>
-<li>命令选项<ul>
-<li>-m，当指定的任务被完成后，将给用户发送邮件，即使没有标准输出</li>
-<li>-I，atq的别名，查询任务</li>
-<li>-d，atrm的别名，删除任务</li>
-<li>-v，显示任务将被执行的时间</li>
-<li>-c，打印任务的内容到标准输出</li>
-<li>-V，显示版本信息</li>
-<li>-q &lt;队列&gt;，使用指定的队列</li>
-<li>-f &lt;文件&gt;，从指定文件读入任务而不是从标准输入读入</li>
-<li>-t &lt;时间参数&gt;，以时间参数的形式提交要运行的任务</li>
-</ul>
-</li>
-<li>时间定义<ul>
+<li><p>时间定义</p>
+<ul>
 <li>接受在当天的hh:mm（小时:分钟）式的时间指定。==假如该时间已过去，那就会在第二天执行==</li>
 <li>使用midnight（深夜），noon（中午），teatime（饮茶时间，一般下午4点）等比较模糊的词语来指定时间</li>
 <li>采用12小时计时制，即在时间后面加上AM（上午）或PM（下午）来说明是上午还是下午。</li>
