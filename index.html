@@ -279,9 +279,10 @@
 <ul>
 <li><p>restore命令==比较模式==，比较备份文件和原文件的区别</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mv /boot/Hello.java /boot/Hello01.java</span><br><span class="line">restore -C -f boot.bak1.bz2</span><br></pre></td></tr></table></figure>
-<p><img src="E:\Download\Picture\一周学会Linux\restore比较模式1.png"></p>
+<p><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D/restore%E6%AF%94%E8%BE%83%E6%A8%A1%E5%BC%8F1.png" alt="restore比较模式1"></p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mv /boot/Hello01.java /boot/Hello.java</span><br><span class="line">restore -C -f boot.bak1.bz2</span><br></pre></td></tr></table></figure>
-<p><img src="E:\Download\Picture\一周学会Linux\restore比较模式2.png"></p>
+
+<p><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D/restore%E6%AF%94%E8%BE%83%E6%A8%A1%E5%BC%8F1.png" alt="restore比较模式2"></p>
 </li>
 <li><p>restore==查看模式==，看备份文件有哪些数据/文件</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">restore -t -f boot.bak0.bz2</span><br></pre></td></tr></table></figure></li>
