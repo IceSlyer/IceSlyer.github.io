@@ -142,6 +142,104 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Linux实操篇之关机-重启命令" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E5%85%B3%E6%9C%BA-%E9%87%8D%E5%90%AF%E5%91%BD%E4%BB%A4/">Linux实操篇之关机&amp;重启命令</a>
+    </h1>
+  
+
+        
+        <a href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E5%85%B3%E6%9C%BA-%E9%87%8D%E5%90%AF%E5%91%BD%E4%BB%A4/" class="archive-article-date">
+  	<time datetime="2021-02-20T20:54:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="基本介绍"><a href="#基本介绍" class="headerlink" title="基本介绍"></a>基本介绍</h3><table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th align="center">功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">shutdown -h now</td>
+<td align="center">立刻进行关机</td>
+</tr>
+<tr>
+<td align="center">shutdown -h 1</td>
+<td align="center">“hello，1分钟后会关机了”</td>
+</tr>
+<tr>
+<td align="center">shutdown -r now</td>
+<td align="center">现在重新启动计算机</td>
+</tr>
+<tr>
+<td align="center">halt</td>
+<td align="center">关机【作用和上面一样】</td>
+</tr>
+<tr>
+<td align="center">reboot</td>
+<td align="center">现在重新启动计算机</td>
+</tr>
+<tr>
+<td align="center">sync</td>
+<td align="center">把内存的数据同步到磁盘</td>
+</tr>
+</tbody></table>
+<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><ul>
+<li>不管是重启系统还是关闭系统，首先要==运行sync命令==，把内存中的数据写到磁盘中</li>
+<li>目前的shutdown/reboot/halt等命令已经在关机前进行了sync</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E5%85%B3%E6%9C%BA-%E9%87%8D%E5%90%AF%E5%91%BD%E4%BB%A4/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Linux实操篇之定时任务调度" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     

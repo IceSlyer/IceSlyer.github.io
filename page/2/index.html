@@ -142,6 +142,133 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Java基础知识之io编程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/02/21/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%B9%8Bio%E7%BC%96%E7%A8%8B/">Java基础知识之io编程</a>
+    </h1>
+  
+
+        
+        <a href="/2021/02/21/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%B9%8Bio%E7%BC%96%E7%A8%8B/" class="archive-article-date">
+  	<time datetime="2021-02-20T21:13:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h3><ul>
+<li><p>概念</p>
+<ul>
+<li>文件是数据源（保存数据的地方）的一种，比如大家经常使用的word文档，txt文件，excel文件等等。文件最主要的作用就是保存数据，它既可以保存一张图片，也可以保存视频、声音…</li>
+</ul>
+</li>
+<li><p>文件流</p>
+<ul>
+<li><p>文件在程序中是以流的形式来操作的</p>
+<p><img src="https://github.com/IceSlyer/Image/raw/main/img/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/io%E7%BC%96%E7%A8%8B/%E6%96%87%E4%BB%B6%E6%B5%81%E7%A4%BA%E6%84%8F%E5%9B%BE.png" alt="文件流示意图"></p>
+<ul>
+<li>流：数据在数据源（文件）和程序（内存）之间经历的路径</li>
+<li>输入流：数据从数据源到程序的路径</li>
+<li>输出流：数据从程序到数据源的路径</li>
+</ul>
+</li>
+<li><p>Java流分为两种</p>
+<ul>
+<li>字节流：可以用于读写二进制文件及任何类型文件</li>
+<li>字符流：可以用于读写文本文件，不能操作二进制文件</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>字节流</th>
+<th>字符流</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>输入</td>
+<td>InputStream</td>
+<td>Reader</td>
+</tr>
+<tr>
+<td>输出</td>
+<td>OutputStream</td>
+<td>Writer</td>
+</tr>
+</tbody></table>
+<h2 id="常用io流"><a href="#常用io流" class="headerlink" title="常用io流"></a>常用io流</h2><ul>
+<li>文件字节流<ul>
+<li>读取文件（使用文件字节输入流：FileInputStream类）</li>
+<li>从键盘接收用户输入内容，并保存到文件中（使用文件字节输出流：FileOutputStream类）</li>
+</ul>
+</li>
+<li>文件字符流<ul>
+<li>使用文件字符输入流FileReader读取文件，并用输出流FileWriter写到另一个文件中</li>
+<li>char[]来中转</li>
+</ul>
+</li>
+<li>缓冲字符流<ul>
+<li>为了提高效率引入了缓冲字符流</li>
+<li>BufferedReader和BufferedWriter类，直接操作String</li>
+</ul>
+</li>
+<li>打印输出流<ul>
+<li>PrintWriter类</li>
+</ul>
+</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/02/21/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%B9%8Bio%E7%BC%96%E7%A8%8B/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Java基础知识之进程和线程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -2125,85 +2252,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2021/02/21/Linux%E4%B9%8B%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AE%9A%E5%88%B6%E7%AF%87%E4%B9%8Bshell%E7%BC%96%E7%A8%8B/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Linux之python定制篇之Python开发平台Ubuntu" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/02/21/Linux%E4%B9%8Bpython%E5%AE%9A%E5%88%B6%E7%AF%87%E4%B9%8BPython%E5%BC%80%E5%8F%91%E5%B9%B3%E5%8F%B0Ubuntu/">Linux之python定制篇之Python开发平台Ubuntu</a>
-    </h1>
-  
-
-        
-        <a href="/2021/02/21/Linux%E4%B9%8Bpython%E5%AE%9A%E5%88%B6%E7%AF%87%E4%B9%8BPython%E5%BC%80%E5%8F%91%E5%B9%B3%E5%8F%B0Ubuntu/" class="archive-article-date">
-  	<time datetime="2021-02-20T21:03:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="Ubuntu介绍"><a href="#Ubuntu介绍" class="headerlink" title="Ubuntu介绍"></a>Ubuntu介绍</h3><ul>
-<li>Ubuntu是一个以桌面应用为主的开源GNU/Linux操作系统。专业的Pyhton开发者一般会选择Ubuntu这款Linux系统作为生产平台</li>
-<li>Ubuntu下载地址：<a target="_blank" rel="noopener" href="https://cn.ubuntu.com/download">https://cn.ubuntu.com/download</a></li>
-<li>安装（略）</li>
-</ul>
-<h3 id="Ubuntu的root用户"><a href="#Ubuntu的root用户" class="headerlink" title="Ubuntu的root用户"></a>Ubuntu的root用户</h3><ul>
-<li>安装Ubuntu成功后，都是普通用户权限，并没有最高的root权限；如果需要使用root权限，通常都要在命令前面加上sudo，这会很不方便。我们一般使用su命令来直接切换到root用户，但是如果没有给root设置初始密码，就会抛出权限失败的问题，所以我们只要给root设置一个初始密码就好了</li>
-<li>给root用户设置密码并使用<ul>
-<li>输入sudo passwd 命令，输入一般用户密码并设定root用户密码</li>
-<li>设定root名成功后，输入su命令，并输入root密码，就成功切换到root用户了</li>
-<li>输入exit命令，退出root并返回一般用户</li>
-</ul>
-</li>
-</ul>
-<h3 id="Ubuntu下开发Python"><a href="#Ubuntu下开发Python" class="headerlink" title="Ubuntu下开发Python"></a>Ubuntu下开发Python</h3><ul>
-<li>安装号Ubuntu后，默认就已经安装好Python的开发环境<img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/Python%E5%BC%80%E5%8F%91%E5%B9%B3%E5%8F%B0Ubuntu/Ubuntu%E9%BB%98%E8%AE%A4python.png" alt="Ubuntu默认python"></li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/02/21/Linux%E4%B9%8Bpython%E5%AE%9A%E5%88%B6%E7%AF%87%E4%B9%8BPython%E5%BC%80%E5%8F%91%E5%B9%B3%E5%8F%B0Ubuntu/">展开全文 >></a>
         </p>
       
 
