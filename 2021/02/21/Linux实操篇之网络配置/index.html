@@ -8,24 +8,24 @@
   <link rel="dns-prefetch" href="http://example.com">
   <title>Linux实操篇之网络配置 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Linux网络配置原理图 查看网络IP和网关查看虚拟网络编辑器和修改IP地址 查看网关 查看windows环境中VMnet8网络配置（ipconfig指令） 查看Linux的网络配置（ifconfig指令）ping测试主机之间网络连通性 基本语法：ping 目的主机，测试当前服务器是否可以连接目的主机 例如：ping www.baidu.com  Linux网络环境配置 第一种方法（自动获取） 说">
+  <meta name="description" content="Linux网络配置原理图 查看网络IP和网关查看虚拟网络编辑器和修改IP地址 查看网关 查看windows环境中VMnet8网络配置（ipconfig指令） 查看Linux的网络配置（ifconfig指令）ping测试主机之间网络连通性 基本语法：ping 目的主机，测试当前服务器是否可以连接目的主机  例如 1ping www.baidu.com Linux网络环境配置 第一种方法（自动获取）">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux实操篇之网络配置">
 <meta property="og:url" content="http://example.com/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Linux网络配置原理图 查看网络IP和网关查看虚拟网络编辑器和修改IP地址 查看网关 查看windows环境中VMnet8网络配置（ipconfig指令） 查看Linux的网络配置（ifconfig指令）ping测试主机之间网络连通性 基本语法：ping 目的主机，测试当前服务器是否可以连接目的主机 例如：ping www.baidu.com  Linux网络环境配置 第一种方法（自动获取） 说">
+<meta property="og:description" content="Linux网络配置原理图 查看网络IP和网关查看虚拟网络编辑器和修改IP地址 查看网关 查看windows环境中VMnet8网络配置（ipconfig指令） 查看Linux的网络配置（ifconfig指令）ping测试主机之间网络连通性 基本语法：ping 目的主机，测试当前服务器是否可以连接目的主机  例如 1ping www.baidu.com Linux网络环境配置 第一种方法（自动获取）">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/Linux%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE%E5%8E%9F%E7%90%86%E5%9B%BE.png">
-<meta property="og:image" content="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/%E6%9F%A5%E7%9C%8B%E5%92%8C%E4%BF%AE%E6%94%B9IP.png">
-<meta property="og:image" content="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/%E6%9F%A5%E7%9C%8B%E7%BD%91%E5%85%B3.png">
-<meta property="og:image" content="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/VMnet8.png">
-<meta property="og:image" content="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/%E8%87%AA%E5%8A%A8%E8%8E%B7%E5%8F%96IP.png">
-<meta property="og:image" content="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/ifcfg-ens33%E6%96%87%E4%BB%B6%E8%AF%B4%E6%98%8E.png">
+<meta property="og:image" content="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/Linux%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE%E5%8E%9F%E7%90%86%E5%9B%BE.png">
+<meta property="og:image" content="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/%E6%9F%A5%E7%9C%8B%E5%92%8C%E4%BF%AE%E6%94%B9IP.png">
+<meta property="og:image" content="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/%E6%9F%A5%E7%9C%8B%E7%BD%91%E5%85%B3.png">
+<meta property="og:image" content="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/VMnet8.png">
+<meta property="og:image" content="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/%E8%87%AA%E5%8A%A8%E8%8E%B7%E5%8F%96IP.png">
+<meta property="og:image" content="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/ifcfg-ens33%E6%96%87%E4%BB%B6%E8%AF%B4%E6%98%8E.png">
 <meta property="article:published_time" content="2021-02-20T20:56:54.000Z">
-<meta property="article:modified_time" content="2021-03-01T15:33:54.000Z">
+<meta property="article:modified_time" content="2021-03-06T09:07:59.249Z">
 <meta property="article:author" content="IceSlyer">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/Linux%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE%E5%8E%9F%E7%90%86%E5%9B%BE.png">
+<meta name="twitter:image" content="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/Linux%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE%E5%8E%9F%E7%90%86%E5%9B%BE.png">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -171,30 +171,30 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="Linux网络配置原理图"><a href="#Linux网络配置原理图" class="headerlink" title="Linux网络配置原理图"></a>Linux网络配置原理图</h3><p><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/Linux%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE%E5%8E%9F%E7%90%86%E5%9B%BE.png" alt="Linux网络配置原理图"></p>
-<h3 id="查看网络IP和网关"><a href="#查看网络IP和网关" class="headerlink" title="查看网络IP和网关"></a>查看网络IP和网关</h3><h4 id="查看虚拟网络编辑器和修改IP地址"><a href="#查看虚拟网络编辑器和修改IP地址" class="headerlink" title="查看虚拟网络编辑器和修改IP地址"></a>查看虚拟网络编辑器和修改IP地址</h4><p><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/%E6%9F%A5%E7%9C%8B%E5%92%8C%E4%BF%AE%E6%94%B9IP.png" alt="查看和修改IP"></p>
-<h4 id="查看网关"><a href="#查看网关" class="headerlink" title="查看网关"></a>查看网关</h4><p><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/%E6%9F%A5%E7%9C%8B%E7%BD%91%E5%85%B3.png" alt="查看网关"></p>
-<h4 id="查看windows环境中VMnet8网络配置（ipconfig指令）"><a href="#查看windows环境中VMnet8网络配置（ipconfig指令）" class="headerlink" title="查看windows环境中VMnet8网络配置（ipconfig指令）"></a>查看windows环境中VMnet8网络配置（ipconfig指令）</h4><p><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/VMnet8.png" alt="VMnet8"></p>
-<h4 id="查看Linux的网络配置（ifconfig指令）"><a href="#查看Linux的网络配置（ifconfig指令）" class="headerlink" title="查看Linux的网络配置（ifconfig指令）"></a>查看Linux的网络配置（ifconfig指令）</h4><h3 id="ping测试主机之间网络连通性"><a href="#ping测试主机之间网络连通性" class="headerlink" title="ping测试主机之间网络连通性"></a>ping测试主机之间网络连通性</h3><ul>
-<li>基本语法：ping 目的主机，测试当前服务器是否可以连接目的主机</li>
-<li>例如：ping <a target="_blank" rel="noopener" href="http://www.baidu.com/">www.baidu.com</a></li>
-</ul>
-<h3 id="Linux网络环境配置"><a href="#Linux网络环境配置" class="headerlink" title="Linux网络环境配置"></a>Linux网络环境配置</h3><ul>
-<li>第一种方法（自动获取）<ul>
-<li>说明：登陆后通过界面的设置来自动获取ip，特点是Linux启动后会自动获取IP，缺点是每次自动获取的==ip地址可能不一样==</li>
+        <h3 id="Linux网络配置原理图"><a href="#Linux网络配置原理图" class="headerlink" title="Linux网络配置原理图"></a>Linux网络配置原理图</h3><p><img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/Linux%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE%E5%8E%9F%E7%90%86%E5%9B%BE.png" alt="Linux网络配置原理图"></p>
+<h3 id="查看网络IP和网关"><a href="#查看网络IP和网关" class="headerlink" title="查看网络IP和网关"></a>查看网络IP和网关</h3><h5 id="查看虚拟网络编辑器和修改IP地址"><a href="#查看虚拟网络编辑器和修改IP地址" class="headerlink" title="查看虚拟网络编辑器和修改IP地址"></a>查看虚拟网络编辑器和修改IP地址</h5><p><img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/%E6%9F%A5%E7%9C%8B%E5%92%8C%E4%BF%AE%E6%94%B9IP.png" alt="查看和修改IP"></p>
+<h5 id="查看网关"><a href="#查看网关" class="headerlink" title="查看网关"></a>查看网关</h5><p><img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/%E6%9F%A5%E7%9C%8B%E7%BD%91%E5%85%B3.png" alt="查看网关"></p>
+<h5 id="查看windows环境中VMnet8网络配置（ipconfig指令）"><a href="#查看windows环境中VMnet8网络配置（ipconfig指令）" class="headerlink" title="查看windows环境中VMnet8网络配置（ipconfig指令）"></a>查看windows环境中VMnet8网络配置（ipconfig指令）</h5><p><img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/VMnet8.png" alt="VMnet8"></p>
+<h5 id="查看Linux的网络配置（ifconfig指令）"><a href="#查看Linux的网络配置（ifconfig指令）" class="headerlink" title="查看Linux的网络配置（ifconfig指令）"></a>查看Linux的网络配置（ifconfig指令）</h5><h3 id="ping测试主机之间网络连通性"><a href="#ping测试主机之间网络连通性" class="headerlink" title="ping测试主机之间网络连通性"></a>ping测试主机之间网络连通性</h3><ul>
+<li><p>基本语法：ping 目的主机，测试当前服务器是否可以连接目的主机</p>
+</li>
+<li><p>例如</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ping www.baidu.com</span><br></pre></td></tr></table></figure>
+<h3 id="Linux网络环境配置"><a href="#Linux网络环境配置" class="headerlink" title="Linux网络环境配置"></a>Linux网络环境配置</h3></li>
+<li><p>第一种方法（自动获取）</p>
+<ul>
+<li>说明：登陆后通过界面的设置来自动获取ip，特点是Linux启动后会自动获取IP，缺点是每次自动获取的ip地址可能不一样</li>
 </ul>
 </li>
 </ul>
-<p><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/%E8%87%AA%E5%8A%A8%E8%8E%B7%E5%8F%96IP.png" alt="自动获取IP"></p>
+<p><img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/%E8%87%AA%E5%8A%A8%E8%8E%B7%E5%8F%96IP.png" alt="自动获取IP"></p>
 <ul>
 <li><p>第二种方法（指定ip）</p>
 <ul>
 <li><p>直接修改配置文件来指定IP，并可以连接到外网</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 要求：将IP地址配置成静态的</span></span><br><span class="line">vi /etc/sysconfig/network-scripts/ifcfg-ens33</span><br></pre></td></tr></table></figure></li>
 <li><p>ifcfg-ens33文件说明</p>
-<ul>
-<li><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/ifcfg-ens33%E6%96%87%E4%BB%B6%E8%AF%B4%E6%98%8E.png" alt="ifcfg-ens33文件说明"></li>
-</ul>
+<p><img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/ifcfg-ens33%E6%96%87%E4%BB%B6%E8%AF%B4%E6%98%8E.png" alt="ifcfg-ens33文件说明"></p>
 </li>
 <li><p>重启网络服务或者重启系统生效</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart network.service</span><br><span class="line">reboot</span><br></pre></td></tr></table></figure>
@@ -202,12 +202,12 @@
 </ul>
 </li>
 </ul>
-<h4 id="设置主机名"><a href="#设置主机名" class="headerlink" title="设置主机名"></a>设置主机名</h4><ul>
+<h5 id="设置主机名"><a href="#设置主机名" class="headerlink" title="设置主机名"></a>设置主机名</h5><ul>
 <li>为了方便记忆，可以给Linux系统设置主机名，也可以根据需要修改主机名</li>
 <li>指令hostname：查看主机名</li>
-<li>在/etc/hostname文件中修改主机名，修改后重启生效</li>
+<li>在/etc/hostname文件中修改主机名，修改后<strong>重启生效</strong></li>
 </ul>
-<h4 id="设置hosts映射"><a href="#设置hosts映射" class="headerlink" title="设置hosts映射"></a>设置hosts映射</h4><ul>
+<h5 id="设置hosts映射"><a href="#设置hosts映射" class="headerlink" title="设置hosts映射"></a>设置hosts映射</h5><ul>
 <li>windows<ul>
 <li>在C:\Windows\System32\drivers\etc\hosts文件指定即可，如：192.168.200.130 slyer01</li>
 </ul>
@@ -217,15 +217,15 @@
 </ul>
 </li>
 </ul>
-<h3 id="主机名解析过程分析（Hosts、DNS）"><a href="#主机名解析过程分析（Hosts、DNS）" class="headerlink" title="主机名解析过程分析（Hosts、DNS）"></a>主机名解析过程分析（Hosts、DNS）</h3><h4 id="Hosts是什么"><a href="#Hosts是什么" class="headerlink" title="Hosts是什么"></a>Hosts是什么</h4><ul>
+<h3 id="主机名解析过程分析（Hosts、DNS）"><a href="#主机名解析过程分析（Hosts、DNS）" class="headerlink" title="主机名解析过程分析（Hosts、DNS）"></a>主机名解析过程分析（Hosts、DNS）</h3><h5 id="Hosts是什么"><a href="#Hosts是什么" class="headerlink" title="Hosts是什么"></a>Hosts是什么</h5><ul>
 <li>一个文本文件，用来记录IP和Hostname（主机名）的映射关系</li>
 </ul>
-<h4 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h4><ul>
-<li>即Domain Name System的缩写，名为==域名系统==</li>
-<li>它是互联网上作为==域名和IP地址==互相映射的一个分布式数据库</li>
+<h5 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h5><ul>
+<li>即Domain Name System的缩写，名为<strong>域名系统</strong></li>
+<li>它是互联网上作为域名和IP地址互相映射的一个<strong>分布式数据库</strong></li>
 </ul>
-<h4 id="应用实例：用户在浏览器输入了www-baidu-com"><a href="#应用实例：用户在浏览器输入了www-baidu-com" class="headerlink" title="应用实例：用户在浏览器输入了www.baidu.com"></a>应用实例：用户在浏览器输入了<a target="_blank" rel="noopener" href="http://www.baidu.com/">www.baidu.com</a></h4><ul>
-<li><p>浏览器先检查浏览器缓存中有没有该域名解析IP地址，有就先调用这个IP完成解析；如果没有，则检查操作系统DNS解析器缓存，如果有直接返回IP完成解析。这两个缓存可以理解为==本地解析器缓存==</p>
+<h5 id="应用实例：用户在浏览器输入了www-baidu-com"><a href="#应用实例：用户在浏览器输入了www-baidu-com" class="headerlink" title="应用实例：用户在浏览器输入了www.baidu.com"></a>应用实例：用户在浏览器输入了<a target="_blank" rel="noopener" href="http://www.baidu.com/">www.baidu.com</a></h5><ul>
+<li><p>浏览器先检查浏览器缓存中有没有该域名解析IP地址，有就先调用这个IP完成解析；如果没有，则检查操作系统DNS解析器缓存，如果有直接返回IP完成解析。这两个缓存可以理解为本地解析器缓存</p>
 </li>
 <li><p>一般来说，当电脑第一次成功访问某一网站后，在一定时间内浏览器或操作系统会缓存它的IP地址（DNS解析记录）。可以在cmd窗口输入</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># DNS域名解析缓存</span></span><br><span class="line">ipconfig /displaydns</span><br><span class="line"></span><br><span class="line"><span class="comment"># 手动清理dns缓存</span></span><br><span class="line">ipconfig /flushdns</span><br></pre></td></tr></table></figure></li>

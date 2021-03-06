@@ -15,13 +15,13 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="基本介绍实体机无法做快照，如果系统出现异常或者数据损坏，后果严重，要重装系统，还会造成数据丢失，所以我们可以使用备份和恢复技术。Linux的备份和恢复很简单，有两种方式  把需要的文件（或分区）用tar打包就行，下次需要恢复的时候，再解压开覆盖即可 使用dump和restore命令  安装dump和restore如果Linux上没有dump和restore命令，需要用yum安装 12yum -y">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D/restore%E6%AF%94%E8%BE%83%E6%A8%A1%E5%BC%8F1.png">
-<meta property="og:image" content="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D/restore%E6%AF%94%E8%BE%83%E6%A8%A1%E5%BC%8F1.png">
+<meta property="og:image" content="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D/restore%E6%AF%94%E8%BE%83%E6%A8%A1%E5%BC%8F1.png">
+<meta property="og:image" content="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D/restore%E6%AF%94%E8%BE%83%E6%A8%A1%E5%BC%8F2.png">
 <meta property="article:published_time" content="2021-03-01T15:50:51.000Z">
-<meta property="article:modified_time" content="2021-03-02T13:18:08.000Z">
+<meta property="article:modified_time" content="2021-03-06T09:27:07.046Z">
 <meta property="article:author" content="IceSlyer">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D/restore%E6%AF%94%E8%BE%83%E6%A8%A1%E5%BC%8F1.png">
+<meta name="twitter:image" content="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D/restore%E6%AF%94%E8%BE%83%E6%A8%A1%E5%BC%8F1.png">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -174,7 +174,7 @@
 </ul>
 <h3 id="安装dump和restore"><a href="#安装dump和restore" class="headerlink" title="安装dump和restore"></a>安装dump和restore</h3><p>如果Linux上没有dump和restore命令，需要用yum安装</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum -y install dump</span><br><span class="line">yum -y install restore</span><br></pre></td></tr></table></figure>
-<h3 id="使用dump完成备份"><a href="#使用dump完成备份" class="headerlink" title="使用dump完成备份"></a>使用dump完成备份</h3><p>dump支持分卷和==增量备份==（增量备份指备份上次备份后修改/增加过的文件，也称差异备份）</p>
+<h3 id="使用dump完成备份"><a href="#使用dump完成备份" class="headerlink" title="使用dump完成备份"></a>使用dump完成备份</h3><p>dump支持分卷和<strong>增量备份</strong>（增量备份指备份上次备份后修改/增加过的文件，也称差异备份）</p>
 <p>dump语法说明</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dump [-cu] [-123456789] [-f &lt;备份后文件名&gt;] [-T &lt;日期&gt;] [目录或文件系统]</span><br><span class="line">dump [] -wW</span><br></pre></td></tr></table></figure>
 <table>
@@ -190,7 +190,7 @@
 </tr>
 <tr>
 <td align="center">-0-9</td>
-<td align="center">备份的层级；0为最完整备份，会备份所有文件，若指定0以上的层级，则备份至上一次备份以来==修改或新增==的文件。到9后，可以再次轮替</td>
+<td align="center">备份的层级；0为最完整备份，会备份所有文件，若指定0以上的层级，则备份至上一次备份以来<strong>修改或新增</strong>的文件。到9后，可以再次轮替</td>
 </tr>
 <tr>
 <td align="center">-f &lt;文件名&gt;</td>
@@ -198,7 +198,7 @@
 </tr>
 <tr>
 <td align="center">-j</td>
-<td align="center">==调用bzlib库压缩备份文件==，也就是将备份后的文件压缩成bz2格式，让文件更小</td>
+<td align="center"><strong>调用bzlib库压缩备份文件</strong>，也就是将备份后的文件压缩成bz2格式，让文件更小</td>
 </tr>
 <tr>
 <td align="center">-T &lt;日期&gt;</td>
@@ -230,7 +230,7 @@
 <p>dump命令配合crontab可以实现无人值守备份</p>
 </li>
 </ul>
-<p>注意，前面我们在备份分区时是可以支持增量备份的，如果备份==文件或者目录，则不再支持增量备份==，只能使用层级0备份</p>
+<p>注意，前面我们在备份分区时是可以支持增量备份的，如果备份<strong>文件或者目录，则不再支持增量备份</strong>，只能使用层级0备份</p>
 <p>案例</p>
 <ul>
 <li><p>使用dump备份/etc整个目录</p>
@@ -242,7 +242,7 @@
 <p>restore命令用来恢复已备份的文件，可以从dump生成的备份文件中恢复原文件</p>
 <p>restore基本语法</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">restore [模式选项] [选项]</span><br></pre></td></tr></table></figure>
-<p>下面四个模式选项==不能混用==，在一次命令中只能指定一种</p>
+<p>下面四个模式选项<strong>不能混用</strong>，在一次命令中只能指定一种</p>
 <table>
 <thead>
 <tr>
@@ -282,16 +282,16 @@
 </tbody></table>
 <p>应用案例</p>
 <ul>
-<li><p>restore命令==比较模式==，比较备份文件和原文件的区别</p>
+<li><p>restore命令<strong>比较模式</strong>，比较备份文件和原文件的区别</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mv /boot/Hello.java /boot/Hello01.java</span><br><span class="line">restore -C -f boot.bak1.bz2</span><br></pre></td></tr></table></figure>
-<p><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D/restore%E6%AF%94%E8%BE%83%E6%A8%A1%E5%BC%8F1.png" alt="restore比较模式1"></p>
+<p><img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D/restore%E6%AF%94%E8%BE%83%E6%A8%A1%E5%BC%8F1.png" alt="restore比较模式1"></p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mv /boot/Hello01.java /boot/Hello.java</span><br><span class="line">restore -C -f boot.bak1.bz2</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D/restore%E6%AF%94%E8%BE%83%E6%A8%A1%E5%BC%8F1.png" alt="restore比较模式2"></p>
+<p><img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D/restore%E6%AF%94%E8%BE%83%E6%A8%A1%E5%BC%8F2.png" alt="restore比较模式2"></p>
 </li>
-<li><p>restore==查看模式==，看备份文件有哪些数据/文件</p>
+<li><p>restore<strong>查看模式</strong>，看备份文件有哪些数据/文件</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">restore -t -f boot.bak0.bz2</span><br></pre></td></tr></table></figure></li>
-<li><p>restore命令==还原模式==，注意：如果有增量备份，需要把增量备份文件也进行恢复，按顺序来恢复即可</p>
+<li><p>restore命令<strong>还原模式</strong>，注意：如果有增量备份，需要把增量备份文件也进行恢复，按顺序来恢复即可</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mkdir /opt/boottmp</span><br><span class="line"><span class="built_in">cd</span> /opt/boottmp</span><br><span class="line">restore -r -f /opt/boot.bak0.bz2</span><br><span class="line">restore -r -f /opt/boot.bak1.bz2</span><br></pre></td></tr></table></figure></li>
 <li><p>restore命令恢复备份的文件，或者整个目录的文件</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir /opt/etctmp</span><br><span class="line"><span class="built_in">cd</span> /opt/etctmp/</span><br><span class="line">restore -r -f /opt/etc.bak.bz2</span><br></pre></td></tr></table></figure>
@@ -399,15 +399,6 @@
 
   
 <nav id="article-nav">
-  
-    <a href="/2021/03/06/%E6%88%91%E7%9A%84%E6%B5%8B%E8%AF%95%E5%8D%9A%E5%AE%A2/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          我的测试博客
-        
-      </div>
-    </a>
   
   
     <a href="/2021/02/22/%E6%89%BE%E5%9B%9Emysql%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84root%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81/" id="article-nav-older" class="article-nav-link-wrap">

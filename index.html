@@ -142,74 +142,6 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-我的测试博客" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/06/%E6%88%91%E7%9A%84%E6%B5%8B%E8%AF%95%E5%8D%9A%E5%AE%A2/">我的测试博客</a>
-    </h1>
-  
-
-        
-        <a href="/2021/03/06/%E6%88%91%E7%9A%84%E6%B5%8B%E8%AF%95%E5%8D%9A%E5%AE%A2/" class="archive-article-date">
-  	<time datetime="2021-03-06T07:49:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h2><p>内容</p>
-<hr>
-<h2 id="第二章"><a href="#第二章" class="headerlink" title="第二章"></a>第二章</h2><p>内容</p>
-<hr>
-<h2 id="第三章"><a href="#第三章" class="headerlink" title="第三章"></a>第三章</h2><p>内容</p>
-<p>参考文献<br>iceslyer.github.io</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/06/%E6%88%91%E7%9A%84%E6%B5%8B%E8%AF%95%E5%8D%9A%E5%AE%A2/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
     <article id="post-Linux系统之备份与恢复" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -237,7 +169,7 @@
 </ul>
 <h3 id="安装dump和restore"><a href="#安装dump和restore" class="headerlink" title="安装dump和restore"></a>安装dump和restore</h3><p>如果Linux上没有dump和restore命令，需要用yum安装</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum -y install dump</span><br><span class="line">yum -y install restore</span><br></pre></td></tr></table></figure>
-<h3 id="使用dump完成备份"><a href="#使用dump完成备份" class="headerlink" title="使用dump完成备份"></a>使用dump完成备份</h3><p>dump支持分卷和==增量备份==（增量备份指备份上次备份后修改/增加过的文件，也称差异备份）</p>
+<h3 id="使用dump完成备份"><a href="#使用dump完成备份" class="headerlink" title="使用dump完成备份"></a>使用dump完成备份</h3><p>dump支持分卷和<strong>增量备份</strong>（增量备份指备份上次备份后修改/增加过的文件，也称差异备份）</p>
 <p>dump语法说明</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dump [-cu] [-123456789] [-f &lt;备份后文件名&gt;] [-T &lt;日期&gt;] [目录或文件系统]</span><br><span class="line">dump [] -wW</span><br></pre></td></tr></table></figure>
 <table>
@@ -253,7 +185,7 @@
 </tr>
 <tr>
 <td align="center">-0-9</td>
-<td align="center">备份的层级；0为最完整备份，会备份所有文件，若指定0以上的层级，则备份至上一次备份以来==修改或新增==的文件。到9后，可以再次轮替</td>
+<td align="center">备份的层级；0为最完整备份，会备份所有文件，若指定0以上的层级，则备份至上一次备份以来<strong>修改或新增</strong>的文件。到9后，可以再次轮替</td>
 </tr>
 <tr>
 <td align="center">-f &lt;文件名&gt;</td>
@@ -261,7 +193,7 @@
 </tr>
 <tr>
 <td align="center">-j</td>
-<td align="center">==调用bzlib库压缩备份文件==，也就是将备份后的文件压缩成bz2格式，让文件更小</td>
+<td align="center"><strong>调用bzlib库压缩备份文件</strong>，也就是将备份后的文件压缩成bz2格式，让文件更小</td>
 </tr>
 <tr>
 <td align="center">-T &lt;日期&gt;</td>
@@ -293,7 +225,7 @@
 <p>dump命令配合crontab可以实现无人值守备份</p>
 </li>
 </ul>
-<p>注意，前面我们在备份分区时是可以支持增量备份的，如果备份==文件或者目录，则不再支持增量备份==，只能使用层级0备份</p>
+<p>注意，前面我们在备份分区时是可以支持增量备份的，如果备份<strong>文件或者目录，则不再支持增量备份</strong>，只能使用层级0备份</p>
 <p>案例</p>
 <ul>
 <li><p>使用dump备份/etc整个目录</p>
@@ -305,7 +237,7 @@
 <p>restore命令用来恢复已备份的文件，可以从dump生成的备份文件中恢复原文件</p>
 <p>restore基本语法</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">restore [模式选项] [选项]</span><br></pre></td></tr></table></figure>
-<p>下面四个模式选项==不能混用==，在一次命令中只能指定一种</p>
+<p>下面四个模式选项<strong>不能混用</strong>，在一次命令中只能指定一种</p>
 <table>
 <thead>
 <tr>
@@ -345,16 +277,16 @@
 </tbody></table>
 <p>应用案例</p>
 <ul>
-<li><p>restore命令==比较模式==，比较备份文件和原文件的区别</p>
+<li><p>restore命令<strong>比较模式</strong>，比较备份文件和原文件的区别</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mv /boot/Hello.java /boot/Hello01.java</span><br><span class="line">restore -C -f boot.bak1.bz2</span><br></pre></td></tr></table></figure>
-<p><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D/restore%E6%AF%94%E8%BE%83%E6%A8%A1%E5%BC%8F1.png" alt="restore比较模式1"></p>
+<p><img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D/restore%E6%AF%94%E8%BE%83%E6%A8%A1%E5%BC%8F1.png" alt="restore比较模式1"></p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mv /boot/Hello01.java /boot/Hello.java</span><br><span class="line">restore -C -f boot.bak1.bz2</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D/restore%E6%AF%94%E8%BE%83%E6%A8%A1%E5%BC%8F1.png" alt="restore比较模式2"></p>
+<p><img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D/restore%E6%AF%94%E8%BE%83%E6%A8%A1%E5%BC%8F2.png" alt="restore比较模式2"></p>
 </li>
-<li><p>restore==查看模式==，看备份文件有哪些数据/文件</p>
+<li><p>restore<strong>查看模式</strong>，看备份文件有哪些数据/文件</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">restore -t -f boot.bak0.bz2</span><br></pre></td></tr></table></figure></li>
-<li><p>restore命令==还原模式==，注意：如果有增量备份，需要把增量备份文件也进行恢复，按顺序来恢复即可</p>
+<li><p>restore命令<strong>还原模式</strong>，注意：如果有增量备份，需要把增量备份文件也进行恢复，按顺序来恢复即可</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mkdir /opt/boottmp</span><br><span class="line"><span class="built_in">cd</span> /opt/boottmp</span><br><span class="line">restore -r -f /opt/boot.bak0.bz2</span><br><span class="line">restore -r -f /opt/boot.bak1.bz2</span><br></pre></td></tr></table></figure></li>
 <li><p>restore命令恢复备份的文件，或者整个目录的文件</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir /opt/etctmp</span><br><span class="line"><span class="built_in">cd</span> /opt/etctmp/</span><br><span class="line">restore -r -f /opt/etc.bak.bz2</span><br></pre></td></tr></table></figure>
@@ -425,7 +357,7 @@
         <h3 id="具体步骤"><a href="#具体步骤" class="headerlink" title="具体步骤"></a>具体步骤</h3><ul>
 <li><p>修改my.cnf文件</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/my.cnf</span><br></pre></td></tr></table></figure>
-<p><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E6%89%BE%E5%9B%9Emusql%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84root%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81/%E4%BF%AE%E6%94%B9my.cnf%E6%96%87%E4%BB%B6.png" alt="修改my.cnf文件"></p>
+<p><img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E6%89%BE%E5%9B%9Emusql%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84root%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81/%E4%BF%AE%E6%94%B9my.cnf%E6%96%87%E4%BB%B6.png" alt="修改my.cnf文件"></p>
 </li>
 <li><p>重启mysqld服务</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service mysqld restart</span><br></pre></td></tr></table></figure></li>
@@ -524,18 +456,18 @@
 <li>访问<a target="_blank" rel="noopener" href="http://ip:6473/">http://ip:6473</a></li>
 <li>用root账号和重置的新密码test</li>
 </ul>
-<p><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/webmin%E5%92%8Cbt%E8%BF%90%E7%BB%B4%E5%B7%A5%E5%85%B7/webmin%E7%99%BB%E5%BD%95%E7%95%8C%E9%9D%A2.png" alt="webmin登录界面"></p>
+<p><img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/webmin%E5%92%8Cbt%E8%BF%90%E7%BB%B4%E5%B7%A5%E5%85%B7/webmin%E7%99%BB%E5%BD%95%E7%95%8C%E9%9D%A2.png" alt="webmin登录界面"></p>
 </li>
 </ul>
 <h3 id="bt（宝塔）基本介绍"><a href="#bt（宝塔）基本介绍" class="headerlink" title="bt（宝塔）基本介绍"></a>bt（宝塔）基本介绍</h3><p>bt宝塔Linux面板是提升运维效率的服务器管理软件，支持一键LAMP/LNMP/集群/监控/网站/FTP/数据库/Java等多项服务器管理功能</p>
 <h3 id="安装和使用"><a href="#安装和使用" class="headerlink" title="安装和使用"></a>安装和使用</h3><ul>
 <li><p>安装</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yum install -y wget</span><br><span class="line">wget -O install.sh http://download.bt.cn/install/install_6.0.sh</span><br><span class="line">sh install.sh</span><br></pre></td></tr></table></figure>
-<p><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/webmin%E5%92%8Cbt%E8%BF%90%E7%BB%B4%E5%B7%A5%E5%85%B7/bt%EF%BC%88%E5%AE%9D%E5%A1%94%EF%BC%89%E5%AE%89%E8%A3%85%E6%88%90%E5%8A%9F.png" alt="bt（宝塔）安装成功"></p>
+<p><img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/webmin%E5%92%8Cbt%E8%BF%90%E7%BB%B4%E5%B7%A5%E5%85%B7/bt%EF%BC%88%E5%AE%9D%E5%A1%94%EF%BC%89%E5%AE%89%E8%A3%85%E6%88%90%E5%8A%9F.png" alt="bt（宝塔）安装成功"></p>
 </li>
 <li><p>使用（略）</p>
 </li>
-<li><p>如果bt的用户名，密码忘记了，使用bt default可以查看<img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/webmin%E5%92%8Cbt%E8%BF%90%E7%BB%B4%E5%B7%A5%E5%85%B7/bt%EF%BC%88%E5%AE%9D%E5%A1%94%EF%BC%89%E6%9F%A5%E7%9C%8B%E7%94%A8%E6%88%B7%E5%90%8D%E5%92%8C%E5%AF%86%E7%A0%81.png" alt="bt（宝塔）查看用户名和密码"></p>
+<li><p>如果bt的用户名，密码忘记了，使用bt default可以查看<img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/webmin%E5%92%8Cbt%E8%BF%90%E7%BB%B4%E5%B7%A5%E5%85%B7/bt%EF%BC%88%E5%AE%9D%E5%A1%94%EF%BC%89%E6%9F%A5%E7%9C%8B%E7%94%A8%E6%88%B7%E5%90%8D%E5%92%8C%E5%AF%86%E7%A0%81.png" alt="bt（宝塔）查看用户名和密码"></p>
 </li>
 </ul>
 
@@ -608,19 +540,19 @@
 <h3 id="Linux0-01内核源码"><a href="#Linux0-01内核源码" class="headerlink" title="Linux0.01内核源码"></a>Linux0.01内核源码</h3><ul>
 <li><p>Linux内核源码可以从网上下载，有很多版本，可以从Linux0.01内核入手，总共1w行左右代码，最新版本5.10.17总代码超过700w行，非常庞大。下载地址：<a target="_blank" rel="noopener" href="https://www.kernel.org/">https://www.kernel.org/</a> 或 <a target="_blank" rel="noopener" href="http://www.oldlinux.org/Linux.old/Linux-0.01/sources/system/kernel/">http://www.oldlinux.org/Linux.old/Linux-0.01/sources/system/kernel/</a></p>
 </li>
-<li><p>Linux0.01内核源码（==下面简称源码==）目录&amp;阅读</p>
+<li><p>Linux0.01内核源码（<strong>下面简称源码</strong>）目录&amp;阅读</p>
 <ul>
 <li><p>技巧</p>
 <ul>
 <li>需要懂c语言</li>
 <li>阅读前需要知道源码的整体分布情况。现代的操作系统一般由进程管理、内存管理、文件系统、驱动程序和网络等组成，源码的各个目录大致与此相对应</li>
-<li>在阅读方法和顺序上，有==纵向与横向==之分；所谓纵向就是==按照程序的执行顺序==逐步进行；所谓横向就是==按模块==进行，经常结合这两种方法</li>
+<li>在阅读方法和顺序上，有<strong>纵向与横向</strong>之分；所谓纵向就是<strong>按照程序的执行顺序</strong>逐步进行；所谓横向就是<strong>按模块</strong>进行，经常结合这两种方法</li>
 <li>对于Linux启动的代码可顺着Linux的启动顺序一步步来阅读；对于像内存管理部分，可以单独拿出来进行阅读分析</li>
 </ul>
 </li>
 <li><p>源码目录介绍&amp;main.c说明</p>
-<p><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/Linux%E5%86%85%E6%A0%B8%E6%BA%90%E7%A0%81/Linux%E5%86%85%E6%A0%B8%E6%BA%90%E7%A0%81%E7%9B%AE%E5%BD%95%E8%AF%B4%E6%98%8E.png" alt="Linux内核源码目录说明"></p>
-<p><img src="https://github.com/IceSlyer/Image/raw/main/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/Linux%E5%86%85%E6%A0%B8%E6%BA%90%E7%A0%81/%E5%86%85%E6%A0%B8%E6%BA%90%E7%A0%81main%E5%87%BD%E6%95%B0%E8%AE%B2%E8%A7%A3.png" alt="内核源码main函数讲解"></p>
+<p><img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/Linux%E5%86%85%E6%A0%B8%E6%BA%90%E7%A0%81/Linux%E5%86%85%E6%A0%B8%E6%BA%90%E7%A0%81%E7%9B%AE%E5%BD%95%E8%AF%B4%E6%98%8E.png" alt="Linux内核源码目录说明"></p>
+<p><img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/Linux%E5%86%85%E6%A0%B8%E6%BA%90%E7%A0%81/%E5%86%85%E6%A0%B8%E6%BA%90%E7%A0%81main%E5%87%BD%E6%95%B0%E8%AE%B2%E8%A7%A3.png" alt="内核源码main函数讲解"></p>
 </li>
 </ul>
 </li>
@@ -801,7 +733,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="创建工作目录与常用指令"><a href="#创建工作目录与常用指令" class="headerlink" title="创建工作目录与常用指令"></a>创建工作目录与常用指令</h3><p>工作区（WorkSpace）一般就是你希望Git帮助你管理的文件夹，可以是你项目的目录，也可以是一个空目录（建议不要有中文），日常使用只要记住下图6个命令：<img src="https://github.com/IceSlyer/Image/raw/main/img/Git%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/Git%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/git%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4.png" alt="git常用指令"></p>
+        <h3 id="创建工作目录与常用指令"><a href="#创建工作目录与常用指令" class="headerlink" title="创建工作目录与常用指令"></a>创建工作目录与常用指令</h3><p>工作区（WorkSpace）一般就是你希望Git帮助你管理的文件夹，可以是你项目的目录，也可以是一个空目录（建议不要有中文），日常使用只要记住下图6个命令：<img src="https://gitee.com/iceslyer/image/raw/master/img/Git%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/Git%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/git%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4.png" alt="git常用指令"></p>
 <h3 id="本地仓库搭建"><a href="#本地仓库搭建" class="headerlink" title="本地仓库搭建"></a>本地仓库搭建</h3><p>创建本地仓库的方法有两种</p>
 <ul>
 <li><p>创建全新的仓库</p>
@@ -878,22 +810,22 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>使用Github的目的是想借助它==托管项目代码==</p>
+        <p>使用Github的目的是想借助它<strong>托管项目代码</strong></p>
 <h3 id="github基本概念"><a href="#github基本概念" class="headerlink" title="github基本概念"></a>github基本概念</h3><ul>
-<li>==仓库（Repository）==：用来存放项目代码，每个项目对应一个仓库，多个开源项目则有多个Repository。</li>
-<li>==收藏（Star）==：收藏项目，方便下次查看</li>
-<li>==复制克隆项目（Fork）== ：相当于复制一份项目源码，而且是独立存在的</li>
-<li>==发起请求（Pull Request）== ：这个基于Fork，就是说想要把Fork过来的源码修改后合并到之前的源码中，就需要PR</li>
-<li>==关注（Watch）== ：如果你Watch了某个项目，那么以后该项目有任何更新，你都会第一时间收到关于该项目的通知提醒</li>
-<li>==事物卡片（Issue）== ：发现代码bug，讨论时用</li>
+<li><strong>仓库（Repository）</strong>：用来存放项目代码，每个项目对应一个仓库，多个开源项目则有多个Repository。</li>
+<li><strong>收藏（Star）</strong>：收藏项目，方便下次查看</li>
+<li><strong>复制克隆项目（Fork）</strong> ：相当于复制一份项目源码，而且是独立存在的</li>
+<li><strong>发起请求（Pull Request）</strong> ：这个基于Fork，就是说想要把Fork过来的源码修改后合并到之前的源码中，就需要PR</li>
+<li><strong>关注（Watch）</strong> ：如果你Watch了某个项目，那么以后该项目有任何更新，你都会第一时间收到关于该项目的通知提醒</li>
+<li><strong>事物卡片（Issue）</strong> ：发现代码bug，讨论时用</li>
 </ul>
 <h3 id="使用Git管理远程仓库"><a href="#使用Git管理远程仓库" class="headerlink" title="使用Git管理远程仓库"></a>使用Git管理远程仓库</h3><p>使用远程仓库的目的：备份，实现代码共享集中化管理</p>
 <p>Git克隆操作：将远程仓库（github对应的项目）复制到本地</p>
 <h3 id="github创建个人网站"><a href="#github创建个人网站" class="headerlink" title="github创建个人网站"></a>github创建个人网站</h3><p>个人站点（Github Pages）访问：<a target="_blank" rel="noopener" href="https://iceslyer.github.io/">https://IceSlyer.github.io</a></p>
 <p>搭建</p>
 <ul>
-<li>新建仓库（仓库名必须是：==用户名.github.io==）</li>
-<li>在仓库下新建index.html的文件（网站首页）即可（Github Pages 仅支持==静态网页==）</li>
+<li>新建仓库（仓库名必须是：<strong>用户名.github.io</strong>）</li>
+<li>在仓库下新建index.html的文件（网站首页）即可（Github Pages 仅支持<strong>静态网页</strong>）</li>
 </ul>
 <p>项目站点（Project Pages）访问：<a target="_blank" rel="noopener" href="https://iceslyer.github.io/%E4%BB%93%E5%BA%93%E5%90%8D">https://IceSlyer.github.io/仓库名</a><br>搭建</p>
 <ul>
@@ -1117,8 +1049,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="工作区域"><a href="#工作区域" class="headerlink" title="工作区域"></a>工作区域</h3><p>Git本地有三个工作区域：==工作区（Workspace）==、==暂存区（Stage/Index）==、==资源库（Repository或Git Directory）==。如果再加上远程的git仓库（Remote Directory）就可以分为四个工作区域。文件在这四个区域的转换关系如下：</p>
-<p><img src="https://github.com/IceSlyer/Image/raw/main/img/Git%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/Git%E5%9F%BA%E6%9C%AC%E7%90%86%E8%AE%BA/Git%E5%B7%A5%E4%BD%9C%E5%8C%BA%E5%9F%9F.png" alt="Git工作区域"></p>
+        <h3 id="工作区域"><a href="#工作区域" class="headerlink" title="工作区域"></a>工作区域</h3><p>Git本地有三个工作区域：<strong>工作区（Workspace）</strong>、<strong>暂存区（Stage/Index）</strong>、<strong>资源库（Repository或Git Directory）</strong>。如果再加上远程的git仓库（Remote Directory）就可以分为四个工作区域。文件在这四个区域的转换关系如下：</p>
+<p><img src="https://gitee.com/iceslyer/image/raw/master/img/Git%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/Git%E5%9F%BA%E6%9C%AC%E7%90%86%E8%AE%BA/Git%E5%B7%A5%E4%BD%9C%E5%8C%BA%E5%9F%9F.png" alt="Git工作区域"></p>
 <ul>
 <li>Workspace：工作区，就是你平时存放项目代码的地方</li>
 <li>Stage/Index：暂存区，用于临时存放你的改动，事实上它只是一个文件，保存即将提交的文件列表信息</li>
@@ -1131,7 +1063,7 @@
 <li>将需要进行版本管理的文件放入暂存区域</li>
 <li>将暂存区域的文件提交到git仓库</li>
 </ul>
-<p>因此，git管理的文件有三种状态：==已修改（modified）==、==已暂存（staged）==、==已提交（committed）==<img src="https://github.com/IceSlyer/Image/raw/main/img/Git%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/Git%E5%9F%BA%E6%9C%AC%E7%90%86%E8%AE%BA/git%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B.png" alt="git工作流程"></p>
+<p>因此，git管理的文件有三种状态：<strong>已修改（modified）</strong>、<strong>已暂存（staged）</strong>、<strong>已提交（committed）</strong><img src="https://gitee.com/iceslyer/image/raw/master/img/Git%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/Git%E5%9F%BA%E6%9C%AC%E7%90%86%E8%AE%BA/git%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B.png" alt="git工作流程"></p>
 
       
 
@@ -1145,6 +1077,133 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2021/02/21/Git%E5%9F%BA%E6%9C%AC%E7%90%86%E8%AE%BA/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Java基础知识之io编程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/02/21/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%B9%8Bio%E7%BC%96%E7%A8%8B/">Java基础知识之io编程</a>
+    </h1>
+  
+
+        
+        <a href="/2021/02/21/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%B9%8Bio%E7%BC%96%E7%A8%8B/" class="archive-article-date">
+  	<time datetime="2021-02-20T21:13:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h3><ul>
+<li><p>概念</p>
+<ul>
+<li>文件是数据源（保存数据的地方）的一种，比如大家经常使用的word文档，txt文件，excel文件等等。文件最主要的作用就是保存数据，它既可以保存一张图片，也可以保存视频、声音…</li>
+</ul>
+</li>
+<li><p>文件流</p>
+<ul>
+<li><p>文件在程序中是以流的形式来操作的</p>
+<p><img src="https://gitee.com/iceslyer/image/raw/master/img/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/io%E7%BC%96%E7%A8%8B/%E6%96%87%E4%BB%B6%E6%B5%81%E7%A4%BA%E6%84%8F%E5%9B%BE.png" alt="文件流示意图"></p>
+<ul>
+<li>流：数据在数据源（文件）和程序（内存）之间经历的路径</li>
+<li>输入流：数据从数据源到程序的路径</li>
+<li>输出流：数据从程序到数据源的路径</li>
+</ul>
+</li>
+<li><p>Java流分为两种</p>
+<ul>
+<li>字节流：可以用于读写二进制文件及任何类型文件</li>
+<li>字符流：可以用于读写文本文件，不能操作二进制文件</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>字节流</th>
+<th>字符流</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>输入</td>
+<td>InputStream</td>
+<td>Reader</td>
+</tr>
+<tr>
+<td>输出</td>
+<td>OutputStream</td>
+<td>Writer</td>
+</tr>
+</tbody></table>
+<h2 id="常用io流"><a href="#常用io流" class="headerlink" title="常用io流"></a>常用io流</h2><ul>
+<li>文件字节流<ul>
+<li>读取文件（使用文件字节输入流：FileInputStream类）</li>
+<li>从键盘接收用户输入内容，并保存到文件中（使用文件字节输出流：FileOutputStream类）</li>
+</ul>
+</li>
+<li>文件字符流<ul>
+<li>使用文件字符输入流FileReader读取文件，并用输出流FileWriter写到另一个文件中</li>
+<li>char[]来中转</li>
+</ul>
+</li>
+<li>缓冲字符流<ul>
+<li>为了提高效率引入了缓冲字符流</li>
+<li>BufferedReader和BufferedWriter类，直接操作String</li>
+</ul>
+</li>
+<li>打印输出流<ul>
+<li>PrintWriter类</li>
+</ul>
+</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/02/21/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%B9%8Bio%E7%BC%96%E7%A8%8B/">展开全文 >></a>
         </p>
       
 
