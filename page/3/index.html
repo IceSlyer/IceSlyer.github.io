@@ -142,6 +142,156 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Linux实操篇之用户管理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/10/05/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/">Linux实操篇之用户管理</a>
+    </h1>
+  
+
+        
+        <a href="/2020/10/05/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" class="archive-article-date">
+  	<time datetime="2020-10-05T03:58:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-05</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="基本介绍"><a href="#基本介绍" class="headerlink" title="基本介绍"></a>基本介绍</h3><p>Linux系统是一个多用户多任务的操作系统，任何一个要使用系统资源的用户，都必须首先向系统管理员申请一个账号，然后以这个账号的身份进入系统</p>
+<h3 id="添加用户"><a href="#添加用户" class="headerlink" title="添加用户"></a>添加用户</h3><ul>
+<li><p>基本语法</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">useradd 用户名</span><br></pre></td></tr></table></figure></li>
+<li><p>细节说明</p>
+<ul>
+<li><p>当创建用户成功后，会自动创建和用户名同名的家目录</p>
+</li>
+<li><p>也可以通过一下指令给新创建的用户指定家目录</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">useradd -d 指定目录 新的用户名</span><br></pre></td></tr></table></figure>
+<h3 id="指定-修改密码"><a href="#指定-修改密码" class="headerlink" title="指定/修改密码"></a>指定/修改密码</h3></li>
+</ul>
+</li>
+<li><p>基本语法</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">passwd 用户名</span><br></pre></td></tr></table></figure>
+<h3 id="删除用户"><a href="#删除用户" class="headerlink" title="删除用户"></a>删除用户</h3></li>
+<li><p>基本语法</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">userdel 用户名 <span class="comment"># 删除用户但保留用户主目录</span></span><br><span class="line">userdel -r 用户名 <span class="comment"># 删除用户以及用户主目录</span></span><br></pre></td></tr></table></figure></li>
+<li><p>细节说明</p>
+<ul>
+<li>是否保留用户主目录？一般情况建议保留</li>
+</ul>
+</li>
+</ul>
+<h3 id="查询用户信息"><a href="#查询用户信息" class="headerlink" title="查询用户信息"></a>查询用户信息</h3><ul>
+<li><p>基本语法</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id 用户名</span><br></pre></td></tr></table></figure></li>
+<li><p>细节说明</p>
+<ul>
+<li>当用户不存在时，返回无此用户</li>
+</ul>
+</li>
+</ul>
+<h3 id="切换用户"><a href="#切换用户" class="headerlink" title="切换用户"></a>切换用户</h3><ul>
+<li><p>在Linux中，如果当前用户的权限不够，可以通过 su - 指令切换到高权限用户，比如root</p>
+</li>
+<li><p>基本语法</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">su - 切换用户名</span><br></pre></td></tr></table></figure></li>
+<li><p>细节说明</p>
+<ul>
+<li>从权限高的用户切换到权限低的用户，不需要输入密码，反之需要</li>
+<li>当需要返回到原来用户时，使用exit/logout指令</li>
+</ul>
+</li>
+</ul>
+<h3 id="查看当前用户信息"><a href="#查看当前用户信息" class="headerlink" title="查看当前用户信息"></a>查看当前用户信息</h3><ul>
+<li><p>基本语法</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">whoami</span><br><span class="line"><span class="comment"># or</span></span><br><span class="line">who am i</span><br></pre></td></tr></table></figure>
+<h3 id="用户组"><a href="#用户组" class="headerlink" title="用户组"></a>用户组</h3></li>
+<li><p>介绍</p>
+<ul>
+<li>类似于角色，系统可以对有共性的多个用户进行统一的管理</li>
+</ul>
+</li>
+<li><p>新增组</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">groupadd 组名</span><br></pre></td></tr></table></figure></li>
+<li><p>删除组</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">groupdel 组名</span><br></pre></td></tr></table></figure></li>
+<li><p>增加用户时直接加上组</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">useradd -g 用户组 用户名</span><br></pre></td></tr></table></figure></li>
+<li><p>修改用户的组</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">usermod -g 用户组 用户名</span><br></pre></td></tr></table></figure>
+<h3 id="用户和组相关的文件"><a href="#用户和组相关的文件" class="headerlink" title="用户和组相关的文件"></a>用户和组相关的文件</h3></li>
+<li><p>/etc/passwd文件</p>
+<ul>
+<li><p>用户（user）的配置文件，记录用户的各种信息</p>
+</li>
+<li><p>每行含义</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">用户名:口令:用户标识号:组标识号:注释性描述:主目录:登录Shell</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>/etc/shadow 文件</p>
+<ul>
+<li><p>口令的配置文件</p>
+</li>
+<li><p>每行含义</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">登录名:加密口令:最后一次修改时间:最小时间间隔:最大时间间隔:警告时间:不活动时间:失效时间:标志</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>/etc/group文件</p>
+<ul>
+<li><p>组（group）的配置文件，记录Linux包含的组的信息</p>
+</li>
+<li><p>每行含义</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">组名:口令:组标识号:组内用户列表</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/10/05/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Linux实操篇之网络配置" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -149,13 +299,13 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/14/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/">Linux实操篇之网络配置</a>
+      <a class="article-title" href="/2020/09/30/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/">Linux实操篇之网络配置</a>
     </h1>
   
 
         
-        <a href="/2020/03/14/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/" class="archive-article-date">
-  	<time datetime="2020-03-14T06:56:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-14</time>
+        <a href="/2020/09/30/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/" class="archive-article-date">
+  	<time datetime="2020-09-30T06:56:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-30</time>
 </a>
         
       </header>
@@ -237,7 +387,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/03/14/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/09/30/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/">展开全文 >></a>
         </p>
       
 
@@ -274,13 +424,13 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/13/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E5%AE%9E%E7%94%A8%E6%8C%87%E4%BB%A4/">Linux实操篇之实用指令</a>
+      <a class="article-title" href="/2020/09/23/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E5%AE%9E%E7%94%A8%E6%8C%87%E4%BB%A4/">Linux实操篇之实用指令</a>
     </h1>
   
 
         
-        <a href="/2020/03/13/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E5%AE%9E%E7%94%A8%E6%8C%87%E4%BB%A4/" class="archive-article-date">
-  	<time datetime="2020-03-13T02:56:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-13</time>
+        <a href="/2020/09/23/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E5%AE%9E%E7%94%A8%E6%8C%87%E4%BB%A4/" class="archive-article-date">
+  	<time datetime="2020-09-23T02:56:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-23</time>
 </a>
         
       </header>
@@ -807,1244 +957,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/03/13/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E5%AE%9E%E7%94%A8%E6%8C%87%E4%BB%A4/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Linux实操篇之进程管理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/11/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/">Linux实操篇之进程管理</a>
-    </h1>
-  
-
-        
-        <a href="/2020/03/11/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" class="archive-article-date">
-  	<time datetime="2020-03-11T06:55:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="基本介绍"><a href="#基本介绍" class="headerlink" title="基本介绍"></a>基本介绍</h3><ul>
-<li><p>在Linux中，每个执行的程序都称为一个进程，每一个进程都分配一个ID号（pid，进程号）</p>
-<ul>
-<li><p>windows</p>
-<p><img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/Windows%E8%BF%9B%E7%A8%8B.png" alt="Windows进程"></p>
-</li>
-<li><p>Linux</p>
-<p><img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/Linux%E8%BF%9B%E7%A8%8B.png" alt="Linux进程"></p>
-</li>
-</ul>
-</li>
-<li><p>每个进程都可以两种方式存在</p>
-<ul>
-<li><strong>前台进程</strong>，即用户目前的屏幕上可以进行操作的</li>
-<li><strong>后台进程</strong>则是实际的操作，但由于屏幕上无法看到进程，所以通常使用后台方式执行</li>
-</ul>
-</li>
-<li><p>一般系统的服务都是以后台进程的方式存在，而且都会常驻在系统中，直到关机才结束</p>
-</li>
-</ul>
-<h3 id="显示系统执行的进程"><a href="#显示系统执行的进程" class="headerlink" title="显示系统执行的进程"></a>显示系统执行的进程</h3><ul>
-<li><p>ps命令是用来查看目前系统中有哪些进程正在执行，以及它们执行的状况。可以不加任何参数<img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/ps%E6%8C%87%E4%BB%A4.png" alt="ps指令"></p>
-</li>
-<li><p>参数说明</p>
-<table>
-<thead>
-<tr>
-<th align="center">参数</th>
-<th align="center">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">-a</td>
-<td align="center">显示当前终端的所有进程信息</td>
-</tr>
-<tr>
-<td align="center">-u</td>
-<td align="center">以用户的格式显示进程信息</td>
-</tr>
-<tr>
-<td align="center">-x</td>
-<td align="center">显示后台进程运行的参数</td>
-</tr>
-<tr>
-<td align="center">-ef</td>
-<td align="center">以全格式显示当前所有的进程</td>
-</tr>
-</tbody></table>
-<p><img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/ps%20-ef%E6%8C%87%E4%BB%A4.png" alt="ps -ef指令"></p>
-</li>
-<li><p>ps显示的信息选项</p>
-<table>
-<thead>
-<tr>
-<th align="center">符号</th>
-<th align="center">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">PID</td>
-<td align="center">进程识别号</td>
-</tr>
-<tr>
-<td align="center">TTY</td>
-<td align="center">终端机号</td>
-</tr>
-<tr>
-<td align="center">TIME</td>
-<td align="center">此进程使用CPU总时间</td>
-</tr>
-<tr>
-<td align="center">CMD</td>
-<td align="center">正在执行的命令或进程名</td>
-</tr>
-<tr>
-<td align="center">USER</td>
-<td align="center">用户名称</td>
-</tr>
-<tr>
-<td align="center">%CPU</td>
-<td align="center"><strong>进程占用CPU的百分比</strong></td>
-</tr>
-<tr>
-<td align="center">%MEM</td>
-<td align="center"><strong>进程占用物理内存的百分比</strong></td>
-</tr>
-<tr>
-<td align="center">VSZ</td>
-<td align="center"><strong>进程占用的虚拟内存大小（单位：KB）</strong></td>
-</tr>
-<tr>
-<td align="center">RSS</td>
-<td align="center"><strong>进程占用的物理内存大小（单位：KB）</strong></td>
-</tr>
-<tr>
-<td align="center">STAT</td>
-<td align="center">进程状态，其中S-睡眠，s-表示该进程是会话的先导进程，N-表示进程拥有比普通优先级更低的优先级，R-正在运行，D-短期等待，Z-僵死进程，T-被跟踪或者被停止等待</td>
-</tr>
-<tr>
-<td align="center">START</td>
-<td align="center">进程的启动时间</td>
-</tr>
-<tr>
-<td align="center">COMMAND</td>
-<td align="center">启动进程所用的命令和参数（过长会被截断显示）</td>
-</tr>
-</tbody></table>
-</li>
-<li><p>ps详解</p>
-<ul>
-<li><p>指令</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -aux | grep xxx <span class="comment"># 比如看看有没有sshd服务</span></span><br></pre></td></tr></table></figure></li>
-<li><p>指令</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -ef | grep xxx <span class="comment"># 比如查看sshd的父进程</span></span><br></pre></td></tr></table></figure>
-<h3 id="终止进程"><a href="#终止进程" class="headerlink" title="终止进程"></a>终止进程</h3></li>
-</ul>
-</li>
-<li><p>若是某个进程执行一半需要停止或是已消耗了很大的系统资源时，此时可以考虑停止该进程</p>
-</li>
-<li><p>基本语法</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">kill</span> [选项] 进程号 <span class="comment"># 通过进程号杀死进程</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过进程名杀死进程（子进程也会被干掉），也支持通配符</span></span><br><span class="line"><span class="comment"># 这在系统因负载过大而变得很慢时很有用</span></span><br><span class="line">killall 进程名</span><br></pre></td></tr></table></figure></li>
-<li><p>常用选项</p>
-<table>
-<thead>
-<tr>
-<th align="center">选项</th>
-<th align="center">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">-9</td>
-<td align="center">表示强迫进程立即停止</td>
-</tr>
-</tbody></table>
-</li>
-<li><p>实例</p>
-<ul>
-<li><p>踢掉某个非法登录用户</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">kill</span> 非法用户登录的shell对应的进程号</span><br></pre></td></tr></table></figure></li>
-<li><p>终止远程登录服务sshd，在适当时候再次重启sshd服务</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">kill</span> sshd对应的进程号</span><br><span class="line">  <span class="comment"># 重启</span></span><br><span class="line">  /bin/systemctl start sshd.service</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>终止多个gedit</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">killall gedit</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>强制杀掉一个终端</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">kill</span> -9 bash对应的进程号</span><br></pre></td></tr></table></figure>
-<h3 id="查看进程树"><a href="#查看进程树" class="headerlink" title="查看进程树"></a>查看进程树</h3></li>
-</ul>
-</li>
-<li><p>基本语法</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pstree [选项] <span class="comment"># 可以更加直观地查看进程信息</span></span><br></pre></td></tr></table></figure></li>
-<li><p>常用选项</p>
-<table>
-<thead>
-<tr>
-<th align="center">选项</th>
-<th align="center">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">-p</td>
-<td align="center">显示进程的PID</td>
-</tr>
-<tr>
-<td align="center">-u</td>
-<td align="center">显示进程所属用户</td>
-</tr>
-</tbody></table>
-<p><img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/%E8%BF%9B%E7%A8%8B%E6%A0%91.png" alt="进程树"></p>
-</li>
-</ul>
-<h3 id="服务（service）管理"><a href="#服务（service）管理" class="headerlink" title="服务（service）管理"></a>服务（service）管理</h3><ul>
-<li><p>服务（service）本质就是进程，但是是运行在后台的，通常都会监听某个端口，等待其他程序的请求，比如mysql，sshd，防火墙等，因此我们又称为守护进程，是Linux中非常重要的知识点!</p>
-<p><img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/%E6%9C%8D%E5%8A%A1%E5%8E%9F%E7%90%86%E5%9B%BE.png" alt="服务原理图"></p>
-</li>
-<li><p>service管理指令</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service 服务名 [start | stop | restart | reload | status]</span><br></pre></td></tr></table></figure>
-<ul>
-<li><p>service指令管理的服务在/etc/init.d查看<img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/service%E6%8C%87%E4%BB%A4%E7%AE%A1%E7%90%86%E6%9F%A5%E7%9C%8B.png" alt="service指令管理查看"></p>
-</li>
-<li><p>在CentOS7.0后很多服务不再使用service，而是systemctl</p>
-</li>
-</ul>
-</li>
-<li><p>systemctl管理指令</p>
-<ul>
-<li><p>基本语法</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl [start | stop | restart | status] 服务名</span><br></pre></td></tr></table></figure></li>
-<li><p>systemctl指令管理的服务在/usr/lib/systemd/system查看</p>
-</li>
-</ul>
-</li>
-<li><p>systemctl设置服务的自启动状态</p>
-<ul>
-<li><p>查看服务开机启动状态，grep可进行过滤</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl list-unit-files [| grep 服务名]</span><br></pre></td></tr></table></figure></li>
-<li><p>设置服务开机启动（永久生效）</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> 服务名</span><br></pre></td></tr></table></figure></li>
-<li><p>关闭服务开机启动（永久生效）</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl <span class="built_in">disable</span> 服务名</span><br></pre></td></tr></table></figure></li>
-<li><p>查询某个服务是否是自启动的</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl is-enabled 服务名</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li><p>查看服务名</p>
-<ul>
-<li>使用setup -&gt; 系统服务就可以看到全部</li>
-<li>在/etc/init.d/下看到service指令管理的服务</li>
-</ul>
-</li>
-<li><p>chkconfig指令</p>
-<ul>
-<li><p>介绍</p>
-<ul>
-<li>通过chkconfig指令可以给服务的各个运行级别设置自启动/关闭</li>
-<li>chkconfig指令管理的服务在/etc/init.d查看</li>
-</ul>
-</li>
-<li><p>基本语法</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">chkconfig --list [| grep xxx]</span><br><span class="line">chkconfig 服务名 --list</span><br><span class="line">chkconfig --level 5（指定级别） 服务名 on/off</span><br></pre></td></tr></table></figure></li>
-<li><p>chkconfig重新设置服务后自启动或关闭，需重启机器生效</p>
-</li>
-</ul>
-</li>
-<li><p>打开或关闭指定端口</p>
-<ul>
-<li><p>在真正的生产环境，往往需要将防火墙打开，但问题在于如果我们把防火墙打开，那么外部请求数据包就不能跟服务器监听端口通讯。这时就需要打开指定的端口，如80、22、8080等</p>
-</li>
-<li><p>firewall指令</p>
-<ul>
-<li><p>打开端口（使用netstat -anp查看）</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --permanent --add-port=端口号/协议</span><br></pre></td></tr></table></figure></li>
-<li><p>关闭端口</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --permanent --remove-port=端口号/协议</span><br></pre></td></tr></table></figure></li>
-<li><p>重新载入才能生效</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure></li>
-<li><p>查询端口是否开放</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --query-port=端口号/协议</span><br></pre></td></tr></table></figure>
-<h3 id="动态监控进程"><a href="#动态监控进程" class="headerlink" title="动态监控进程"></a>动态监控进程</h3></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>top与ps命令很相似，它们都是用来显示正在执行的进程。top与ps最大的不同之处在于，top在执行一段时间可以更新正在运行的进程</p>
-</li>
-<li><p>基本语法</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">top [选项]</span><br></pre></td></tr></table></figure></li>
-<li><p>常用选项</p>
-<table>
-<thead>
-<tr>
-<th align="center">选项</th>
-<th align="center">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">-d 秒数</td>
-<td align="center">指定top命令每隔几秒更新，默认是3秒</td>
-</tr>
-<tr>
-<td align="center">-i</td>
-<td align="center">使top不显示任何闲置或僵死进程</td>
-</tr>
-<tr>
-<td align="center">-p</td>
-<td align="center">通过指定监控进程ID来仅仅监控某个进程的状态</td>
-</tr>
-</tbody></table>
-<p><img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/top%E6%8C%87%E4%BB%A4.png" alt="top指令"></p>
-</li>
-<li><p>交互操作说明</p>
-<table>
-<thead>
-<tr>
-<th align="center">命令</th>
-<th align="center">功能</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">p</td>
-<td align="center">以CPU使用率排序（默认就是此项）</td>
-</tr>
-<tr>
-<td align="center">M</td>
-<td align="center">以内存的使用率排序</td>
-</tr>
-<tr>
-<td align="center">N</td>
-<td align="center">以PID排序</td>
-</tr>
-<tr>
-<td align="center">q</td>
-<td align="center">退出top</td>
-</tr>
-</tbody></table>
-</li>
-<li><p>应用实例</p>
-<ul>
-<li>监控特定用户<ul>
-<li>输入top，然后输入u回车，再输入用户名</li>
-</ul>
-</li>
-<li>终止指定进程<ul>
-<li>输入top，然后输入k回车，再输入要结束的进程ID号</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="监控网络状态"><a href="#监控网络状态" class="headerlink" title="监控网络状态"></a>监控网络状态</h3><ul>
-<li><p>查看系统网络情况netstat</p>
-<ul>
-<li><p>基本语法</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat [选项]</span><br></pre></td></tr></table></figure></li>
-<li><p>选项说明</p>
-<table>
-<thead>
-<tr>
-<th align="center">选项</th>
-<th align="center">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">-an</td>
-<td align="center">按一定顺序排列输出</td>
-</tr>
-<tr>
-<td align="center">-p</td>
-<td align="center">显示哪个进程在调用</td>
-</tr>
-</tbody></table>
-<p><img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/netstat%E6%8C%87%E4%BB%A4.png" alt="netstat指令"></p>
-</li>
-</ul>
-</li>
-<li><p>检测主机连接命令ping</p>
-<ul>
-<li>是一种网络检测工具，它主要是用于检测远程主机是否正常，或是两部主机间的网线或网卡故障</li>
-<li>ping 对方IP地址</li>
-</ul>
-</li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/03/11/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Linux实操篇之关机-重启命令" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/08/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E5%85%B3%E6%9C%BA-%E9%87%8D%E5%90%AF%E5%91%BD%E4%BB%A4/">Linux实操篇之关机&amp;重启命令</a>
-    </h1>
-  
-
-        
-        <a href="/2020/03/08/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E5%85%B3%E6%9C%BA-%E9%87%8D%E5%90%AF%E5%91%BD%E4%BB%A4/" class="archive-article-date">
-  	<time datetime="2020-03-07T23:54:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-08</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="基本介绍"><a href="#基本介绍" class="headerlink" title="基本介绍"></a>基本介绍</h3><table>
-<thead>
-<tr>
-<th align="center">命令</th>
-<th align="center">功能</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">shutdown -h now</td>
-<td align="center">立刻进行关机</td>
-</tr>
-<tr>
-<td align="center">shutdown -h 1</td>
-<td align="center">“hello，1分钟后会关机了”</td>
-</tr>
-<tr>
-<td align="center">shutdown -r now</td>
-<td align="center">现在重新启动计算机</td>
-</tr>
-<tr>
-<td align="center">halt</td>
-<td align="center">关机【作用和上面一样】</td>
-</tr>
-<tr>
-<td align="center">reboot</td>
-<td align="center">现在重新启动计算机</td>
-</tr>
-<tr>
-<td align="center">sync</td>
-<td align="center">把内存的数据同步到磁盘</td>
-</tr>
-</tbody></table>
-<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><ul>
-<li>不管是重启系统还是关闭系统，首先要<strong>运行sync命令</strong>，把内存中的数据写到磁盘中</li>
-<li>目前的shutdown/reboot/halt等命令已经在关机前进行了sync</li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/03/08/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E5%85%B3%E6%9C%BA-%E9%87%8D%E5%90%AF%E5%91%BD%E4%BB%A4/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Linux实操篇之定时任务调度" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/05/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6/">Linux实操篇之定时任务调度</a>
-    </h1>
-  
-
-        
-        <a href="/2020/03/05/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6/" class="archive-article-date">
-  	<time datetime="2020-03-05T01:53:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="crond-任务调度"><a href="#crond-任务调度" class="headerlink" title="crond 任务调度"></a>crond 任务调度</h3><ul>
-<li><p>通过crontab指令进行定时任务的设置</p>
-</li>
-<li><p>概述</p>
-<ul>
-<li><p>任务调度是指系统在<strong>某个时间</strong>执行的<strong>特定的命令</strong>或程序</p>
-</li>
-<li><p>任务调度分类：</p>
-<table>
-<thead>
-<tr>
-<th align="center">类别</th>
-<th align="center">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">系统工作</td>
-<td align="center">有些重要的工作必须周而复始地执行，如病毒扫描等</td>
-</tr>
-<tr>
-<td align="center">个别用户工作</td>
-<td align="center">个别用户可能希望执行某些程序，比如对MySQL数据库的备份</td>
-</tr>
-</tbody></table>
-</li>
-</ul>
-</li>
-<li><p>基本语法</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crontab [选项]</span><br></pre></td></tr></table></figure></li>
-<li><p>常用选项</p>
-<table>
-<thead>
-<tr>
-<th align="center">选项</th>
-<th align="center">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">-e</td>
-<td align="center">编辑crontab定时任务</td>
-</tr>
-<tr>
-<td align="center">-l</td>
-<td align="center">查询crontab任务</td>
-</tr>
-<tr>
-<td align="center">-r</td>
-<td align="center">删除当前用户所有的crontab任务</td>
-</tr>
-</tbody></table>
-</li>
-<li><p>重启任务调度</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service crond restart</span><br></pre></td></tr></table></figure></li>
-<li><p>快速入门</p>
-<ul>
-<li><p>设置任务调度文件</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/crontab</span><br></pre></td></tr></table></figure></li>
-<li><p>设置个人任务调度，执行crontab -e 命令，接着输入任务到调度文件</p>
-<ul>
-<li>例如：*/1 * * * * ls -l /etc/ &gt; /tmp/to.txt，意思是每小时的每分钟执行此命令</li>
-</ul>
-</li>
-<li><p>参数细节说明</p>
-<table>
-<thead>
-<tr>
-<th align="center">参数</th>
-<th align="center">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">第一个”*”</td>
-<td align="center">一小时当中的第几分钟，范围0-59</td>
-</tr>
-<tr>
-<td align="center">第二个”*”</td>
-<td align="center">一天中的第几小时，范围0-23</td>
-</tr>
-<tr>
-<td align="center">第三个”*”</td>
-<td align="center">一个月中的第几天，范围1-31</td>
-</tr>
-<tr>
-<td align="center">第四个”*”</td>
-<td align="center">一年中的第几月，范围1-12</td>
-</tr>
-<tr>
-<td align="center">第五个”*”</td>
-<td align="center">一周当中的星期几，范围0-7（<strong>0和7都代表星期日</strong>）</td>
-</tr>
-</tbody></table>
-</li>
-<li><p>特殊符号说明</p>
-<table>
-<thead>
-<tr>
-<th align="center">符号</th>
-<th align="center">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">*</td>
-<td align="center">代表<strong>任何时间</strong>；例如第一个 “*” 就代表一小时中每分钟都执行一次的意思</td>
-</tr>
-<tr>
-<td align="center">,</td>
-<td align="center">代表不连续的时间；例如”0 8,12,16 * * * 命令”，代表在每天的8点0分，12点0分，16点0分都执行一次命令</td>
-</tr>
-<tr>
-<td align="center">-</td>
-<td align="center">代表连续的时间范围；例如”0 5 * * 1-6 命令”，代表在周一到周六的凌晨5点0分执行命令</td>
-</tr>
-<tr>
-<td align="center">*/n</td>
-<td align="center">代表每隔多久执行一次；例如”*/10 * * * * 命令”，代表每隔10分钟就执行一次命令</td>
-</tr>
-</tbody></table>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="at定时任务"><a href="#at定时任务" class="headerlink" title="at定时任务"></a>at定时任务</h3><ul>
-<li><p>基本介绍</p>
-<ul>
-<li><p>at命令是<strong>一次性</strong>定时计划任务，执行完一个任务后不再执行此任务了</p>
-</li>
-<li><p>at的守护进程atd会以后台模式运行，检查作业队列来运行</p>
-</li>
-<li><p>默认情况下，atd守护进程每60秒检查作业队列，有作业时，会检查作业运行时间，如果时间与当前时间匹配，则运行此作业</p>
-</li>
-<li><p>在使用at命令的时候，<strong>一定要保证atd进程的启动</strong>，可以使用以下指令来查看</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -ef | grep atd</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li><p>命令格式</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">at [选项] [时间] <span class="comment"># Ctrl+D（2次）结束at命令的输入</span></span><br></pre></td></tr></table></figure></li>
-<li><p>命令选项</p>
-<table>
-<thead>
-<tr>
-<th align="center">选项</th>
-<th align="center">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">-m</td>
-<td align="center">当指定的任务被完成后，将给用户发送邮件，即使没有标准输出</td>
-</tr>
-<tr>
-<td align="center">-l</td>
-<td align="center">atq的别名，查询任务</td>
-</tr>
-<tr>
-<td align="center">-d</td>
-<td align="center">atrm的别名，删除任务</td>
-</tr>
-<tr>
-<td align="center">-v</td>
-<td align="center">显示任务将被执行的时间</td>
-</tr>
-<tr>
-<td align="center">-c</td>
-<td align="center">打印任务的内容到标准输出</td>
-</tr>
-<tr>
-<td align="center">-V</td>
-<td align="center">显示版本信息</td>
-</tr>
-<tr>
-<td align="center">-q &lt;队列&gt;</td>
-<td align="center">使用指定的队列</td>
-</tr>
-<tr>
-<td align="center">-f &lt;文件&gt;</td>
-<td align="center">从指定文件读入任务而不是从标准输入读入</td>
-</tr>
-<tr>
-<td align="center">-t &lt;时间参数&gt;</td>
-<td align="center">以时间参数的形式提交要运行的任务</td>
-</tr>
-</tbody></table>
-</li>
-<li><p>时间定义</p>
-<ul>
-<li>接受在当天的hh:mm（小时:分钟）式的时间指定。<strong>假如该时间已过去，那就会在第二天执行</strong></li>
-<li>使用midnight（深夜），noon（中午），teatime（饮茶时间，一般下午4点）等比较模糊的词语来指定时间</li>
-<li>采用12小时计时制，即在时间后面加上AM（上午）或PM（下午）来说明是上午还是下午。</li>
-<li>指定命令执行的具体日期，指定格式为month day或mm/dd/yy或dd.mm.yy，指定的日期必须跟在指定时间的后面。例如：04:00 2021-03-1</li>
-<li>使用相对计时法。指定格式为：now + count time-units，now就是当前时间，time-units是时间单位，这里能够是minutes（分钟）、hours（小时）、days（天）、weeks（星期）。count是时间的数量（几小时，几天或几分钟）。例如：now +5 minutes</li>
-<li>直接使用today（今天）、tomorrow（明天）来指定完成命令的时间</li>
-</ul>
-</li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/03/05/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Linux实操篇之Vi和Vim编辑器" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/02/27/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8BVi%E5%92%8CVim%E7%BC%96%E8%BE%91%E5%99%A8/">Linux实操篇之Vi和Vim编辑器</a>
-    </h1>
-  
-
-        
-        <a href="/2020/02/27/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8BVi%E5%92%8CVim%E7%BC%96%E8%BE%91%E5%99%A8/" class="archive-article-date">
-  	<time datetime="2020-02-27T06:52:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-27</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="Vi和Vim的基本介绍"><a href="#Vi和Vim的基本介绍" class="headerlink" title="Vi和Vim的基本介绍"></a>Vi和Vim的基本介绍</h3><ul>
-<li>Linux系统会内置Vi文本编辑器</li>
-<li>Vim具有程序编辑的能力，可看作是Vi的增强版本，可以主动的以字体颜色辨别语法的正确性，方便程序设计。代码补全、编译及错误跳转等方便编程的功能特别丰富，在程序员中被广泛使用</li>
-</ul>
-<h3 id="Vi和Vim常用的三种模式"><a href="#Vi和Vim常用的三种模式" class="headerlink" title="Vi和Vim常用的三种模式"></a>Vi和Vim常用的三种模式</h3><ul>
-<li>正常模式<ul>
-<li>以Vim打开一个文档就直接进入一般模式了（这是默认模式）。在这个模式中，你可以使用【上下左右】按键来移动光标，可以使用【删除字符】或【删除整行】来处理文档内容，也可以使用【复制、粘贴】来处理你的文件数据</li>
-</ul>
-</li>
-<li>插入模式<ul>
-<li>按下i，I，o，O，a，A，r，R等任何一个字母之后才会进入编辑（插入）模式，一般来说按i即可</li>
-</ul>
-</li>
-<li>命令行模式<ul>
-<li>输入Esc，再输入:就可以进入命令行模式，在这个模式中，可以提供你相关指令，完成读取、存盘、替换、离开Vim、显示行号等的动作则是在此模式中达成的</li>
-</ul>
-</li>
-</ul>
-<h3 id="各种模式的相互切换"><a href="#各种模式的相互切换" class="headerlink" title="各种模式的相互切换"></a>各种模式的相互切换</h3><p><img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/Vi%E5%92%8CVim%E7%BC%96%E8%BE%91%E5%99%A8/%E5%90%84%E7%A7%8D%E6%A8%A1%E5%BC%8F.png" alt="各种模式"></p>
-<h3 id="常用快捷键"><a href="#常用快捷键" class="headerlink" title="常用快捷键"></a>常用快捷键</h3><table>
-<thead>
-<tr>
-<th align="center">快捷键</th>
-<th align="center">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">yy</td>
-<td align="center">拷贝当前行</td>
-</tr>
-<tr>
-<td align="center">5yy</td>
-<td align="center">拷贝当前行向下的5行</td>
-</tr>
-<tr>
-<td align="center">p</td>
-<td align="center">粘贴</td>
-</tr>
-<tr>
-<td align="center">dd</td>
-<td align="center">删除当前行</td>
-</tr>
-<tr>
-<td align="center">5dd</td>
-<td align="center">删除当前行向下的5行</td>
-</tr>
-<tr>
-<td align="center">/关键字【命令行下】</td>
-<td align="center">在文件中查找某个单词（回车查找，输入 n 查找下一个）</td>
-</tr>
-<tr>
-<td align="center">:set nu / :set nonu【命令行下】</td>
-<td align="center">设置文件的行号 / 取消文件的行号</td>
-</tr>
-<tr>
-<td align="center">G / gg</td>
-<td align="center">到文档最末行 / 最首行</td>
-</tr>
-<tr>
-<td align="center">u</td>
-<td align="center">撤销输入的内容</td>
-</tr>
-</tbody></table>
-<p><img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/Vi%E5%92%8CVim%E7%BC%96%E8%BE%91%E5%99%A8/vi-vim%E9%94%AE%E7%9B%98%E5%9B%BE.png" alt="vi-vim键盘图"></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/02/27/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8BVi%E5%92%8CVim%E7%BC%96%E8%BE%91%E5%99%A8/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Linux实操篇之RPM与YUM" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/02/25/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8BRPM%E4%B8%8EYUM/">Linux实操篇之RPM与YUM</a>
-    </h1>
-  
-
-        
-        <a href="/2020/02/25/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8BRPM%E4%B8%8EYUM/" class="archive-article-date">
-  	<time datetime="2020-02-25T00:48:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-25</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="rpm"><a href="#rpm" class="headerlink" title="rpm"></a>rpm</h3><ul>
-<li><p>rpm用于互联网下载包的打包及安装工具，它包含在某些Linux分发版中。它生成具有.RPM扩展名的文件。RPM是<strong>RedHat Package Manager</strong>的缩写，类似Windows的setup.exe，这一文件格式名称虽然打上了RedHat的标志，但理念是通用的。Linux的很多分发版本（suse，redhat，centos等等）都有采用，可以算是公认的行业标准了</p>
-</li>
-<li><p>rpm包名基本格式</p>
-<ul>
-<li>一个rpm包名：firefox-60.2.2-1.el7.centos.x86_64</li>
-<li>名称：firefox</li>
-<li>版本号：60.2.2-1</li>
-<li>适用操作系统：el7.centos.x86_64，表示centos7.x的64位系统；如果是i686、i386表示32位系统，noarch表示通用</li>
-</ul>
-</li>
-<li><p>rpm包的查询指令</p>
-<ul>
-<li><p>查询已安装的所有rpm软件包</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rpm -qa</span><br><span class="line">rpm -qa | more</span><br><span class="line">rpm -qa | grep xxx</span><br></pre></td></tr></table></figure></li>
-<li><p>查询软件包是否安装</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -q 软件包名</span><br></pre></td></tr></table></figure></li>
-<li><p>查询软件包信息</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -qi 软件包名</span><br></pre></td></tr></table></figure></li>
-<li><p>查询软件包中的文件</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -ql 软件包名</span><br></pre></td></tr></table></figure></li>
-<li><p>查询文件所属的软件包</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">rpm -qf 文件全路径名</span><br><span class="line"></span><br><span class="line"><span class="comment"># 例如</span></span><br><span class="line">rpm -qf /etc/passwd</span><br><span class="line">rpm -qf /root/install.log</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li><p>卸载rpm包</p>
-<ul>
-<li><p>基本语法</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rpm -e RPM包的名称</span><br><span class="line"><span class="comment"># 例如</span></span><br><span class="line">rpm -e firefox</span><br></pre></td></tr></table></figure></li>
-<li><p>细节说明</p>
-<ul>
-<li>如果其他软件包依赖于您要卸载的软件包，卸载时则会产生错误信息</li>
-<li>如果我们就是要删除这个rpm包，可以增加参数 –nodeps，就可以强制删除，但一般不推荐这样做，因为依赖于该软件包的程序可能无法运行</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>安装rpm包</p>
-<ul>
-<li><p>基本语法</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh RPM包全路径名称</span><br></pre></td></tr></table></figure></li>
-<li><p>参数说明</p>
-<table>
-<thead>
-<tr>
-<th>选项</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>-i</td>
-<td>install（安装）</td>
-</tr>
-<tr>
-<td>-v</td>
-<td>verbose（提示）</td>
-</tr>
-<tr>
-<td>-h</td>
-<td>hash（进度条）</td>
-</tr>
-</tbody></table>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="yum"><a href="#yum" class="headerlink" title="yum"></a>yum</h3><ul>
-<li><p>yum是一个Shell前端软件包管理器。基于rpm包管理，能够<strong>从指定的服务器自动下载RPM包</strong>并且安装，可以自动处理依赖关系，并且一次安装所有依赖的软件包</p>
-</li>
-<li><p>yum基本指令</p>
-<ul>
-<li><p>查询yum服务器是否有需要安装的软件</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum list | grep xxx</span><br></pre></td></tr></table></figure></li>
-<li><p>下载安装指定的yum包</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install xxx</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/02/25/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8BRPM%E4%B8%8EYUM/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Linux实操篇之Linux磁盘分区、挂载" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8BLinux%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA%E3%80%81%E6%8C%82%E8%BD%BD/">Linux实操篇之Linux磁盘分区、挂载</a>
-    </h1>
-  
-
-        
-        <a href="/2020/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8BLinux%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA%E3%80%81%E6%8C%82%E8%BD%BD/" class="archive-article-date">
-  	<time datetime="2020-02-21T05:35:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="Linux分区"><a href="#Linux分区" class="headerlink" title="Linux分区"></a>Linux分区</h3><ul>
-<li><p>原理介绍</p>
-<ul>
-<li>Linux来说无论有几个分区，分给哪一个目录使用，它归根结底就<strong>只有一个根目录</strong>，一个独立且唯一的文件结构，Linux中的每个分区都是用来组成整个文件系统的一部分</li>
-<li>Linux采用了一种叫”载入”的处理方法，它的整个文件系统中包含了一整套的文件和目录，且将<strong>一个分区和一个目录</strong>联系起来，这时要载入的一个分区将使它的存储空间在一个目录下获得</li>
-</ul>
-</li>
-<li><p>查看所有设备挂载情况</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsblk 或 lsblk -f</span><br></pre></td></tr></table></figure></li>
-<li><p>硬盘说明</p>
-<ul>
-<li>Linux硬盘分IDE硬盘和SCSI硬盘，<strong>目前基本上是SCSI硬盘</strong></li>
-<li>对于IDE硬盘，驱动器标识符为“hdx~”，其中“hd”表明分区所在设备的类型，这里指IDE盘。“x”为盘号（<strong>a为基本盘</strong>，<strong>b为基本从属盘</strong>，c为辅助主盘，d为辅助从属盘），“~”代表分区，前4个分区用数字1-4表示，它们是主分区或扩展分区，从5开始就是逻辑分区。例如，hda3表示为第一个IDE硬盘上的第3个主分区或扩展分区，hdb2表示为第二个IDE硬盘上的第2个主分区或扩展分区</li>
-<li>对于SCSI硬盘则标识为“sdx~”，SCSI硬盘是用“sd”来表示分区所在设备类型的，其余则和IDE硬盘的表示方法一样</li>
-</ul>
-</li>
-</ul>
-<h3 id="挂载的经典案例"><a href="#挂载的经典案例" class="headerlink" title="挂载的经典案例"></a>挂载的经典案例</h3><ul>
-<li><p>说明</p>
-<ul>
-<li>下面我们以增加一块硬盘为例来熟悉下磁盘的相关指令和深入理解<strong>磁盘分区、挂载、卸载</strong>的概念</li>
-</ul>
-</li>
-<li><p>如何增加一块硬盘</p>
-<ul>
-<li>虚拟机添加硬盘</li>
-<li>分区</li>
-<li>格式化</li>
-<li>挂载（临时的）</li>
-<li>设置永久挂载</li>
-</ul>
-</li>
-<li><p>具体步骤</p>
-<ul>
-<li><p>在虚拟机菜单中，选择【设置】，然后设备列表里添加硬盘，然后一路【下一步】，中间只有选择硬盘大小的地方需要修改，直到完成，然后<strong>重启系统（才能识别）</strong></p>
-<p><img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/Linux%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA%E3%80%81%E6%8C%82%E8%BD%BD/%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%B7%BB%E5%8A%A0%E7%A3%81%E7%9B%98.png" alt="虚拟机添加磁盘"></p>
-</li>
-<li><p>分区命令</p>
-<ul>
-<li><p>开始对sdb分区</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fdisk /dev/sdb</span><br></pre></td></tr></table></figure>
-<table>
-<thead>
-<tr>
-<th>命令</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>m</td>
-<td>显示命令列表</td>
-</tr>
-<tr>
-<td>p</td>
-<td>显示磁盘分区（同fdisk -l）</td>
-</tr>
-<tr>
-<td>n</td>
-<td>新增分区</td>
-</tr>
-<tr>
-<td>d</td>
-<td>删除分区</td>
-</tr>
-<tr>
-<td>w</td>
-<td>写入并退出</td>
-</tr>
-</tbody></table>
-</li>
-<li><p>开始分区后输入n，新增分区，然后选择p，分区类型为主分区，两次回车默认剩余全部空间。最后输入w写入分区并退出；若不保存退出输入q</p>
-</li>
-</ul>
-<p><img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/Linux%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA%E3%80%81%E6%8C%82%E8%BD%BD/%E5%88%86%E5%8C%BA.png" alt="分区"></p>
-</li>
-<li><p>挂载</p>
-<ul>
-<li><p>将一个分区与一个目录联系起来</p>
-</li>
-<li><p>mount 设备名称 挂载目录</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mount /dev/sdb1 /newdisk</span><br></pre></td></tr></table></figure></li>
-<li><p>umount 设备名称或者挂载目录，<strong>卸载分区</strong></p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">umount /dev/sdb1</span><br><span class="line"><span class="comment"># 或者</span></span><br><span class="line">umount /newdisk</span><br></pre></td></tr></table></figure>
-<p>【注意】：<strong>用命令行挂载重启后会失效</strong></p>
-</li>
-</ul>
-</li>
-<li><p>永久挂载</p>
-<ul>
-<li>通过修改/etc/fstab文件实现</li>
-<li>添加完成后，执行mount -a即刻生效（或者直接重启）</li>
-</ul>
-<p><img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/Linux%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA%E3%80%81%E6%8C%82%E8%BD%BD/%E6%B0%B8%E4%B9%85%E6%8C%82%E8%BD%BD.png" alt="永久挂载"></p>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="磁盘情况查询"><a href="#磁盘情况查询" class="headerlink" title="磁盘情况查询"></a>磁盘情况查询</h3><ul>
-<li><p>基本语法</p>
-<ul>
-<li><p>查询系统整体磁盘使用情况</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df -h</span><br></pre></td></tr></table></figure>
-<p><img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/Linux%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA%E3%80%81%E6%8C%82%E8%BD%BD/%E7%A3%81%E7%9B%98%E4%BD%BF%E7%94%A8%E6%83%85%E5%86%B5.png" alt="磁盘使用情况"></p>
-</li>
-<li><p>查询指定目录的磁盘占用情况，<strong>默认为当前目录</strong></p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">du -h 目录</span><br></pre></td></tr></table></figure>
-<table>
-<thead>
-<tr>
-<th>选项</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>-s</td>
-<td>指定目录占用大小汇总</td>
-</tr>
-<tr>
-<td>-h</td>
-<td>==带计量单位==</td>
-</tr>
-<tr>
-<td>-a</td>
-<td>含文件</td>
-</tr>
-<tr>
-<td>–max-depth=1</td>
-<td>子目录深度</td>
-</tr>
-<tr>
-<td>-c</td>
-<td>列出明细的同时，增加汇总值</td>
-</tr>
-</tbody></table>
-<p><img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/Linux%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA%E3%80%81%E6%8C%82%E8%BD%BD/%E7%A3%81%E7%9B%98%E5%8D%A0%E7%94%A8%E6%83%85%E5%86%B5.png" alt="磁盘占用情况"></p>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="磁盘情况-工作实用指令"><a href="#磁盘情况-工作实用指令" class="headerlink" title="磁盘情况-工作实用指令"></a>磁盘情况-工作实用指令</h3><ul>
-<li><p>统计文件夹下文件的个数</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -l 文件夹 | grep <span class="string">&quot;^-&quot;</span> | wc -l</span><br></pre></td></tr></table></figure></li>
-<li><p>统计文件夹下目录的个数</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -l 文件夹 | grep <span class="string">&quot;^d&quot;</span> | wc -l</span><br></pre></td></tr></table></figure></li>
-<li><p>统计文件夹下文件个数（包含子文件夹里的）</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -lR 文件夹 | grep <span class="string">&quot;^-&quot;</span> | wc -l</span><br></pre></td></tr></table></figure></li>
-<li><p>统计文件夹下目录个数（包含子文件夹里的）</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -lR 文件夹 | grep <span class="string">&quot;^d&quot;</span> | wc -l</span><br></pre></td></tr></table></figure></li>
-<li><p>以树状显示目录结构（<strong>如果没有tree，则使用yum install tree安装</strong>）</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tree 目录</span><br></pre></td></tr></table></figure></li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8BLinux%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA%E3%80%81%E6%8C%82%E8%BD%BD/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/09/23/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E5%AE%9E%E7%94%A8%E6%8C%87%E4%BB%A4/">展开全文 >></a>
         </p>
       
 
@@ -2081,13 +994,13 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/02/18/Linux%E5%9F%BA%E7%A1%80%E7%AF%87%E4%B9%8BLinux%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84/">Linux基础篇之Linux目录结构</a>
+      <a class="article-title" href="/2020/09/18/Linux%E5%9F%BA%E7%A1%80%E7%AF%87%E4%B9%8BLinux%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84/">Linux基础篇之Linux目录结构</a>
     </h1>
   
 
         
-        <a href="/2020/02/18/Linux%E5%9F%BA%E7%A1%80%E7%AF%87%E4%B9%8BLinux%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84/" class="archive-article-date">
-  	<time datetime="2020-02-18T09:18:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-18</time>
+        <a href="/2020/09/18/Linux%E5%9F%BA%E7%A1%80%E7%AF%87%E4%B9%8BLinux%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84/" class="archive-article-date">
+  	<time datetime="2020-09-18T09:18:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-18</time>
 </a>
         
       </header>
@@ -2208,7 +1121,490 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/02/18/Linux%E5%9F%BA%E7%A1%80%E7%AF%87%E4%B9%8BLinux%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/09/18/Linux%E5%9F%BA%E7%A1%80%E7%AF%87%E4%B9%8BLinux%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Git遇到Everything-up-to-date问题的正确解决方法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/04/07/Git%E9%81%87%E5%88%B0Everything-up-to-date%E9%97%AE%E9%A2%98%E7%9A%84%E6%AD%A3%E7%A1%AE%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/">Git遇到Everything up-to-date问题的正确解决方法</a>
+    </h1>
+  
+
+        
+        <a href="/2020/04/07/Git%E9%81%87%E5%88%B0Everything-up-to-date%E9%97%AE%E9%A2%98%E7%9A%84%E6%AD%A3%E7%A1%AE%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/" class="archive-article-date">
+  	<time datetime="2020-04-07T06:17:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>先说说出现这个问题的原因：git提交改动到缓存，要push的时候不会将本地所有的分支都push掉，所以出现这个问题。那么我们就需要新建分支提交改动然后合并分支。</p>
+<ul>
+<li><p>先创建一个新的分支提交改动</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch newbranch</span><br></pre></td></tr></table></figure></li>
+<li><p>检查这条命令是否创建成功</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch</span><br></pre></td></tr></table></figure></li>
+<li><p>这时终端会输出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">newbranch</span><br><span class="line"></span><br><span class="line">*master</span><br></pre></td></tr></table></figure>
+<p>这样就创建成功了，前面的*代表的是当前你所在的工作分支</p>
+</li>
+<li><p>接下来切换工作分支</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout newbranch</span><br></pre></td></tr></table></figure></li>
+<li><p>然后将你的改动提交到新的分支上</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git add -A</span><br><span class="line">git commit -a -m <span class="string">&quot;update&quot;</span>                    </span><br></pre></td></tr></table></figure>
+<p>此时可以<code>git status</code>检查下提交情况。</p>
+</li>
+<li><p>如果提交成功，我们接下来就要回到主分支了</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout master</span><br></pre></td></tr></table></figure></li>
+<li><p>我们将新分支提交的改动合并到主分支上</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git merge newbranch</span><br></pre></td></tr></table></figure></li>
+<li><p>合并分支可能产生冲突这是正常的，虽然我们这是新建的分支不会产生冲突，但还是在这里记录下。可以用<code>git diff</code>来查看产生冲突的文件，然后做对应的修改再提交一次就可以了。</p>
+</li>
+<li><p>我们的问题解决了，接下来就可以push代码了</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure></li>
+<li><p>最后，新建分支的朋友别忘了删除分支</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -D newbranch</span><br></pre></td></tr></table></figure>
+<p>如果想保留分支只是想删除已经合并的部分只要把大写的D改成小写的d就行了。</p>
+</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/04/07/Git%E9%81%87%E5%88%B0Everything-up-to-date%E9%97%AE%E9%A2%98%E7%9A%84%E6%AD%A3%E7%A1%AE%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Git项目搭建" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/28/Git%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/">Git项目搭建</a>
+    </h1>
+  
+
+        
+        <a href="/2020/03/28/Git%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/" class="archive-article-date">
+  	<time datetime="2020-03-27T17:16:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-28</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="创建工作目录与常用指令"><a href="#创建工作目录与常用指令" class="headerlink" title="创建工作目录与常用指令"></a>创建工作目录与常用指令</h3><p>工作区（WorkSpace）一般就是你希望Git帮助你管理的文件夹，可以是你项目的目录，也可以是一个空目录（建议不要有中文），日常使用只要记住下图6个命令：<img src="https://gitee.com/iceslyer/image/raw/master/img/Git%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/Git%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/git%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4.png" alt="git常用指令"></p>
+<h3 id="本地仓库搭建"><a href="#本地仓库搭建" class="headerlink" title="本地仓库搭建"></a>本地仓库搭建</h3><p>创建本地仓库的方法有两种</p>
+<ul>
+<li><p>创建全新的仓库</p>
+<ul>
+<li><p>创建全新的仓库，需要在Git管理的项目的根目录执行</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在当前目录新建一个Git代码库</span></span><br><span class="line">$ git init</span><br></pre></td></tr></table></figure></li>
+<li><p>执行后可以看到，仅仅在项目目录多出了一个.git目录，关于版本等所有信息都在这个目录里面</p>
+</li>
+</ul>
+</li>
+<li><p>克隆远程仓库</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 克隆一个项目和它的整个代码历史（版本信息）</span></span><br><span class="line">$ git <span class="built_in">clone</span> [url]</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/03/28/Git%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Git常用操作" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/23/Git%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/">Git常用操作</a>
+    </h1>
+  
+
+        
+        <a href="/2020/03/23/Git%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/" class="archive-article-date">
+  	<time datetime="2020-03-23T02:15:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-23</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="常用指令"><a href="#常用指令" class="headerlink" title="常用指令"></a>常用指令</h3><ul>
+<li><p>初始化一个新的Git仓库</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure></li>
+<li><p>查看当前git状态</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git status</span><br></pre></td></tr></table></figure></li>
+<li><p>查看git历史版本信息</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">log</span></span><br></pre></td></tr></table></figure></li>
+<li><p>查看配置信息（Q键退出list）</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --list</span><br></pre></td></tr></table></figure></li>
+<li><p>从github上克隆一个仓库到本地</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> 仓库地址</span><br></pre></td></tr></table></figure></li>
+<li><p>创建新的分支</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch 分支名</span><br></pre></td></tr></table></figure>
+<h3 id="设置签名"><a href="#设置签名" class="headerlink" title="设置签名"></a>设置签名</h3></li>
+<li><p>项目/仓库级别签名，仅在当前本地库范围内有效（cat .git/config 查看）</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config user.name <span class="string">&quot;...&quot;</span></span><br><span class="line">git config user.email <span class="string">&quot;...&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>系统用户级别，登陆当前操作系统的用户范围（cat ~/.gitconfig 查看）</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name <span class="string">&quot;...&quot;</span></span><br><span class="line">git config --global user.email <span class="string">&quot;...&quot;</span></span><br></pre></td></tr></table></figure>
+<h3 id="在本地库创建远程库地址别名"><a href="#在本地库创建远程库地址别名" class="headerlink" title="在本地库创建远程库地址别名"></a>在本地库创建远程库地址别名</h3></li>
+<li><p>查看远程库地址</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git remote -v</span><br><span class="line">git remote add origin 远程库地址（HTTP或SSH地址）</span><br></pre></td></tr></table></figure></li>
+<li><p>推送到远程库的某个分支</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin 分支名</span><br></pre></td></tr></table></figure>
+<ul>
+<li>两个不相干的库就在后面添加 –allow-unrelated-histories 强制合并分支</li>
+</ul>
+</li>
+</ul>
+<h3 id="添加、修改文件步骤"><a href="#添加、修改文件步骤" class="headerlink" title="添加、修改文件步骤"></a>添加、修改文件步骤</h3><ul>
+<li><p>新建一个文件</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">touch 文件名</span><br></pre></td></tr></table></figure></li>
+<li><p>添加文件到暂存区</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git add 文件名</span><br><span class="line">git add -A <span class="comment"># 添加所有文件</span></span><br></pre></td></tr></table></figure></li>
+<li><p>将文件从暂存区提交到本地仓库</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git commit -m <span class="string">&#x27;描述信息&#x27;</span></span><br><span class="line">git commit -a <span class="comment"># 提交所有文件</span></span><br></pre></td></tr></table></figure></li>
+<li><p>将本地仓库推送到远程仓库</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git push</span><br><span class="line">git push -u origin master -f <span class="comment"># 强制push</span></span><br></pre></td></tr></table></figure>
+<h3 id="删除文件步骤"><a href="#删除文件步骤" class="headerlink" title="删除文件步骤"></a>删除文件步骤</h3></li>
+<li><p>通过git删除仓库文件</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git rm 文件名</span><br></pre></td></tr></table></figure></li>
+<li><p>添加到暂存区</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add 文件名</span><br></pre></td></tr></table></figure></li>
+<li><p>提交到本地仓库</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m <span class="string">&#x27;描述信息&#x27;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>同步到远程仓库</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push</span><br></pre></td></tr></table></figure>
+<h3 id="查看版本日志信息"><a href="#查看版本日志信息" class="headerlink" title="查看版本日志信息"></a>查看版本日志信息</h3></li>
+<li><p>显示详细信息</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">log</span></span><br></pre></td></tr></table></figure></li>
+<li><p>显示简洁信息</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">log</span> --pretty=oneline </span><br></pre></td></tr></table></figure></li>
+<li><p>显示更简洁</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">log</span> --oneline</span><br></pre></td></tr></table></figure></li>
+<li><p>显示了移动到某个版本需要移动的步数</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reflog</span><br></pre></td></tr></table></figure>
+<h3 id="移动到某个版本"><a href="#移动到某个版本" class="headerlink" title="移动到某个版本"></a>移动到某个版本</h3></li>
+<li><p>基于索引值移动到某个版本</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard 索引值（哈希）</span><br></pre></td></tr></table></figure></li>
+<li><p>后退一个版本(一个^后退一步，n个^后退n步)</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard^</span><br></pre></td></tr></table></figure></li>
+<li><p>后退n个版本</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard~n</span><br></pre></td></tr></table></figure>
+<h3 id="分支相关"><a href="#分支相关" class="headerlink" title="分支相关"></a>分支相关</h3></li>
+<li><p>查看所有分支</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -v</span><br></pre></td></tr></table></figure></li>
+<li><p>创建一个新分支</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch 新分支名</span><br></pre></td></tr></table></figure></li>
+<li><p>push到新分支上</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push -u origin 新分支名</span><br></pre></td></tr></table></figure></li>
+<li><p>切换分支</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout 分支名</span><br></pre></td></tr></table></figure></li>
+<li><p>将修改过的分支合并到主分支（<strong>操作是在master分支上执行的</strong>）</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git merge 分支名</span><br></pre></td></tr></table></figure>
+<h3 id="设置SSH免密登陆"><a href="#设置SSH免密登陆" class="headerlink" title="设置SSH免密登陆"></a>设置SSH免密登陆</h3></li>
+<li><p>进入当前用户家目录</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span>~</span><br></pre></td></tr></table></figure></li>
+<li><p>删除.ssh目录</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -r .ssh</span><br></pre></td></tr></table></figure></li>
+<li><p>生成.ssh密钥目录</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C 邮箱地址</span><br></pre></td></tr></table></figure></li>
+<li><p>进入.ssh目录查看文件</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> .ssh/</span><br><span class="line">ls -l</span><br></pre></td></tr></table></figure></li>
+<li><p>查看id_rsa.pub文件内容</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat id_rsa.pub</span><br></pre></td></tr></table></figure></li>
+<li><p>复制id_rsa.pub文件内容，登陆GitHub，点击用户头像-&gt;Setting-&gt;SSH and GPG keys</p>
+</li>
+<li><p>点击New SSH Key，输入复制的密钥</p>
+</li>
+<li><p>回到Git bash创建远程地址别名</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin_ssh 远程库SSH地址</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/03/23/Git%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Git基本理论" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/18/Git%E5%9F%BA%E6%9C%AC%E7%90%86%E8%AE%BA/">Git基本理论</a>
+    </h1>
+  
+
+        
+        <a href="/2020/03/18/Git%E5%9F%BA%E6%9C%AC%E7%90%86%E8%AE%BA/" class="archive-article-date">
+  	<time datetime="2020-03-17T17:14:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="工作区域"><a href="#工作区域" class="headerlink" title="工作区域"></a>工作区域</h3><p>Git本地有三个工作区域：<strong>工作区（Workspace）</strong>、<strong>暂存区（Stage/Index）</strong>、<strong>资源库（Repository或Git Directory）</strong>。如果再加上远程的git仓库（Remote Directory）就可以分为四个工作区域。文件在这四个区域的转换关系如下：</p>
+<p><img src="https://gitee.com/iceslyer/image/raw/master/img/Git%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/Git%E5%9F%BA%E6%9C%AC%E7%90%86%E8%AE%BA/Git%E5%B7%A5%E4%BD%9C%E5%8C%BA%E5%9F%9F.png" alt="Git工作区域"></p>
+<ul>
+<li>Workspace：工作区，就是你平时存放项目代码的地方</li>
+<li>Stage/Index：暂存区，用于临时存放你的改动，事实上它只是一个文件，保存即将提交的文件列表信息</li>
+<li>Repository：仓库区（或本地仓库），就是安全存放数据的位置，这里面有你提交到所有版本的数据，其中HEAD指向最新放入仓库的版本</li>
+<li>Remote：远程仓库，托管代码的服务器，可以简单地认为是你项目组中的一台电脑用于远程数据交换</li>
+</ul>
+<h3 id="工作流程"><a href="#工作流程" class="headerlink" title="工作流程"></a>工作流程</h3><p>git工作流程一般如下：</p>
+<ul>
+<li>在工作目录中添加、修改文件</li>
+<li>将需要进行版本管理的文件放入暂存区域</li>
+<li>将暂存区域的文件提交到git仓库</li>
+</ul>
+<p>因此，git管理的文件有三种状态：<strong>已修改（modified）</strong>、<strong>已暂存（staged）</strong>、<strong>已提交（committed）</strong><img src="https://gitee.com/iceslyer/image/raw/master/img/Git%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/Git%E5%9F%BA%E6%9C%AC%E7%90%86%E8%AE%BA/git%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B.png" alt="git工作流程"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/03/18/Git%E5%9F%BA%E6%9C%AC%E7%90%86%E8%AE%BA/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Git和Github知识点" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/15/Git%E5%92%8CGithub%E7%9F%A5%E8%AF%86%E7%82%B9/">Git和Github知识点</a>
+    </h1>
+  
+
+        
+        <a href="/2020/03/15/Git%E5%92%8CGithub%E7%9F%A5%E8%AF%86%E7%82%B9/" class="archive-article-date">
+  	<time datetime="2020-03-15T10:16:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>使用Github的目的是想借助它<strong>托管项目代码</strong></p>
+<h3 id="github基本概念"><a href="#github基本概念" class="headerlink" title="github基本概念"></a>github基本概念</h3><ul>
+<li><strong>仓库（Repository）</strong>：用来存放项目代码，每个项目对应一个仓库，多个开源项目则有多个Repository。</li>
+<li><strong>收藏（Star）</strong>：收藏项目，方便下次查看</li>
+<li><strong>复制克隆项目（Fork）</strong> ：相当于复制一份项目源码，而且是独立存在的</li>
+<li><strong>发起请求（Pull Request）</strong> ：这个基于Fork，就是说想要把Fork过来的源码修改后合并到之前的源码中，就需要PR</li>
+<li><strong>关注（Watch）</strong> ：如果你Watch了某个项目，那么以后该项目有任何更新，你都会第一时间收到关于该项目的通知提醒</li>
+<li><strong>事物卡片（Issue）</strong> ：发现代码bug，讨论时用</li>
+</ul>
+<h3 id="使用Git管理远程仓库"><a href="#使用Git管理远程仓库" class="headerlink" title="使用Git管理远程仓库"></a>使用Git管理远程仓库</h3><p>使用远程仓库的目的：备份，实现代码共享集中化管理</p>
+<p>Git克隆操作：将远程仓库（github对应的项目）复制到本地</p>
+<h3 id="github创建个人网站"><a href="#github创建个人网站" class="headerlink" title="github创建个人网站"></a>github创建个人网站</h3><p>个人站点（Github Pages）访问：<a target="_blank" rel="noopener" href="https://iceslyer.github.io/">https://IceSlyer.github.io</a></p>
+<p>搭建</p>
+<ul>
+<li>新建仓库（仓库名必须是：<strong>用户名.github.io</strong>）</li>
+<li>在仓库下新建index.html的文件（网站首页）即可（Github Pages 仅支持<strong>静态网页</strong>）</li>
+</ul>
+<p>项目站点（Project Pages）访问：<a target="_blank" rel="noopener" href="https://iceslyer.github.io/%E4%BB%93%E5%BA%93%E5%90%8D">https://IceSlyer.github.io/仓库名</a><br>搭建</p>
+<ul>
+<li>进入项目主页，点击settings</li>
+<li>在settings页面，点击GitHub Pages→Source→main branch–&gt;chose a theme</li>
+<li>生成网页</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/03/15/Git%E5%92%8CGithub%E7%9F%A5%E8%AF%86%E7%82%B9/">展开全文 >></a>
         </p>
       
 

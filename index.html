@@ -142,489 +142,6 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-Git遇到Everything-up-to-date问题的正确解决方法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/05/21/Git%E9%81%87%E5%88%B0Everything-up-to-date%E9%97%AE%E9%A2%98%E7%9A%84%E6%AD%A3%E7%A1%AE%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/">Git遇到Everything up-to-date问题的正确解决方法</a>
-    </h1>
-  
-
-        
-        <a href="/2020/05/21/Git%E9%81%87%E5%88%B0Everything-up-to-date%E9%97%AE%E9%A2%98%E7%9A%84%E6%AD%A3%E7%A1%AE%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/" class="archive-article-date">
-  	<time datetime="2020-05-21T06:17:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>先说说出现这个问题的原因：git提交改动到缓存，要push的时候不会将本地所有的分支都push掉，所以出现这个问题。那么我们就需要新建分支提交改动然后合并分支。</p>
-<ul>
-<li><p>先创建一个新的分支提交改动</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch newbranch</span><br></pre></td></tr></table></figure></li>
-<li><p>检查这条命令是否创建成功</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch</span><br></pre></td></tr></table></figure></li>
-<li><p>这时终端会输出</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">newbranch</span><br><span class="line"></span><br><span class="line">*master</span><br></pre></td></tr></table></figure>
-<p>这样就创建成功了，前面的*代表的是当前你所在的工作分支</p>
-</li>
-<li><p>接下来切换工作分支</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout newbranch</span><br></pre></td></tr></table></figure></li>
-<li><p>然后将你的改动提交到新的分支上</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git add -A</span><br><span class="line">git commit -a -m <span class="string">&quot;update&quot;</span>                    </span><br></pre></td></tr></table></figure>
-<p>此时可以<code>git status</code>检查下提交情况。</p>
-</li>
-<li><p>如果提交成功，我们接下来就要回到主分支了</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout master</span><br></pre></td></tr></table></figure></li>
-<li><p>我们将新分支提交的改动合并到主分支上</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git merge newbranch</span><br></pre></td></tr></table></figure></li>
-<li><p>合并分支可能产生冲突这是正常的，虽然我们这是新建的分支不会产生冲突，但还是在这里记录下。可以用<code>git diff</code>来查看产生冲突的文件，然后做对应的修改再提交一次就可以了。</p>
-</li>
-<li><p>我们的问题解决了，接下来就可以push代码了</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure></li>
-<li><p>最后，新建分支的朋友别忘了删除分支</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -D newbranch</span><br></pre></td></tr></table></figure>
-<p>如果想保留分支只是想删除已经合并的部分只要把大写的D改成小写的d就行了。</p>
-</li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/05/21/Git%E9%81%87%E5%88%B0Everything-up-to-date%E9%97%AE%E9%A2%98%E7%9A%84%E6%AD%A3%E7%A1%AE%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Git项目搭建" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/05/17/Git%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/">Git项目搭建</a>
-    </h1>
-  
-
-        
-        <a href="/2020/05/17/Git%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/" class="archive-article-date">
-  	<time datetime="2020-05-16T17:16:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-17</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="创建工作目录与常用指令"><a href="#创建工作目录与常用指令" class="headerlink" title="创建工作目录与常用指令"></a>创建工作目录与常用指令</h3><p>工作区（WorkSpace）一般就是你希望Git帮助你管理的文件夹，可以是你项目的目录，也可以是一个空目录（建议不要有中文），日常使用只要记住下图6个命令：<img src="https://gitee.com/iceslyer/image/raw/master/img/Git%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/Git%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/git%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4.png" alt="git常用指令"></p>
-<h3 id="本地仓库搭建"><a href="#本地仓库搭建" class="headerlink" title="本地仓库搭建"></a>本地仓库搭建</h3><p>创建本地仓库的方法有两种</p>
-<ul>
-<li><p>创建全新的仓库</p>
-<ul>
-<li><p>创建全新的仓库，需要在Git管理的项目的根目录执行</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在当前目录新建一个Git代码库</span></span><br><span class="line">$ git init</span><br></pre></td></tr></table></figure></li>
-<li><p>执行后可以看到，仅仅在项目目录多出了一个.git目录，关于版本等所有信息都在这个目录里面</p>
-</li>
-</ul>
-</li>
-<li><p>克隆远程仓库</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 克隆一个项目和它的整个代码历史（版本信息）</span></span><br><span class="line">$ git <span class="built_in">clone</span> [url]</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/05/17/Git%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Git常用操作" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/05/13/Git%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/">Git常用操作</a>
-    </h1>
-  
-
-        
-        <a href="/2020/05/13/Git%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/" class="archive-article-date">
-  	<time datetime="2020-05-13T02:15:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="常用指令"><a href="#常用指令" class="headerlink" title="常用指令"></a>常用指令</h3><ul>
-<li><p>初始化一个新的Git仓库</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure></li>
-<li><p>查看当前git状态</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git status</span><br></pre></td></tr></table></figure></li>
-<li><p>查看git历史版本信息</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">log</span></span><br></pre></td></tr></table></figure></li>
-<li><p>查看配置信息（Q键退出list）</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --list</span><br></pre></td></tr></table></figure></li>
-<li><p>从github上克隆一个仓库到本地</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> 仓库地址</span><br></pre></td></tr></table></figure></li>
-<li><p>创建新的分支</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch 分支名</span><br></pre></td></tr></table></figure>
-<h3 id="设置签名"><a href="#设置签名" class="headerlink" title="设置签名"></a>设置签名</h3></li>
-<li><p>项目/仓库级别签名，仅在当前本地库范围内有效（cat .git/config 查看）</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config user.name <span class="string">&quot;...&quot;</span></span><br><span class="line">git config user.email <span class="string">&quot;...&quot;</span></span><br></pre></td></tr></table></figure></li>
-<li><p>系统用户级别，登陆当前操作系统的用户范围（cat ~/.gitconfig 查看）</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name <span class="string">&quot;...&quot;</span></span><br><span class="line">git config --global user.email <span class="string">&quot;...&quot;</span></span><br></pre></td></tr></table></figure>
-<h3 id="在本地库创建远程库地址别名"><a href="#在本地库创建远程库地址别名" class="headerlink" title="在本地库创建远程库地址别名"></a>在本地库创建远程库地址别名</h3></li>
-<li><p>查看远程库地址</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git remote -v</span><br><span class="line">git remote add origin 远程库地址（HTTP或SSH地址）</span><br></pre></td></tr></table></figure></li>
-<li><p>推送到远程库的某个分支</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin 分支名</span><br></pre></td></tr></table></figure>
-<ul>
-<li>两个不相干的库就在后面添加 –allow-unrelated-histories 强制合并分支</li>
-</ul>
-</li>
-</ul>
-<h3 id="添加、修改文件步骤"><a href="#添加、修改文件步骤" class="headerlink" title="添加、修改文件步骤"></a>添加、修改文件步骤</h3><ul>
-<li><p>新建一个文件</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">touch 文件名</span><br></pre></td></tr></table></figure></li>
-<li><p>添加文件到暂存区</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git add 文件名</span><br><span class="line">git add -A <span class="comment"># 添加所有文件</span></span><br></pre></td></tr></table></figure></li>
-<li><p>将文件从暂存区提交到本地仓库</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git commit -m <span class="string">&#x27;描述信息&#x27;</span></span><br><span class="line">git commit -a <span class="comment"># 提交所有文件</span></span><br></pre></td></tr></table></figure></li>
-<li><p>将本地仓库推送到远程仓库</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git push</span><br><span class="line">git push -u origin master -f <span class="comment"># 强制push</span></span><br></pre></td></tr></table></figure>
-<h3 id="删除文件步骤"><a href="#删除文件步骤" class="headerlink" title="删除文件步骤"></a>删除文件步骤</h3></li>
-<li><p>通过git删除仓库文件</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git rm 文件名</span><br></pre></td></tr></table></figure></li>
-<li><p>添加到暂存区</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add 文件名</span><br></pre></td></tr></table></figure></li>
-<li><p>提交到本地仓库</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m <span class="string">&#x27;描述信息&#x27;</span></span><br></pre></td></tr></table></figure></li>
-<li><p>同步到远程仓库</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push</span><br></pre></td></tr></table></figure>
-<h3 id="查看版本日志信息"><a href="#查看版本日志信息" class="headerlink" title="查看版本日志信息"></a>查看版本日志信息</h3></li>
-<li><p>显示详细信息</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">log</span></span><br></pre></td></tr></table></figure></li>
-<li><p>显示简洁信息</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">log</span> --pretty=oneline </span><br></pre></td></tr></table></figure></li>
-<li><p>显示更简洁</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">log</span> --oneline</span><br></pre></td></tr></table></figure></li>
-<li><p>显示了移动到某个版本需要移动的步数</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reflog</span><br></pre></td></tr></table></figure>
-<h3 id="移动到某个版本"><a href="#移动到某个版本" class="headerlink" title="移动到某个版本"></a>移动到某个版本</h3></li>
-<li><p>基于索引值移动到某个版本</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard 索引值（哈希）</span><br></pre></td></tr></table></figure></li>
-<li><p>后退一个版本(一个^后退一步，n个^后退n步)</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard^</span><br></pre></td></tr></table></figure></li>
-<li><p>后退n个版本</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard~n</span><br></pre></td></tr></table></figure>
-<h3 id="分支相关"><a href="#分支相关" class="headerlink" title="分支相关"></a>分支相关</h3></li>
-<li><p>查看所有分支</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -v</span><br></pre></td></tr></table></figure></li>
-<li><p>创建一个新分支</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch 新分支名</span><br></pre></td></tr></table></figure></li>
-<li><p>push到新分支上</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push -u origin 新分支名</span><br></pre></td></tr></table></figure></li>
-<li><p>切换分支</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout 分支名</span><br></pre></td></tr></table></figure></li>
-<li><p>将修改过的分支合并到主分支（<strong>操作是在master分支上执行的</strong>）</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git merge 分支名</span><br></pre></td></tr></table></figure>
-<h3 id="设置SSH免密登陆"><a href="#设置SSH免密登陆" class="headerlink" title="设置SSH免密登陆"></a>设置SSH免密登陆</h3></li>
-<li><p>进入当前用户家目录</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span>~</span><br></pre></td></tr></table></figure></li>
-<li><p>删除.ssh目录</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -r .ssh</span><br></pre></td></tr></table></figure></li>
-<li><p>生成.ssh密钥目录</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C 邮箱地址</span><br></pre></td></tr></table></figure></li>
-<li><p>进入.ssh目录查看文件</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> .ssh/</span><br><span class="line">ls -l</span><br></pre></td></tr></table></figure></li>
-<li><p>查看id_rsa.pub文件内容</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat id_rsa.pub</span><br></pre></td></tr></table></figure></li>
-<li><p>复制id_rsa.pub文件内容，登陆GitHub，点击用户头像-&gt;Setting-&gt;SSH and GPG keys</p>
-</li>
-<li><p>点击New SSH Key，输入复制的密钥</p>
-</li>
-<li><p>回到Git bash创建远程地址别名</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin_ssh 远程库SSH地址</span><br></pre></td></tr></table></figure></li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/05/13/Git%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Git基本理论" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/05/11/Git%E5%9F%BA%E6%9C%AC%E7%90%86%E8%AE%BA/">Git基本理论</a>
-    </h1>
-  
-
-        
-        <a href="/2020/05/11/Git%E5%9F%BA%E6%9C%AC%E7%90%86%E8%AE%BA/" class="archive-article-date">
-  	<time datetime="2020-05-10T17:14:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="工作区域"><a href="#工作区域" class="headerlink" title="工作区域"></a>工作区域</h3><p>Git本地有三个工作区域：<strong>工作区（Workspace）</strong>、<strong>暂存区（Stage/Index）</strong>、<strong>资源库（Repository或Git Directory）</strong>。如果再加上远程的git仓库（Remote Directory）就可以分为四个工作区域。文件在这四个区域的转换关系如下：</p>
-<p><img src="https://gitee.com/iceslyer/image/raw/master/img/Git%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/Git%E5%9F%BA%E6%9C%AC%E7%90%86%E8%AE%BA/Git%E5%B7%A5%E4%BD%9C%E5%8C%BA%E5%9F%9F.png" alt="Git工作区域"></p>
-<ul>
-<li>Workspace：工作区，就是你平时存放项目代码的地方</li>
-<li>Stage/Index：暂存区，用于临时存放你的改动，事实上它只是一个文件，保存即将提交的文件列表信息</li>
-<li>Repository：仓库区（或本地仓库），就是安全存放数据的位置，这里面有你提交到所有版本的数据，其中HEAD指向最新放入仓库的版本</li>
-<li>Remote：远程仓库，托管代码的服务器，可以简单地认为是你项目组中的一台电脑用于远程数据交换</li>
-</ul>
-<h3 id="工作流程"><a href="#工作流程" class="headerlink" title="工作流程"></a>工作流程</h3><p>git工作流程一般如下：</p>
-<ul>
-<li>在工作目录中添加、修改文件</li>
-<li>将需要进行版本管理的文件放入暂存区域</li>
-<li>将暂存区域的文件提交到git仓库</li>
-</ul>
-<p>因此，git管理的文件有三种状态：<strong>已修改（modified）</strong>、<strong>已暂存（staged）</strong>、<strong>已提交（committed）</strong><img src="https://gitee.com/iceslyer/image/raw/master/img/Git%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/Git%E5%9F%BA%E6%9C%AC%E7%90%86%E8%AE%BA/git%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B.png" alt="git工作流程"></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/05/11/Git%E5%9F%BA%E6%9C%AC%E7%90%86%E8%AE%BA/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Git和Github知识点" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/05/06/Git%E5%92%8CGithub%E7%9F%A5%E8%AF%86%E7%82%B9/">Git和Github知识点</a>
-    </h1>
-  
-
-        
-        <a href="/2020/05/06/Git%E5%92%8CGithub%E7%9F%A5%E8%AF%86%E7%82%B9/" class="archive-article-date">
-  	<time datetime="2020-05-06T10:16:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>使用Github的目的是想借助它<strong>托管项目代码</strong></p>
-<h3 id="github基本概念"><a href="#github基本概念" class="headerlink" title="github基本概念"></a>github基本概念</h3><ul>
-<li><strong>仓库（Repository）</strong>：用来存放项目代码，每个项目对应一个仓库，多个开源项目则有多个Repository。</li>
-<li><strong>收藏（Star）</strong>：收藏项目，方便下次查看</li>
-<li><strong>复制克隆项目（Fork）</strong> ：相当于复制一份项目源码，而且是独立存在的</li>
-<li><strong>发起请求（Pull Request）</strong> ：这个基于Fork，就是说想要把Fork过来的源码修改后合并到之前的源码中，就需要PR</li>
-<li><strong>关注（Watch）</strong> ：如果你Watch了某个项目，那么以后该项目有任何更新，你都会第一时间收到关于该项目的通知提醒</li>
-<li><strong>事物卡片（Issue）</strong> ：发现代码bug，讨论时用</li>
-</ul>
-<h3 id="使用Git管理远程仓库"><a href="#使用Git管理远程仓库" class="headerlink" title="使用Git管理远程仓库"></a>使用Git管理远程仓库</h3><p>使用远程仓库的目的：备份，实现代码共享集中化管理</p>
-<p>Git克隆操作：将远程仓库（github对应的项目）复制到本地</p>
-<h3 id="github创建个人网站"><a href="#github创建个人网站" class="headerlink" title="github创建个人网站"></a>github创建个人网站</h3><p>个人站点（Github Pages）访问：<a target="_blank" rel="noopener" href="https://iceslyer.github.io/">https://IceSlyer.github.io</a></p>
-<p>搭建</p>
-<ul>
-<li>新建仓库（仓库名必须是：<strong>用户名.github.io</strong>）</li>
-<li>在仓库下新建index.html的文件（网站首页）即可（Github Pages 仅支持<strong>静态网页</strong>）</li>
-</ul>
-<p>项目站点（Project Pages）访问：<a target="_blank" rel="noopener" href="https://iceslyer.github.io/%E4%BB%93%E5%BA%93%E5%90%8D">https://IceSlyer.github.io/仓库名</a><br>搭建</p>
-<ul>
-<li>进入项目主页，点击settings</li>
-<li>在settings页面，点击GitHub Pages→Source→main branch–&gt;chose a theme</li>
-<li>生成网页</li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/05/06/Git%E5%92%8CGithub%E7%9F%A5%E8%AF%86%E7%82%B9/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
     <article id="post-Linux内核源码介绍-内核升级" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -632,13 +149,13 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/04/15/Linux%E5%86%85%E6%A0%B8%E6%BA%90%E7%A0%81%E4%BB%8B%E7%BB%8D-%E5%86%85%E6%A0%B8%E5%8D%87%E7%BA%A7/">Linux内核源码介绍&amp;内核升级</a>
+      <a class="article-title" href="/2021/01/15/Linux%E5%86%85%E6%A0%B8%E6%BA%90%E7%A0%81%E4%BB%8B%E7%BB%8D-%E5%86%85%E6%A0%B8%E5%8D%87%E7%BA%A7/">Linux内核源码介绍&amp;内核升级</a>
     </h1>
   
 
         
-        <a href="/2020/04/15/Linux%E5%86%85%E6%A0%B8%E6%BA%90%E7%A0%81%E4%BB%8B%E7%BB%8D-%E5%86%85%E6%A0%B8%E5%8D%87%E7%BA%A7/" class="archive-article-date">
-  	<time datetime="2020-04-15T02:25:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-15</time>
+        <a href="/2021/01/15/Linux%E5%86%85%E6%A0%B8%E6%BA%90%E7%A0%81%E4%BB%8B%E7%BB%8D-%E5%86%85%E6%A0%B8%E5%8D%87%E7%BA%A7/" class="archive-article-date">
+  	<time datetime="2021-01-15T02:25:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-15</time>
 </a>
         
       </header>
@@ -705,7 +222,199 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/04/15/Linux%E5%86%85%E6%A0%B8%E6%BA%90%E7%A0%81%E4%BB%8B%E7%BB%8D-%E5%86%85%E6%A0%B8%E5%8D%87%E7%BA%A7/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/01/15/Linux%E5%86%85%E6%A0%B8%E6%BA%90%E7%A0%81%E4%BB%8B%E7%BB%8D-%E5%86%85%E6%A0%B8%E5%8D%87%E7%BA%A7/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Linux系统之备份与恢复" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/27/Linux%E7%B3%BB%E7%BB%9F%E4%B9%8B%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D/">Linux系统之备份与恢复</a>
+    </h1>
+  
+
+        
+        <a href="/2020/12/27/Linux%E7%B3%BB%E7%BB%9F%E4%B9%8B%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D/" class="archive-article-date">
+  	<time datetime="2020-12-27T15:50:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="基本介绍"><a href="#基本介绍" class="headerlink" title="基本介绍"></a>基本介绍</h3><p>实体机无法做快照，如果系统出现异常或者数据损坏，后果严重，要重装系统，还会造成数据丢失，所以我们可以使用备份和恢复技术。Linux的备份和恢复很简单，有两种方式</p>
+<ul>
+<li>把需要的文件（或分区）用tar打包就行，下次需要恢复的时候，再解压开覆盖即可</li>
+<li>使用dump和restore命令</li>
+</ul>
+<h3 id="安装dump和restore"><a href="#安装dump和restore" class="headerlink" title="安装dump和restore"></a>安装dump和restore</h3><p>如果Linux上没有dump和restore命令，需要用yum安装</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum -y install dump</span><br><span class="line">yum -y install restore</span><br></pre></td></tr></table></figure>
+<h3 id="使用dump完成备份"><a href="#使用dump完成备份" class="headerlink" title="使用dump完成备份"></a>使用dump完成备份</h3><p>dump支持分卷和<strong>增量备份</strong>（增量备份指备份上次备份后修改/增加过的文件，也称差异备份）</p>
+<p>dump语法说明</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dump [-cu] [-123456789] [-f &lt;备份后文件名&gt;] [-T &lt;日期&gt;] [目录或文件系统]</span><br><span class="line">dump [] -wW</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th align="center">选项</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-c</td>
+<td align="center">创建新的归档文件，并将由一个或多个文件参数所指定的内容写入归档文件的开头</td>
+</tr>
+<tr>
+<td align="center">-0-9</td>
+<td align="center">备份的层级；0为最完整备份，会备份所有文件，若指定0以上的层级，则备份至上一次备份以来<strong>修改或新增</strong>的文件。到9后，可以再次轮替</td>
+</tr>
+<tr>
+<td align="center">-f &lt;文件名&gt;</td>
+<td align="center">指定备份后的文件名</td>
+</tr>
+<tr>
+<td align="center">-j</td>
+<td align="center"><strong>调用bzlib库压缩备份文件</strong>，也就是将备份后的文件压缩成bz2格式，让文件更小</td>
+</tr>
+<tr>
+<td align="center">-T &lt;日期&gt;</td>
+<td align="center">指定开始备份的时间与日期</td>
+</tr>
+<tr>
+<td align="center">-u</td>
+<td align="center">备份完毕后，在/etc/dumpdates中记录备份的文件系统，层级，日期与时间等</td>
+</tr>
+<tr>
+<td align="center">-t</td>
+<td align="center">指定文件名，若该文件已存在备份文件中，则列出名称</td>
+</tr>
+<tr>
+<td align="center">-W</td>
+<td align="center">显示需要备份的文件及其最后一次备份的层级，时间，日期</td>
+</tr>
+<tr>
+<td align="center">-w</td>
+<td align="center">与-W类似，但仅显示需要备份的文件</td>
+</tr>
+</tbody></table>
+<p>dump应用案例</p>
+<ul>
+<li><p>将/boot分区所有内容备份到/opt/boot.bak.bz2文件中，备份层级为“0”</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dump -0uj -f /opt/boot.bak0.bz2 /boot</span><br></pre></td></tr></table></figure></li>
+<li><p>在/boot分区下增加一个新文件，备份层级为“1”（只备份上次使用层级“0”备份后发生或改变的数据），注意比较看看这次生成的备份文件boot.bak1有多大</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dump -1uj -f /opt/boot.bak1.bz2 /boot</span><br></pre></td></tr></table></figure>
+<p>dump命令配合crontab可以实现无人值守备份</p>
+</li>
+</ul>
+<p>注意，前面我们在备份分区时是可以支持增量备份的，如果备份<strong>文件或者目录，则不再支持增量备份</strong>，只能使用层级0备份</p>
+<p>案例</p>
+<ul>
+<li><p>使用dump备份/etc整个目录</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dump -0j -f /opt/etc.bak.bz2 /etc/</span><br></pre></td></tr></table></figure></li>
+<li><p>下面这条语句会报错</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dump -1j -f /opt/etc.bak.bz2 /etc/</span><br></pre></td></tr></table></figure>
+<h3 id="使用restore完成恢复"><a href="#使用restore完成恢复" class="headerlink" title="使用restore完成恢复"></a>使用restore完成恢复</h3></li>
+</ul>
+<p>restore命令用来恢复已备份的文件，可以从dump生成的备份文件中恢复原文件</p>
+<p>restore基本语法</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">restore [模式选项] [选项]</span><br></pre></td></tr></table></figure>
+<p>下面四个模式选项<strong>不能混用</strong>，在一次命令中只能指定一种</p>
+<table>
+<thead>
+<tr>
+<th align="center">模式选项</th>
+<th align="center">功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-C</td>
+<td align="center">对比模式，将备份的文件与已存在的文件相互比较</td>
+</tr>
+<tr>
+<td align="center">-i</td>
+<td align="center">交互模式，在进行还原操作时，restore指令将依序询问用户</td>
+</tr>
+<tr>
+<td align="center">-r</td>
+<td align="center">还原模式</td>
+</tr>
+<tr>
+<td align="center">-t</td>
+<td align="center">查看模式，看备份文件有哪些文件</td>
+</tr>
+</tbody></table>
+<p>选项</p>
+<table>
+<thead>
+<tr>
+<th align="center">选项</th>
+<th align="center">功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-f &lt;备份文件名&gt;</td>
+<td align="center">从指定的文件中读取备份数据，进行还原操作</td>
+</tr>
+</tbody></table>
+<p>应用案例</p>
+<ul>
+<li><p>restore命令<strong>比较模式</strong>，比较备份文件和原文件的区别</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mv /boot/Hello.java /boot/Hello01.java</span><br><span class="line">restore -C -f boot.bak1.bz2</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D/restore%E6%AF%94%E8%BE%83%E6%A8%A1%E5%BC%8F1.png" alt="restore比较模式1"></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mv /boot/Hello01.java /boot/Hello.java</span><br><span class="line">restore -C -f boot.bak1.bz2</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D/restore%E6%AF%94%E8%BE%83%E6%A8%A1%E5%BC%8F2.png" alt="restore比较模式2"></p>
+</li>
+<li><p>restore<strong>查看模式</strong>，看备份文件有哪些数据/文件</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">restore -t -f boot.bak0.bz2</span><br></pre></td></tr></table></figure></li>
+<li><p>restore命令<strong>还原模式</strong>，注意：如果有增量备份，需要把增量备份文件也进行恢复，按顺序来恢复即可</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mkdir /opt/boottmp</span><br><span class="line"><span class="built_in">cd</span> /opt/boottmp</span><br><span class="line">restore -r -f /opt/boot.bak0.bz2</span><br><span class="line">restore -r -f /opt/boot.bak1.bz2</span><br></pre></td></tr></table></figure></li>
+<li><p>restore命令恢复备份的文件，或者整个目录的文件</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir /opt/etctmp</span><br><span class="line"><span class="built_in">cd</span> /opt/etctmp/</span><br><span class="line">restore -r -f /opt/etc.bak.bz2</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/12/27/Linux%E7%B3%BB%E7%BB%9F%E4%B9%8B%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D/">展开全文 >></a>
         </p>
       
 
@@ -742,13 +451,13 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/04/13/Linux%E9%AB%98%E7%BA%A7%E7%AF%87%E4%B9%8B%E5%AE%9A%E5%88%B6%E8%87%AA%E5%B7%B1%E7%9A%84Linux%E7%B3%BB%E7%BB%9F/">Linux高级篇之定制自己的Linux系统</a>
+      <a class="article-title" href="/2020/12/21/Linux%E9%AB%98%E7%BA%A7%E7%AF%87%E4%B9%8B%E5%AE%9A%E5%88%B6%E8%87%AA%E5%B7%B1%E7%9A%84Linux%E7%B3%BB%E7%BB%9F/">Linux高级篇之定制自己的Linux系统</a>
     </h1>
   
 
         
-        <a href="/2020/04/13/Linux%E9%AB%98%E7%BA%A7%E7%AF%87%E4%B9%8B%E5%AE%9A%E5%88%B6%E8%87%AA%E5%B7%B1%E7%9A%84Linux%E7%B3%BB%E7%BB%9F/" class="archive-article-date">
-  	<time datetime="2020-04-13T00:06:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-13</time>
+        <a href="/2020/12/21/Linux%E9%AB%98%E7%BA%A7%E7%AF%87%E4%B9%8B%E5%AE%9A%E5%88%B6%E8%87%AA%E5%B7%B1%E7%9A%84Linux%E7%B3%BB%E7%BB%9F/" class="archive-article-date">
+  	<time datetime="2020-12-21T00:06:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-21</time>
 </a>
         
       </header>
@@ -835,7 +544,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/04/13/Linux%E9%AB%98%E7%BA%A7%E7%AF%87%E4%B9%8B%E5%AE%9A%E5%88%B6%E8%87%AA%E5%B7%B1%E7%9A%84Linux%E7%B3%BB%E7%BB%9F/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/12/21/Linux%E9%AB%98%E7%BA%A7%E7%AF%87%E4%B9%8B%E5%AE%9A%E5%88%B6%E8%87%AA%E5%B7%B1%E7%9A%84Linux%E7%B3%BB%E7%BB%9F/">展开全文 >></a>
         </p>
       
 
@@ -872,13 +581,13 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/04/11/Linux%E9%AB%98%E7%BA%A7%E7%AF%87%E4%B9%8B%E6%97%A5%E5%BF%97%E7%AE%A1%E7%90%86/">Linux高级篇之日志管理</a>
+      <a class="article-title" href="/2020/12/15/Linux%E9%AB%98%E7%BA%A7%E7%AF%87%E4%B9%8B%E6%97%A5%E5%BF%97%E7%AE%A1%E7%90%86/">Linux高级篇之日志管理</a>
     </h1>
   
 
         
-        <a href="/2020/04/11/Linux%E9%AB%98%E7%BA%A7%E7%AF%87%E4%B9%8B%E6%97%A5%E5%BF%97%E7%AE%A1%E7%90%86/" class="archive-article-date">
-  	<time datetime="2020-04-11T07:05:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-11</time>
+        <a href="/2020/12/15/Linux%E9%AB%98%E7%BA%A7%E7%AF%87%E4%B9%8B%E6%97%A5%E5%BF%97%E7%AE%A1%E7%90%86/" class="archive-article-date">
+  	<time datetime="2020-12-15T07:05:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-15</time>
 </a>
         
       </header>
@@ -1212,7 +921,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/04/11/Linux%E9%AB%98%E7%BA%A7%E7%AF%87%E4%B9%8B%E6%97%A5%E5%BF%97%E7%AE%A1%E7%90%86/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/12/15/Linux%E9%AB%98%E7%BA%A7%E7%AF%87%E4%B9%8B%E6%97%A5%E5%BF%97%E7%AE%A1%E7%90%86/">展开全文 >></a>
         </p>
       
 
@@ -1249,13 +958,13 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/04/09/Linux%E5%8F%AF%E8%A7%86%E5%8C%96%E7%AE%A1%E7%90%86%E4%B9%8Bwebmin%E5%92%8Cbt%E8%BF%90%E7%BB%B4%E5%B7%A5%E5%85%B7/">Linux可视化管理之webmin和bt运维工具</a>
+      <a class="article-title" href="/2020/12/09/Linux%E5%8F%AF%E8%A7%86%E5%8C%96%E7%AE%A1%E7%90%86%E4%B9%8Bwebmin%E5%92%8Cbt%E8%BF%90%E7%BB%B4%E5%B7%A5%E5%85%B7/">Linux可视化管理之webmin和bt运维工具</a>
     </h1>
   
 
         
-        <a href="/2020/04/09/Linux%E5%8F%AF%E8%A7%86%E5%8C%96%E7%AE%A1%E7%90%86%E4%B9%8Bwebmin%E5%92%8Cbt%E8%BF%90%E7%BB%B4%E5%B7%A5%E5%85%B7/" class="archive-article-date">
-  	<time datetime="2020-04-08T17:27:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-09</time>
+        <a href="/2020/12/09/Linux%E5%8F%AF%E8%A7%86%E5%8C%96%E7%AE%A1%E7%90%86%E4%B9%8Bwebmin%E5%92%8Cbt%E8%BF%90%E7%BB%B4%E5%B7%A5%E5%85%B7/" class="archive-article-date">
+  	<time datetime="2020-12-08T17:27:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-09</time>
 </a>
         
       </header>
@@ -1307,7 +1016,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/04/09/Linux%E5%8F%AF%E8%A7%86%E5%8C%96%E7%AE%A1%E7%90%86%E4%B9%8Bwebmin%E5%92%8Cbt%E8%BF%90%E7%BB%B4%E5%B7%A5%E5%85%B7/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/12/09/Linux%E5%8F%AF%E8%A7%86%E5%8C%96%E7%AE%A1%E7%90%86%E4%B9%8Bwebmin%E5%92%8Cbt%E8%BF%90%E7%BB%B4%E5%B7%A5%E5%85%B7/">展开全文 >></a>
         </p>
       
 
@@ -1344,13 +1053,13 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/04/07/CentOS8-1%E7%9A%84%E4%BD%BF%E7%94%A8/">CentOS8.1的使用</a>
+      <a class="article-title" href="/2020/12/07/CentOS8-1%E7%9A%84%E4%BD%BF%E7%94%A8/">CentOS8.1的使用</a>
     </h1>
   
 
         
-        <a href="/2020/04/07/CentOS8-1%E7%9A%84%E4%BD%BF%E7%94%A8/" class="archive-article-date">
-  	<time datetime="2020-04-07T06:07:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-07</time>
+        <a href="/2020/12/07/CentOS8-1%E7%9A%84%E4%BD%BF%E7%94%A8/" class="archive-article-date">
+  	<time datetime="2020-12-07T06:07:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-07</time>
 </a>
         
       </header>
@@ -1484,7 +1193,632 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/04/07/CentOS8-1%E7%9A%84%E4%BD%BF%E7%94%A8/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/12/07/CentOS8-1%E7%9A%84%E4%BD%BF%E7%94%A8/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-找回mysql数据库的root用户密码" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/06/%E6%89%BE%E5%9B%9Emysql%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84root%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81/">找回mysql数据库的root用户密码</a>
+    </h1>
+  
+
+        
+        <a href="/2020/12/06/%E6%89%BE%E5%9B%9Emysql%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84root%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81/" class="archive-article-date">
+  	<time datetime="2020-12-05T22:39:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-06</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="具体步骤"><a href="#具体步骤" class="headerlink" title="具体步骤"></a>具体步骤</h3><ul>
+<li><p>修改my.cnf文件</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/my.cnf</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E6%89%BE%E5%9B%9Emusql%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84root%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81/%E4%BF%AE%E6%94%B9my.cnf%E6%96%87%E4%BB%B6.png" alt="修改my.cnf文件"></p>
+</li>
+<li><p>重启mysqld服务</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service mysqld restart</span><br></pre></td></tr></table></figure></li>
+<li><p>此时不需密码即可进入mysql命令行</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p</span><br></pre></td></tr></table></figure></li>
+<li><p>修改mysql数据库中user表中的authentication_string字段</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">show databases;</span><br><span class="line">use mysql;</span><br><span class="line">show tables;</span><br><span class="line">desc user;</span><br><span class="line">update user set authentication_string&#x3D;password(&quot;slyer007&quot;) where user&#x3D;&#39;root&#39;;</span><br></pre></td></tr></table></figure></li>
+<li><p>刷新一下quit退出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flush privileges;</span><br></pre></td></tr></table></figure></li>
+<li><p>再次修改my.cnf文件，注销之前添加的内容</p>
+</li>
+<li><p>再重启一下mysqld服务</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service mysqld restart</span><br></pre></td></tr></table></figure></li>
+<li><p>再用修改后的密码登录mysql即可成功</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 此时输入密码slyer007</span></span><br><span class="line">mysql -u root -p</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/12/06/%E6%89%BE%E5%9B%9Emysql%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84root%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Linux之大数据定制篇之shell编程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/11/30/Linux%E4%B9%8B%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AE%9A%E5%88%B6%E7%AF%87%E4%B9%8Bshell%E7%BC%96%E7%A8%8B/">Linux之大数据定制篇之shell编程</a>
+    </h1>
+  
+
+        
+        <a href="/2020/11/30/Linux%E4%B9%8B%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AE%9A%E5%88%B6%E7%AF%87%E4%B9%8Bshell%E7%BC%96%E7%A8%8B/" class="archive-article-date">
+  	<time datetime="2020-11-30T07:04:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-30</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="为什么要学习Shell编程"><a href="#为什么要学习Shell编程" class="headerlink" title="为什么要学习Shell编程"></a>为什么要学习Shell编程</h3><ul>
+<li>Linux运维工程师在进行服务器集群管理时，需要编写Shell程序来进行服务器管理</li>
+<li>对于JavaEE和Pathon程序员来说，工作需要会被要求编写一些Shell脚本进行程序或者服务器的维护，比如编写一个定时备份数据库的脚本</li>
+<li>对于大数据程序员来说，需要编写Shell程序来管理集群</li>
+</ul>
+<h3 id="Shell是什么"><a href="#Shell是什么" class="headerlink" title="Shell是什么"></a>Shell是什么</h3><ul>
+<li><p>Shell是一个<strong>命令行解释器</strong>，它为用户提供了一个向Linux内核发送请求以便运行程序的界面系统级程序，用户可以用Shell来启动、挂起、停止甚至编写一些程序</p>
+<p><img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/Shell%E7%BC%96%E7%A8%8B/Shell%E7%A4%BA%E6%84%8F%E5%9B%BE.png" alt="Shell示意图"></p>
+</li>
+</ul>
+<h3 id="Shell脚本的执行方式"><a href="#Shell脚本的执行方式" class="headerlink" title="Shell脚本的执行方式"></a>Shell脚本的执行方式</h3><ul>
+<li><p>脚本的格式要求</p>
+<ul>
+<li>脚本以<code>#!/bin/bash</code>开头</li>
+<li>脚本需要有可执行权限</li>
+</ul>
+</li>
+<li><p>脚本的常用执行方式</p>
+<ul>
+<li>输入脚本的绝对路径或相对路径，<strong>首先要赋予脚本执行权限，再执行脚本</strong></li>
+<li>sh 脚本，<strong>不用赋予脚本执行权限，直接执行即可</strong></li>
+</ul>
+</li>
+<li><p>编写第一个Shell脚本</p>
+<p><img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/Shell%E7%BC%96%E7%A8%8B/%E7%AC%AC%E4%B8%80%E4%B8%AAShell%E8%84%9A%E6%9C%AC.png" alt="第一个Shell脚本"></p>
+</li>
+</ul>
+<h3 id="Shell变量"><a href="#Shell变量" class="headerlink" title="Shell变量"></a>Shell变量</h3><ul>
+<li><p>介绍</p>
+<ul>
+<li>Linux中Shell变量分为<strong>系统变量</strong>和<strong>用户自定义变量</strong></li>
+<li>系统变量：$HOME、$PWD、$SHELL、$USER等等</li>
+<li>显示当前shell中所有变量：set</li>
+</ul>
+</li>
+<li><p>shell变量定义</p>
+<ul>
+<li><p>基本语法</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">变量名=值 <span class="comment"># 定义变量</span></span><br><span class="line"><span class="built_in">unset</span> 变量名 <span class="comment"># 撤销变量</span></span><br><span class="line"><span class="built_in">readonly</span> 变量 <span class="comment"># 声明静态变量，注意不能撤销</span></span><br></pre></td></tr></table></figure></li>
+<li><p>定义变量的规则</p>
+<ul>
+<li>变量名可以由字母、数字和下划线组成，但是不能以数字开头，如<del>5A=200</del></li>
+<li>等号两侧不能有空格</li>
+<li>变量名一般习惯大写</li>
+</ul>
+</li>
+<li><p>将命令的返回值赋给变量</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">A=`date` <span class="comment"># 反引号运行里面的命令，并把结果返回给变量A</span></span><br><span class="line">A=$(date) <span class="comment"># 与上面等价</span></span><br></pre></td></tr></table></figure></li>
+<li><p>Shell脚本多行注释</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">:&lt;&lt;!</span><br><span class="line">内容</span><br><span class="line">!</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/Shell%E7%BC%96%E7%A8%8B/Shell%E5%A4%9A%E8%A1%8C%E6%B3%A8%E9%87%8A.png" alt="Shell多行注释"></p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="设置环境变量"><a href="#设置环境变量" class="headerlink" title="设置环境变量"></a>设置环境变量</h3><ul>
+<li><p>基本语法</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> 变量名=值 <span class="comment"># 将Shell变量输出为环境变量（全局变量）</span></span><br><span class="line"><span class="built_in">source</span> 配置文件 <span class="comment"># 让修改后的配置信息立即生效</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$VAR</span> <span class="comment"># 查询环境变量的值</span></span><br></pre></td></tr></table></figure>
+<h3 id="位置参数变量"><a href="#位置参数变量" class="headerlink" title="位置参数变量"></a>位置参数变量</h3></li>
+<li><p>当我们执行一个Shell脚本时，如果希望获取到命令行的参数信息，就可以使用位置参数变量</p>
+<ul>
+<li><p>如：./myshell.sh 100 200，这个就是一个执行Shell的命令行，可以在myshell脚本中获取到参数信息</p>
+<p><img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/Shell%E7%BC%96%E7%A8%8B/Shell%E8%84%9A%E6%9C%AC%E4%BD%8D%E7%BD%AE%E5%8F%82%E6%95%B0.png" alt="Shell脚本位置参数"></p>
+</li>
+</ul>
+</li>
+<li><p>基本语法</p>
+<table>
+<thead>
+<tr>
+<th align="center">变量</th>
+<th align="center">意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">$n</td>
+<td align="center">n为数字，$0代表命令本身，$1-$9代表第一到第九个参数，十以上的参数需要大括号包含，如${10}</td>
+</tr>
+<tr>
+<td align="center">$*</td>
+<td align="center">代表命令行中所有的参数，$*把所有的参数看成一个整体</td>
+</tr>
+<tr>
+<td align="center">$@</td>
+<td align="center">代表命令行中所有的参数，不过$@把<strong>每个参数区分对待</strong></td>
+</tr>
+<tr>
+<td align="center">$#</td>
+<td align="center">代表命令行中所有<strong>参数的个数</strong></td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h3 id="预定义变量"><a href="#预定义变量" class="headerlink" title="预定义变量"></a>预定义变量</h3><ul>
+<li><p>即Shell设计者事先已经定义好的变量，可以直接在Shell脚本中使用</p>
+</li>
+<li><p>基本语法</p>
+<table>
+<thead>
+<tr>
+<th align="center">变量</th>
+<th align="center">意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">$$</td>
+<td align="center">当前进程的进程号（PID）</td>
+</tr>
+<tr>
+<td align="center">$!</td>
+<td align="center">后台运行的最后一个进程的进程号</td>
+</tr>
+<tr>
+<td align="center">$?</td>
+<td align="center">最后一次执行的命令的返回状态，如果这个变量的值为0，证明上一个命令正确执行；如果这个变量的值为非0，则证明上一个命令执行不正确</td>
+</tr>
+</tbody></table>
+<p><img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/Shell%E7%BC%96%E7%A8%8B/%E9%A2%84%E5%AE%9A%E4%B9%89%E5%8F%98%E9%87%8F.png" alt="预定义变量"></p>
+</li>
+</ul>
+<h3 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h3><ul>
+<li><p>基本语法</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;<span class="subst">$((运算式)</span>)&quot;</span></span><br><span class="line">or</span><br><span class="line"><span class="string">&quot;$[运算式]&quot;</span></span><br><span class="line">or</span><br><span class="line">expr m + n <span class="comment"># 注意expr运算符间要有空格</span></span><br><span class="line">expr m - n</span><br><span class="line">expr \*,/,% <span class="comment"># 乘，除，取余</span></span><br><span class="line"><span class="comment"># 如果希望将expr的结果赋给某个变量，使用反引号``</span></span><br></pre></td></tr></table></figure>
+<h3 id="条件判断"><a href="#条件判断" class="headerlink" title="条件判断"></a>条件判断</h3></li>
+<li><p>基本语法</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[ condition ] <span class="comment"># 注意condition前后要有空格，非空返回true</span></span><br></pre></td></tr></table></figure></li>
+<li><p>常用判断条件</p>
+<ul>
+<li><p>=，字符串比较</p>
+</li>
+<li><p>两个整数的比较</p>
+<table>
+<thead>
+<tr>
+<th align="center">符号</th>
+<th align="center">意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-lt</td>
+<td align="center">小于</td>
+</tr>
+<tr>
+<td align="center">-le</td>
+<td align="center">小于等于</td>
+</tr>
+<tr>
+<td align="center">-eq</td>
+<td align="center">等于</td>
+</tr>
+<tr>
+<td align="center">-gt</td>
+<td align="center">大于</td>
+</tr>
+<tr>
+<td align="center">-ge</td>
+<td align="center">大于等于</td>
+</tr>
+<tr>
+<td align="center">-ne</td>
+<td align="center">不等于</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>按照文件权限进行判断</p>
+<table>
+<thead>
+<tr>
+<th align="center">符号</th>
+<th align="center">意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-r</td>
+<td align="center">有读的权限</td>
+</tr>
+<tr>
+<td align="center">-w</td>
+<td align="center">有写的权限</td>
+</tr>
+<tr>
+<td align="center">-x</td>
+<td align="center">有执行的权限</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>按照文件类型进行判断</p>
+<table>
+<thead>
+<tr>
+<th align="center">符号</th>
+<th align="center">意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-f</td>
+<td align="center">文件存在并且是一个常规的文件</td>
+</tr>
+<tr>
+<td align="center">-e</td>
+<td align="center">文件存在</td>
+</tr>
+<tr>
+<td align="center">-d</td>
+<td align="center">文件存在并是一个目录</td>
+</tr>
+</tbody></table>
+<p><img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/Shell%E7%BC%96%E7%A8%8B/Shell%E6%9D%A1%E4%BB%B6%E5%88%A4%E6%96%AD.png" alt="Shell条件判断"></p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="流程控制"><a href="#流程控制" class="headerlink" title="流程控制"></a>流程控制</h3><ul>
+<li><p>if判断，单分支和多分支</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> [ 条件判断式 ]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">代码</span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">if [ 条件判断式 ]</span><br><span class="line">then</span><br><span class="line">代码</span><br><span class="line">elif [ 条件判断式 ]</span><br><span class="line">then</span><br><span class="line">代码</span><br><span class="line">fi</span><br></pre></td></tr></table></figure></li>
+<li><p>case语句</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">case \$变量名 in</span><br><span class="line"></span><br><span class="line">&quot;值1&quot;)</span><br><span class="line">如果变量的值等于值1，则执行程序1</span><br><span class="line">;;</span><br><span class="line"></span><br><span class="line">&quot;值2&quot;)</span><br><span class="line">如果变量的值等于值1，则执行程序2</span><br><span class="line">;;</span><br><span class="line">...</span><br><span class="line">*)</span><br><span class="line">如果变量的值都不是以上的值，则执行此程序</span><br><span class="line">;;</span><br><span class="line"></span><br><span class="line">esac</span><br></pre></td></tr></table></figure></li>
+<li><p>for循环</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">for 变量 in 值1 值2 值3...</span><br><span class="line">do</span><br><span class="line">程序</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">for (( 初始值;循环控制条件;变量变化 ))</span><br><span class="line">do</span><br><span class="line">程序</span><br><span class="line">done</span><br></pre></td></tr></table></figure></li>
+<li><p>while循环</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">while [ 条件判断式 ]</span><br><span class="line">do</span><br><span class="line">程序</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/Shell%E7%BC%96%E7%A8%8B/while%E5%BE%AA%E7%8E%AF.png" alt="while循环"></p>
+</li>
+</ul>
+<h3 id="read读取控制台输入"><a href="#read读取控制台输入" class="headerlink" title="read读取控制台输入"></a>read读取控制台输入</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">read</span> [选项] (参数)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>选项</p>
+<table>
+<thead>
+<tr>
+<th align="center">选项</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-p</td>
+<td align="center">指定读取值时的提示符</td>
+</tr>
+<tr>
+<td align="center">-t</td>
+<td align="center">指定读取值时的等待时间（秒），如果没有在指定的时间内输入，就不再等待了</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>参数</p>
+<ul>
+<li>变量：指定读取值的变量名<img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/Shell%E7%BC%96%E7%A8%8B/read%E8%AF%BB%E5%8F%96%E6%8E%A7%E5%88%B6%E5%8F%B0%E8%BE%93%E5%85%A5.png" alt="read读取控制台输入"></li>
+</ul>
+</li>
+</ul>
+<h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><ul>
+<li><p>Shell编程和其他编程语言一样，有系统函数，也可以自定义函数</p>
+</li>
+<li><p>系统函数</p>
+<ul>
+<li><p>basename，返回完整路径最后 / 的部分，<strong>常用于获取文件名</strong></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">basename [pathname] [suffix]</span><br><span class="line">basename [string] [suffix]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>basename命令会删掉所有的前缀<strong>包括最后一个 ‘/‘ 字符</strong>，然后将字符串显示出来</li>
+<li>选项[suffix]为后缀，如果suffix被指定了，basename会将pathname或string中的suffix去掉</li>
+</ul>
+</li>
+<li><p>dirname，返回完整路径最后 / 的前面的部分，常用于返回路径部分</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 从给定的包含文件名的绝对路径中去除文件名，然后返回剩下的路径</span></span><br><span class="line">dirname 文件绝对路径</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>自定义函数</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[ function ] funname[()]</span><br><span class="line">&#123;</span><br><span class="line">	Action;</span><br><span class="line">	[return int;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>调用时直接写函数名</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">funname [参数]</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/Shell%E7%BC%96%E7%A8%8B/%E8%87%AA%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0getSum.png" alt="自定义函数getSum"></p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Shell编程综合案例"><a href="#Shell编程综合案例" class="headerlink" title="Shell编程综合案例"></a>Shell编程综合案例</h3><ul>
+<li><p>需求分析</p>
+<ul>
+<li>每天凌晨2:30备份数据库slyer到/data/backup/db</li>
+<li>备份开始和备份结束能够给出相应提示信息</li>
+<li>备份后的文件要求以备份时间为文件名，并打包成.tar.gz的形式，如2021-02-16_005536.tar.gz</li>
+<li>在备份的同时，检查是否有10天前备份的数据库文件，如果有就将其删除</li>
+</ul>
+</li>
+<li><p>Shell脚本代码<img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/Shell%E7%BC%96%E7%A8%8B/Shell%E7%BC%96%E7%A8%8B%E7%BB%BC%E5%90%88%E6%A1%88%E4%BE%8B01.png" alt="Shell编程综合案例01"></p>
+<p><img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/Shell%E7%BC%96%E7%A8%8B/Shell%E7%BC%96%E7%A8%8B%E7%BB%BC%E5%90%88%E6%A1%88%E4%BE%8B02.png" alt="Shell编程综合案例02"></p>
+</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/11/30/Linux%E4%B9%8B%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AE%9A%E5%88%B6%E7%AF%87%E4%B9%8Bshell%E7%BC%96%E7%A8%8B/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Linux之python定制篇之Python开发平台Ubuntu" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/11/27/Linux%E4%B9%8Bpython%E5%AE%9A%E5%88%B6%E7%AF%87%E4%B9%8BPython%E5%BC%80%E5%8F%91%E5%B9%B3%E5%8F%B0Ubuntu/">Linux之python定制篇之Python开发平台Ubuntu</a>
+    </h1>
+  
+
+        
+        <a href="/2020/11/27/Linux%E4%B9%8Bpython%E5%AE%9A%E5%88%B6%E7%AF%87%E4%B9%8BPython%E5%BC%80%E5%8F%91%E5%B9%B3%E5%8F%B0Ubuntu/" class="archive-article-date">
+  	<time datetime="2020-11-27T00:03:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Ubuntu介绍"><a href="#Ubuntu介绍" class="headerlink" title="Ubuntu介绍"></a>Ubuntu介绍</h3><ul>
+<li>Ubuntu是一个以桌面应用为主的开源GNU/Linux操作系统。专业的Pyhton开发者一般会选择Ubuntu这款Linux系统作为生产平台</li>
+<li>Ubuntu下载地址：<a target="_blank" rel="noopener" href="https://cn.ubuntu.com/download">https://cn.ubuntu.com/download</a></li>
+<li>安装（略）</li>
+</ul>
+<h3 id="Ubuntu的root用户"><a href="#Ubuntu的root用户" class="headerlink" title="Ubuntu的root用户"></a>Ubuntu的root用户</h3><ul>
+<li>安装Ubuntu成功后，都是普通用户权限，并没有最高的root权限；如果需要使用root权限，通常都要在命令前面加上sudo，这会很不方便。我们一般使用su命令来直接切换到root用户，但是如果没有给root设置初始密码，就会抛出权限失败的问题，所以我们只要给root设置一个初始密码就好了</li>
+<li>给root用户设置密码并使用<ul>
+<li>输入sudo passwd 命令，输入一般用户密码并设定root用户密码</li>
+<li>设定root名成功后，输入su命令，并输入root密码，就成功切换到root用户了</li>
+<li>输入exit命令，退出root并返回一般用户</li>
+</ul>
+</li>
+</ul>
+<h3 id="Ubuntu下开发Python"><a href="#Ubuntu下开发Python" class="headerlink" title="Ubuntu下开发Python"></a>Ubuntu下开发Python</h3><ul>
+<li>安装号Ubuntu后，默认就已经安装好Python的开发环境<img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/Python%E5%BC%80%E5%8F%91%E5%B9%B3%E5%8F%B0Ubuntu/Ubuntu%E9%BB%98%E8%AE%A4python.png" alt="Ubuntu默认python"></li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/11/27/Linux%E4%B9%8Bpython%E5%AE%9A%E5%88%B6%E7%AF%87%E4%B9%8BPython%E5%BC%80%E5%8F%91%E5%B9%B3%E5%8F%B0Ubuntu/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Linux之python定制篇之APT软件管理和远程登录" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/11/25/Linux%E4%B9%8Bpython%E5%AE%9A%E5%88%B6%E7%AF%87%E4%B9%8BAPT%E8%BD%AF%E4%BB%B6%E7%AE%A1%E7%90%86%E5%92%8C%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/">Linux之python定制篇之APT软件管理和远程登录</a>
+    </h1>
+  
+
+        
+        <a href="/2020/11/25/Linux%E4%B9%8Bpython%E5%AE%9A%E5%88%B6%E7%AF%87%E4%B9%8BAPT%E8%BD%AF%E4%BB%B6%E7%AE%A1%E7%90%86%E5%92%8C%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/" class="archive-article-date">
+  	<time datetime="2020-11-24T21:02:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-25</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="apt介绍"><a href="#apt介绍" class="headerlink" title="apt介绍"></a>apt介绍</h3><ul>
+<li>apt是Advanced Packaging Tool的简称，是一款<strong>安装包管理工具</strong>。在Ubuntu下，我们可以使用apt命令进行软件包的安装、删除、清理等，类似于Windows中的软件管理工具</li>
+<li>apt原理<img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/APT%E8%BD%AF%E4%BB%B6%E7%AE%A1%E7%90%86%E5%92%8C%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/APT%E8%BD%AF%E4%BB%B6%E7%AE%A1%E7%90%86%E5%8E%9F%E7%90%86.png" alt="APT软件管理原理"></li>
+</ul>
+<h3 id="Ubuntu软件操作的相关命令"><a href="#Ubuntu软件操作的相关命令" class="headerlink" title="Ubuntu软件操作的相关命令"></a>Ubuntu软件操作的相关命令</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 更新源</span></span><br><span class="line">sudo apt-get update</span><br><span class="line"><span class="comment"># 安装包</span></span><br><span class="line">sudo apt-get install package</span><br><span class="line"><span class="comment"># 删除包</span></span><br><span class="line">sudo apt-get remove package</span><br><span class="line"><span class="comment"># 搜索软件包</span></span><br><span class="line">sudo apt-cache search package</span><br><span class="line"><span class="comment"># 获取包的相关信息，如说明、大小、版本等</span></span><br><span class="line">sudo apt-cache show package</span><br><span class="line"><span class="comment"># 重新安装包</span></span><br><span class="line">sudo apt-get install package --reinstall</span><br><span class="line"><span class="comment"># 修复安装</span></span><br><span class="line">sudo apt-get -f install</span><br><span class="line"><span class="comment"># 删除包（包含配置文件等）</span></span><br><span class="line">sudo apt-get remove package --purge</span><br><span class="line"><span class="comment"># 安装相关的编译环境</span></span><br><span class="line">sudo apt-get build-dep package</span><br><span class="line"><span class="comment"># 更新已安装的包</span></span><br><span class="line">sudo apt-get upgrade</span><br><span class="line"><span class="comment"># 升级系统</span></span><br><span class="line">sudo apt-get dist-upgrade</span><br><span class="line"><span class="comment"># 了解使用该包依赖哪些包</span></span><br><span class="line">sudo apt-cache depends package</span><br><span class="line"><span class="comment"># 查看该包被哪些包依赖</span></span><br><span class="line">sudo apt-cache rdepends package</span><br><span class="line"><span class="comment"># 下载该包的源代码</span></span><br><span class="line">sudo apt-get <span class="built_in">source</span> package</span><br></pre></td></tr></table></figure>
+<h3 id="更新Ubuntu软件下载源"><a href="#更新Ubuntu软件下载源" class="headerlink" title="更新Ubuntu软件下载源"></a>更新Ubuntu软件下载源</h3><ul>
+<li><p>寻找国内镜像源：<a target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/![%E6%B8%85%E5%8D%8E%E9%95%9C%E5%83%8F%E7%BD%91%E7%AB%99](https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/APT%E8%BD%AF%E4%BB%B6%E7%AE%A1%E7%90%86%E5%92%8C%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/%E6%B8%85%E5%8D%8E%E9%95%9C%E5%83%8F%E7%BD%91%E7%AB%99.png)">https://mirrors.tuna.tsinghua.edu.cn/![清华镜像网站](https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/APT%E8%BD%AF%E4%BB%B6%E7%AE%A1%E7%90%86%E5%92%8C%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/%E6%B8%85%E5%8D%8E%E9%95%9C%E5%83%8F%E7%BD%91%E7%AB%99.png)</a></p>
+<p><img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/APT%E8%BD%AF%E4%BB%B6%E7%AE%A1%E7%90%86%E5%92%8C%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/Ubuntu%E9%95%9C%E5%83%8F%E4%BD%BF%E7%94%A8%E5%B8%AE%E5%8A%A9.png" alt="Ubuntu镜像使用帮助"></p>
+</li>
+<li><p>备份Ubuntu默认的源地址</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak</span><br></pre></td></tr></table></figure></li>
+<li><p>更新源服务器列表</p>
+<ul>
+<li><p>先清空sources.list文件</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;&#x27;</span> &gt; sources.list</span><br></pre></td></tr></table></figure></li>
+<li><p>复制镜像网站的地址拷贝到sources.list文件</p>
+<p><img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/APT%E8%BD%AF%E4%BB%B6%E7%AE%A1%E7%90%86%E5%92%8C%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/%E5%A4%8D%E5%88%B6%E9%95%9C%E5%83%8F%E7%BD%91%E7%AB%99%E5%9C%B0%E5%9D%80.png" alt="复制镜像网站地址"></p>
+<p><img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/APT%E8%BD%AF%E4%BB%B6%E7%AE%A1%E7%90%86%E5%92%8C%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/%E6%8B%B7%E8%B4%9D%E5%88%B0sources.list%E6%96%87%E4%BB%B6.png" alt="拷贝到sources.list文件"></p>
+</li>
+</ul>
+</li>
+<li><p>更新源</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure>
+<h3 id="远程登录Ubuntu"><a href="#远程登录Ubuntu" class="headerlink" title="远程登录Ubuntu"></a>远程登录Ubuntu</h3></li>
+<li><p>ssh介绍</p>
+<ul>
+<li>SSH为Secure Shell的缩写，由IETF的网络工作小组（Network Working Group）所制定；SSH为建立在应用层和传输层基础上的安全协议。SSH是目前较可靠，专为<strong>远程登录会话和其他网络服务</strong>提供安全性的协议，几乎所有UNIX/Linux平台都可以运行SSH</li>
+<li>使用SSH服务需要安装相应的服务器和客户端。如果A机器想被B机器远程控制，那么A机器需要安装SSH服务器，B机器需要安装SSH客户端</li>
+<li>和CentOS不一样，Ubuntu默认没有安装SSHD服务（<strong>使用netstat指令查看：apt install net-tools</strong>），因此我们不能远程登录</li>
+</ul>
+</li>
+<li><p>安装SSH和启用</p>
+<ul>
+<li><p>在当前这台Linux上就安装SSH服务端和客户端</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install openssh-server</span><br></pre></td></tr></table></figure></li>
+<li><p>启动sshd服务，会监听端口22</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service sshd restart</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>从一台Linux系统登录到另一台Linux系统（在创建服务器集群时会使用该技术）</p>
+<ul>
+<li><p>基本语法</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ssh 用户名@IP</span><br><span class="line"><span class="comment"># 例如</span></span><br><span class="line">ssh slyer@192.168.200.128</span><br></pre></td></tr></table></figure></li>
+<li><p>登出：exit或logout</p>
+</li>
+</ul>
+</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/11/25/Linux%E4%B9%8Bpython%E5%AE%9A%E5%88%B6%E7%AF%87%E4%B9%8BAPT%E8%BD%AF%E4%BB%B6%E7%AE%A1%E7%90%86%E5%92%8C%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/">展开全文 >></a>
         </p>
       
 
