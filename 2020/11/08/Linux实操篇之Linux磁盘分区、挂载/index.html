@@ -6,13 +6,13 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Linux实操篇之Linux磁盘分区、挂载 | Hexo</title>
+  <title>Linux实操篇之Linux磁盘分区、挂载 | IceSlyer&#39;s blogs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="Linux分区 原理介绍  Linux来说无论有几个分区，分给哪一个目录使用，它归根结底就只有一个根目录，一个独立且唯一的文件结构，Linux中的每个分区都是用来组成整个文件系统的一部分 Linux采用了一种叫”载入”的处理方法，它的整个文件系统中包含了一整套的文件和目录，且将一个分区和一个目录联系起来，这时要载入的一个分区将使它的存储空间在一个目录下获得   查看所有设备挂载情况 1lsblk">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux实操篇之Linux磁盘分区、挂载">
 <meta property="og:url" content="http://example.com/2020/11/08/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8BLinux%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA%E3%80%81%E6%8C%82%E8%BD%BD/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="IceSlyer&#39;s blogs">
 <meta property="og:description" content="Linux分区 原理介绍  Linux来说无论有几个分区，分给哪一个目录使用，它归根结底就只有一个根目录，一个独立且唯一的文件结构，Linux中的每个分区都是用来组成整个文件系统的一部分 Linux采用了一种叫”载入”的处理方法，它的整个文件系统中包含了一整套的文件和目录，且将一个分区和一个目录联系起来，这时要载入的一个分区将使它的存储空间在一个目录下获得   查看所有设备挂载情况 1lsblk">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/Linux%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA%E3%80%81%E6%8C%82%E8%BD%BD/%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%B7%BB%E5%8A%A0%E7%A3%81%E7%9B%98.png">
@@ -26,7 +26,7 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/Linux%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA%E3%80%81%E6%8C%82%E8%BD%BD/%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%B7%BB%E5%8A%A0%E7%A3%81%E7%9B%98.png">
   
-    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="IceSlyer&#39;s blogs" type="application/atom+xml">
   
   
     <link rel="icon" href="/favicon.png">
