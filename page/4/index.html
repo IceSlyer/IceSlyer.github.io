@@ -142,216 +142,85 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-Linux实操篇之定时任务调度" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Java基础知识之进程和线程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6/">Linux实操篇之定时任务调度</a>
+      <a class="article-title" href="/2019/12/08/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%B9%8B%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B/">Java基础知识之进程和线程</a>
     </h1>
   
 
         
-        <a href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6/" class="archive-article-date">
-  	<time datetime="2021-02-20T20:53:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-21</time>
+        <a href="/2019/12/08/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%B9%8B%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B/" class="archive-article-date">
+  	<time datetime="2019-12-08T05:12:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-08</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="crond-任务调度"><a href="#crond-任务调度" class="headerlink" title="crond 任务调度"></a>crond 任务调度</h3><ul>
-<li><p>通过crontab指令进行定时任务的设置</p>
-</li>
-<li><p>概述</p>
-<ul>
-<li><p>任务调度是指系统在<strong>某个时间</strong>执行的<strong>特定的命令</strong>或程序</p>
-</li>
-<li><p>任务调度分类：</p>
-<table>
-<thead>
-<tr>
-<th align="center">类别</th>
-<th align="center">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">系统工作</td>
-<td align="center">有些重要的工作必须周而复始地执行，如病毒扫描等</td>
-</tr>
-<tr>
-<td align="center">个别用户工作</td>
-<td align="center">个别用户可能希望执行某些程序，比如对MySQL数据库的备份</td>
-</tr>
-</tbody></table>
-</li>
+        <h3 id="进程概念"><a href="#进程概念" class="headerlink" title="进程概念"></a><strong>进程概念</strong></h3><ul>
+<li>进程是指运行中的应用程序，每个进程都有自己独立的地址空间（内存空间），比如用户点击桌面的ie浏览器，就启动了一个进程，操作系统就会为该进程分配独立的地址空间。当用户再次点击桌面的ie浏览器，又启动了一个进程，操作系统将为新的进程分配新的独立的地址空间。</li>
+</ul>
+<h3 id="线程概念"><a href="#线程概念" class="headerlink" title="线程概念"></a><strong>线程概念</strong></h3><ul>
+<li>线程是进程中的一个实体，是被系统独立调用和分派的基本单位。线程自己不拥有系统资源，只拥有一点在运行中必不可少的资源，但它可与同属一个进程的其他线程共享进程所拥有的全部资源。一个线程可以创建和撤销另一个线程，同一进程中的多个线程之间可以并发执行。线程有就绪、阻塞和运行三种基本状态。</li>
+<li>线程是轻量级的进程；线程没有独立的地址空间；线程是由进程创建的（寄生在进程）；一个进程可以拥有多个线程（即常说的多线程编程）</li>
+<li>线程有几种状态<ul>
+<li>新建状态（new）</li>
+<li>就绪状态（Runnable）</li>
+<li>运行状态（Running）</li>
+<li>阻塞状态（Blocked）</li>
+<li>死亡状态（Dead）</li>
 </ul>
 </li>
-<li><p>基本语法</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crontab [选项]</span><br></pre></td></tr></table></figure></li>
-<li><p>常用选项</p>
-<table>
-<thead>
-<tr>
-<th align="center">选项</th>
-<th align="center">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">-e</td>
-<td align="center">编辑crontab定时任务</td>
-</tr>
-<tr>
-<td align="center">-l</td>
-<td align="center">查询crontab任务</td>
-</tr>
-<tr>
-<td align="center">-r</td>
-<td align="center">删除当前用户所有的crontab任务</td>
-</tr>
-</tbody></table>
-</li>
-<li><p>重启任务调度</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service crond restart</span><br></pre></td></tr></table></figure></li>
-<li><p>快速入门</p>
+<li>只要应用程序涉及到并发，就离不开多线程编程</li>
+</ul>
+<h3 id="线程使用"><a href="#线程使用" class="headerlink" title="线程使用"></a><strong>线程使用</strong></h3><ul>
+<li><p>Java中一个类要当作线程来使用有两种方法</p>
 <ul>
-<li><p>设置任务调度文件</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/crontab</span><br></pre></td></tr></table></figure></li>
-<li><p>设置个人任务调度，执行crontab -e 命令，接着输入任务到调度文件</p>
-<ul>
-<li>例如：*/1 * * * * ls -l /etc/ &gt; /tmp/to.txt，意思是每小时的每分钟执行此命令</li>
+<li>继承Thread类，并重写run函数</li>
+<li>实现Runnable接口，并重写run函数</li>
 </ul>
 </li>
-<li><p>参数细节说明</p>
-<table>
-<thead>
-<tr>
-<th align="center">参数</th>
-<th align="center">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">第一个”*”</td>
-<td align="center">一小时当中的第几分钟，范围0-59</td>
-</tr>
-<tr>
-<td align="center">第二个”*”</td>
-<td align="center">一天中的第几小时，范围0-23</td>
-</tr>
-<tr>
-<td align="center">第三个”*”</td>
-<td align="center">一个月中的第几天，范围1-31</td>
-</tr>
-<tr>
-<td align="center">第四个”*”</td>
-<td align="center">一年中的第几月，范围1-12</td>
-</tr>
-<tr>
-<td align="center">第五个”*”</td>
-<td align="center">一周当中的星期几，范围0-7（<strong>0和7都代表星期日</strong>）</td>
-</tr>
-</tbody></table>
+<li><p>因为Java是单继承的，在某些情况下一个类可能已经继承了某个父类，这时再用继承Thread类方法来创建线程显然不可能。所以Java设计者们提供了另外一个方式创建线程，即通过实现Runnable接口来创建线程。</p>
 </li>
-<li><p>特殊符号说明</p>
-<table>
-<thead>
-<tr>
-<th align="center">符号</th>
-<th align="center">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">*</td>
-<td align="center">代表<strong>任何时间</strong>；例如第一个 “*” 就代表一小时中每分钟都执行一次的意思</td>
-</tr>
-<tr>
-<td align="center">,</td>
-<td align="center">代表不连续的时间；例如”0 8,12,16 * * * 命令”，代表在每天的8点0分，12点0分，16点0分都执行一次命令</td>
-</tr>
-<tr>
-<td align="center">-</td>
-<td align="center">代表连续的时间范围；例如”0 5 * * 1-6 命令”，代表在周一到周六的凌晨5点0分执行命令</td>
-</tr>
-<tr>
-<td align="center">*/n</td>
-<td align="center">代表每隔多久执行一次；例如”*/10 * * * * 命令”，代表每隔10分钟就执行一次命令</td>
-</tr>
-</tbody></table>
+<li><p>继承Thread和实现Runnable的区别</p>
+<ul>
+<li>尽可能使用实现Runnable接口的方式来创建线程</li>
+<li>在使用Thread的时候只需要new一个实例出来，调用start()方法即可启动一个线程</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Thread test = <span class="keyword">new</span> Thread();</span><br><span class="line"></span><br><span class="line">test.start();</span><br></pre></td></tr></table></figure>
+<ul>
+<li>在使用Runnable的时候需要先new一个实现Runnable的实例，之后用Thread调用</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Test implements Runnable</span><br><span class="line"></span><br><span class="line">Test test = <span class="keyword">new</span> Test();</span><br><span class="line"></span><br><span class="line">Thread t = <span class="keyword">new</span> Thread(test);</span><br><span class="line"></span><br><span class="line">t.start();</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>线程对象只能启动一个线程</p>
+<ul>
+<li>不管是通过继承Thread，还是通过实现Runnbale接口创建线程，他们的一个对象只能启动（即start）一次；否则就会抛出异常illegalThreadStateException</li>
+</ul>
 </li>
+<li><p>线程的同步</p>
+<ul>
+<li>多线程并发给我们编程带来很多好处，完成更有效率的程序，但是也给我们带来线程安全的问题</li>
+<li>解决问题的关键就是要保证容易出问题的代码的原子性，即当a线程在执行某段代码的时候，别的线程必须等到a线程执行完后它才能执行这段代码</li>
+<li>Java处理线程同步的方法</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">synchronized</span>(object)&#123;</span><br><span class="line"></span><br><span class="line"><span class="comment">//你需要同步的代码</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>对同步机制的解释</p>
+<ul>
+<li>Java任意类型的对象都有一个标志位，该标志位具有0，1两种状态，其开始状态为1，当某个线程执行了synchronized（object）语句后，object对象的标志位变为0的状态，直到执行完整个synchronized语句中的代码块后，该对象的标志位又回到1状态</li>
+<li>当一个线程执行到synchronized（object）语句的时候，先检查object对象的标志位，如果为0状态，表明已经有另外的线程正在执行synchronized包括的代码，那么这个线程将暂时阻塞，让出cpu资源，直到另外的线程执行完相关的同步代码，并将object对象的标志位变为1状态，这个线程的阻塞就被取消，线程能继续运行，然后该线程又将object的标志位变为0状态，防止其他的线程再进入相关的同步代码块中</li>
+<li>如果有多个线程因等待同一个对象的标志位而处于阻塞状态时，当该对象的标志位恢复到1状态时，只会有一个线程能够进入同步代码执行，其他的线程仍然处于阻塞的状态<ul>
+<li>上面说的对象的标志位用术语讲就是对象锁，文件锁</li>
+<li>object可以是任意类型对象</li>
 </ul>
 </li>
 </ul>
-<h3 id="at定时任务"><a href="#at定时任务" class="headerlink" title="at定时任务"></a>at定时任务</h3><ul>
-<li><p>基本介绍</p>
-<ul>
-<li><p>at命令是<strong>一次性</strong>定时计划任务，执行完一个任务后不再执行此任务了</p>
 </li>
-<li><p>at的守护进程atd会以后台模式运行，检查作业队列来运行</p>
-</li>
-<li><p>默认情况下，atd守护进程每60秒检查作业队列，有作业时，会检查作业运行时间，如果时间与当前时间匹配，则运行此作业</p>
-</li>
-<li><p>在使用at命令的时候，<strong>一定要保证atd进程的启动</strong>，可以使用以下指令来查看</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -ef | grep atd</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li><p>命令格式</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">at [选项] [时间] <span class="comment"># Ctrl+D（2次）结束at命令的输入</span></span><br></pre></td></tr></table></figure></li>
-<li><p>命令选项</p>
-<table>
-<thead>
-<tr>
-<th align="center">选项</th>
-<th align="center">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">-m</td>
-<td align="center">当指定的任务被完成后，将给用户发送邮件，即使没有标准输出</td>
-</tr>
-<tr>
-<td align="center">-l</td>
-<td align="center">atq的别名，查询任务</td>
-</tr>
-<tr>
-<td align="center">-d</td>
-<td align="center">atrm的别名，删除任务</td>
-</tr>
-<tr>
-<td align="center">-v</td>
-<td align="center">显示任务将被执行的时间</td>
-</tr>
-<tr>
-<td align="center">-c</td>
-<td align="center">打印任务的内容到标准输出</td>
-</tr>
-<tr>
-<td align="center">-V</td>
-<td align="center">显示版本信息</td>
-</tr>
-<tr>
-<td align="center">-q &lt;队列&gt;</td>
-<td align="center">使用指定的队列</td>
-</tr>
-<tr>
-<td align="center">-f &lt;文件&gt;</td>
-<td align="center">从指定文件读入任务而不是从标准输入读入</td>
-</tr>
-<tr>
-<td align="center">-t &lt;时间参数&gt;</td>
-<td align="center">以时间参数的形式提交要运行的任务</td>
-</tr>
-</tbody></table>
-</li>
-<li><p>时间定义</p>
-<ul>
-<li>接受在当天的hh:mm（小时:分钟）式的时间指定。<strong>假如该时间已过去，那就会在第二天执行</strong></li>
-<li>使用midnight（深夜），noon（中午），teatime（饮茶时间，一般下午4点）等比较模糊的词语来指定时间</li>
-<li>采用12小时计时制，即在时间后面加上AM（上午）或PM（下午）来说明是上午还是下午。</li>
-<li>指定命令执行的具体日期，指定格式为month day或mm/dd/yy或dd.mm.yy，指定的日期必须跟在指定时间的后面。例如：04:00 2021-03-1</li>
-<li>使用相对计时法。指定格式为：now + count time-units，now就是当前时间，time-units是时间单位，这里能够是minutes（分钟）、hours（小时）、days（天）、weeks（星期）。count是时间的数量（几小时，几天或几分钟）。例如：now +5 minutes</li>
-<li>直接使用today（今天）、tomorrow（明天）来指定完成命令的时间</li>
 </ul>
 </li>
 </ul>
@@ -367,7 +236,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/12/08/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%B9%8B%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B/">展开全文 >></a>
         </p>
       
 
@@ -397,90 +266,101 @@
 
 
   
-    <article id="post-Linux实操篇之Vi和Vim编辑器" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Java基础知识之图形界面编程基础" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8BVi%E5%92%8CVim%E7%BC%96%E8%BE%91%E5%99%A8/">Linux实操篇之Vi和Vim编辑器</a>
+      <a class="article-title" href="/2019/11/25/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%B9%8B%E5%9B%BE%E5%BD%A2%E7%95%8C%E9%9D%A2%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/">Java基础知识之图形界面编程基础</a>
     </h1>
   
 
         
-        <a href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8BVi%E5%92%8CVim%E7%BC%96%E8%BE%91%E5%99%A8/" class="archive-article-date">
-  	<time datetime="2021-02-20T20:52:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-21</time>
+        <a href="/2019/11/25/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%B9%8B%E5%9B%BE%E5%BD%A2%E7%95%8C%E9%9D%A2%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/" class="archive-article-date">
+  	<time datetime="2019-11-24T21:12:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-25</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="Vi和Vim的基本介绍"><a href="#Vi和Vim的基本介绍" class="headerlink" title="Vi和Vim的基本介绍"></a>Vi和Vim的基本介绍</h3><ul>
-<li>Linux系统会内置Vi文本编辑器</li>
-<li>Vim具有程序编辑的能力，可看作是Vi的增强版本，可以主动的以字体颜色辨别语法的正确性，方便程序设计。代码补全、编译及错误跳转等方便编程的功能特别丰富，在程序员中被广泛使用</li>
-</ul>
-<h3 id="Vi和Vim常用的三种模式"><a href="#Vi和Vim常用的三种模式" class="headerlink" title="Vi和Vim常用的三种模式"></a>Vi和Vim常用的三种模式</h3><ul>
-<li>正常模式<ul>
-<li>以Vim打开一个文档就直接进入一般模式了（这是默认模式）。在这个模式中，你可以使用【上下左右】按键来移动光标，可以使用【删除字符】或【删除整行】来处理文档内容，也可以使用【复制、粘贴】来处理你的文件数据</li>
+        <h3 id="Swing组件"><a href="#Swing组件" class="headerlink" title="Swing组件"></a><strong>Swing组件</strong></h3><ul>
+<li>窗体组件（JFrame）<ul>
+<li>是Frame的子类，属于容器类组件，顶层容器</li>
 </ul>
 </li>
-<li>插入模式<ul>
-<li>按下i，I，o，O，a，A，r，R等任何一个字母之后才会进入编辑（插入）模式，一般来说按i即可</li>
+<li>按钮组件（JButton）<ul>
+<li>是AbstractButton的子类，属于容器类组件，可以加入别的组件</li>
+<li>Swing包的按钮组件还包括单选按钮（JRadioButton）、箭头按钮（BasicArrowButton）、触发器按钮（JToggleButton）</li>
 </ul>
 </li>
-<li>命令行模式<ul>
-<li>输入Esc，再输入:就可以进入命令行模式，在这个模式中，可以提供你相关指令，完成读取、存盘、替换、离开Vim、显示行号等的动作则是在此模式中达成的</li>
+<li>面板组件（JPanel）<ul>
+<li>非顶层容器。一个界面只可以有一个JFrame窗体组件，但可以有多个JPanel面板组件，而JPanel上也可以使用FlowLayout、BorderLayout、GridLayout等各种布局管理器，这样可以组合使用达到较为复杂的布局效果</li>
+<li>JPanel是JComponent的子类，属于容器类组件，可以加入别的组件</li>
+<li>默认布局管理器是流式布局（FlowLayout）</li>
+</ul>
+</li>
+<li>文本框（JTextField）、密码框（JPasswordField）、标签（JLabel）</li>
+<li>单选框组件（JCheckBox）、复选框组件（JRadioButton）<ul>
+<li>同一组单选按钮必须先创建ButtonGroup，然后把单选框组件放入到ButtonGroup中</li>
+</ul>
+</li>
+<li>下拉框组件（JComboBox）、列表框组件（JList）、滚动窗格组件（JScrollPane）<ul>
+<li>一般来说，列表框组件和滚动窗格组件是结合使用的，目的是让列表框中的选项可以有滚动条支持</li>
+</ul>
+</li>
+<li>拆分窗格（JSplitPane）</li>
+<li>多行文本框组件（JTextArea）</li>
+<li>选项卡窗格（JTabbedPane）</li>
+<li>菜单组件<ul>
+<li>JMenuBar，菜单条组件</li>
+<li>JMenu，菜单组件，JMenu里面可以嵌套JMenu（二级菜单制作）</li>
+<li>JMenuItem，菜单项组件</li>
+</ul>
+</li>
+<li>工具条组件（JToolBar）</li>
+</ul>
+<h3 id="三大常用布局管理器"><a href="#三大常用布局管理器" class="headerlink" title="三大常用布局管理器"></a><strong>三大常用布局管理器</strong></h3><ul>
+<li>概念<ul>
+<li>组件在容器（比如JFrame）中的位置和大小是由布局管理器来决定的。所有容器都会使用一个布局管理器来自动进行组建的布局管理</li>
+</ul>
+</li>
+<li>种类<ul>
+<li>流式布局管理器（FlowLayout）<ul>
+<li>按照组件添加的次序将按钮组件（也可以是别的组件）从左到右放置在容器中。当到达容器的边界时，组件将被放置在下一行中</li>
+<li>可以以左对齐、居中对齐、右对齐的方式排列组件，默认居中对齐</li>
+<li>不限制它所管理的组件大小，允许它们有最佳大小</li>
+<li>当容器被缩放时，组件的位置可能变化，但组件的大小不变</li>
+</ul>
+</li>
+<li>边界布局管理器（BorderLayout）<ul>
+<li>将容器简单地划分为东南西北中5个区域，中间区域最大。JFrame窗体、JDialog对话框组件默认布局方法</li>
+<li>不是5个部分都必须添加，中间组件会自动调节大小</li>
+</ul>
+</li>
+<li>网格布局管理器（GridLayout）<ul>
+<li>将容器分割成多行多列，组件被填充到每个网格中，添加到容器中的组件首先放置在左上角的网格中，然后从左到右放置其他的组件，当占满该行的所有网格后，接着继续在下一行从左到右放置组件</li>
+<li>组件的相对位置不随容器的缩放而变化，但大小会变化</li>
+<li>所有组件的大小相同</li>
+</ul>
+</li>
+<li>卡片布局管理器（CardLayout）</li>
+<li>网格包布局管理器（GridBagLayout）</li>
+</ul>
+</li>
+<li>开发GUI程序步骤总结<ul>
+<li>继承JFrame</li>
+<li>定义需要的组件</li>
+<li>创建组件</li>
+<li>设置布局管理器</li>
+<li>添加组件</li>
+<li>设置窗体属性</li>
+<li>显示窗体</li>
 </ul>
 </li>
 </ul>
-<h3 id="各种模式的相互切换"><a href="#各种模式的相互切换" class="headerlink" title="各种模式的相互切换"></a>各种模式的相互切换</h3><p><img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/Vi%E5%92%8CVim%E7%BC%96%E8%BE%91%E5%99%A8/%E5%90%84%E7%A7%8D%E6%A8%A1%E5%BC%8F.png" alt="各种模式"></p>
-<h3 id="常用快捷键"><a href="#常用快捷键" class="headerlink" title="常用快捷键"></a>常用快捷键</h3><table>
-<thead>
-<tr>
-<th align="center">快捷键</th>
-<th align="center">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">yy</td>
-<td align="center">拷贝当前行</td>
-</tr>
-<tr>
-<td align="center">5yy</td>
-<td align="center">拷贝当前行向下的5行</td>
-</tr>
-<tr>
-<td align="center">p</td>
-<td align="center">粘贴</td>
-</tr>
-<tr>
-<td align="center">dd</td>
-<td align="center">删除当前行</td>
-</tr>
-<tr>
-<td align="center">5dd</td>
-<td align="center">删除当前行向下的5行</td>
-</tr>
-<tr>
-<td align="center">/关键字【命令行下】</td>
-<td align="center">在文件中查找某个单词（回车查找，输入 n 查找下一个）</td>
-</tr>
-<tr>
-<td align="center">:set nu / :set nonu【命令行下】</td>
-<td align="center">设置文件的行号 / 取消文件的行号</td>
-</tr>
-<tr>
-<td align="center">G / gg</td>
-<td align="center">到文档最末行 / 最首行</td>
-</tr>
-<tr>
-<td align="center">u</td>
-<td align="center">撤销输入的内容</td>
-</tr>
-</tbody></table>
-<p><img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/Vi%E5%92%8CVim%E7%BC%96%E8%BE%91%E5%99%A8/vi-vim%E9%94%AE%E7%9B%98%E5%9B%BE.png" alt="vi-vim键盘图"></p>
 
       
 
@@ -493,7 +373,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8BVi%E5%92%8CVim%E7%BC%96%E8%BE%91%E5%99%A8/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/11/25/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%B9%8B%E5%9B%BE%E5%BD%A2%E7%95%8C%E9%9D%A2%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/">展开全文 >></a>
         </p>
       
 
@@ -523,101 +403,96 @@
 
 
   
-    <article id="post-Linux实操篇之RPM与YUM" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Java基础知识之绘图坐标体系" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8BRPM%E4%B8%8EYUM/">Linux实操篇之RPM与YUM</a>
+      <a class="article-title" href="/2019/11/21/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%B9%8B%E7%BB%98%E5%9B%BE%E5%9D%90%E6%A0%87%E4%BD%93%E7%B3%BB/">Java基础知识之绘图坐标体系</a>
     </h1>
   
 
         
-        <a href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8BRPM%E4%B8%8EYUM/" class="archive-article-date">
-  	<time datetime="2021-02-20T20:48:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-21</time>
+        <a href="/2019/11/21/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%B9%8B%E7%BB%98%E5%9B%BE%E5%9D%90%E6%A0%87%E4%BD%93%E7%B3%BB/" class="archive-article-date">
+  	<time datetime="2019-11-20T17:11:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-21</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="rpm"><a href="#rpm" class="headerlink" title="rpm"></a>rpm</h3><ul>
-<li><p>rpm用于互联网下载包的打包及安装工具，它包含在某些Linux分发版中。它生成具有.RPM扩展名的文件。RPM是<strong>RedHat Package Manager</strong>的缩写，类似Windows的setup.exe，这一文件格式名称虽然打上了RedHat的标志，但理念是通用的。Linux的很多分发版本（suse，redhat，centos等等）都有采用，可以算是公认的行业标准了</p>
-</li>
-<li><p>rpm包名基本格式</p>
-<ul>
-<li>一个rpm包名：firefox-60.2.2-1.el7.centos.x86_64</li>
-<li>名称：firefox</li>
-<li>版本号：60.2.2-1</li>
-<li>适用操作系统：el7.centos.x86_64，表示centos7.x的64位系统；如果是i686、i386表示32位系统，noarch表示通用</li>
+        <h3 id="坐标体系介绍"><a href="#坐标体系介绍" class="headerlink" title="坐标体系介绍"></a><strong>坐标体系介绍</strong></h3><ul>
+<li>坐标原点位于左上角，以像素为单位。像素是计算机屏幕上最小的显示单位</li>
+<li>像素是一个密度单位，而厘米是长度单位，两者无法比较</li>
+<li>Java坐标体系中，第一个是x坐标，表示当前位置为水平方向，距离坐标原点y个像素；第二个是Y坐标，表示当前位置为垂直方向，距离坐标原点y个像素</li>
+</ul>
+<h3 id="绘图原理"><a href="#绘图原理" class="headerlink" title="绘图原理"></a><strong>绘图原理</strong></h3><ul>
+<li>Component类提供了两个和绘图相关最重要的方法<ul>
+<li>paint(Graphics g) 绘制组件的外观<ul>
+<li>当组件第一次在屏幕上显示的时候，程序会自动调用paint()方法来绘制组件</li>
+<li>窗口的大小发生变化时，paint()会被调用</li>
+<li>repaint函数被调用时，paint()会被调用</li>
 </ul>
 </li>
-<li><p>rpm包的查询指令</p>
-<ul>
-<li><p>查询已安装的所有rpm软件包</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rpm -qa</span><br><span class="line">rpm -qa | more</span><br><span class="line">rpm -qa | grep xxx</span><br></pre></td></tr></table></figure></li>
-<li><p>查询软件包是否安装</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -q 软件包名</span><br></pre></td></tr></table></figure></li>
-<li><p>查询软件包信息</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -qi 软件包名</span><br></pre></td></tr></table></figure></li>
-<li><p>查询软件包中的文件</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -ql 软件包名</span><br></pre></td></tr></table></figure></li>
-<li><p>查询文件所属的软件包</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">rpm -qf 文件全路径名</span><br><span class="line"></span><br><span class="line"><span class="comment"># 例如</span></span><br><span class="line">rpm -qf /etc/passwd</span><br><span class="line">rpm -qf /root/install.log</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li><p>卸载rpm包</p>
-<ul>
-<li><p>基本语法</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rpm -e RPM包的名称</span><br><span class="line"><span class="comment"># 例如</span></span><br><span class="line">rpm -e firefox</span><br></pre></td></tr></table></figure></li>
-<li><p>细节说明</p>
-<ul>
-<li>如果其他软件包依赖于您要卸载的软件包，卸载时则会产生错误信息</li>
-<li>如果我们就是要删除这个rpm包，可以增加参数 –nodeps，就可以强制删除，但一般不推荐这样做，因为依赖于该软件包的程序可能无法运行</li>
+<li>repaint() 刷新组件的外观</li>
 </ul>
 </li>
 </ul>
-</li>
-<li><p>安装rpm包</p>
+<h3 id="绘图技术"><a href="#绘图技术" class="headerlink" title="绘图技术"></a><strong>绘图技术</strong></h3><ul>
+<li><p>Graohics类</p>
 <ul>
-<li><p>基本语法</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh RPM包全路径名称</span><br></pre></td></tr></table></figure></li>
-<li><p>参数说明</p>
-<table>
-<thead>
-<tr>
-<th>选项</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>-i</td>
-<td>install（安装）</td>
-</tr>
-<tr>
-<td>-v</td>
-<td>verbose（提示）</td>
-</tr>
-<tr>
-<td>-h</td>
-<td>hash（进度条）</td>
-</tr>
-</tbody></table>
+<li><p>画直线</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">drawLine(<span class="keyword">int</span> x1, <span class="keyword">int</span> y1, <span class="keyword">int</span> x2, <span class="keyword">int</span> y2)</span><br></pre></td></tr></table></figure>
 </li>
+<li><p>画矩形边框</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">drawRect(<span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> width, <span class="keyword">int</span> height)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>画椭圆边框</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">drawOval(<span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> width, <span class="keyword">int</span> height)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>填充矩形</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fillRect(<span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> width, <span class="keyword">int</span> height)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>填充椭圆</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fillOval(<span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> width, <span class="keyword">int</span> height)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>画图片</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">drawImage(Image img, <span class="keyword">int</span> x, <span class="keyword">int</span> y)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>画字符串</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">drawString(String str, <span class="keyword">int</span> x, <span class="keyword">int</span> y)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设置画笔的字体</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setFont(Font font)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设置字体的颜色</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setColor(Color c)</span><br></pre></td></tr></table></figure>
+<h3 id="Java事件处理机制"><a href="#Java事件处理机制" class="headerlink" title="Java事件处理机制"></a><strong>Java事件处理机制</strong></h3></li>
 </ul>
 </li>
-</ul>
-<h3 id="yum"><a href="#yum" class="headerlink" title="yum"></a>yum</h3><ul>
-<li><p>yum是一个Shell前端软件包管理器。基于rpm包管理，能够<strong>从指定的服务器自动下载RPM包</strong>并且安装，可以自动处理依赖关系，并且一次安装所有依赖的软件包</p>
-</li>
-<li><p>yum基本指令</p>
+<li><p>初步介绍</p>
 <ul>
-<li><p>查询yum服务器是否有需要安装的软件</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum list | grep xxx</span><br></pre></td></tr></table></figure></li>
-<li><p>下载安装指定的yum包</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install xxx</span><br></pre></td></tr></table></figure></li>
+<li>事件是承载事件源状态改变时的信息对象，Java中的事件是分类的，比如窗体事件、鼠标事件、按键事件、操作事件</li>
+<li>Java事件处理采用“委派事件模型”</li>
+<li>“委派事件模型”是指当事件发生时，产生事件的对象（即事件源）会把此“信息”传递给“事件的监听者”处理的一种方式，而这里所说的“信息”实际上就是java.awt.event事件类库里某个类所创建的对象</li>
+<li>比如当按下按钮时，就会在按钮触发一个“事件”，程序就会产生一个“事件对象”来表示这个事件，并把这个“事件对象”传递给“事件的监听者”，“事件的监听者”再根据“事件对象”的类型进行相应处理。为了让事件源（比如按钮）知道要把事件传递给哪一个“事件监听者”，我们必须先把“事件监听者”在事件源里注册，这个操作也就是要告知事件源要把事件传递给它</li>
+<li>事件监听器接口有多种，不同的事件监听器接口可以监听不同的事件，一个类可以实现一个或多个监听接口</li>
+<li>一个类要实现监听的步骤<ul>
+<li>实现相应的接口（KeyListener,MouseListener,ActionListener,WindowListener）</li>
+<li>把接口的处理方法根据需要重新编写（Override）</li>
+<li>在事件源上注册监听</li>
+<li>事件传递是靠事件对象</li>
+</ul>
+</li>
+<li>总结-事件编程步骤<ul>
+<li>编写事件处理类（事件监听者）</li>
+<li>根据需求给事件处理类实现监听器接口</li>
+<li>在事件处理类中重写（实现）其事件处理的函数</li>
+<li>在事件源类中指定该事件的监听器（响应者）是谁，即注册监听</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -633,7 +508,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8BRPM%E4%B8%8EYUM/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/11/21/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%B9%8B%E7%BB%98%E5%9B%BE%E5%9D%90%E6%A0%87%E4%BD%93%E7%B3%BB/">展开全文 >></a>
         </p>
       
 
@@ -663,176 +538,392 @@
 
 
   
-    <article id="post-Linux实操篇之Linux磁盘分区、挂载" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Java基础知识之面向对象基础" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8BLinux%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA%E3%80%81%E6%8C%82%E8%BD%BD/">Linux实操篇之Linux磁盘分区、挂载</a>
+      <a class="article-title" href="/2019/11/15/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%B9%8B%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%9F%BA%E7%A1%80/">Java基础知识之面向对象基础</a>
     </h1>
   
 
         
-        <a href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8BLinux%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA%E3%80%81%E6%8C%82%E8%BD%BD/" class="archive-article-date">
-  	<time datetime="2021-02-20T19:35:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-21</time>
+        <a href="/2019/11/15/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%B9%8B%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%9F%BA%E7%A1%80/" class="archive-article-date">
+  	<time datetime="2019-11-15T01:10:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-15</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="Linux分区"><a href="#Linux分区" class="headerlink" title="Linux分区"></a>Linux分区</h3><ul>
-<li><p>原理介绍</p>
+        <h3 id="Java中三大流程控制"><a href="#Java中三大流程控制" class="headerlink" title="Java中三大流程控制"></a><strong>Java中三大流程控制</strong></h3><ul>
+<li><strong>顺序控制</strong></li>
+<li><strong>分支控制（单/双/多）</strong></li>
+<li><strong>循环控制(for；while；do-while)</strong></li>
+</ul>
+<h3 id="多分支"><a href="#多分支" class="headerlink" title="多分支"></a><strong>多分支</strong></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">switch</span>(条件表达式)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">case</span> 常量<span class="number">1</span>:</span><br><span class="line">        语句<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> 常量<span class="number">2</span>:</span><br><span class="line">        语句<span class="number">2</span>：</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    <span class="keyword">case</span> 常量n:</span><br><span class="line">        语句n;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">        语句;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
-<li>Linux来说无论有几个分区，分给哪一个目录使用，它归根结底就<strong>只有一个根目录</strong>，一个独立且唯一的文件结构，Linux中的每个分区都是用来组成整个文件系统的一部分</li>
-<li>Linux采用了一种叫”载入”的处理方法，它的整个文件系统中包含了一整套的文件和目录，且将<strong>一个分区和一个目录</strong>联系起来，这时要载入的一个分区将使它的存储空间在一个目录下获得</li>
+<li>条件表达式数据类型，应该和case后的常量类型一致</li>
+<li>switch中可用的数据类型主要是：byte，short，int，char，enum等</li>
 </ul>
-</li>
-<li><p>查看所有设备挂载情况</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsblk 或 lsblk -f</span><br></pre></td></tr></table></figure></li>
-<li><p>硬盘说明</p>
+<h3 id="Java面向对象编程-1"><a href="#Java面向对象编程-1" class="headerlink" title="Java面向对象编程(1)"></a><strong>Java面向对象编程(1)</strong></h3><ul>
+<li><p><strong>类与对象</strong></p>
 <ul>
-<li>Linux硬盘分IDE硬盘和SCSI硬盘，<strong>目前基本上是SCSI硬盘</strong></li>
-<li>对于IDE硬盘，驱动器标识符为“hdx~”，其中“hd”表明分区所在设备的类型，这里指IDE盘。“x”为盘号（<strong>a为基本盘</strong>，<strong>b为基本从属盘</strong>，c为辅助主盘，d为辅助从属盘），“~”代表分区，前4个分区用数字1-4表示，它们是主分区或扩展分区，从5开始就是逻辑分区。例如，hda3表示为第一个IDE硬盘上的第3个主分区或扩展分区，hdb2表示为第二个IDE硬盘上的第2个主分区或扩展分区</li>
-<li>对于SCSI硬盘则标识为“sdx~”，SCSI硬盘是用“sd”来表示分区所在设备类型的，其余则和IDE硬盘的表示方法一样</li>
+<li>类和对象的关系： 把某种事物的特性提取出来–&gt;类–&gt;一个个对象（实例）</li>
+<li>类名首字母大写，例如</li>
 </ul>
-</li>
-</ul>
-<h3 id="挂载的经典案例"><a href="#挂载的经典案例" class="headerlink" title="挂载的经典案例"></a>挂载的经典案例</h3><ul>
-<li><p>说明</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cat</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="comment">//下面的就是类的成员变量/属性</span></span><br><span class="line">    <span class="keyword">int</span> age;</span><br><span class="line">    String name;</span><br><span class="line">    String color;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Cat cat1 = <span class="keyword">new</span> Cat(); <span class="comment">//创建一个猫对象</span></span><br></pre></td></tr></table></figure>
 <ul>
-<li>下面我们以增加一块硬盘为例来熟悉下磁盘的相关指令和深入理解<strong>磁盘分区、挂载、卸载</strong>的概念</li>
+<li>从类到对象有几种说法<ul>
+<li>创建一个对象</li>
+<li>实例化一个对象</li>
+<li>把类实例化</li>
 </ul>
 </li>
-<li><p>如何增加一块硬盘</p>
+<li>类和对象的区别和联系<ul>
+<li>类是抽象的，概念的，代表一类事物，比如人类、猫类</li>
+<li>对象是具体的，实际的，代表一个具体事物</li>
+<li>类是对象的模板，对象是类的一个个体，实例</li>
+</ul>
+</li>
+<li>如何定义类？一个全面的类定义：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> 包名;</span><br><span class="line"><span class="class"><span class="keyword">class</span> 子类 <span class="keyword">extends</span>(继承) 父类 <span class="keyword">implements</span>(实现) 接口名</span>&#123;</span><br><span class="line">    成员变量;</span><br><span class="line">    构造方法;</span><br><span class="line">    成员方法;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
-<li>虚拟机添加硬盘</li>
-<li>分区</li>
-<li>格式化</li>
-<li>挂载（临时的）</li>
-<li>设置永久挂载</li>
+<li>类中的成员变量一般是基本数据类型，也可以是引用类型，如：</li>
 </ul>
-</li>
-<li><p>具体步骤</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cat</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> age;</span><br><span class="line">    String name;</span><br><span class="line">    String color;</span><br><span class="line">    Master myMaster; <span class="comment">// 猫的主人</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Master</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> age;</span><br><span class="line">    String name;</span><br><span class="line">    String address;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
-<li><p>在虚拟机菜单中，选择【设置】，然后设备列表里添加硬盘，然后一路【下一步】，中间只有选择硬盘大小的地方需要修改，直到完成，然后<strong>重启系统（才能识别）</strong></p>
-<p><img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/Linux%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA%E3%80%81%E6%8C%82%E8%BD%BD/%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%B7%BB%E5%8A%A0%E7%A3%81%E7%9B%98.png" alt="虚拟机添加磁盘"></p>
-</li>
-<li><p>分区命令</p>
+<li>类的成员方法（成员函数）定义如下：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> 返回数据类型 方法名(参数列表)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 方法(函数)主体</span></span><br><span class="line">    语句;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
-<li><p>开始对sdb分区</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fdisk /dev/sdb</span><br></pre></td></tr></table></figure>
-<table>
-<thead>
-<tr>
-<th>命令</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>m</td>
-<td>显示命令列表</td>
-</tr>
-<tr>
-<td>p</td>
-<td>显示磁盘分区（同fdisk -l）</td>
-</tr>
-<tr>
-<td>n</td>
-<td>新增分区</td>
-</tr>
-<tr>
-<td>d</td>
-<td>删除分区</td>
-</tr>
-<tr>
-<td>w</td>
-<td>写入并退出</td>
-</tr>
-</tbody></table>
+<li>定义名字的几种规则<ul>
+<li>驼峰法：myCry</li>
+<li>下划线法：my_cry</li>
+</ul>
 </li>
-<li><p>开始分区后输入n，新增分区，然后选择p，分区类型为主分区，两次回车默认剩余全部空间。最后输入w写入分区并退出；若不保存退出输入q</p>
+<li>注意<ul>
+<li>方法名的首字母小写</li>
+<li>方法的参数可以是多个</li>
+<li>参数类型可以是任意的</li>
+</ul>
 </li>
 </ul>
-<p><img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/Linux%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA%E3%80%81%E6%8C%82%E8%BD%BD/%E5%88%86%E5%8C%BA.png" alt="分区"></p>
 </li>
-<li><p>挂载</p>
+<li><p><strong>构造方法</strong></p>
 <ul>
-<li><p>将一个分区与一个目录联系起来</p>
-</li>
-<li><p>mount 设备名称 挂载目录</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mount /dev/sdb1 /newdisk</span><br></pre></td></tr></table></figure></li>
-<li><p>umount 设备名称或者挂载目录，<strong>卸载分区</strong></p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">umount /dev/sdb1</span><br><span class="line"><span class="comment"># 或者</span></span><br><span class="line">umount /newdisk</span><br></pre></td></tr></table></figure>
-<p>【注意】：<strong>用命令行挂载重启后会失效</strong></p>
+<li>类的构造方法是类的一种特殊方法，其主要作用是完成对新对象的初始化</li>
+<li>有几个特点：<ul>
+<li>方法名和类名相同</li>
+<li>没有返回值</li>
+<li>在创建一个类的新对象时，系统会自动调用该类的构造方法完成对新对象的初始化</li>
+</ul>
 </li>
 </ul>
 </li>
-<li><p>永久挂载</p>
+</ul>
+<h3 id="Java面向对象编程-2"><a href="#Java面向对象编程-2" class="headerlink" title="Java面向对象编程(2)"></a><strong>Java面向对象编程(2)</strong></h3><ul>
+<li><p><strong>this用法</strong></p>
 <ul>
-<li>通过修改/etc/fstab文件实现</li>
-<li>添加完成后，执行mount -a即刻生效（或者直接重启）</li>
-</ul>
-<p><img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/Linux%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA%E3%80%81%E6%8C%82%E8%BD%BD/%E6%B0%B8%E4%B9%85%E6%8C%82%E8%BD%BD.png" alt="永久挂载"></p>
-</li>
+<li>this不能在类定义的外部使用，只能在类定义的方法中使用</li>
 </ul>
 </li>
-</ul>
-<h3 id="磁盘情况查询"><a href="#磁盘情况查询" class="headerlink" title="磁盘情况查询"></a>磁盘情况查询</h3><ul>
-<li><p>基本语法</p>
+<li><p><strong>类变量/类方法</strong></p>
 <ul>
-<li><p>查询系统整体磁盘使用情况</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df -h</span><br></pre></td></tr></table></figure>
-<p><img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/Linux%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA%E3%80%81%E6%8C%82%E8%BD%BD/%E7%A3%81%E7%9B%98%E4%BD%BF%E7%94%A8%E6%83%85%E5%86%B5.png" alt="磁盘使用情况"></p>
+<li>类变量是该类的所有对象共享的变量，其定义语法：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">访问修饰符 <span class="keyword">static</span> 数据类型 变量名;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>访问类变量：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">类名.类变量名 或者 对象名.类变量</span><br></pre></td></tr></table></figure>
+<ul>
+<li>类方法是属于所有对象实例的，其定义语法：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">访问修饰符 <span class="keyword">static</span> 数据返回类型  方法名()&#123;&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>访问类方法：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">类名.类方法名 或者 对象名.类方法名</span><br></pre></td></tr></table></figure>
+<ul>
+<li>注意：类方法中不能访问非静态变量</li>
+</ul>
 </li>
-<li><p>查询指定目录的磁盘占用情况，<strong>默认为当前目录</strong></p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">du -h 目录</span><br></pre></td></tr></table></figure>
-<table>
-<thead>
-<tr>
-<th>选项</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>-s</td>
-<td>指定目录占用大小汇总</td>
-</tr>
-<tr>
-<td>-h</td>
-<td>==带计量单位==</td>
-</tr>
-<tr>
-<td>-a</td>
-<td>含文件</td>
-</tr>
-<tr>
-<td>–max-depth=1</td>
-<td>子目录深度</td>
-</tr>
-<tr>
-<td>-c</td>
-<td>列出明细的同时，增加汇总值</td>
-</tr>
-</tbody></table>
-<p><img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/Linux%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA%E3%80%81%E6%8C%82%E8%BD%BD/%E7%A3%81%E7%9B%98%E5%8D%A0%E7%94%A8%E6%83%85%E5%86%B5.png" alt="磁盘占用情况"></p>
+<li><p><strong>四大特征(抽象、封装、继承和多态)</strong></p>
+<ul>
+<li><p>抽象</p>
+<ul>
+<li>把一类事物的共有的属性和行为提取出来，形成一个物理模型(模板)<strong>。</strong></li>
+</ul>
 </li>
+<li><p>封装</p>
+<ul>
+<li>把抽象出的数据和对数据的操作封装在一起，数据被保护在内部，程序的其他部分只有通过被授权的操作(成员方法)才能对数据进行操作。</li>
+<li>为什么需要封装？<ul>
+<li>隐藏对象内部的复杂性，只对外公开简单的接口，便于外界调用，从而提高系统的可扩展性、可维护性。</li>
+<li>高内聚就是类的内部数据操作细节自己完成，不允许外部干涉；低耦合就是尽暴露少量的方法给外部使用。</li>
+</ul>
+</li>
+<li>Java提供四种访问控制修饰符来控制方法和变量的访问权限<ul>
+<li>公开级别：用 public 修饰，对外公开</li>
+<li>受保护级别：用 protected 修饰，对子类和同一个包中的类公开</li>
+<li>默认级别：没有修饰符，向同一个包的类公开（default）</li>
+<li>私有级别：用 private 修饰，只有类本身可以访问，不对外公开</li>
+</ul>
+</li>
+<li>封装要点：类的属性的处理<ul>
+<li>一般使用private（除非本属性确定会让子类继承）</li>
+<li>提供相应的 get/set 方法（通常是public）来访问相关属性，从而提供对属性的读取操作</li>
+</ul>
+</li>
+<li>注意<ul>
+<li>boolean变量的get方法是用is开头！</li>
+<li>一些只用于本类的辅助性方法可以用 private</li>
+<li>希望其他类调用的方法用public</li>
 </ul>
 </li>
 </ul>
-<h3 id="磁盘情况-工作实用指令"><a href="#磁盘情况-工作实用指令" class="headerlink" title="磁盘情况-工作实用指令"></a>磁盘情况-工作实用指令</h3><ul>
-<li><p>统计文件夹下文件的个数</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -l 文件夹 | grep <span class="string">&quot;^-&quot;</span> | wc -l</span><br></pre></td></tr></table></figure></li>
-<li><p>统计文件夹下目录的个数</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -l 文件夹 | grep <span class="string">&quot;^d&quot;</span> | wc -l</span><br></pre></td></tr></table></figure></li>
-<li><p>统计文件夹下文件个数（包含子文件夹里的）</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -lR 文件夹 | grep <span class="string">&quot;^-&quot;</span> | wc -l</span><br></pre></td></tr></table></figure></li>
-<li><p>统计文件夹下目录个数（包含子文件夹里的）</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -lR 文件夹 | grep <span class="string">&quot;^d&quot;</span> | wc -l</span><br></pre></td></tr></table></figure></li>
-<li><p>以树状显示目录结构（<strong>如果没有tree，则使用yum install tree安装</strong>）</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tree 目录</span><br></pre></td></tr></table></figure></li>
+</li>
+<li><p>继承</p>
+<ul>
+<li>可以解决代码复用问题<strong>。</strong></li>
+<li>class 子类 extends 父类，这样子类就会自动拥有父类定义的某些属性和方法</li>
+<li>“is a”关系使用继承</li>
+<li>“has a”关系使用组合</li>
+<li>注意<ul>
+<li>父类的 private 修饰符的属性和方法不能被子类继承</li>
+<li>子类最多只能继承一个父类(指直接继承)</li>
+<li>Java所有类都是Object类的子类</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>多态</p>
+<ul>
+<li><p>指一个引用（类型）在不同情况下的多种状态。通俗点说，多态就是指通过指向父类的指针来调用在不同子类中实现的方法（这些方法是子类覆盖父类的方法）</p>
+</li>
+<li><p>继承是多态得以实现的基础</p>
+</li>
+<li><p>注意</p>
+<ul>
+<li>Java允许父类的引用变量引用它的子类的对象，如</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Animal an = <span class="keyword">new</span> Cat();</span><br></pre></td></tr></table></figure>
+<ul>
+<li>多态的存在要有3个必要条件：继承、方法重写、父类引用指向子类对象</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>包</strong></p>
+<ul>
+<li>三大作用<ul>
+<li>区分相同名字的类</li>
+<li>当类很多时，可以很好的管理类</li>
+<li>控制访问范围</li>
+</ul>
+</li>
+<li>打包命令（一般放在文件开始的地方）</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> 包名;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>命名规范：小写字母，如</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">com.gxnu.slyer</span><br></pre></td></tr></table></figure>
+<ul>
+<li>常用的包<ul>
+<li>java.lang.*（自动引入）</li>
+<li>java.util.*（工具包）</li>
+<li>java.net.*（网络开发包）</li>
+<li>java.awt.*（窗口工具包）</li>
+</ul>
+</li>
+<li>引入包语法</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> 包名;</span><br><span class="line"></span><br><span class="line"><span class="comment">//例如</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.awt.*;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>引包的主要目的是要使用该包下的类</li>
+</ul>
+</li>
+<li><p><strong>方法重载(overload)</strong></p>
+<ul>
+<li>类的同一种功能的多种实现方式(方法名一样)，到底采用哪种方式取决于调用者给出的参数</li>
+<li>注意<ul>
+<li>方法名相同</li>
+<li>方法的参数类型、个数、顺序至少有一项不同</li>
+<li>方法的返回类型可以不同</li>
+<li>方法的修饰符可以不同</li>
+<li>如果只是方法的返回类型或修饰符不同，不构成重载</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>方法覆盖(重写) (override)</strong></p>
+<ul>
+<li>子类的有些方法与父类不一样，因此要将父类的方法覆盖。简单来说，就是子类有个方法和父类的某个方法的名称、返回类型、参数一样，我们就说子类的这个方法覆盖了父类的那个方法</li>
+<li>注意<ul>
+<li>子类的方法返回类型、参数、方法名要和父类的完全一样</li>
+<li>子类方法不能缩小父类方法的访问权限</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Java面向对象编程-3"><a href="#Java面向对象编程-3" class="headerlink" title="Java面向对象编程(3)"></a><strong>Java面向对象编程(3)</strong></h3><ul>
+<li><p><strong>抽象类</strong></p>
+<ul>
+<li><p>当父类的一些方法不确定时，可以用abstract关键字来修饰该方法（抽象方法）或该类（抽象类）</p>
+</li>
+<li><p>注意</p>
+<ul>
+<li>当一个类继承的父类是抽象类的话，则需要我们把抽象类中的所有抽象方法全部实现</li>
+<li>抽象类不能被实例化，即不能用new来实例化抽象类</li>
+<li>抽象类不一定要包含abstract方法，即抽象类可以没有abstract方法</li>
+<li>抽象类中可以有实现了的方法（非抽象方法）</li>
+<li>一旦类包含了abstract方法，则这个类必须声明为abstract</li>
+<li>抽象方法不能有主体，如</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">fun</span><span class="params">()</span></span>&#123;&#125;; <span class="comment">// 这个大括号&#123;&#125;不能有</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>抽象类可以包含属性、方法、构造方法，但是构造方法不能用来new对象，只能被子类调用</li>
+<li>抽象类只能被用来继承</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>接口（interface）</strong></p>
+<ul>
+<li>将一些没有内容的方法封装到一起，当某个类要使用的时候再根据具体情况把这些方法实现出来。</li>
+<li>语法</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> 类名 <span class="keyword">implements</span> 接口</span>&#123;</span><br><span class="line"></span><br><span class="line">方法;</span><br><span class="line"></span><br><span class="line">变量;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>接口是更加抽象的抽象类，抽象类里的方法可以有方法体，接口里的所有方法都没有方法体。</p>
+</li>
+<li><p>接口体现了程序设计的多态和“高内聚低耦合”的设计思想</p>
+</li>
+<li><p>接口中的变量本质上都是static的，而且是final类型的，不管加不加static修饰</p>
+</li>
+<li><p>注意</p>
+<ul>
+<li>当一个类实现了一个接口，就要求该类把这个接口的所有方法全部实现。</li>
+<li>接口不能被实例化</li>
+<li>接口中所有的方法都不能有主体</li>
+<li>一个类可以实现多个接口</li>
+<li>接口中可以有变量，但变量不能用private和protected修饰</li>
+<li>一个接口不能继承其他的类，但是可以继承别的接口</li>
+</ul>
+</li>
+<li><p>在Java开发中，我们把经常用的变量定义在接口中，作为全局变量使用。</p>
+<ul>
+<li>访问形式</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">接口名.变量名</span><br></pre></td></tr></table></figure></li>
+<li><p>Java的继承是单继承，也就是一个类最多只能有一个父类。实现接口可以看作是对继承的一种补充，可在不打破继承关系的前提下对某个类功能扩展，非常灵活</p>
+</li>
+</ul>
+</li>
+<li><p><strong>final</strong></p>
+<ul>
+<li>可以修饰变量和方法。给方法用 final 修饰，则表示不可被修改、覆盖。</li>
+<li>以下几种情况可用final修饰<ul>
+<li>当不希望父类的某个方法被子类覆盖(override)时</li>
+<li>当不希望类的某个变量的值被修改时</li>
+<li>当不希望类被继承时</li>
+<li>注意<ul>
+<li>如果一个变量是final，则必须赋初值，并且以后不能再赋值</li>
+<li>final修饰的变量又叫常量，用xx_xx_xx来命名</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>前期绑定</strong></p>
+<ul>
+<li>在程序运行之前进行绑定，由编译器和连接程序实现，又叫静态绑定。比如 static 和 final 方法</li>
+</ul>
+</li>
+<li><p><strong>后期绑定</strong></p>
+<ul>
+<li>在程序运行时根据对象的类型进行绑定，由方法调用机制实现，又叫动态绑定。</li>
+</ul>
+</li>
+</ul>
+<h3 id="Java面向对象编程-4"><a href="#Java面向对象编程-4" class="headerlink" title="Java面向对象编程(4)"></a><strong>Java面向对象编程(4)</strong></h3><ul>
+<li><p><strong>一维数组</strong></p>
+<ul>
+<li>可以存放多个同一类型的数据</li>
+<li>定义</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">数据类型 数组名[] = <span class="keyword">new</span> 数据类型[大小];</span><br><span class="line"></span><br><span class="line">如 <span class="keyword">int</span> a[] = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">5</span>];</span><br></pre></td></tr></table></figure>
+<ul>
+<li>数组引用</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">数组名[下标];</span><br><span class="line"></span><br><span class="line">如：a[<span class="number">2</span>];</span><br></pre></td></tr></table></figure>
+<ul>
+<li>初始化数组</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">数组类型 数组名[] = &#123;元素值,元素值,...&#125;;</span><br><span class="line"></span><br><span class="line">如：<span class="keyword">int</span> a[] = &#123;<span class="number">2</span>,<span class="number">4</span>,<span class="number">6</span>,<span class="number">8</span>,<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">7</span>&#125;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>注意<ul>
+<li>简单数据类型（int, float..）数组，可直接赋值</li>
+<li>对象数组在定义后，赋值时需要再次为每个对象分配空间（即：new 对象）</li>
+<li>数组大小必须事先指定（数组的缺陷）</li>
+<li>数组名可以理解为指向数组首地址的引用</li>
+<li>数组的下标是从0开始编号的</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>排序</strong></p>
+<ul>
+<li>排序就是把一组记录（元素）按照某个域值的递增或递减的次序重新排列的过程</li>
+<li>内部排序<ul>
+<li>将需要处理的所有数据都加载到内部存储器中进行排序，包括交换排序、选择排序和插入排序</li>
+</ul>
+</li>
+<li>外部排序<ul>
+<li>数据量过大无法全部加载到内存中，需借助外部存储进行排序，包括合并排序和直接合并排序</li>
+</ul>
+</li>
+<li>几种内部排序方法<ul>
+<li>交换排序：<ul>
+<li>冒泡排序(Bubble Sort)</li>
+<li>快速排序(Quick Sort)</li>
+</ul>
+</li>
+<li>选择排序：<ul>
+<li>简单选择排序(Simple Selection Sort)</li>
+<li>堆排序(Heap Sort)</li>
+</ul>
+</li>
+<li>插入排序：<ul>
+<li>简单插入排序(Simple Insertion Sort)</li>
+<li>希尔排序(Shell Sort)</li>
+<li>二叉树排序(Binary-tree Sort)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>查找</strong></p>
+<ul>
+<li>顺序查找</li>
+<li>二分查找(Binarysearch)</li>
+</ul>
+</li>
+<li><p><strong>多维数组</strong>（二维数组）</p>
+<ul>
+<li>语法</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">类型 数组名[][] = <span class="keyword">new</span> 类型[大小][大小];</span><br><span class="line"></span><br><span class="line">比如：<span class="keyword">int</span> arr[][] = <span class="keyword">new</span> <span class="keyword">int</span> [<span class="number">2</span>][<span class="number">3</span>];</span><br></pre></td></tr></table></figure></li>
 </ul>
 
       
@@ -846,7 +937,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8BLinux%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA%E3%80%81%E6%8C%82%E8%BD%BD/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/11/15/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%B9%8B%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%9F%BA%E7%A1%80/">展开全文 >></a>
         </p>
       
 
@@ -876,127 +967,137 @@
 
 
   
-    <article id="post-Linux基础篇之Linux目录结构" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Java基础知识之编程基础" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/02/20/Linux%E5%9F%BA%E7%A1%80%E7%AF%87%E4%B9%8BLinux%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84/">Linux基础篇之Linux目录结构</a>
+      <a class="article-title" href="/2019/10/21/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%B9%8B%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/">Java基础知识之编程基础</a>
     </h1>
   
 
         
-        <a href="/2021/02/20/Linux%E5%9F%BA%E7%A1%80%E7%AF%87%E4%B9%8BLinux%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84/" class="archive-article-date">
-  	<time datetime="2021-02-19T21:18:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-20</time>
+        <a href="/2019/10/21/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%B9%8B%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/" class="archive-article-date">
+  	<time datetime="2019-10-21T07:08:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-21</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="基本介绍"><a href="#基本介绍" class="headerlink" title="基本介绍"></a>基本介绍</h3><ul>
-<li>Linux的文件系统是采用层级式的树状目录结构，在此结构中的最上层是根目录“/”，然后在此目录下再创建其他的目录。在Linux世界里，一切皆文件</li>
+        <h3 id="Java编程基础（1）"><a href="#Java编程基础（1）" class="headerlink" title="Java编程基础（1）"></a><strong>Java编程基础（1）</strong></h3><ul>
+<li>二进制（原码、反码、补码）</li>
+<li>位运算</li>
+<li>移位运算符</li>
 </ul>
-<h3 id="结构图"><a href="#结构图" class="headerlink" title="结构图"></a>结构图</h3><p><img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/Linux%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84/Linux%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84.png" alt="Linux目录结构"></p>
-<h3 id="目录结构具体介绍"><a href="#目录结构具体介绍" class="headerlink" title="目录结构具体介绍"></a>目录结构具体介绍</h3><table>
-<thead>
-<tr>
-<th align="center">目录</th>
-<th align="center">含义</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">/</td>
-<td align="center">根目录</td>
-</tr>
-<tr>
-<td align="center">/root</td>
-<td align="center">存放系统管理员（也称超级权限者）相关文件的主目录</td>
-</tr>
-<tr>
-<td align="center">/home</td>
-<td align="center">存放普通用户相关文件的主目录，在Linux中每个用户都有一个自己的目录，一般该目录名是以用户的账号命名</td>
-</tr>
-<tr>
-<td align="center">/bin（/usr/bin、/usr/local/bin）</td>
-<td align="center">Binary的缩写，存放经常使用的命令，如vi, su</td>
-</tr>
-<tr>
-<td align="center">/sbin（/usr/sbin、/usr/local/sbin）</td>
-<td align="center">s就是Super User的意思，<strong>这里存放的是系统管理员使用的命令</strong></td>
-</tr>
-<tr>
-<td align="center">/lib</td>
-<td align="center">系统开机所需要最基本的==动态连接共享库==，其作用类似于windows里的DLL文件。几乎所有的应用程序都需要用到这些共享库</td>
-</tr>
-<tr>
-<td align="center">/lost+found</td>
-<td align="center">这个目录一般情况下是空的，当系统非法关机后，这里就存放了一些文件</td>
-</tr>
-<tr>
-<td align="center">/mnt</td>
-<td align="center">默认挂载光驱和软驱的目录</td>
-</tr>
-<tr>
-<td align="center">/etc</td>
-<td align="center">存放所有系统管理所需的==配置文件和子目录==，比如安装mysql数据库 my.conf</td>
-</tr>
-<tr>
-<td align="center">/var</td>
-<td align="center">存放经常变化，不断扩充的文件，习惯将经常修改的目录放在这个目录下，如网络连接的sock文件、日志</td>
-</tr>
-<tr>
-<td align="center">/boot</td>
-<td align="center">存放的是启动Linux时使用的一些核心文件，包括一些连接文件以及镜像文件</td>
-</tr>
-<tr>
-<td align="center">/usr</td>
-<td align="center">安装一个软件的默认目录，类似于windows下的program files</td>
-</tr>
-<tr>
-<td align="center">/proc</td>
-<td align="center">这个目录是一个虚拟的目录，它是系统==内存的映射==，访问这个目录来获取系统的信息</td>
-</tr>
-<tr>
-<td align="center">/srv</td>
-<td align="center">service的缩写，该目录存放一些服务启动之后需要提取的数据</td>
-</tr>
-<tr>
-<td align="center">/sys</td>
-<td align="center">这是Linux2.6内核的一个很大的变化，该目录下安装了2.6内核中新出现的一个文件系统</td>
-</tr>
-<tr>
-<td align="center">/tmp</td>
-<td align="center">这个目录是用来存放一些临时文件的</td>
-</tr>
-<tr>
-<td align="center">/dev</td>
-<td align="center">类似于windows的==设备管理器==，把所有的硬件用文件的形式存储</td>
-</tr>
-<tr>
-<td align="center">/media</td>
-<td align="center">Linux系统会自动识别一些设备，例如U盘、光驱等等，当识别后Linux会把识别的设备挂载到这个目录下</td>
-</tr>
-<tr>
-<td align="center">/opt</td>
-<td align="center">这是给主机额外安装软件所存放的目录，如安装oracle数据库就可放在该目录下，默认为空</td>
-</tr>
-<tr>
-<td align="center">/usr/local</td>
-<td align="center">这是另一个给主机额外安装软件所存放的目录，一般是通过编译源码方式安装的程序</td>
-</tr>
-<tr>
-<td align="center">/selinux</td>
-<td align="center">selinux是一种==安全子系统==，它能控制程序只能访问特定文件；有三种工作模式，可自行设置</td>
-</tr>
-</tbody></table>
-<h3 id="Linux目录总结"><a href="#Linux目录总结" class="headerlink" title="Linux目录总结"></a>Linux目录总结</h3><ul>
-<li>有且只有一个根目录/</li>
-<li>各个目录存放的内容是规划好的，不要乱放文件</li>
-<li>Linux是以文件的形式管理我们的设备，因此<strong>Linux一切皆文件</strong></li>
-<li>脑海里应该有一棵Linux的目录树</li>
+<p><strong>二进制</strong></p>
+<p>是逢2进位的进位制，0和1是基本算符</p>
+<p>对于有符号的数而言：</p>
+<ul>
+<li>二进制的最高位是符号位，0表示正数，1表示负数</li>
+<li>正数的原码、反码、补码都一样</li>
+<li>负数的反码 = 它的原码符号位不变，其它位取反</li>
+<li>负数的补码 = 它的反码 + 1</li>
+<li>0的反码、补码都是0</li>
+<li>Java中没有无符号数</li>
+<li>计算机中都是以补码的方式来运算的</li>
+</ul>
+<p><strong>位运算</strong></p>
+<ul>
+<li>按位与 &amp;：两位全为1，结果为1</li>
+<li>按位或 |：两位有一个为1，结果为1</li>
+<li>按位异或 ^：两位一个为0，一个为1，结果为1</li>
+<li>按位取反 ~：0-&gt;1，1-&gt;0</li>
+</ul>
+<p><strong>移位运算符</strong></p>
+<ul>
+<li>算术右移 &gt;&gt;：低位溢出，符号位不变，并用符号位补溢出的高位</li>
+<li>算术左移 &lt;&lt;：符号位不变，低位补0</li>
+<li>逻辑右移 &gt;&gt;&gt;：低位溢出，高位补0</li>
+</ul>
+<p>注意：不管是位运算，还是移位运算，操作数都是以补码形式存在的！</p>
+<h3 id="Java编程基础（2）"><a href="#Java编程基础（2）" class="headerlink" title="Java编程基础（2）"></a><strong>Java编程基础（2）</strong></h3><ul>
+<li>集合框架</li>
+<li>泛型</li>
+<li>异常</li>
+</ul>
+<p><strong>集合框架</strong></p>
+<ul>
+<li>list结构的集合类：ArrayList类、LinkedList类、Vector类、Stack类</li>
+<li>Map结构的集合类：HashMap类、Hashtable类</li>
+<li>Set结构的集合类：HashSet类、TreeSet类</li>
+<li>Queue结构的集合类：Queue接口</li>
+</ul>
+<p><strong>HashMap和Hashtable区别</strong></p>
+<ul>
+<li>都是Java的集合类，都可以用来存放Java对象</li>
+<li>Hashtable是基于陈旧的Dictionary类的，HashMap是Java1.2引进的Map接口的一个实现</li>
+<li>Hashtable是同步的。这个类中的一些方法保证了Hashtable中的对象是线程安全的。而HashMap是异步的，因此HashMap中的对象并不是线程安全的。因为同步的要求会影响执行的效率，所以如果你不需要线程安全的集合，那么选择HashMap是一个很好的选择，这样可以避免由于同步带来的不必要的性能开销，从而提高效率。</li>
+<li>HashMap可以让你将空值作为一个表的条目的key或value，但是Hashtable是不能放入空值的（null）</li>
+</ul>
+<p><strong>ArrayList和Vector的区别</strong></p>
+<ul>
+<li>Vector是同步的，ArrayList是异步的，Vector是线程安全的，但ArrayList相对效率较高</li>
+<li>从内部实现机制来讲ArrayList和Vector都是使用数组（Array）来控制集合中的对象。当你向这两种类型中增加元素的时候，如果元素的数目超出了内部数组目前的长度，他们都需要扩展内部数组的长度，Vector缺省情况下自动增长原来一倍的数组长度，ArrayList是原来的50%。所以如果要在集合中保存大量的数据那么使用Vector有一些优势，因为你可以通过设置集合的初始化大小来避免不必要的资源开销。</li>
+</ul>
+<p>总结：</p>
+<ul>
+<li>如果要求线程安全，使用Vector、Hashtable</li>
+<li>如果不要求线程安全，使用ArrayList、LinkedList、HashMap</li>
+<li>如果要求键值对，则使用HashMap、Hashtable</li>
+<li>如果数据量很大，又要线程安全考虑用Vector</li>
+</ul>
+<p><strong>泛型</strong> – 其本质是参数化类型，即所操作的数据类型被指定为一个参数，这种参数类型可以用在类、接口和方法的创建中，分别称为泛型类、泛型接口、泛型方法。</p>
+<p>Java语言中引入泛型的好处是安全简单。在JavaSE1.5之前，通过对类型Object的引用来实现参数的“任意化”，这所带来的缺点是要做显示的强制类型转换，而这种转换是要求开发者对实际参数类型可以预知的情况下进行的。对于强制类型转换错误的情况，编译器可能不提示错误，在运行的时候才出现异常，这是一个安全隐患。泛型的好处是在编译的时候检查类型安全，并且所有的强制转换都是自动和隐式的，提高代码重用率。</p>
+<p>泛型的优点</p>
+<ul>
+<li>类型安全</li>
+<li>向后兼容</li>
+<li>层次清晰</li>
+<li>性能较高 – 用GJ（泛型Java）编写的代码可以为Java编译器和虚拟机带来更多的类型信息，这些信息对Java程序做进一步优化提供条件</li>
+</ul>
+<p><strong>异常</strong> – 当程序出现无法控制的外部环境问题（用户提供的文件不存在、文件内容损坏、网络不可用…）时，Java就会用异常对象来描述</p>
+<p>两种处理异常的方法：</p>
+<ul>
+<li>在发生异常的地方直接处理</li>
+<li>将异常抛给调用者，让调用者处理</li>
+</ul>
+<p>异常分类</p>
+<ul>
+<li>检查性异常 – java.lang.Exception<ul>
+<li>程序正确，但因为外部的环境条件不满足引发，如用户错误及I/O问题。Java编译器强制要求处理这类异常，如果不捕获这类异常，程序将不能被编译</li>
+</ul>
+</li>
+<li>运行期异常 – java.lang.RuntimeException<ul>
+<li>这意味着程序存在Bug，如数组越界、0被除、入参不满足规范…这类异常需要更改程序来避免，Java编译器强制要求处理这类异常</li>
+</ul>
+</li>
+<li>错误 – java.lang.Error<ul>
+<li>一般很少见，也很难通过程序解决。他可能源于程序的Bug，但一般更可能源于环境问题，如内存耗尽。错误在程序中无需处理，而由运行环境处理</li>
+</ul>
+</li>
+</ul>
+<p>顶层是java.lang.Throwable类，java.lang.Exception和java.lang.Error继承自java.lang.Throwable，而java.lang.RuntimeException继承自java.lang.Exception</p>
+<p><strong>异常处理</strong></p>
+<ul>
+<li>try…catch<ul>
+<li>程序运行产生异常时，将从异常发生点中断程序并向外抛出异常信息</li>
+</ul>
+</li>
+<li>finally<ul>
+<li>如果把finally块置于try..catch语句后，finally块一般都会得到执行，即使前面的try块发生异常而又没有对应异常的catch块，finally块将马上执行</li>
+</ul>
+</li>
+<li>抛出异常给调用者处理 throws Exception</li>
+</ul>
+<p>以下情形finally块将不会执行</p>
+<ul>
+<li>finally块中发生了异常</li>
+<li>程序所有线程死亡</li>
+<li>在前面的代码中用了System.exit()</li>
+<li>关闭CPU</li>
 </ul>
 
       
@@ -1010,7 +1111,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/02/20/Linux%E5%9F%BA%E7%A1%80%E7%AF%87%E4%B9%8BLinux%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/10/21/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%B9%8B%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/">展开全文 >></a>
         </p>
       
 

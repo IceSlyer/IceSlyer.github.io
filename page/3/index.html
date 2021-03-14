@@ -142,777 +142,6 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-Linux之python定制篇之APT软件管理和远程登录" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/02/21/Linux%E4%B9%8Bpython%E5%AE%9A%E5%88%B6%E7%AF%87%E4%B9%8BAPT%E8%BD%AF%E4%BB%B6%E7%AE%A1%E7%90%86%E5%92%8C%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/">Linux之python定制篇之APT软件管理和远程登录</a>
-    </h1>
-  
-
-        
-        <a href="/2021/02/21/Linux%E4%B9%8Bpython%E5%AE%9A%E5%88%B6%E7%AF%87%E4%B9%8BAPT%E8%BD%AF%E4%BB%B6%E7%AE%A1%E7%90%86%E5%92%8C%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/" class="archive-article-date">
-  	<time datetime="2021-02-20T21:02:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="apt介绍"><a href="#apt介绍" class="headerlink" title="apt介绍"></a>apt介绍</h3><ul>
-<li>apt是Advanced Packaging Tool的简称，是一款<strong>安装包管理工具</strong>。在Ubuntu下，我们可以使用apt命令进行软件包的安装、删除、清理等，类似于Windows中的软件管理工具</li>
-<li>apt原理<img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/APT%E8%BD%AF%E4%BB%B6%E7%AE%A1%E7%90%86%E5%92%8C%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/APT%E8%BD%AF%E4%BB%B6%E7%AE%A1%E7%90%86%E5%8E%9F%E7%90%86.png" alt="APT软件管理原理"></li>
-</ul>
-<h3 id="Ubuntu软件操作的相关命令"><a href="#Ubuntu软件操作的相关命令" class="headerlink" title="Ubuntu软件操作的相关命令"></a>Ubuntu软件操作的相关命令</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 更新源</span></span><br><span class="line">sudo apt-get update</span><br><span class="line"><span class="comment"># 安装包</span></span><br><span class="line">sudo apt-get install package</span><br><span class="line"><span class="comment"># 删除包</span></span><br><span class="line">sudo apt-get remove package</span><br><span class="line"><span class="comment"># 搜索软件包</span></span><br><span class="line">sudo apt-cache search package</span><br><span class="line"><span class="comment"># 获取包的相关信息，如说明、大小、版本等</span></span><br><span class="line">sudo apt-cache show package</span><br><span class="line"><span class="comment"># 重新安装包</span></span><br><span class="line">sudo apt-get install package --reinstall</span><br><span class="line"><span class="comment"># 修复安装</span></span><br><span class="line">sudo apt-get -f install</span><br><span class="line"><span class="comment"># 删除包（包含配置文件等）</span></span><br><span class="line">sudo apt-get remove package --purge</span><br><span class="line"><span class="comment"># 安装相关的编译环境</span></span><br><span class="line">sudo apt-get build-dep package</span><br><span class="line"><span class="comment"># 更新已安装的包</span></span><br><span class="line">sudo apt-get upgrade</span><br><span class="line"><span class="comment"># 升级系统</span></span><br><span class="line">sudo apt-get dist-upgrade</span><br><span class="line"><span class="comment"># 了解使用该包依赖哪些包</span></span><br><span class="line">sudo apt-cache depends package</span><br><span class="line"><span class="comment"># 查看该包被哪些包依赖</span></span><br><span class="line">sudo apt-cache rdepends package</span><br><span class="line"><span class="comment"># 下载该包的源代码</span></span><br><span class="line">sudo apt-get <span class="built_in">source</span> package</span><br></pre></td></tr></table></figure>
-<h3 id="更新Ubuntu软件下载源"><a href="#更新Ubuntu软件下载源" class="headerlink" title="更新Ubuntu软件下载源"></a>更新Ubuntu软件下载源</h3><ul>
-<li><p>寻找国内镜像源：<a target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/![%E6%B8%85%E5%8D%8E%E9%95%9C%E5%83%8F%E7%BD%91%E7%AB%99](https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/APT%E8%BD%AF%E4%BB%B6%E7%AE%A1%E7%90%86%E5%92%8C%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/%E6%B8%85%E5%8D%8E%E9%95%9C%E5%83%8F%E7%BD%91%E7%AB%99.png)">https://mirrors.tuna.tsinghua.edu.cn/![清华镜像网站](https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/APT%E8%BD%AF%E4%BB%B6%E7%AE%A1%E7%90%86%E5%92%8C%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/%E6%B8%85%E5%8D%8E%E9%95%9C%E5%83%8F%E7%BD%91%E7%AB%99.png)</a></p>
-<p><img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/APT%E8%BD%AF%E4%BB%B6%E7%AE%A1%E7%90%86%E5%92%8C%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/Ubuntu%E9%95%9C%E5%83%8F%E4%BD%BF%E7%94%A8%E5%B8%AE%E5%8A%A9.png" alt="Ubuntu镜像使用帮助"></p>
-</li>
-<li><p>备份Ubuntu默认的源地址</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak</span><br></pre></td></tr></table></figure></li>
-<li><p>更新源服务器列表</p>
-<ul>
-<li><p>先清空sources.list文件</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;&#x27;</span> &gt; sources.list</span><br></pre></td></tr></table></figure></li>
-<li><p>复制镜像网站的地址拷贝到sources.list文件</p>
-<p><img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/APT%E8%BD%AF%E4%BB%B6%E7%AE%A1%E7%90%86%E5%92%8C%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/%E5%A4%8D%E5%88%B6%E9%95%9C%E5%83%8F%E7%BD%91%E7%AB%99%E5%9C%B0%E5%9D%80.png" alt="复制镜像网站地址"></p>
-<p><img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/APT%E8%BD%AF%E4%BB%B6%E7%AE%A1%E7%90%86%E5%92%8C%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/%E6%8B%B7%E8%B4%9D%E5%88%B0sources.list%E6%96%87%E4%BB%B6.png" alt="拷贝到sources.list文件"></p>
-</li>
-</ul>
-</li>
-<li><p>更新源</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure>
-<h3 id="远程登录Ubuntu"><a href="#远程登录Ubuntu" class="headerlink" title="远程登录Ubuntu"></a>远程登录Ubuntu</h3></li>
-<li><p>ssh介绍</p>
-<ul>
-<li>SSH为Secure Shell的缩写，由IETF的网络工作小组（Network Working Group）所制定；SSH为建立在应用层和传输层基础上的安全协议。SSH是目前较可靠，专为<strong>远程登录会话和其他网络服务</strong>提供安全性的协议，几乎所有UNIX/Linux平台都可以运行SSH</li>
-<li>使用SSH服务需要安装相应的服务器和客户端。如果A机器想被B机器远程控制，那么A机器需要安装SSH服务器，B机器需要安装SSH客户端</li>
-<li>和CentOS不一样，Ubuntu默认没有安装SSHD服务（<strong>使用netstat指令查看：apt install net-tools</strong>），因此我们不能远程登录</li>
-</ul>
-</li>
-<li><p>安装SSH和启用</p>
-<ul>
-<li><p>在当前这台Linux上就安装SSH服务端和客户端</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install openssh-server</span><br></pre></td></tr></table></figure></li>
-<li><p>启动sshd服务，会监听端口22</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service sshd restart</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li><p>从一台Linux系统登录到另一台Linux系统（在创建服务器集群时会使用该技术）</p>
-<ul>
-<li><p>基本语法</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ssh 用户名@IP</span><br><span class="line"><span class="comment"># 例如</span></span><br><span class="line">ssh slyer@192.168.200.128</span><br></pre></td></tr></table></figure></li>
-<li><p>登出：exit或logout</p>
-</li>
-</ul>
-</li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/02/21/Linux%E4%B9%8Bpython%E5%AE%9A%E5%88%B6%E7%AF%87%E4%B9%8BAPT%E8%BD%AF%E4%BB%B6%E7%AE%A1%E7%90%86%E5%92%8C%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Linux之JavaEE定制篇之搭建JavaEE环境" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/02/21/Linux%E4%B9%8BJavaEE%E5%AE%9A%E5%88%B6%E7%AF%87%E4%B9%8B%E6%90%AD%E5%BB%BAJavaEE%E7%8E%AF%E5%A2%83/">Linux之JavaEE定制篇之搭建JavaEE环境</a>
-    </h1>
-  
-
-        
-        <a href="/2021/02/21/Linux%E4%B9%8BJavaEE%E5%AE%9A%E5%88%B6%E7%AF%87%E4%B9%8B%E6%90%AD%E5%BB%BAJavaEE%E7%8E%AF%E5%A2%83/" class="archive-article-date">
-  	<time datetime="2021-02-20T21:01:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><ul>
-<li>如果需要在Linux下进行JavaEE的开发，我们需要安装如下软件<ul>
-<li>jdk</li>
-<li>tomcat</li>
-<li>idea</li>
-<li>mysql</li>
-<li>centos</li>
-</ul>
-</li>
-</ul>
-<h3 id="安装JDK"><a href="#安装JDK" class="headerlink" title="安装JDK"></a>安装JDK</h3><ul>
-<li><p>步骤</p>
-<ul>
-<li><p>创建jdk文件夹</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir /opt/jdk</span><br></pre></td></tr></table></figure></li>
-<li><p>将jdk安装包通过xftp6上传到 /opt/jdk 下</p>
-</li>
-<li><p>进入到jdk目录下</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /opt/jdk</span><br></pre></td></tr></table></figure></li>
-<li><p>解压jdk安装包</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf jdk-xxx.tar.gz</span><br></pre></td></tr></table></figure></li>
-<li><p>创建jdk家目录</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir /usr/<span class="built_in">local</span>/java</span><br></pre></td></tr></table></figure></li>
-<li><p>将解压后的jdk移动到jdk家目录</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv /opt/jdk/jdk1.8.0_xxx /usr/<span class="built_in">local</span>/java</span><br></pre></td></tr></table></figure></li>
-<li><p>打开配置文件</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/profile</span><br></pre></td></tr></table></figure></li>
-<li><p>添加环境变量</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> JAVA_HOME=/usr/<span class="built_in">local</span>/java/jdk1.8.0_xxx</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$JAVA_HOME</span>/bin:<span class="variable">$PATH</span></span><br></pre></td></tr></table></figure></li>
-<li><p>使配置生效</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> /etc/profile</span><br></pre></td></tr></table></figure>
-<h3 id="安装tomcat"><a href="#安装tomcat" class="headerlink" title="安装tomcat"></a>安装tomcat</h3></li>
-</ul>
-</li>
-<li><p>步骤</p>
-<ul>
-<li><p>上传安装文件，并解压缩到/opt/tomcat</p>
-</li>
-<li><p>进入解压目录/bin</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /opt/tomcat/apache-tomcat-xxx/bin</span><br></pre></td></tr></table></figure></li>
-<li><p>启动tomcat</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./startup.sh</span><br></pre></td></tr></table></figure></li>
-<li><p>开放8080端口</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --permanent --add-port=8080/tcp</span><br><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li><p>测试是否安装成功</p>
-<ul>
-<li>在Windows、Linux下访问http://[linuxip]:8080<img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E6%90%AD%E5%BB%BAJavaEE%E7%8E%AF%E5%A2%83/tomcat%E5%AE%89%E8%A3%85.png" alt="tomcat安装"></li>
-</ul>
-</li>
-</ul>
-<h3 id="安装idea2020（非重点）"><a href="#安装idea2020（非重点）" class="headerlink" title="安装idea2020（非重点）"></a>安装idea2020（非重点）</h3><ul>
-<li><p>步骤</p>
-<ul>
-<li><p>下载地址：<a target="_blank" rel="noopener" href="https://www.jetbrains.com/idea/download/#section=windows![%E4%B8%8B%E8%BD%BDidea](https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E6%90%AD%E5%BB%BAJavaEE%E7%8E%AF%E5%A2%83/%E4%B8%8B%E8%BD%BDidea.png)">https://www.jetbrains.com/idea/download/#section=windows![下载idea](https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E6%90%AD%E5%BB%BAJavaEE%E7%8E%AF%E5%A2%83/%E4%B8%8B%E8%BD%BDidea.png)</a></p>
-</li>
-<li><p>解压缩到/opt/idea</p>
-</li>
-<li><p>启动idea</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /opt/idea/idea-IU-xxx/bin</span><br><span class="line">./idea.sh</span><br></pre></td></tr></table></figure></li>
-<li><p>配置jdk</p>
-</li>
-<li><p>编写Hello world程序并测试<img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E6%90%AD%E5%BB%BAJavaEE%E7%8E%AF%E5%A2%83/idea%E6%B5%8B%E8%AF%95.png" alt="idea测试"></p>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="安装mysql5-7（重点）"><a href="#安装mysql5-7（重点）" class="headerlink" title="安装mysql5.7（重点）"></a>安装mysql5.7（重点）</h3><ul>
-<li><p>步骤</p>
-<ul>
-<li><p>创建mysql目录，cd进去</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir /opt/mysql</span><br><span class="line"><span class="built_in">cd</span> /opt/mysql/</span><br></pre></td></tr></table></figure></li>
-<li><p>用wget命令下载mysql</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget http://dev.mysql.com/get/mysql-5.7.26-1.el7.x86_64.rpm-bundle.tar</span><br></pre></td></tr></table></figure></li>
-<li><p>解压mysql安装包</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -xvf mysql-5.7.26-xxx.tar</span><br></pre></td></tr></table></figure></li>
-<li><p>运行 rpm -qa | grep mari，查询mariadb相关安装包<img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E6%90%AD%E5%BB%BAJavaEE%E7%8E%AF%E5%A2%83/mariadb%E6%95%B0%E6%8D%AE%E5%BA%93.png" alt="mariadb数据库"></p>
-</li>
-<li><p>卸载marisa</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># CentOS7.6自带的类mysql数据库是mariadb，会跟mysql冲突，要先删除</span></span><br><span class="line">rpm -e --nodeps mariadb-libs</span><br><span class="line">rpm -e --nodeps marisa</span><br></pre></td></tr></table></figure></li>
-<li><p>然后开始真正安装mysql，依次运行以下几条</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh mysql-community-common-5.7.26-1.el7.x86_64.rpm</span><br><span class="line">rpm -ivh mysql-community-libs-5.7.26-1.el7.x86_64.rpm</span><br><span class="line">rpm -ivh mysql-community-client-5.7.26-1.el7.x86_64.rpm</span><br><span class="line">rpm -ivh mysql-community-server-5.7.26-1.el7.x86_64.rpm</span><br></pre></td></tr></table></figure></li>
-<li><p>启动mysql</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl start mysqld.service</span><br></pre></td></tr></table></figure></li>
-<li><p>然后开始设置root用户密码</p>
-<ul>
-<li>mysql会自动给root用户设置随机密码，运行 grep “password” /var/log/mysqld.log 可看到当前密码<img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E6%90%AD%E5%BB%BAJavaEE%E7%8E%AF%E5%A2%83/mysql%E4%B8%B4%E6%97%B6%E5%AF%86%E7%A0%81.png" alt="mysql临时密码"></li>
-</ul>
-</li>
-<li><p>用root用户登录，提示输入密码可用上述的，可成功进入mysql命令行</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p</span><br></pre></td></tr></table></figure></li>
-<li><p>对于个人开发环境，如果要设置比较简单的密码（<strong>生产环境服务器要设置复杂密码</strong>），可以运行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 提示密码设置策略（validate_password_policy默认值为1）</span><br><span class="line">set global validate_password_policy&#x3D;0;</span><br></pre></td></tr></table></figure></li>
-<li><p>设置root密码</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set password for &#39;root&#39;@&#39;localhost&#39;&#x3D;password(&#39;slyer001&#39;);</span><br></pre></td></tr></table></figure></li>
-<li><p>使密码设置生效</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flush privileges;</span><br></pre></td></tr></table></figure></li>
-<li><p>quit退出mysql</p>
-</li>
-</ul>
-</li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/02/21/Linux%E4%B9%8BJavaEE%E5%AE%9A%E5%88%B6%E7%AF%87%E4%B9%8B%E6%90%AD%E5%BB%BAJavaEE%E7%8E%AF%E5%A2%83/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Linux实操篇之组管理和权限管理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E7%BB%84%E7%AE%A1%E7%90%86%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/">Linux实操篇之组管理和权限管理</a>
-    </h1>
-  
-
-        
-        <a href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E7%BB%84%E7%AE%A1%E7%90%86%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" class="archive-article-date">
-  	<time datetime="2021-02-20T20:59:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="Linux组基本介绍"><a href="#Linux组基本介绍" class="headerlink" title="Linux组基本介绍"></a>Linux组基本介绍</h3><ul>
-<li>在Linux中的每个用户必须属于一个组，不能独立于组外</li>
-<li>在Linux中每个文件有<strong>所有者、所在组、其他组</strong>的概念</li>
-</ul>
-<h3 id="文件-目录-所有者"><a href="#文件-目录-所有者" class="headerlink" title="文件/目录 所有者"></a>文件/目录 所有者</h3><ul>
-<li><p>一般谁创建了该文件或目录，就自然成为该文件的所有者</p>
-</li>
-<li><p>查看文件/目录的所有者</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -ahl</span><br></pre></td></tr></table></figure></li>
-<li><p>修改文件/目录所有者</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chown 用户名 文件/目录名</span><br></pre></td></tr></table></figure>
-<h3 id="文件-目录-所在组"><a href="#文件-目录-所在组" class="headerlink" title="文件/目录 所在组"></a>文件/目录 所在组</h3></li>
-<li><p>当某个用户创建了一个文件后，这个文件所在组就是该用户所在的组</p>
-</li>
-<li><p>查看文件/目录所在组</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -ahl</span><br></pre></td></tr></table></figure></li>
-<li><p>修改文件/目录所在组</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chgrp 组名 文件/目录名</span><br></pre></td></tr></table></figure>
-<h3 id="其他组"><a href="#其他组" class="headerlink" title="其他组"></a>其他组</h3></li>
-<li><p>除文件的<strong>所有者和所在组</strong>的用户外，系统的其他用户都是文件的其他组</p>
-</li>
-</ul>
-<h3 id="改变用户所在组"><a href="#改变用户所在组" class="headerlink" title="改变用户所在组"></a>改变用户所在组</h3><ul>
-<li><p>在添加用户时，可以指定将该用户添加到哪个组中；同样地，用root的管理权限可以改变某个用户所在的组</p>
-</li>
-<li><p>相关指令</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">usermod -g 新组名 用户名 <span class="comment"># 改变用户所在组</span></span><br><span class="line">usermod -d 目录名 用户名 <span class="comment"># 改变用户登录的初始目录（用户需要有进入新目录权限）</span></span><br></pre></td></tr></table></figure>
-<h3 id="权限的基本介绍"><a href="#权限的基本介绍" class="headerlink" title="权限的基本介绍"></a>权限的基本介绍</h3></li>
-<li><p>假如ls -l显示内容如下<img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/%E7%BB%84%E7%AE%A1%E7%90%86%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/%E6%9D%83%E9%99%90%E4%BB%8B%E7%BB%8D.png" alt="权限介绍"></p>
-<ul>
-<li><p>第0位确定文件的类型（d，-，l，c，b）</p>
-<table>
-<thead>
-<tr>
-<th align="center">符号</th>
-<th align="center">意义</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">-</td>
-<td align="center">文件</td>
-</tr>
-<tr>
-<td align="center">l</td>
-<td align="center">链接，相当于windows的快捷方式</td>
-</tr>
-<tr>
-<td align="center">d</td>
-<td align="center">目录，相当于windows的文件夹</td>
-</tr>
-<tr>
-<td align="center">c</td>
-<td align="center">字符设备文件，鼠标、键盘</td>
-</tr>
-<tr>
-<td align="center">b</td>
-<td align="center">块设备，比如硬盘</td>
-</tr>
-</tbody></table>
-</li>
-<li><p>第1-3位确定所有者（该文件的所有者）拥有该文件的权限 — <strong>User</strong></p>
-</li>
-<li><p>第4-6位确定所属组（同用户组）拥有该文件的权限 — <strong>Group</strong></p>
-</li>
-<li><p>第7-9位确定其他用户拥有该文件的权限 — <strong>Other</strong></p>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="rwx权限详解"><a href="#rwx权限详解" class="headerlink" title="rwx权限详解"></a>rwx权限详解</h3><h5 id="rwx作用到文件"><a href="#rwx作用到文件" class="headerlink" title="rwx作用到文件"></a>rwx作用到文件</h5><table>
-<thead>
-<tr>
-<th align="center">符号</th>
-<th align="center">意义</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">r</td>
-<td align="center">可读(read)：可以读取，查看文件</td>
-</tr>
-<tr>
-<td align="center">w</td>
-<td align="center">可写(write)：可以修改，但是不代表可以删除该文件</td>
-</tr>
-<tr>
-<td align="center">x</td>
-<td align="center">可执行(execute)：文件可以被执行</td>
-</tr>
-</tbody></table>
-<h5 id="注意：删除一个文件的前提条件是对该文件所在的目录有写权限"><a href="#注意：删除一个文件的前提条件是对该文件所在的目录有写权限" class="headerlink" title="注意：删除一个文件的前提条件是对该文件所在的目录有写权限"></a>注意：删除一个文件的前提条件是对该文件所在的目录有写权限</h5><h5 id="rwx作用到目录"><a href="#rwx作用到目录" class="headerlink" title="rwx作用到目录"></a>rwx作用到目录</h5><table>
-<thead>
-<tr>
-<th align="center">符号</th>
-<th align="center">意义</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">r</td>
-<td align="center">可以读取、查看目录内容</td>
-</tr>
-<tr>
-<td align="center">w</td>
-<td align="center">可以在目录内创建、删除文件，可以重命名目录</td>
-</tr>
-<tr>
-<td align="center">x</td>
-<td align="center">可以进入该目录</td>
-</tr>
-</tbody></table>
-<h5 id="其他说明"><a href="#其他说明" class="headerlink" title="其他说明"></a>其他说明</h5><ul>
-<li><p>rwx分别可用数字表示位r=4,w=2,x=1，因此</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rwx=4+2+1=7</span><br><span class="line">rw-=4+2=6</span><br></pre></td></tr></table></figure>
-<h3 id="修改权限chmod"><a href="#修改权限chmod" class="headerlink" title="修改权限chmod"></a>修改权限chmod</h3></li>
-<li><p>通过chmod指令，可以修改文件或目录的权限</p>
-</li>
-<li><p>第一种方式：+、-、=变更权限（u：所有者，g：所在组，o：其他组，a：所有人）</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">chmod u=rwx,g=rx,o=x 文件/目录名</span><br><span class="line">chmod o+w 文件/目录名</span><br><span class="line">chmod a-x 文件/目录名</span><br></pre></td></tr></table></figure></li>
-<li><p>第二种方式：通过数字变更权限（r=4，w=2，x=1）</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">chmod u=rwx,g=rx,o=x 文件/目录名</span><br><span class="line"><span class="comment"># 等价于</span></span><br><span class="line">chmod 751 文件/目录名</span><br></pre></td></tr></table></figure>
-<h3 id="修改所有者chown"><a href="#修改所有者chown" class="headerlink" title="修改所有者chown"></a>修改所有者chown</h3></li>
-<li><p>改变所有者</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chown [选项] newowner 文件/目录</span><br></pre></td></tr></table></figure></li>
-<li><p>改变所有者和所在组</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chown [选项] newowner:newgroup 文件/目录</span><br></pre></td></tr></table></figure></li>
-<li><p>选项说明</p>
-<table>
-<thead>
-<tr>
-<th align="center">选项</th>
-<th align="center">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">-R</td>
-<td align="center">如果是目录，则使其下所有子文件或目录递归生效</td>
-</tr>
-</tbody></table>
-</li>
-</ul>
-<h3 id="修改所在组chgrp"><a href="#修改所在组chgrp" class="headerlink" title="修改所在组chgrp"></a>修改所在组chgrp</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chgrp [-R] newgroup 文件/目录 <span class="comment"># 修改所在组</span></span><br></pre></td></tr></table></figure>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E7%BB%84%E7%AE%A1%E7%90%86%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Linux实操篇之远程登录到Linux服务器" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95%E5%88%B0Linux%E6%9C%8D%E5%8A%A1%E5%99%A8/">Linux实操篇之远程登录到Linux服务器</a>
-    </h1>
-  
-
-        
-        <a href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95%E5%88%B0Linux%E6%9C%8D%E5%8A%A1%E5%99%A8/" class="archive-article-date">
-  	<time datetime="2021-02-20T20:59:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="为什么需要远程登陆Linux？"><a href="#为什么需要远程登陆Linux？" class="headerlink" title="为什么需要远程登陆Linux？"></a>为什么需要远程登陆Linux？</h3><ul>
-<li>Linux服务器是开发小组共享的</li>
-<li>正式上线的项目运行在<strong>公网</strong>，因此程序员需要远程登陆到Linux进行项目管理或开发</li>
-<li>ss远程登陆客户端有Xshell，Xftp6</li>
-</ul>
-<h3 id="远程登陆Linux-Xshell6"><a href="#远程登陆Linux-Xshell6" class="headerlink" title="远程登陆Linux - Xshell6"></a>远程登陆Linux - Xshell6</h3><ul>
-<li>Xshell是一个强大的安全终端模拟软件，它支持SSH1、SSH2以及Windows平台的TELNET协议</li>
-<li>Xshell可以在Windows界面下用来访问远端不同系统下的服务器，从而较好的达到远程控制终端的目的</li>
-</ul>
-<h3 id="远程上传下载文件-Xftp6"><a href="#远程上传下载文件-Xftp6" class="headerlink" title="远程上传下载文件 - Xftp6"></a>远程上传下载文件 - Xftp6</h3><ul>
-<li>Xftp是一个基于Windows功能强大的SFTP、FTP文件传输软件</li>
-<li>Xftp能安全地在Windows和UNIX/Linux之间传输文件</li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95%E5%88%B0Linux%E6%9C%8D%E5%8A%A1%E5%99%A8/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Linux实操篇之用户管理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/">Linux实操篇之用户管理</a>
-    </h1>
-  
-
-        
-        <a href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" class="archive-article-date">
-  	<time datetime="2021-02-20T20:58:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="基本介绍"><a href="#基本介绍" class="headerlink" title="基本介绍"></a>基本介绍</h3><p>Linux系统是一个多用户多任务的操作系统，任何一个要使用系统资源的用户，都必须首先向系统管理员申请一个账号，然后以这个账号的身份进入系统</p>
-<h3 id="添加用户"><a href="#添加用户" class="headerlink" title="添加用户"></a>添加用户</h3><ul>
-<li><p>基本语法</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">useradd 用户名</span><br></pre></td></tr></table></figure></li>
-<li><p>细节说明</p>
-<ul>
-<li><p>当创建用户成功后，会自动创建和用户名同名的家目录</p>
-</li>
-<li><p>也可以通过一下指令给新创建的用户指定家目录</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">useradd -d 指定目录 新的用户名</span><br></pre></td></tr></table></figure>
-<h3 id="指定-修改密码"><a href="#指定-修改密码" class="headerlink" title="指定/修改密码"></a>指定/修改密码</h3></li>
-</ul>
-</li>
-<li><p>基本语法</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">passwd 用户名</span><br></pre></td></tr></table></figure>
-<h3 id="删除用户"><a href="#删除用户" class="headerlink" title="删除用户"></a>删除用户</h3></li>
-<li><p>基本语法</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">userdel 用户名 <span class="comment"># 删除用户但保留用户主目录</span></span><br><span class="line">userdel -r 用户名 <span class="comment"># 删除用户以及用户主目录</span></span><br></pre></td></tr></table></figure></li>
-<li><p>细节说明</p>
-<ul>
-<li>是否保留用户主目录？一般情况建议保留</li>
-</ul>
-</li>
-</ul>
-<h3 id="查询用户信息"><a href="#查询用户信息" class="headerlink" title="查询用户信息"></a>查询用户信息</h3><ul>
-<li><p>基本语法</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id 用户名</span><br></pre></td></tr></table></figure></li>
-<li><p>细节说明</p>
-<ul>
-<li>当用户不存在时，返回无此用户</li>
-</ul>
-</li>
-</ul>
-<h3 id="切换用户"><a href="#切换用户" class="headerlink" title="切换用户"></a>切换用户</h3><ul>
-<li><p>在Linux中，如果当前用户的权限不够，可以通过 su - 指令切换到高权限用户，比如root</p>
-</li>
-<li><p>基本语法</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">su - 切换用户名</span><br></pre></td></tr></table></figure></li>
-<li><p>细节说明</p>
-<ul>
-<li>从权限高的用户切换到权限低的用户，不需要输入密码，反之需要</li>
-<li>当需要返回到原来用户时，使用exit/logout指令</li>
-</ul>
-</li>
-</ul>
-<h3 id="查看当前用户信息"><a href="#查看当前用户信息" class="headerlink" title="查看当前用户信息"></a>查看当前用户信息</h3><ul>
-<li><p>基本语法</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">whoami</span><br><span class="line"><span class="comment"># or</span></span><br><span class="line">who am i</span><br></pre></td></tr></table></figure>
-<h3 id="用户组"><a href="#用户组" class="headerlink" title="用户组"></a>用户组</h3></li>
-<li><p>介绍</p>
-<ul>
-<li>类似于角色，系统可以对有共性的多个用户进行统一的管理</li>
-</ul>
-</li>
-<li><p>新增组</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">groupadd 组名</span><br></pre></td></tr></table></figure></li>
-<li><p>删除组</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">groupdel 组名</span><br></pre></td></tr></table></figure></li>
-<li><p>增加用户时直接加上组</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">useradd -g 用户组 用户名</span><br></pre></td></tr></table></figure></li>
-<li><p>修改用户的组</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">usermod -g 用户组 用户名</span><br></pre></td></tr></table></figure>
-<h3 id="用户和组相关的文件"><a href="#用户和组相关的文件" class="headerlink" title="用户和组相关的文件"></a>用户和组相关的文件</h3></li>
-<li><p>/etc/passwd文件</p>
-<ul>
-<li><p>用户（user）的配置文件，记录用户的各种信息</p>
-</li>
-<li><p>每行含义</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">用户名:口令:用户标识号:组标识号:注释性描述:主目录:登录Shell</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li><p>/etc/shadow 文件</p>
-<ul>
-<li><p>口令的配置文件</p>
-</li>
-<li><p>每行含义</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">登录名:加密口令:最后一次修改时间:最小时间间隔:最大时间间隔:警告时间:不活动时间:失效时间:标志</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li><p>/etc/group文件</p>
-<ul>
-<li><p>组（group）的配置文件，记录Linux包含的组的信息</p>
-</li>
-<li><p>每行含义</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">组名:口令:组标识号:组内用户列表</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Linux实操篇之用户登录和注销" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E7%94%A8%E6%88%B7%E7%99%BB%E5%BD%95%E5%92%8C%E6%B3%A8%E9%94%80/">Linux实操篇之用户登录和注销</a>
-    </h1>
-  
-
-        
-        <a href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E7%94%A8%E6%88%B7%E7%99%BB%E5%BD%95%E5%92%8C%E6%B3%A8%E9%94%80/" class="archive-article-date">
-  	<time datetime="2021-02-20T20:57:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="基本介绍"><a href="#基本介绍" class="headerlink" title="基本介绍"></a>基本介绍</h3><ul>
-<li>登录时尽量少用root账号登陆，因为它是系统管理员，权限最大，避免操作失误，可以用普通用户登录，登陆后再用”su -用户名”命令来切换成系统管理员</li>
-<li>在提示符下输入logout即可注销用户</li>
-</ul>
-<h3 id="使用细节"><a href="#使用细节" class="headerlink" title="使用细节"></a>使用细节</h3><ul>
-<li>logout注销指令在图形界面运行级别无效，在运行级别3有效</li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E7%94%A8%E6%88%B7%E7%99%BB%E5%BD%95%E5%92%8C%E6%B3%A8%E9%94%80/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
     <article id="post-Linux实操篇之网络配置" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -920,13 +149,13 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/">Linux实操篇之网络配置</a>
+      <a class="article-title" href="/2020/03/14/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/">Linux实操篇之网络配置</a>
     </h1>
   
 
         
-        <a href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/" class="archive-article-date">
-  	<time datetime="2021-02-20T20:56:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-21</time>
+        <a href="/2020/03/14/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/" class="archive-article-date">
+  	<time datetime="2020-03-14T06:56:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-14</time>
 </a>
         
       </header>
@@ -1008,7 +237,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/03/14/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/">展开全文 >></a>
         </p>
       
 
@@ -1045,13 +274,13 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E5%AE%9E%E7%94%A8%E6%8C%87%E4%BB%A4/">Linux实操篇之实用指令</a>
+      <a class="article-title" href="/2020/03/13/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E5%AE%9E%E7%94%A8%E6%8C%87%E4%BB%A4/">Linux实操篇之实用指令</a>
     </h1>
   
 
         
-        <a href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E5%AE%9E%E7%94%A8%E6%8C%87%E4%BB%A4/" class="archive-article-date">
-  	<time datetime="2021-02-20T20:56:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-21</time>
+        <a href="/2020/03/13/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E5%AE%9E%E7%94%A8%E6%8C%87%E4%BB%A4/" class="archive-article-date">
+  	<time datetime="2020-03-13T02:56:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-13</time>
 </a>
         
       </header>
@@ -1578,7 +807,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E5%AE%9E%E7%94%A8%E6%8C%87%E4%BB%A4/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/03/13/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E5%AE%9E%E7%94%A8%E6%8C%87%E4%BB%A4/">展开全文 >></a>
         </p>
       
 
@@ -1615,13 +844,13 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/">Linux实操篇之进程管理</a>
+      <a class="article-title" href="/2020/03/11/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/">Linux实操篇之进程管理</a>
     </h1>
   
 
         
-        <a href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" class="archive-article-date">
-  	<time datetime="2021-02-20T20:55:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-21</time>
+        <a href="/2020/03/11/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" class="archive-article-date">
+  	<time datetime="2020-03-11T06:55:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-11</time>
 </a>
         
       </header>
@@ -1983,7 +1212,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/03/11/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/">展开全文 >></a>
         </p>
       
 
@@ -2020,13 +1249,13 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E5%85%B3%E6%9C%BA-%E9%87%8D%E5%90%AF%E5%91%BD%E4%BB%A4/">Linux实操篇之关机&amp;重启命令</a>
+      <a class="article-title" href="/2020/03/08/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E5%85%B3%E6%9C%BA-%E9%87%8D%E5%90%AF%E5%91%BD%E4%BB%A4/">Linux实操篇之关机&amp;重启命令</a>
     </h1>
   
 
         
-        <a href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E5%85%B3%E6%9C%BA-%E9%87%8D%E5%90%AF%E5%91%BD%E4%BB%A4/" class="archive-article-date">
-  	<time datetime="2021-02-20T20:54:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-21</time>
+        <a href="/2020/03/08/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E5%85%B3%E6%9C%BA-%E9%87%8D%E5%90%AF%E5%91%BD%E4%BB%A4/" class="archive-article-date">
+  	<time datetime="2020-03-07T23:54:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-08</time>
 </a>
         
       </header>
@@ -2081,7 +1310,1032 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E5%85%B3%E6%9C%BA-%E9%87%8D%E5%90%AF%E5%91%BD%E4%BB%A4/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/03/08/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E5%85%B3%E6%9C%BA-%E9%87%8D%E5%90%AF%E5%91%BD%E4%BB%A4/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Linux实操篇之定时任务调度" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/05/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6/">Linux实操篇之定时任务调度</a>
+    </h1>
+  
+
+        
+        <a href="/2020/03/05/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6/" class="archive-article-date">
+  	<time datetime="2020-03-05T01:53:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-05</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="crond-任务调度"><a href="#crond-任务调度" class="headerlink" title="crond 任务调度"></a>crond 任务调度</h3><ul>
+<li><p>通过crontab指令进行定时任务的设置</p>
+</li>
+<li><p>概述</p>
+<ul>
+<li><p>任务调度是指系统在<strong>某个时间</strong>执行的<strong>特定的命令</strong>或程序</p>
+</li>
+<li><p>任务调度分类：</p>
+<table>
+<thead>
+<tr>
+<th align="center">类别</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">系统工作</td>
+<td align="center">有些重要的工作必须周而复始地执行，如病毒扫描等</td>
+</tr>
+<tr>
+<td align="center">个别用户工作</td>
+<td align="center">个别用户可能希望执行某些程序，比如对MySQL数据库的备份</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+</li>
+<li><p>基本语法</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crontab [选项]</span><br></pre></td></tr></table></figure></li>
+<li><p>常用选项</p>
+<table>
+<thead>
+<tr>
+<th align="center">选项</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-e</td>
+<td align="center">编辑crontab定时任务</td>
+</tr>
+<tr>
+<td align="center">-l</td>
+<td align="center">查询crontab任务</td>
+</tr>
+<tr>
+<td align="center">-r</td>
+<td align="center">删除当前用户所有的crontab任务</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>重启任务调度</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service crond restart</span><br></pre></td></tr></table></figure></li>
+<li><p>快速入门</p>
+<ul>
+<li><p>设置任务调度文件</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/crontab</span><br></pre></td></tr></table></figure></li>
+<li><p>设置个人任务调度，执行crontab -e 命令，接着输入任务到调度文件</p>
+<ul>
+<li>例如：*/1 * * * * ls -l /etc/ &gt; /tmp/to.txt，意思是每小时的每分钟执行此命令</li>
+</ul>
+</li>
+<li><p>参数细节说明</p>
+<table>
+<thead>
+<tr>
+<th align="center">参数</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">第一个”*”</td>
+<td align="center">一小时当中的第几分钟，范围0-59</td>
+</tr>
+<tr>
+<td align="center">第二个”*”</td>
+<td align="center">一天中的第几小时，范围0-23</td>
+</tr>
+<tr>
+<td align="center">第三个”*”</td>
+<td align="center">一个月中的第几天，范围1-31</td>
+</tr>
+<tr>
+<td align="center">第四个”*”</td>
+<td align="center">一年中的第几月，范围1-12</td>
+</tr>
+<tr>
+<td align="center">第五个”*”</td>
+<td align="center">一周当中的星期几，范围0-7（<strong>0和7都代表星期日</strong>）</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>特殊符号说明</p>
+<table>
+<thead>
+<tr>
+<th align="center">符号</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">*</td>
+<td align="center">代表<strong>任何时间</strong>；例如第一个 “*” 就代表一小时中每分钟都执行一次的意思</td>
+</tr>
+<tr>
+<td align="center">,</td>
+<td align="center">代表不连续的时间；例如”0 8,12,16 * * * 命令”，代表在每天的8点0分，12点0分，16点0分都执行一次命令</td>
+</tr>
+<tr>
+<td align="center">-</td>
+<td align="center">代表连续的时间范围；例如”0 5 * * 1-6 命令”，代表在周一到周六的凌晨5点0分执行命令</td>
+</tr>
+<tr>
+<td align="center">*/n</td>
+<td align="center">代表每隔多久执行一次；例如”*/10 * * * * 命令”，代表每隔10分钟就执行一次命令</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="at定时任务"><a href="#at定时任务" class="headerlink" title="at定时任务"></a>at定时任务</h3><ul>
+<li><p>基本介绍</p>
+<ul>
+<li><p>at命令是<strong>一次性</strong>定时计划任务，执行完一个任务后不再执行此任务了</p>
+</li>
+<li><p>at的守护进程atd会以后台模式运行，检查作业队列来运行</p>
+</li>
+<li><p>默认情况下，atd守护进程每60秒检查作业队列，有作业时，会检查作业运行时间，如果时间与当前时间匹配，则运行此作业</p>
+</li>
+<li><p>在使用at命令的时候，<strong>一定要保证atd进程的启动</strong>，可以使用以下指令来查看</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -ef | grep atd</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>命令格式</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">at [选项] [时间] <span class="comment"># Ctrl+D（2次）结束at命令的输入</span></span><br></pre></td></tr></table></figure></li>
+<li><p>命令选项</p>
+<table>
+<thead>
+<tr>
+<th align="center">选项</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-m</td>
+<td align="center">当指定的任务被完成后，将给用户发送邮件，即使没有标准输出</td>
+</tr>
+<tr>
+<td align="center">-l</td>
+<td align="center">atq的别名，查询任务</td>
+</tr>
+<tr>
+<td align="center">-d</td>
+<td align="center">atrm的别名，删除任务</td>
+</tr>
+<tr>
+<td align="center">-v</td>
+<td align="center">显示任务将被执行的时间</td>
+</tr>
+<tr>
+<td align="center">-c</td>
+<td align="center">打印任务的内容到标准输出</td>
+</tr>
+<tr>
+<td align="center">-V</td>
+<td align="center">显示版本信息</td>
+</tr>
+<tr>
+<td align="center">-q &lt;队列&gt;</td>
+<td align="center">使用指定的队列</td>
+</tr>
+<tr>
+<td align="center">-f &lt;文件&gt;</td>
+<td align="center">从指定文件读入任务而不是从标准输入读入</td>
+</tr>
+<tr>
+<td align="center">-t &lt;时间参数&gt;</td>
+<td align="center">以时间参数的形式提交要运行的任务</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>时间定义</p>
+<ul>
+<li>接受在当天的hh:mm（小时:分钟）式的时间指定。<strong>假如该时间已过去，那就会在第二天执行</strong></li>
+<li>使用midnight（深夜），noon（中午），teatime（饮茶时间，一般下午4点）等比较模糊的词语来指定时间</li>
+<li>采用12小时计时制，即在时间后面加上AM（上午）或PM（下午）来说明是上午还是下午。</li>
+<li>指定命令执行的具体日期，指定格式为month day或mm/dd/yy或dd.mm.yy，指定的日期必须跟在指定时间的后面。例如：04:00 2021-03-1</li>
+<li>使用相对计时法。指定格式为：now + count time-units，now就是当前时间，time-units是时间单位，这里能够是minutes（分钟）、hours（小时）、days（天）、weeks（星期）。count是时间的数量（几小时，几天或几分钟）。例如：now +5 minutes</li>
+<li>直接使用today（今天）、tomorrow（明天）来指定完成命令的时间</li>
+</ul>
+</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/03/05/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8B%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Linux实操篇之Vi和Vim编辑器" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/02/27/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8BVi%E5%92%8CVim%E7%BC%96%E8%BE%91%E5%99%A8/">Linux实操篇之Vi和Vim编辑器</a>
+    </h1>
+  
+
+        
+        <a href="/2020/02/27/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8BVi%E5%92%8CVim%E7%BC%96%E8%BE%91%E5%99%A8/" class="archive-article-date">
+  	<time datetime="2020-02-27T06:52:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Vi和Vim的基本介绍"><a href="#Vi和Vim的基本介绍" class="headerlink" title="Vi和Vim的基本介绍"></a>Vi和Vim的基本介绍</h3><ul>
+<li>Linux系统会内置Vi文本编辑器</li>
+<li>Vim具有程序编辑的能力，可看作是Vi的增强版本，可以主动的以字体颜色辨别语法的正确性，方便程序设计。代码补全、编译及错误跳转等方便编程的功能特别丰富，在程序员中被广泛使用</li>
+</ul>
+<h3 id="Vi和Vim常用的三种模式"><a href="#Vi和Vim常用的三种模式" class="headerlink" title="Vi和Vim常用的三种模式"></a>Vi和Vim常用的三种模式</h3><ul>
+<li>正常模式<ul>
+<li>以Vim打开一个文档就直接进入一般模式了（这是默认模式）。在这个模式中，你可以使用【上下左右】按键来移动光标，可以使用【删除字符】或【删除整行】来处理文档内容，也可以使用【复制、粘贴】来处理你的文件数据</li>
+</ul>
+</li>
+<li>插入模式<ul>
+<li>按下i，I，o，O，a，A，r，R等任何一个字母之后才会进入编辑（插入）模式，一般来说按i即可</li>
+</ul>
+</li>
+<li>命令行模式<ul>
+<li>输入Esc，再输入:就可以进入命令行模式，在这个模式中，可以提供你相关指令，完成读取、存盘、替换、离开Vim、显示行号等的动作则是在此模式中达成的</li>
+</ul>
+</li>
+</ul>
+<h3 id="各种模式的相互切换"><a href="#各种模式的相互切换" class="headerlink" title="各种模式的相互切换"></a>各种模式的相互切换</h3><p><img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/Vi%E5%92%8CVim%E7%BC%96%E8%BE%91%E5%99%A8/%E5%90%84%E7%A7%8D%E6%A8%A1%E5%BC%8F.png" alt="各种模式"></p>
+<h3 id="常用快捷键"><a href="#常用快捷键" class="headerlink" title="常用快捷键"></a>常用快捷键</h3><table>
+<thead>
+<tr>
+<th align="center">快捷键</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">yy</td>
+<td align="center">拷贝当前行</td>
+</tr>
+<tr>
+<td align="center">5yy</td>
+<td align="center">拷贝当前行向下的5行</td>
+</tr>
+<tr>
+<td align="center">p</td>
+<td align="center">粘贴</td>
+</tr>
+<tr>
+<td align="center">dd</td>
+<td align="center">删除当前行</td>
+</tr>
+<tr>
+<td align="center">5dd</td>
+<td align="center">删除当前行向下的5行</td>
+</tr>
+<tr>
+<td align="center">/关键字【命令行下】</td>
+<td align="center">在文件中查找某个单词（回车查找，输入 n 查找下一个）</td>
+</tr>
+<tr>
+<td align="center">:set nu / :set nonu【命令行下】</td>
+<td align="center">设置文件的行号 / 取消文件的行号</td>
+</tr>
+<tr>
+<td align="center">G / gg</td>
+<td align="center">到文档最末行 / 最首行</td>
+</tr>
+<tr>
+<td align="center">u</td>
+<td align="center">撤销输入的内容</td>
+</tr>
+</tbody></table>
+<p><img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/Vi%E5%92%8CVim%E7%BC%96%E8%BE%91%E5%99%A8/vi-vim%E9%94%AE%E7%9B%98%E5%9B%BE.png" alt="vi-vim键盘图"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/02/27/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8BVi%E5%92%8CVim%E7%BC%96%E8%BE%91%E5%99%A8/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Linux实操篇之RPM与YUM" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/02/25/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8BRPM%E4%B8%8EYUM/">Linux实操篇之RPM与YUM</a>
+    </h1>
+  
+
+        
+        <a href="/2020/02/25/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8BRPM%E4%B8%8EYUM/" class="archive-article-date">
+  	<time datetime="2020-02-25T00:48:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-25</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="rpm"><a href="#rpm" class="headerlink" title="rpm"></a>rpm</h3><ul>
+<li><p>rpm用于互联网下载包的打包及安装工具，它包含在某些Linux分发版中。它生成具有.RPM扩展名的文件。RPM是<strong>RedHat Package Manager</strong>的缩写，类似Windows的setup.exe，这一文件格式名称虽然打上了RedHat的标志，但理念是通用的。Linux的很多分发版本（suse，redhat，centos等等）都有采用，可以算是公认的行业标准了</p>
+</li>
+<li><p>rpm包名基本格式</p>
+<ul>
+<li>一个rpm包名：firefox-60.2.2-1.el7.centos.x86_64</li>
+<li>名称：firefox</li>
+<li>版本号：60.2.2-1</li>
+<li>适用操作系统：el7.centos.x86_64，表示centos7.x的64位系统；如果是i686、i386表示32位系统，noarch表示通用</li>
+</ul>
+</li>
+<li><p>rpm包的查询指令</p>
+<ul>
+<li><p>查询已安装的所有rpm软件包</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rpm -qa</span><br><span class="line">rpm -qa | more</span><br><span class="line">rpm -qa | grep xxx</span><br></pre></td></tr></table></figure></li>
+<li><p>查询软件包是否安装</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -q 软件包名</span><br></pre></td></tr></table></figure></li>
+<li><p>查询软件包信息</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -qi 软件包名</span><br></pre></td></tr></table></figure></li>
+<li><p>查询软件包中的文件</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -ql 软件包名</span><br></pre></td></tr></table></figure></li>
+<li><p>查询文件所属的软件包</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">rpm -qf 文件全路径名</span><br><span class="line"></span><br><span class="line"><span class="comment"># 例如</span></span><br><span class="line">rpm -qf /etc/passwd</span><br><span class="line">rpm -qf /root/install.log</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>卸载rpm包</p>
+<ul>
+<li><p>基本语法</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rpm -e RPM包的名称</span><br><span class="line"><span class="comment"># 例如</span></span><br><span class="line">rpm -e firefox</span><br></pre></td></tr></table></figure></li>
+<li><p>细节说明</p>
+<ul>
+<li>如果其他软件包依赖于您要卸载的软件包，卸载时则会产生错误信息</li>
+<li>如果我们就是要删除这个rpm包，可以增加参数 –nodeps，就可以强制删除，但一般不推荐这样做，因为依赖于该软件包的程序可能无法运行</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>安装rpm包</p>
+<ul>
+<li><p>基本语法</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh RPM包全路径名称</span><br></pre></td></tr></table></figure></li>
+<li><p>参数说明</p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-i</td>
+<td>install（安装）</td>
+</tr>
+<tr>
+<td>-v</td>
+<td>verbose（提示）</td>
+</tr>
+<tr>
+<td>-h</td>
+<td>hash（进度条）</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="yum"><a href="#yum" class="headerlink" title="yum"></a>yum</h3><ul>
+<li><p>yum是一个Shell前端软件包管理器。基于rpm包管理，能够<strong>从指定的服务器自动下载RPM包</strong>并且安装，可以自动处理依赖关系，并且一次安装所有依赖的软件包</p>
+</li>
+<li><p>yum基本指令</p>
+<ul>
+<li><p>查询yum服务器是否有需要安装的软件</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum list | grep xxx</span><br></pre></td></tr></table></figure></li>
+<li><p>下载安装指定的yum包</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install xxx</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/02/25/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8BRPM%E4%B8%8EYUM/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Linux实操篇之Linux磁盘分区、挂载" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8BLinux%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA%E3%80%81%E6%8C%82%E8%BD%BD/">Linux实操篇之Linux磁盘分区、挂载</a>
+    </h1>
+  
+
+        
+        <a href="/2020/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8BLinux%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA%E3%80%81%E6%8C%82%E8%BD%BD/" class="archive-article-date">
+  	<time datetime="2020-02-21T05:35:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Linux分区"><a href="#Linux分区" class="headerlink" title="Linux分区"></a>Linux分区</h3><ul>
+<li><p>原理介绍</p>
+<ul>
+<li>Linux来说无论有几个分区，分给哪一个目录使用，它归根结底就<strong>只有一个根目录</strong>，一个独立且唯一的文件结构，Linux中的每个分区都是用来组成整个文件系统的一部分</li>
+<li>Linux采用了一种叫”载入”的处理方法，它的整个文件系统中包含了一整套的文件和目录，且将<strong>一个分区和一个目录</strong>联系起来，这时要载入的一个分区将使它的存储空间在一个目录下获得</li>
+</ul>
+</li>
+<li><p>查看所有设备挂载情况</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsblk 或 lsblk -f</span><br></pre></td></tr></table></figure></li>
+<li><p>硬盘说明</p>
+<ul>
+<li>Linux硬盘分IDE硬盘和SCSI硬盘，<strong>目前基本上是SCSI硬盘</strong></li>
+<li>对于IDE硬盘，驱动器标识符为“hdx~”，其中“hd”表明分区所在设备的类型，这里指IDE盘。“x”为盘号（<strong>a为基本盘</strong>，<strong>b为基本从属盘</strong>，c为辅助主盘，d为辅助从属盘），“~”代表分区，前4个分区用数字1-4表示，它们是主分区或扩展分区，从5开始就是逻辑分区。例如，hda3表示为第一个IDE硬盘上的第3个主分区或扩展分区，hdb2表示为第二个IDE硬盘上的第2个主分区或扩展分区</li>
+<li>对于SCSI硬盘则标识为“sdx~”，SCSI硬盘是用“sd”来表示分区所在设备类型的，其余则和IDE硬盘的表示方法一样</li>
+</ul>
+</li>
+</ul>
+<h3 id="挂载的经典案例"><a href="#挂载的经典案例" class="headerlink" title="挂载的经典案例"></a>挂载的经典案例</h3><ul>
+<li><p>说明</p>
+<ul>
+<li>下面我们以增加一块硬盘为例来熟悉下磁盘的相关指令和深入理解<strong>磁盘分区、挂载、卸载</strong>的概念</li>
+</ul>
+</li>
+<li><p>如何增加一块硬盘</p>
+<ul>
+<li>虚拟机添加硬盘</li>
+<li>分区</li>
+<li>格式化</li>
+<li>挂载（临时的）</li>
+<li>设置永久挂载</li>
+</ul>
+</li>
+<li><p>具体步骤</p>
+<ul>
+<li><p>在虚拟机菜单中，选择【设置】，然后设备列表里添加硬盘，然后一路【下一步】，中间只有选择硬盘大小的地方需要修改，直到完成，然后<strong>重启系统（才能识别）</strong></p>
+<p><img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/Linux%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA%E3%80%81%E6%8C%82%E8%BD%BD/%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%B7%BB%E5%8A%A0%E7%A3%81%E7%9B%98.png" alt="虚拟机添加磁盘"></p>
+</li>
+<li><p>分区命令</p>
+<ul>
+<li><p>开始对sdb分区</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fdisk /dev/sdb</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>m</td>
+<td>显示命令列表</td>
+</tr>
+<tr>
+<td>p</td>
+<td>显示磁盘分区（同fdisk -l）</td>
+</tr>
+<tr>
+<td>n</td>
+<td>新增分区</td>
+</tr>
+<tr>
+<td>d</td>
+<td>删除分区</td>
+</tr>
+<tr>
+<td>w</td>
+<td>写入并退出</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>开始分区后输入n，新增分区，然后选择p，分区类型为主分区，两次回车默认剩余全部空间。最后输入w写入分区并退出；若不保存退出输入q</p>
+</li>
+</ul>
+<p><img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/Linux%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA%E3%80%81%E6%8C%82%E8%BD%BD/%E5%88%86%E5%8C%BA.png" alt="分区"></p>
+</li>
+<li><p>挂载</p>
+<ul>
+<li><p>将一个分区与一个目录联系起来</p>
+</li>
+<li><p>mount 设备名称 挂载目录</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mount /dev/sdb1 /newdisk</span><br></pre></td></tr></table></figure></li>
+<li><p>umount 设备名称或者挂载目录，<strong>卸载分区</strong></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">umount /dev/sdb1</span><br><span class="line"><span class="comment"># 或者</span></span><br><span class="line">umount /newdisk</span><br></pre></td></tr></table></figure>
+<p>【注意】：<strong>用命令行挂载重启后会失效</strong></p>
+</li>
+</ul>
+</li>
+<li><p>永久挂载</p>
+<ul>
+<li>通过修改/etc/fstab文件实现</li>
+<li>添加完成后，执行mount -a即刻生效（或者直接重启）</li>
+</ul>
+<p><img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/Linux%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA%E3%80%81%E6%8C%82%E8%BD%BD/%E6%B0%B8%E4%B9%85%E6%8C%82%E8%BD%BD.png" alt="永久挂载"></p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="磁盘情况查询"><a href="#磁盘情况查询" class="headerlink" title="磁盘情况查询"></a>磁盘情况查询</h3><ul>
+<li><p>基本语法</p>
+<ul>
+<li><p>查询系统整体磁盘使用情况</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df -h</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/Linux%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA%E3%80%81%E6%8C%82%E8%BD%BD/%E7%A3%81%E7%9B%98%E4%BD%BF%E7%94%A8%E6%83%85%E5%86%B5.png" alt="磁盘使用情况"></p>
+</li>
+<li><p>查询指定目录的磁盘占用情况，<strong>默认为当前目录</strong></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">du -h 目录</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-s</td>
+<td>指定目录占用大小汇总</td>
+</tr>
+<tr>
+<td>-h</td>
+<td>==带计量单位==</td>
+</tr>
+<tr>
+<td>-a</td>
+<td>含文件</td>
+</tr>
+<tr>
+<td>–max-depth=1</td>
+<td>子目录深度</td>
+</tr>
+<tr>
+<td>-c</td>
+<td>列出明细的同时，增加汇总值</td>
+</tr>
+</tbody></table>
+<p><img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/Linux%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA%E3%80%81%E6%8C%82%E8%BD%BD/%E7%A3%81%E7%9B%98%E5%8D%A0%E7%94%A8%E6%83%85%E5%86%B5.png" alt="磁盘占用情况"></p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="磁盘情况-工作实用指令"><a href="#磁盘情况-工作实用指令" class="headerlink" title="磁盘情况-工作实用指令"></a>磁盘情况-工作实用指令</h3><ul>
+<li><p>统计文件夹下文件的个数</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -l 文件夹 | grep <span class="string">&quot;^-&quot;</span> | wc -l</span><br></pre></td></tr></table></figure></li>
+<li><p>统计文件夹下目录的个数</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -l 文件夹 | grep <span class="string">&quot;^d&quot;</span> | wc -l</span><br></pre></td></tr></table></figure></li>
+<li><p>统计文件夹下文件个数（包含子文件夹里的）</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -lR 文件夹 | grep <span class="string">&quot;^-&quot;</span> | wc -l</span><br></pre></td></tr></table></figure></li>
+<li><p>统计文件夹下目录个数（包含子文件夹里的）</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -lR 文件夹 | grep <span class="string">&quot;^d&quot;</span> | wc -l</span><br></pre></td></tr></table></figure></li>
+<li><p>以树状显示目录结构（<strong>如果没有tree，则使用yum install tree安装</strong>）</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tree 目录</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/02/21/Linux%E5%AE%9E%E6%93%8D%E7%AF%87%E4%B9%8BLinux%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA%E3%80%81%E6%8C%82%E8%BD%BD/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Linux基础篇之Linux目录结构" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/02/18/Linux%E5%9F%BA%E7%A1%80%E7%AF%87%E4%B9%8BLinux%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84/">Linux基础篇之Linux目录结构</a>
+    </h1>
+  
+
+        
+        <a href="/2020/02/18/Linux%E5%9F%BA%E7%A1%80%E7%AF%87%E4%B9%8BLinux%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84/" class="archive-article-date">
+  	<time datetime="2020-02-18T09:18:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="基本介绍"><a href="#基本介绍" class="headerlink" title="基本介绍"></a>基本介绍</h3><ul>
+<li>Linux的文件系统是采用层级式的树状目录结构，在此结构中的最上层是根目录“/”，然后在此目录下再创建其他的目录。在Linux世界里，一切皆文件</li>
+</ul>
+<h3 id="结构图"><a href="#结构图" class="headerlink" title="结构图"></a>结构图</h3><p><img src="https://gitee.com/iceslyer/image/raw/master/img/%E4%B8%80%E5%91%A8%E5%AD%A6%E4%BC%9ALinux/Linux%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84/Linux%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84.png" alt="Linux目录结构"></p>
+<h3 id="目录结构具体介绍"><a href="#目录结构具体介绍" class="headerlink" title="目录结构具体介绍"></a>目录结构具体介绍</h3><table>
+<thead>
+<tr>
+<th align="center">目录</th>
+<th align="center">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">/</td>
+<td align="center">根目录</td>
+</tr>
+<tr>
+<td align="center">/root</td>
+<td align="center">存放系统管理员（也称超级权限者）相关文件的主目录</td>
+</tr>
+<tr>
+<td align="center">/home</td>
+<td align="center">存放普通用户相关文件的主目录，在Linux中每个用户都有一个自己的目录，一般该目录名是以用户的账号命名</td>
+</tr>
+<tr>
+<td align="center">/bin（/usr/bin、/usr/local/bin）</td>
+<td align="center">Binary的缩写，存放经常使用的命令，如vi, su</td>
+</tr>
+<tr>
+<td align="center">/sbin（/usr/sbin、/usr/local/sbin）</td>
+<td align="center">s就是Super User的意思，<strong>这里存放的是系统管理员使用的命令</strong></td>
+</tr>
+<tr>
+<td align="center">/lib</td>
+<td align="center">系统开机所需要最基本的==动态连接共享库==，其作用类似于windows里的DLL文件。几乎所有的应用程序都需要用到这些共享库</td>
+</tr>
+<tr>
+<td align="center">/lost+found</td>
+<td align="center">这个目录一般情况下是空的，当系统非法关机后，这里就存放了一些文件</td>
+</tr>
+<tr>
+<td align="center">/mnt</td>
+<td align="center">默认挂载光驱和软驱的目录</td>
+</tr>
+<tr>
+<td align="center">/etc</td>
+<td align="center">存放所有系统管理所需的==配置文件和子目录==，比如安装mysql数据库 my.conf</td>
+</tr>
+<tr>
+<td align="center">/var</td>
+<td align="center">存放经常变化，不断扩充的文件，习惯将经常修改的目录放在这个目录下，如网络连接的sock文件、日志</td>
+</tr>
+<tr>
+<td align="center">/boot</td>
+<td align="center">存放的是启动Linux时使用的一些核心文件，包括一些连接文件以及镜像文件</td>
+</tr>
+<tr>
+<td align="center">/usr</td>
+<td align="center">安装一个软件的默认目录，类似于windows下的program files</td>
+</tr>
+<tr>
+<td align="center">/proc</td>
+<td align="center">这个目录是一个虚拟的目录，它是系统==内存的映射==，访问这个目录来获取系统的信息</td>
+</tr>
+<tr>
+<td align="center">/srv</td>
+<td align="center">service的缩写，该目录存放一些服务启动之后需要提取的数据</td>
+</tr>
+<tr>
+<td align="center">/sys</td>
+<td align="center">这是Linux2.6内核的一个很大的变化，该目录下安装了2.6内核中新出现的一个文件系统</td>
+</tr>
+<tr>
+<td align="center">/tmp</td>
+<td align="center">这个目录是用来存放一些临时文件的</td>
+</tr>
+<tr>
+<td align="center">/dev</td>
+<td align="center">类似于windows的==设备管理器==，把所有的硬件用文件的形式存储</td>
+</tr>
+<tr>
+<td align="center">/media</td>
+<td align="center">Linux系统会自动识别一些设备，例如U盘、光驱等等，当识别后Linux会把识别的设备挂载到这个目录下</td>
+</tr>
+<tr>
+<td align="center">/opt</td>
+<td align="center">这是给主机额外安装软件所存放的目录，如安装oracle数据库就可放在该目录下，默认为空</td>
+</tr>
+<tr>
+<td align="center">/usr/local</td>
+<td align="center">这是另一个给主机额外安装软件所存放的目录，一般是通过编译源码方式安装的程序</td>
+</tr>
+<tr>
+<td align="center">/selinux</td>
+<td align="center">selinux是一种==安全子系统==，它能控制程序只能访问特定文件；有三种工作模式，可自行设置</td>
+</tr>
+</tbody></table>
+<h3 id="Linux目录总结"><a href="#Linux目录总结" class="headerlink" title="Linux目录总结"></a>Linux目录总结</h3><ul>
+<li>有且只有一个根目录/</li>
+<li>各个目录存放的内容是规划好的，不要乱放文件</li>
+<li>Linux是以文件的形式管理我们的设备，因此<strong>Linux一切皆文件</strong></li>
+<li>脑海里应该有一棵Linux的目录树</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/02/18/Linux%E5%9F%BA%E7%A1%80%E7%AF%87%E4%B9%8BLinux%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Java基础知识之io编程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/12/13/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%B9%8Bio%E7%BC%96%E7%A8%8B/">Java基础知识之io编程</a>
+    </h1>
+  
+
+        
+        <a href="/2019/12/13/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%B9%8Bio%E7%BC%96%E7%A8%8B/" class="archive-article-date">
+  	<time datetime="2019-12-12T19:13:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-13</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h3><ul>
+<li><p>概念</p>
+<ul>
+<li>文件是数据源（保存数据的地方）的一种，比如大家经常使用的word文档，txt文件，excel文件等等。文件最主要的作用就是保存数据，它既可以保存一张图片，也可以保存视频、声音…</li>
+</ul>
+</li>
+<li><p>文件流</p>
+<ul>
+<li><p>文件在程序中是以流的形式来操作的</p>
+<p><img src="https://gitee.com/iceslyer/image/raw/master/img/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/io%E7%BC%96%E7%A8%8B/%E6%96%87%E4%BB%B6%E6%B5%81%E7%A4%BA%E6%84%8F%E5%9B%BE.png" alt="文件流示意图"></p>
+<ul>
+<li>流：数据在数据源（文件）和程序（内存）之间经历的路径</li>
+<li>输入流：数据从数据源到程序的路径</li>
+<li>输出流：数据从程序到数据源的路径</li>
+</ul>
+</li>
+<li><p>Java流分为两种</p>
+<ul>
+<li>字节流：可以用于读写二进制文件及任何类型文件</li>
+<li>字符流：可以用于读写文本文件，不能操作二进制文件</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>字节流</th>
+<th>字符流</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>输入</td>
+<td>InputStream</td>
+<td>Reader</td>
+</tr>
+<tr>
+<td>输出</td>
+<td>OutputStream</td>
+<td>Writer</td>
+</tr>
+</tbody></table>
+<h2 id="常用io流"><a href="#常用io流" class="headerlink" title="常用io流"></a>常用io流</h2><ul>
+<li>文件字节流<ul>
+<li>读取文件（使用文件字节输入流：FileInputStream类）</li>
+<li>从键盘接收用户输入内容，并保存到文件中（使用文件字节输出流：FileOutputStream类）</li>
+</ul>
+</li>
+<li>文件字符流<ul>
+<li>使用文件字符输入流FileReader读取文件，并用输出流FileWriter写到另一个文件中</li>
+<li>char[]来中转</li>
+</ul>
+</li>
+<li>缓冲字符流<ul>
+<li>为了提高效率引入了缓冲字符流</li>
+<li>BufferedReader和BufferedWriter类，直接操作String</li>
+</ul>
+</li>
+<li>打印输出流<ul>
+<li>PrintWriter类</li>
+</ul>
+</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/12/13/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%B9%8Bio%E7%BC%96%E7%A8%8B/">展开全文 >></a>
         </p>
       
 
